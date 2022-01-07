@@ -7,7 +7,6 @@ pipeline {
     stage("install") {
       
       steps {
-        //sh 'npm install'
         echo 'installing the application ...'
       }
       
