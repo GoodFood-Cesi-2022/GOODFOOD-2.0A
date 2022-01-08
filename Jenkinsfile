@@ -8,16 +8,21 @@ pipeline {
       
       steps {
         echo 'installing the application ...'
-      }
-      
+      } 
     }
     
     stage("test") {
       
+      agent {
+     
+        docker { 
+          image 'node:latest' 
+        }
+      }
+      
       steps {
         echo 'testing the application ...'
       }
-      
     }
     
     stage("build") {
@@ -26,7 +31,6 @@ pipeline {
         //sh 'npm build'
         echo 'building the application ...'
       }
-      
     }
     
     stage("deploy") {
@@ -34,7 +38,6 @@ pipeline {
       steps {
         echo 'deploying the application ...'
       }
-      
     }
     
   }
