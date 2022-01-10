@@ -13,13 +13,6 @@ pipeline {
     
     stage("test") {
       
-      agent {
-     
-        //docker { 
-          //image 'node:latest' 
-        //}
-      }
-      
       steps {
         echo 'testing the application ...'
       }
