@@ -33,10 +33,21 @@ Run `ctrl c` to exit a dev server.
 # Versions
 
 - Nodejs : 16.13.0
-- Angular : 13.0.2
+- Angular : 13.2.0
+- Angular CLI : 13.2.1
+- PrimeNG : 13.1.0
+
+# Installation
+
+### [PrimeNG](https://primefaces.org/primeng/showcase/#setup)
+
+```sh
+npm install primeng --save
+npm install primeicons --save
+```
 
 # Getting for first time
 
-### git clone [GOOD-FOOD-2.0A](https://github.com/ZDubeau/GOOD-FOOD-2.0A.git)
+### git clone [GOODFOOD-2.0A](https://github.com/ZDubeau/GOODFOOD-2.0A.git)
 
 ### npm install
