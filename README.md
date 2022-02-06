@@ -66,7 +66,7 @@ node_modules/primeng/resources/primeng.min.css
 ## Dockerfile
 
 - [Dockerfile reference](https://docs.docker.com/engine/reference/builder/#run)
-- [Exemple de Dockerize](https://www.indellient.com/blog/how-to-dockerize-an-angular-application-with-nginx/)
+- [Dockerize example](https://www.indellient.com/blog/how-to-dockerize-an-angular-application-with-nginx/)
 
 Create image in Docker
 
@@ -74,7 +74,7 @@ Create image in Docker
 docker build -t goodfood-web .
 ```
 
-Vérifier :
+Check :
 
 ```sh
 docker images
@@ -89,10 +89,10 @@ goodfood-web latest  28cb65260f81 11 hours ago  24.2MB
 Après build on va créer le conteneur docker :
 
 ```sh
-docker run -d -p 8181:80 --name GoodFood-web goodfood-web
+docker run -d -p 4200:80 --name GoodFood-web goodfood-web
 ```
 
-Voir les détails de ce conteneur :
+See container details :
 
 ```sh
 docker ps
@@ -103,4 +103,4 @@ CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 f10f652d3da9 goodfood-web "nginx -g 'daemon of…" 16 minutes ago Up 16 minutes 0.0.0.0:8181->80/tcp GoodFood-web
 ```
 
-**_http://localhost:8181/_**
+**_http://localhost:4200/_**
