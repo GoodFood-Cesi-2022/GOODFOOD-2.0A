@@ -2,6 +2,11 @@ pipeline {
   
   agent any
   
+  tools {
+    // add here php version
+    nodejs "NodeJs 16.13.0"
+  }
+
   stages {
     
     stage("install") {
