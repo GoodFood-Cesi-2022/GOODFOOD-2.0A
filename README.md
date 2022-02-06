@@ -69,6 +69,31 @@ node_modules/primeng/resources/primeng.min.css
 
 - [Exemple de Dockerize](https://www.indellient.com/blog/how-to-dockerize-an-angular-application-with-nginx/)
 
-> Run in terminal : docker build -t goodfood-web .
-> Create image in Docker 
+> Create image in Docker
+> Run in terminal :
+>
+> ```sh
+> docker build -t goodfood-web .
+> ```
+>
 > Check : docker images
+>
+> Après build on va créer le conteneur docker :
+>
+> ```sh
+> docker run -d -p 8181:80 --name GoodFood-web goodfood-web
+> ```
+>
+> Voir les détails de ce conteneur :
+>
+> ```sh
+> docker ps
+> ```
+>
+> réponse :
+>
+> ```sh
+> CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS          PORTS                  NAMES
+> f10f652d3da9   goodfood-web   "nginx -g 'daemon of…"   16 minutes ago   Up 16 minutes   0.0.0.0:8181->80/tcp   GoodFood-web
+> ```
+> Ce conteneur :  http://localhost:8181/
