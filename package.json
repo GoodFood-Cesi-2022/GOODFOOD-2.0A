@@ -5,8 +5,13 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "lint": "ng lint",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "compodoc": "npx compodoc -p tsconfig.doc.json",
+    "compodoc:build": "compodoc -p tsconfig.doc.json",
+    "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
+    "compodoc:serve": "compodoc -s"
   },
   "private": true,
   "dependencies": {
@@ -28,6 +33,7 @@
     "@angular-devkit/build-angular": "~13.2.1",
     "@angular/cli": "~13.2.1",
     "@angular/compiler-cli": "~13.2.0",
+    "@compodoc/compodoc": "^1.1.18",
     "@types/jasmine": "~3.10.0",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.10.0",

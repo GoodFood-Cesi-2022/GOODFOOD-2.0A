@@ -104,3 +104,21 @@ f10f652d3da9 goodfood-web "nginx -g 'daemon of…" 16 minutes ago Up 16 minutes 
 ```
 
 **_http://localhost:4200/_**
+
+## Compodoc
+
+Compodoc is a documentation tool for Angular applications. It generates a static documentation of your application.
+
+### Installation
+- Global installation
+```sh
+npm install -g @compodoc/compodoc
+```
+- Local installation
+```sh
+ng add @compodoc/compodoc
+```
+Run script :
+```sh
+npm run compodoc
+```

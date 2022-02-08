@@ -1,0 +1,167 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>goodfood documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">goodfood documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="goodfood---web">GoodFood - web</h1>
+<p>This project was generated with <a href="https://github.com/angular/angular-cli">Angular CLI</a> version 13.2.1.</p>
+<h2 id="development-server">Development server</h2>
+<p>Run <code>ng serve</code> (or <code>ng serve --open</code> or <code>ng serve -o</code> or <code>npm start</code>) for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
+<h2 id="code-scaffolding">Code scaffolding</h2>
+<p>Run <code>ng generate component &lt;component-name&gt;</code> to generate a new component. You can also use <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
+<h2 id="build">Build</h2>
+<p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory.</p>
+<h2 id="running-unit-tests">Running unit tests</h2>
+<p>Run <code>ng test</code> to execute the unit tests via <a href="https://karma-runner.github.io">Karma</a>.</p>
+<h2 id="running-end-to-end-tests">Running end-to-end tests</h2>
+<p>Run <code>ng e2e</code> to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.</p>
+<h2 id="further-help">Further help</h2>
+<p>To get more help on the Angular CLI use <code>ng help</code> or go check out the <a href="https://angular.io/cli">Angular CLI Overview and Command Reference</a> page.</p>
+<h2 id="exit">Exit</h2>
+<p>Run <code>ctrl c</code> to exit a dev server.</p>
+<h1 id="versions">Versions</h1>
+<ul>
+<li>Nodejs : 16.13.0</li>
+<li>Angular : 13.2.0</li>
+<li>PrimeNG : 13.1.0</li>
+</ul>
+<h1 id="installation">Installation</h1>
+<h3 id="primeng"><a href="https://primefaces.org/primeng/showcase/#setup">PrimeNG</a></h3>
+<h3 id="primeicons"><a href="https://www.npmjs.com/package/primeicons">primeicons</a></h3>
+<div><pre class="line-numbers"><code class="language-sh">npm install primeng --save
+npm install primeicons --save</code></pre></div><p>in <code>angular.json &gt; Styles</code> we will add also</p>
+<div><pre class="line-numbers"><code class="language-sh">node_modules/primeicons/primeicons.css
+node_modules/primeng/resources/themes/lara-light-indigo/theme.css
+node_modules/primeng/resources/primeng.min.css</code></pre></div><blockquote>
+<p>There is more than 33 themes and we can choose between them.</p>
+</blockquote>
+<h1 id="getting-for-first-time">Getting for first time</h1>
+<h3 id="git-clone-goodfood-20a">git clone <a href="https://github.com/ZDubeau/GOODFOOD-2.0A.git">GOODFOOD-2.0A</a></h3>
+<h3 id="npm-install">npm install</h3>
+<h2 id="dockerfile">Dockerfile</h2>
+<ul>
+<li><a href="https://docs.docker.com/engine/reference/builder/#run">Dockerfile reference</a></li>
+<li><a href="https://www.indellient.com/blog/how-to-dockerize-an-angular-application-with-nginx/">Dockerize example</a></li>
+</ul>
+<p>Create image in Docker</p>
+<div><pre class="line-numbers"><code class="language-sh">docker build -t goodfood-web .</code></pre></div><p>Check :</p>
+<div><pre class="line-numbers"><code class="language-sh">docker images</code></pre></div><div><pre class="line-numbers"><code class="language-sh">REPOSITORY TAG IMAGE ID CREATED SIZE
+
+goodfood-web latest  28cb65260f81 11 hours ago  24.2MB</code></pre></div><p>Après build on va créer le conteneur docker :</p>
+<div><pre class="line-numbers"><code class="language-sh">docker run -d -p 4200:80 --name GoodFood-web goodfood-web</code></pre></div><p>See container details :</p>
+<div><pre class="line-numbers"><code class="language-sh">docker ps</code></pre></div><div><pre class="line-numbers"><code class="language-sh">CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
+f10f652d3da9 goodfood-web &quot;nginx -g &#39;daemon of…&quot; 16 minutes ago Up 16 minutes 0.0.0.0:8181-&gt;80/tcp GoodFood-web</code></pre></div><p><strong><em><a href="http://localhost:4200/">http://localhost:4200/</a></em></strong></p>
+<h2 id="compodoc">Compodoc</h2>
+<p>Compodoc is a documentation tool for Angular applications. It generates a static documentation of your application.</p>
+<h3 id="installation-1">Installation</h3>
+<ul>
+<li>Global installation<div><pre class="line-numbers"><code class="language-sh">npm install -g &#64;compodoc/compodoc</code></pre></div></li>
+<li>Local installation<div><pre class="line-numbers"><code class="language-sh">ng add &#64;compodoc/compodoc</code></pre></div>Run script :<div><pre class="line-numbers"><code class="language-sh">npm run compodoc</code></pre></div></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
