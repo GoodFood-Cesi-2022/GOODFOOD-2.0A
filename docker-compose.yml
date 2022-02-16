@@ -45,8 +45,7 @@ services:
       - sonarqube_extensions:/opt/sonarqube/extensions
       - sonarqube_logs:/opt/sonarqube/logs
     ports:
-      - "9090:9090"
-
+      - "9090:9000"
 
 networks: 
   frontend:
