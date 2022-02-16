@@ -110,15 +110,64 @@ f10f652d3da9 goodfood-web "nginx -g 'daemon of…" 16 minutes ago Up 16 minutes 
 Compodoc is a documentation tool for Angular applications. It generates a static documentation of your application.
 
 ### Installation
+
 - Global installation
+
 ```sh
 npm install -g @compodoc/compodoc
 ```
+
 - Local installation
+
 ```sh
 ng add @compodoc/compodoc
 ```
+
+- Configuration
+
+```sh
+npx compodoc -p tsconfig.doc.json --theme material
+```
+
 Run script :
+
 ```sh
 npm run compodoc
+./node_modules/.bin/compodoc -s -r 4201
+```
+
+## Dockerhub
+
+In the official Docker hub site ([dockerhub](https://hub.docker.com))
+
+### [SonarQube](https://hub.docker.com/_/sonarqube)
+
+```sh
+docker pull sonarqube
+```
+
+```sh
+docker compose up -d
+```
+
+```sh
+docker-compose restart sonarqube
+```
+
+### [Jenkins](https://hub.docker.com/_/jenkins)
+
+```sh
+docker pull jenkins
+```
+
+### Configure sonarqube in Jenkins
+
+- [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/)
+
+- [Analysis Parameters](https://docs.sonarqube.org/latest/analysis/analysis-parameters/)
+
+### docker compose
+
+```sh
+docker compose up --build -d
 ```

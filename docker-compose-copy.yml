@@ -1,0 +1,69 @@
+version: '3.8' # We use version 3.5 syntax
+services: # Here we define our service(s)
+    jenkins:
+      image: jenkins/jenkins:latest
+# ------------------------------ SonarQube
+    sonarqube:
+      # container_name: sonarqube
+      image: sonarqube:latest
+      # ports:
+      #   - "9000:9000"
+      #   - "9092:9092"
+      # networks:
+      #   - goodfood-front
+# ------------------------------ Compodoc
+    compodoc:
+      build:
+        context: ./
+        dockerfile: ./documentation/Dockerfile
+      container_name: compodoc
+      image: goodfood-compodoc
+      working_dir: /documentation
+      volumes:
+        - ./:/documentation
+      ports:
+        - "4201:8080"
+      networks:
+        - goodfood-front
+      depends_on:
+        - jenkins
+        - sonarqube
+# ------------------------------- Jenkns
+    # jenkins:
+      # container_name: jenkins
+      # image: 2a4bbe50c40b
+      # privileged: true
+      # ports:
+      #   - "8080:8080" #TODO verify + existing account
+      #   - "50000:50000"
+      # volumes: 
+      #   - ~/jenkins-data:/var/jenkins_home
+      #   - /var/run/docker.sock:/var/run/docker.sock
+      # networks:
+      #   - goodfood-front
+# ------------------------------- Angular
+    # web:
+    # angular-service: # The name of the service
+    #   container_name: goodfood-web  # Container name
+    #   image: goodfood-front
+    #   build:
+    #     context: ./
+    #     dockerfile: Dockerfile
+    #   volumes: # Volume binding
+    #     - '../app:/usr/local/app/dist' 
+    #   ports: 
+    #     - '4200:4200' # Port mapping
+    #   command: > 
+    #     bash -c "npm install \
+    #     && ng serve --host 0.0.0.0 --port 4200"
+    #   networks:
+    #     - goodfood-front
+    
+
+volumes: 
+  jenkins-data:    
+    
+
+networks:
+  goodfood-front:
+    driver: bridge
