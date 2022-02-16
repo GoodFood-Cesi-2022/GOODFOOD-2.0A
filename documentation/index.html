@@ -10,6 +10,7 @@
         <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
 	   <link rel="stylesheet" href="./styles/style.css">
         <link rel="stylesheet" href="./styles/dark.css">
+        <link rel="stylesheet" href="./styles/material.css">
     </head>
     <body>
 
@@ -83,10 +84,29 @@ f10f652d3da9 goodfood-web &quot;nginx -g &#39;daemon of…&quot; 16 minutes ago 
 <p>Compodoc is a documentation tool for Angular applications. It generates a static documentation of your application.</p>
 <h3 id="installation-1">Installation</h3>
 <ul>
-<li>Global installation<div><pre class="line-numbers"><code class="language-sh">npm install -g &#64;compodoc/compodoc</code></pre></div></li>
-<li>Local installation<div><pre class="line-numbers"><code class="language-sh">ng add &#64;compodoc/compodoc</code></pre></div>Run script :<div><pre class="line-numbers"><code class="language-sh">npm run compodoc</code></pre></div></li>
+<li>Global installation</li>
 </ul>
-
+<div><pre class="line-numbers"><code class="language-sh">npm install -g &#64;compodoc/compodoc</code></pre></div><ul>
+<li>Local installation</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-sh">ng add &#64;compodoc/compodoc</code></pre></div><ul>
+<li>Configuration</li>
+</ul>
+<div><pre class="line-numbers"><code class="language-sh">npx compodoc -p tsconfig.doc.json --theme material</code></pre></div><p>Run script :</p>
+<div><pre class="line-numbers"><code class="language-sh">npm run compodoc
+./node_modules/.bin/compodoc -s -r 4201</code></pre></div><h2 id="dockerhub">Dockerhub</h2>
+<p>In the official Docker hub site (<a href="https://hub.docker.com">dockerhub</a>)</p>
+<h3 id="sonarqube"><a href="https://hub.docker.com/_/sonarqube">SonarQube</a></h3>
+<div><pre class="line-numbers"><code class="language-sh">docker pull sonarqube</code></pre></div><div><pre class="line-numbers"><code class="language-sh">docker compose up -d</code></pre></div><div><pre class="line-numbers"><code class="language-sh">docker-compose restart sonarqube</code></pre></div><h3 id="jenkins"><a href="https://hub.docker.com/_/jenkins">Jenkins</a></h3>
+<div><pre class="line-numbers"><code class="language-sh">docker pull jenkins</code></pre></div><h3 id="configure-sonarqube-in-jenkins">Configure sonarqube in Jenkins</h3>
+<ul>
+<li><p><a href="https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/">SonarScanner for Jenkins</a></p>
+</li>
+<li><p><a href="https://docs.sonarqube.org/latest/analysis/analysis-parameters/">Analysis Parameters</a></p>
+</li>
+</ul>
+<h3 id="docker-compose">docker compose</h3>
+<div><pre class="line-numbers"><code class="language-sh">docker compose up --build -d</code></pre></div>
 
 
 

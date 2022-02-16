@@ -10,13 +10,12 @@ WORKDIR /usr/local/app
 COPY ./ /usr/local/app/
 
 # Install all the dependencies
-RUN npm install
+RUN npm install && npm run build && npm cache clean --force 
 
-#TODO maybe can remove this part
 COPY . .
 
 # Generate the build of the application
-RUN npm run build
+RUN npm run build 
 
 # Stage 2: Serve app with nginx server
 
@@ -27,7 +26,7 @@ FROM nginx:alpine
 # ng config for find correct way
 COPY --from=builder /usr/local/app/dist/goodfood /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Expose port 4200
+EXPOSE 4200
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
