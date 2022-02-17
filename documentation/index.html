@@ -77,7 +77,7 @@ node_modules/primeng/resources/primeng.min.css</code></pre></div><blockquote>
 <div><pre class="line-numbers"><code class="language-sh">docker images</code></pre></div><div><pre class="line-numbers"><code class="language-sh">REPOSITORY TAG IMAGE ID CREATED SIZE
 
 goodfood-web latest  28cb65260f81 11 hours ago  24.2MB</code></pre></div><p>Après build on va créer le conteneur docker :</p>
-<div><pre class="line-numbers"><code class="language-sh">docker run -d -p 4200:80 --name GoodFood-web goodfood-web</code></pre></div><p>See container details :</p>
+<div><pre class="line-numbers"><code class="language-sh">docker run -d -p 4200:4200 --name GoodFood-web goodfood-web</code></pre></div><p>See container details :</p>
 <div><pre class="line-numbers"><code class="language-sh">docker ps</code></pre></div><div><pre class="line-numbers"><code class="language-sh">CONTAINER ID IMAGE COMMAND CREATED STATUS PORTS NAMES
 f10f652d3da9 goodfood-web &quot;nginx -g &#39;daemon of…&quot; 16 minutes ago Up 16 minutes 0.0.0.0:8181-&gt;80/tcp GoodFood-web</code></pre></div><p><strong><em><a href="http://localhost:4200/">http://localhost:4200/</a></em></strong></p>
 <h2 id="compodoc">Compodoc</h2>

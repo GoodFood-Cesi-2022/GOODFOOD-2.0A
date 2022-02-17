@@ -89,7 +89,7 @@ goodfood-web latest  28cb65260f81 11 hours ago  24.2MB
 Après build on va créer le conteneur docker :
 
 ```sh
-docker run -d -p 4200:80 --name GoodFood-web goodfood-web
+docker run -d -p 4200:4200 --name GoodFood-web goodfood-web
 ```
 
 See container details :
