@@ -26,7 +26,7 @@ FROM nginx:alpine
 # ng config for find correct way
 COPY --from=builder /usr/local/app/dist/goodfood /usr/share/nginx/html
 
-# Expose port 4200
-EXPOSE 4200
-
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
+
+# Expose port 80
+EXPOSE 80
