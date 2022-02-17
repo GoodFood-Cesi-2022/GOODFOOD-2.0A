@@ -10,6 +10,7 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/material.css">
     </head>
     <body>
 
@@ -594,12 +595,7 @@ export class LoginComponent implements OnInit {
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;col-md-12&quot;&gt;
-  &lt;div class&#x3D;&quot;card card-container&quot;&gt;
-    &lt;img
-      id&#x3D;&quot;profile-img&quot;
-      src&#x3D;&quot;//ssl.gstatic.com/accounts/ui/avatar_2x.png&quot;
-      class&#x3D;&quot;profile-img-card&quot;
-    /&gt;
+  &lt;div class&#x3D;&quot;container&quot;&gt;
     &lt;form
       *ngIf&#x3D;&quot;!isLoggedIn&quot;
       name&#x3D;&quot;form&quot;
@@ -608,7 +604,7 @@ export class LoginComponent implements OnInit {
       novalidate
     &gt;
       &lt;div class&#x3D;&quot;form-group&quot;&gt;
-        &lt;label for&#x3D;&quot;username&quot;&gt;Username&lt;/label&gt;
+        &lt;label for&#x3D;&quot;username&quot;&gt;Nom d&#x27;utilisateur&lt;/label&gt;
         &lt;input
           type&#x3D;&quot;text&quot;
           class&#x3D;&quot;form-control&quot;
@@ -622,11 +618,11 @@ export class LoginComponent implements OnInit {
           role&#x3D;&quot;alert&quot;
           *ngIf&#x3D;&quot;username.errors &amp;&amp; f.submitted&quot;
         &gt;
-          Username is required!
+          Nom d&#x27;utilisateur obligatoire !
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class&#x3D;&quot;form-group&quot;&gt;
-        &lt;label for&#x3D;&quot;password&quot;&gt;Password&lt;/label&gt;
+        &lt;label for&#x3D;&quot;password&quot;&gt;Mot de passe&lt;/label&gt;
         &lt;input
           type&#x3D;&quot;password&quot;
           class&#x3D;&quot;form-control&quot;
@@ -641,15 +637,15 @@ export class LoginComponent implements OnInit {
           role&#x3D;&quot;alert&quot;
           *ngIf&#x3D;&quot;password.errors &amp;&amp; f.submitted&quot;
         &gt;
-          &lt;div *ngIf&#x3D;&quot;password.errors[&#x27;required&#x27;]&quot;&gt;Password is required&lt;/div&gt;
+          &lt;div *ngIf&#x3D;&quot;password.errors[&#x27;required&#x27;]&quot;&gt;Mot de passe obligatoire !&lt;/div&gt;
           &lt;div *ngIf&#x3D;&quot;password.errors[&#x27;minlength&#x27;]&quot;&gt;
-            Password must be at least 6 characters
+            Mot de passe minimum 6 caractères
           &lt;/div&gt;
         &lt;/div&gt;
       &lt;/div&gt;
       &lt;div class&#x3D;&quot;form-group&quot;&gt;
         &lt;button class&#x3D;&quot;btn btn-primary btn-block&quot;&gt;
-          Login
+          Se connecter
         &lt;/button&gt;
       &lt;/div&gt;
       &lt;div class&#x3D;&quot;form-group&quot;&gt;
@@ -666,7 +662,7 @@ export class LoginComponent implements OnInit {
             &lt;p-checkbox id&#x3D;&quot;rememberme1&quot; [binary]&#x3D;&quot;true&quot; styleClass&#x3D;&quot;mr-2&quot;&gt;&lt;/p-checkbox&gt;
             &lt;label for&#x3D;&quot;rememberme1&quot;&gt;Remember me&lt;/label&gt;
         &lt;/div&gt;
-        &lt;a class&#x3D;&quot;font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer&quot;&gt;Forgot password?&lt;/a&gt;
+        &lt;a class&#x3D;&quot;font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer&quot;&gt;Mot de passe oublié?&lt;/a&gt;
     &lt;/div&gt;
     &lt;/form&gt;
     &lt;div class&#x3D;&quot;alert alert-success&quot; *ngIf&#x3D;&quot;isLoggedIn&quot;&gt;
@@ -685,13 +681,8 @@ export class LoginComponent implements OnInit {
   margin-top: 10px;
 }
 
-.card-container.card {
-  max-width: 400px !important;
-  padding: 40px 40px;
-}
-
-.card {
-  background-color: #f7f7f7;
+.contaner {
+  background-color: transparent;
   padding: 20px 25px 30px;
   margin: 0 auto 25px;
   margin-top: 50px;
@@ -740,8 +731,8 @@ export class LoginComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div class="col-md-12">  <div class="card card-container">    <img      id="profile-img"      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"      class="profile-img-card"    />    <form      *ngIf="!isLoggedIn"      name="form"      #f="ngForm"      (ngSubmit)="f.form.valid && onSubmit()"      novalidate    >      <div class="form-group">        <label for="username">Username</label>        <input          type="text"          class="form-control"          name="username"          #username="ngModel"          [(ngModel)]="form.username"          required        />        <div          class="alert alert-danger"          role="alert"          *ngIf="username.errors && f.submitted"        >          Username is required!        </div>      </div>      <div class="form-group">        <label for="password">Password</label>        <input          type="password"          class="form-control"          name="password"          #password="ngModel"          [(ngModel)]="form.password"          required          minlength="6"        />        <div          class="alert alert-danger"          role="alert"          *ngIf="password.errors && f.submitted"        >          <div *ngIf="password.errors[\'required\']">Password is required</div>          <div *ngIf="password.errors[\'minlength\']">            Password must be at least 6 characters          </div>        </div>      </div>      <div class="form-group">        <button class="btn btn-primary btn-block">          Login        </button>      </div>      <div class="form-group">        <div          class="alert alert-danger"          role="alert"          *ngIf="f.submitted && isLoginFailed"        >          Login failed: {{ errorMessage }}        </div>      </div>      <div class="flex align-items-center justify-content-between mb-6">        <div class="flex align-items-center">            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>            <label for="rememberme1">Remember me</label>        </div>        <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Forgot password?</a>    </div>    </form>    <div class="alert alert-success" *ngIf="isLoggedIn">      Logged in as {{ roles }}.    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'FranshiseComponent', 'selector': 'app-franshise'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MenubarComponent', 'selector': 'app-menubar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RegisterComponent', 'selector': 'app-register'}];
+        var COMPONENT_TEMPLATE = '<div><div class="col-md-12">  <div class="container">    <form      *ngIf="!isLoggedIn"      name="form"      #f="ngForm"      (ngSubmit)="f.form.valid && onSubmit()"      novalidate    >      <div class="form-group">        <label for="username">Nom d\'utilisateur</label>        <input          type="text"          class="form-control"          name="username"          #username="ngModel"          [(ngModel)]="form.username"          required        />        <div          class="alert alert-danger"          role="alert"          *ngIf="username.errors && f.submitted"        >          Nom d\'utilisateur obligatoire !        </div>      </div>      <div class="form-group">        <label for="password">Mot de passe</label>        <input          type="password"          class="form-control"          name="password"          #password="ngModel"          [(ngModel)]="form.password"          required          minlength="6"        />        <div          class="alert alert-danger"          role="alert"          *ngIf="password.errors && f.submitted"        >          <div *ngIf="password.errors[\'required\']">Mot de passe obligatoire !</div>          <div *ngIf="password.errors[\'minlength\']">            Mot de passe minimum 6 caractères          </div>        </div>      </div>      <div class="form-group">        <button class="btn btn-primary btn-block">          Se connecter        </button>      </div>      <div class="form-group">        <div          class="alert alert-danger"          role="alert"          *ngIf="f.submitted && isLoginFailed"        >          Login failed: {{ errorMessage }}        </div>      </div>      <div class="flex align-items-center justify-content-between mb-6">        <div class="flex align-items-center">            <p-checkbox id="rememberme1" [binary]="true" styleClass="mr-2"></p-checkbox>            <label for="rememberme1">Remember me</label>        </div>        <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer">Mot de passe oublié?</a>    </div>    </form>    <div class="alert alert-success" *ngIf="isLoggedIn">      Logged in as {{ roles }}.    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'FranshiseComponent', 'selector': 'app-franshise'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MenubarComponent', 'selector': 'app-menubar'},{'name': 'ProfileComponent', 'selector': 'app-profile'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>

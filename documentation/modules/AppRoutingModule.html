@@ -76,13 +76,31 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { NgModule } from &#x27;@angular/core&#x27;;
 import { RouterModule, Routes } from &#x27;@angular/router&#x27;;
 
-const routes: Routes &#x3D; [];
+import { HomeComponent } from &#x27;./home/home.component&#x27;;
+import { LoginComponent } from &#x27;./login/login.component&#x27;;
+import { ProfileComponent } from &#x27;./profile/profile.component&#x27;;
+import { AdminComponent } from &#x27;./admin/admin.component&#x27;;
+import { FranshiseComponent } from &#x27;./franshise/franshise.component&#x27;;
+
+const routes: Routes &#x3D; [
+  { path: &#x27;&#x27;, component: HomeComponent },
+  { path: &#x27;login&#x27;, component: LoginComponent },
+  { path: &#x27;profile&#x27;, component: ProfileComponent },
+  { path: &#x27;admin&#x27;, component: AdminComponent },
+  { path: &#x27;franshise&#x27;, component: FranshiseComponent },
+  //{ path: &#x27;**&#x27;, component: PageNotFoundComponent },  // Wildcard route for a 404 page
+  /**
+   * Otherwise redirect to home
+   * @url https://angular.io/guide/router
+   */
+  { path: &#x27;**&#x27;, redirectTo: &#x27;&#x27;, pathMatch: &#x27;full&#x27; },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
 </code></pre>
     </div>
 </div>

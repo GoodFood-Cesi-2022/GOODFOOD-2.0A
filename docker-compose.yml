@@ -38,6 +38,7 @@ services:
   sonarqube:
     networks:
       frontend:
+    platform: linux/x86_64 #Put this line in comment for your case
     container_name: Sonarqube
     image: sonarqube:8.9.7-community
     volumes:
