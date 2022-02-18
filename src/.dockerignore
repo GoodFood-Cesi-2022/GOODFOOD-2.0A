@@ -1,9 +1,8 @@
 .git
-/dist
 .firebase
 .editorconfig
-/node_modules
-/e2e
+node_modules
+e2e
 .gitignore
 *.zip
 *.md

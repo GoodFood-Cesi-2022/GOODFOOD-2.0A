@@ -10,17 +10,17 @@ WORKDIR /usr/local/app
 COPY ./ /usr/local/app/
 
 # Install all the dependencies
-RUN npm install && npm run build && npm cache clean --force 
-
-COPY . .
+RUN npm install
 
 # Generate the build of the application
-RUN npm run build 
+RUN npm run build
+
+COPY . .
 
 # Stage 2: Serve app with nginx server
 
 # Use official nginx image as the base image
-FROM nginx:alpine
+FROM nginx:latest
 
 # Copy the build output to replace the default nginx contents.
 # ng config for find correct way

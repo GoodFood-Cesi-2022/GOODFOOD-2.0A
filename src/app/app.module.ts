@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { MenubarComponent } from './layouts/menubar/menubar.component';
 import { MenubarModule } from 'primeng/menubar';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
 import { FranshiseComponent } from './franshise/franshise.component';
@@ -22,7 +21,6 @@ import { FranshiseComponent } from './franshise/franshise.component';
     AppComponent,
     MenubarComponent,
     HomeComponent,
-    LoginComponent,
     ProfileComponent,
     AdminComponent,
     FranshiseComponent,

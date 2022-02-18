@@ -4,8 +4,11 @@ services:
   web:
     networks:
       frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
     container_name: Angular
-    image: goodfood-web
+    image: goodfood-web:latest
     ports:
       - "4200:80"
 # ------------------------------ Compodoc
