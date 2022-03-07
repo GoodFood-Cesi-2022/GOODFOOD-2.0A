@@ -9,7 +9,7 @@ import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent},
-  { path: '', component: HomeComponent },
+  { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'admin', component: AdminComponent },
   { path: 'Franchisee', component: FranchiseeComponent },
@@ -22,7 +22,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'enabled'
+  })],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

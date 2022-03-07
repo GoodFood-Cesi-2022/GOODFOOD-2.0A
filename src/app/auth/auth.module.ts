@@ -1,24 +1,31 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import { LogoutComponent } from './logout/logout.component';
-import { RememberComponent } from './remember/remember.component';
-import { PasswordComponent } from './password/password.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from "@angular/forms";
+import { RouterModule } from '@angular/router';
+
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from "primeng/chips";
 import { InputTextModule } from "primeng/inputtext";
 import { RippleModule } from 'primeng/ripple';
 import { PasswordModule } from 'primeng/password';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from "@angular/forms";
- 
+
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+
+import { LoginComponent } from './login/login.component';
+import { ResetpwComponent } from './resetpw/resetpw.component';
+
+import { AuthService } from './common/services/auth.service';
+import * as fromAuth from './common/store/auth.reducer';
+import { AuthEffects } from './common/store/auth.effects';
+
+
 @NgModule({
   declarations: [
     LoginComponent,
-    LogoutComponent,
-    RememberComponent,
-    PasswordComponent
+    ResetpwComponent
   ],
   imports: [
     CommonModule,
@@ -29,8 +36,24 @@ import { FormsModule } from "@angular/forms";
     PasswordModule,
     ButtonModule,
     ReactiveFormsModule,
-    FormsModule
-  ],
-  bootstrap: [LoginComponent]
+    FormsModule,
+    RouterModule.forChild([
+      { path: '', component: LoginComponent },
+      { path: '', component: ResetpwComponent }]),
+    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.AuthReducer),
+    EffectsModule.forFeature([AuthEffects]),
+  ]
 })
-export class AuthModule {}
+ export class AuthModule {
+  static forRoot(): ModuleWithProviders<AuthModule> {
+    return {
+      ngModule: AuthModule,
+      providers: [
+        AuthService,
+      ]
+    }
+  } 
+}
+
+// EffectsModule.forFeature([fromAuth.authFeatureKey, fromAuth.authReducer]),
+//     StoreModule.forFeature(AuthEffects),

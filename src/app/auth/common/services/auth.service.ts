@@ -1,8 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service'
+import { DOCUMENT } from '@angular/common';
+
+import { User } from '../models/user';
+import { Endpoints, Roles } from 'src/app/shared/constants/endpoints';
 
 
 @Injectable({
@@ -22,8 +27,53 @@ export class AuthService {
    */
   constructor(
     private http: HttpClient,
+    @Inject(DOCUMENT) private document: Document,
     private cookieService: CookieService,
     private router: Router) { }
+
+  getUser(): Observable<User> {
+
+    return this.http.get<User>(Endpoints.SECURE_USER).pipe(
+      map(user => this.initAutorisation(user)),
+        catchError((err) => this.doAuthentication(err)));
+  }
+  
+  private initAutorisation(user: User): User {
+    
+    const users = {
+      ...user,
+      autorisation: {
+        isAdmin: false,
+        isManager: false,
+        isFranchisee: false,
+      }
+    }
+    if (users.roles?.includes(Roles.ADMINISTRATOR)) {
+      users.autorisation.isAdmin = true;
+    }
+    if (users.roles?.includes(Roles.MANAGER)) {
+      users.autorisation.isManager = true;
+    }
+    if (users.roles?.includes(Roles.FRANCHISEE)) {
+      users.autorisation.isFranchisee = true;
+    }
+
+    return users;
+  }
+  
+  private doAuthentication(error: HttpErrorResponse): Observable<never> {
+    
+    const callbackURL = this.document.location.href;
+    console.log('//doAuthentication - callbackURL : ', callbackURL);
+
+    const authEndpoint = '/api/secure/auth?callbackURL=' + callbackURL;
+    console.log('//soAuthentication - authEndpoint : ', authEndpoint);
+
+    window.location.href = authEndpoint;
+
+    return throwError(error);
+  }
+  
 
   /**
    * login function from Backend URL
@@ -74,7 +124,7 @@ export class AuthService {
 
     this.loginStatus.next(false);
     this.cookieService.deleteAll();
-    this.router.navigateByUrl('/login');
+    this.router.navigateByUrl('/');
   }
 
   /**
