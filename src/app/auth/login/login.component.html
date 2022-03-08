@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onLoginSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="w-6 py-8 md:px-2 align-items-center justify-content-center w-30rem relative"
     style="transform: translate(750px,-50px);">
         <div class="p-6 shadow-4 text-center md:w-20 mb-2 ">
@@ -13,10 +13,10 @@
                 <label for="float-password" class="text-white-alpha-60">Mot de passe</label>
             </span>
             <div class="flex align-items-center justify-content-between mb-6">
-                <!-- <div class="flex align-items-center">
-                    <p-checkbox id="rememberme" styleClass="mr-2" (onChange)="AutoLogin" [binary]="true"></p-checkbox>
+                <div class="flex align-items-center">
+                    <p-checkbox id="rememberme" styleClass="mr-2" formControlName="rememberMe" [binary]="true"></p-checkbox>
                     <label for="rememberMe" id="rememberLabel">Souviens-toi de moi!</label>
-                </div> -->
+                </div>
                 <a class="font-medium no-underline ml-2 text-blue-500 text-right cursor-pointer"
                 >Mot de passe oublié?</a>
             </div>

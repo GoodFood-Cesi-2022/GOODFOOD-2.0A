@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
 
     // TODO : Verify with Dev-lead
     this.store.pipe(select(selectUser)).subscribe(user => {
-      console.log('**** - STORE > user: ', user);
+      console.log('***2 - STORE > user: ', user);
 
       if (user == null) {
         this.store.dispatch(AuthActions.loadUser());
@@ -74,10 +74,10 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  onLoginSubmit() {
+  onSubmit() {
     this.store.dispatch(loadUser());
   }
-}
+//}
 
 
 
@@ -98,17 +98,4 @@ export class LoginComponent implements OnInit {
   //     )
   //   }
   // }
-
-  // AutoLogin() {
-  //   this.form.get('OK')?.setValue(this.form.get('what')?.value);
-    // const accesToken = localStorage.getItem('tokken');
-    // const rememberMe = localStorage.getItem('rememberMe');
-    // console.log(accesToken);
-
-    // if (accesToken && rememberMe == 'yes') {
-    //   this.router.navigateByUrl('/home');
-    // } else {
-    //   console.log('Veuillez connectez-vous!');
-    // }
-  // }
-// }
+  }
