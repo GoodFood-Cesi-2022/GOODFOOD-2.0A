@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRouti
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
+import { SharedModule } from './shared/shared.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
@@ -22,6 +23,7 @@ import { StoreModule } from '@ngrx/store';
     HttpClientModule,
     ReactiveFormsModule,
     AuthModule.forRoot(),
+    SharedModule.forRoot(),
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}),
   ],

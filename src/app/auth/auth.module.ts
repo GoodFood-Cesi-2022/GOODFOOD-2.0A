@@ -19,7 +19,7 @@ import { LoginComponent } from './login/login.component';
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild([
-      { path: '', component: LoginComponent }]),
+      { path: 'login', component: LoginComponent }]),
   ]
 })
  export class AuthModule {
