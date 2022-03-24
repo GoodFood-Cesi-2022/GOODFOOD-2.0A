@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store, select } from '@ngrx/store';
@@ -15,7 +15,7 @@ import { selectUser } from '../common/store/auth.selector';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   rememberMe?: boolean;
   loginError?: string;
@@ -23,7 +23,14 @@ export class LoginComponent implements OnInit {
   user?: User
   form!: FormGroup;
 
-  constructor(private store: Store<AppState>,private authService: AuthService, private router: Router) { }
+  constructor(
+    private store: Store<AppState>,
+    private authService: AuthService,
+    private router: Router) { }
+  
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
 
   roles: string[] = [];
 
@@ -77,7 +84,6 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.store.dispatch(loadUser());
   }
-//}
 
 
 

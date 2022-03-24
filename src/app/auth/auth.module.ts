@@ -39,7 +39,7 @@ import { AuthEffects } from './common/store/auth.effects';
     FormsModule,
     RouterModule.forChild([
       { path: '', component: LoginComponent },
-      { path: '', component: ResetpwComponent }]),
+      { path: 'forgotpassword', component: ResetpwComponent }]),
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.AuthReducer),
     EffectsModule.forFeature([AuthEffects]),
   ]
