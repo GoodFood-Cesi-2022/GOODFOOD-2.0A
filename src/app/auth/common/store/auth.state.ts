@@ -1,9 +1,9 @@
-import { User } from "../models/user";
+// import { User } from "../models/user";
 
-export interface AuthState {
-    user: User | undefined;
-}
+// export interface AuthState {
+//     user: User | undefined;
+// }
 
-export const initialAuthState: AuthState = {
-    user: undefined,
-};
+// export const initialAuthState: AuthState = {
+//     user: undefined,
+// };

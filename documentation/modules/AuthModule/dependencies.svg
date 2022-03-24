@@ -10,11 +10,11 @@
 <title>dependencies</title>
 <polygon fill="white" stroke="transparent" points="-4,4 -4,-169.8 166,-169.8 166,4 -4,4"/>
 <text text-anchor="middle" x="81" y="-8.2" font-family="sans-serif" font-size="14.00">dependencies</text>
-<g id="clust7" class="cluster">
+<g id="clust1" class="cluster">
 <title>cluster_AuthModule</title>
 <polygon fill="none" stroke="black" stroke-dasharray="1,5" points="8,-32.8 8,-157.8 154,-157.8 154,-32.8 8,-32.8"/>
 </g>
-<g id="clust8" class="cluster">
+<g id="clust2" class="cluster">
 <title>cluster_AuthModule_declarations</title>
 <polygon fill="none" stroke="black" points="16,-40.8 16,-92.8 146,-92.8 146,-40.8 16,-40.8"/>
 </g>
