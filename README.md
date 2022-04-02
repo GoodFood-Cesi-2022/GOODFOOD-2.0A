@@ -136,30 +136,6 @@ npm run compodoc
 ./node_modules/.bin/compodoc -s -r 4201
 ```
 
-## Dockerhub
-
-In the official Docker hub site ([dockerhub](https://hub.docker.com))
-
-### [SonarQube](https://hub.docker.com/_/sonarqube)
-
-```sh
-docker pull sonarqube
-```
-
-```sh
-docker compose up -d
-```
-
-```sh
-docker-compose restart sonarqube
-```
-
-### [Jenkins](https://hub.docker.com/_/jenkins)
-
-```sh
-docker pull jenkins
-```
-
 ### docker compose
 
 ```sh
