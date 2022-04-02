@@ -1,0 +1,14 @@
+@import "src/styles.scss";
+
+// .loginButton {
+button {
+  //   background: linear-gradient(-225deg, #e6edfa, #bbcef2 48%, #a0b8ec);
+  // @include styleclass("border-none w-full outline-none");
+  background: #ccbe1c !important;
+  border-radius: 8px;
+}
+
+#rememberLabel {
+  color: #d9e5fc !important;
+  transform: translate(0px, 3px);
+}

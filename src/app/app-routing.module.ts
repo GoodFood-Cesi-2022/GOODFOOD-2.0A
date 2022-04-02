@@ -2,17 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AdminComponent } from './admin/admin.component';
-import { FranshiseComponent } from './franshise/franshise.component';
+import { FranchiseeComponent } from './franchisee/franchisee.component';
+import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
+  { path: '', component: LoginComponent},
+  { path: 'home', component: HomeComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'admin', component: AdminComponent },
-  { path: 'franshise', component: FranshiseComponent },
+  { path: 'Franchisee', component: FranchiseeComponent },
   //{ path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
   /**
    * Otherwise redirect to home
@@ -22,7 +22,9 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [RouterModule.forRoot(routes, {
+    scrollPositionRestoration: 'enabled'
+  })],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

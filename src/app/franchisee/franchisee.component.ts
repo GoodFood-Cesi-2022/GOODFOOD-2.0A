@@ -2,17 +2,17 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-franshise',
-  templateUrl: './franshise.component.html',
-  styleUrls: ['./franshise.component.scss'],
+  selector: 'app-franchisee',
+  templateUrl: './franchisee.component.html',
+  styleUrls: ['./franchisee.component.scss'],
 })
-export class FranshiseComponent implements OnInit {
+export class FranchiseeComponent implements OnInit {
   content?: string;
 
   constructor(private userService: UserService) {}
 
   ngOnInit(): void {
-    this.userService.getFranshise().subscribe({
+    this.userService.getFranchisee().subscribe({
       next: (data) => {
         this.content = data;
       },

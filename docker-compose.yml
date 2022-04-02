@@ -4,10 +4,13 @@ services:
   web:
     networks:
       frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
     container_name: Angular
-    image: goodfood-web
+    image: goodfood-web:latest
     ports:
-      - "4200:4200"
+      - "4200:80"
 # ------------------------------ Compodoc
   compodoc:
     networks:
@@ -22,37 +25,7 @@ services:
       - ./:/documentation
     ports:
       - "4242:4201"
-# ------------------------------ Jenkins
-  jenkins:
-    networks:
-      frontend:
-    container_name: Jenkins
-    image: jenkins/jenkins:lts-jdk11
-    user: jenkins
-    volumes:
-      - /var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "8888:8080"
-# ------------------------------ SonarQube
-  sonarqube:
-    networks:
-      frontend:
-    container_name: Sonarqube
-    image: sonarqube:8.9.7-community
-    volumes:
-      - sonarqube_data:/opt/sonarqube/data
-      - sonarqube_extensions:/opt/sonarqube/extensions
-      - sonarqube_logs:/opt/sonarqube/logs
-    ports:
-      - "9090:9090"
-
 
 networks: 
   frontend:
     driver: bridge
-
-volumes:
-  sonarqube_data:
-  sonarqube_extensions:
-  sonarqube_logs:
