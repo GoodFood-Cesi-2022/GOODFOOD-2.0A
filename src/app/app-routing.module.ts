@@ -8,11 +8,10 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent},
-  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent},
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'profile', component: ProfileComponent },
   { path: 'admin', component: AdminComponent },
-  // { path: 'Franchisee', component: FranchiseeComponent },
   //{ path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
   /**
    * Otherwise redirect to home

@@ -1,6 +1,6 @@
 # GoodFood - web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
 ## Development server
 
@@ -32,9 +32,9 @@ Run `ctrl c` to exit a dev server.
 
 # Versions
 
-- Nodejs : 16.13.0
-- Angular : 13.2.0
-- PrimeNG : 13.1.0
+- Nodejs : 16.13.02
+- Angular : 13.2.6
+- PrimeNG : 13.3.2
 
 # Installation
 
@@ -159,12 +159,6 @@ docker-compose restart sonarqube
 ```sh
 docker pull jenkins
 ```
-
-### Configure sonarqube in Jenkins
-
-- [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/)
-
-- [Analysis Parameters](https://docs.sonarqube.org/latest/analysis/analysis-parameters/)
 
 ### docker compose
 

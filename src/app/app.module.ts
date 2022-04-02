@@ -11,11 +11,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { DefaultComponent } from './layouts/default/default.component';
 
 // import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DefaultComponent],
   imports: [
     BrowserModule,
     AppRoutingModule, // CLI adds AppRoutingModule to the AppModule's imports arra
