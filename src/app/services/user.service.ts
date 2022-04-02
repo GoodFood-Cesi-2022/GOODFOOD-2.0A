@@ -12,7 +12,7 @@ export class UserService {
   getPublicContent(): Observable<any> {
     return this.http.get(API_URL + 'all', { responseType: 'text' });
   }
-  getFranshise(): Observable<any> {
+  getFranchisee(): Observable<any> {
     return this.http.get(API_URL + 'franchise', { responseType: 'text' });
   }
   getAdmin(): Observable<any> {

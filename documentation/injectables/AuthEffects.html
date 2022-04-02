@@ -41,7 +41,7 @@
 
 <ol class="breadcrumb">
   <li>Injectables</li>
-  <li >UserService</li>
+  <li >AuthEffects</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/user.service.ts</code>
+            <code>src/app/auth/common/store/auth.effects.ts</code>
         </p>
 
 
@@ -70,27 +70,21 @@
     <h3 id="index">Index</h3>
     <table class="table table-sm table-bordered index-table">
         <tbody>
-
                 <tr>
                     <td class="col-md-4">
-                        <h6><b>Methods</b></h6>
+                        <h6><b>Properties</b></h6>
                     </td>
                 </tr>
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getAdmin" >getAdmin</a>
-                            </li>
-                            <li>
-                                <a href="#getFranchisee" >getFranchisee</a>
-                            </li>
-                            <li>
-                                <a href="#getPublicContent" >getPublicContent</a>
+                                <a href="#loadUser$" >loadUser$</a>
                             </li>
                         </ul>
                     </td>
                 </tr>
+
 
 
 
@@ -106,12 +100,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+<code>constructor(actions$: Actions, authService: AuthService)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/services/user.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/auth/common/store/auth.effects.ts:17</a></div>
                             </td>
                         </tr>
 
@@ -129,10 +123,22 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>http</td>
+                                                        <td>actions$</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                                    <code>Actions</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                    <code>AuthService</code>
                                                         </td>
                                                   
                                                     <td>
@@ -149,120 +155,38 @@
         </table>
 </section>
 
+
             <section>
     
-    <h3 id="methods">
-        Methods
+    <h3 id="inputs">
+        Properties
     </h3>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getAdmin"></a>
+                    <a name="loadUser$"></a>
                     <span class="name">
-                        <span ><b>getAdmin</b></span>
-                        <a href="#getAdmin"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>loadUser$</b></span>
+                        <a href="#loadUser$"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getAdmin()</code>
-                </td>
-            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createEffect(() &#x3D;&gt; this.actions$.pipe(ofType(AuthActions.loadUser),
+            concatMap(() &#x3D;&gt; this.authService.getUser()),
+            map((user) &#x3D;&gt; AuthActions.userLoaded({ user }))
+        ))</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/auth/common/store/auth.effects.ts:13</a></div>
+                        </td>
+                    </tr>
 
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/services/user.service.ts:18</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getFranchisee"></a>
-                    <span class="name">
-                        <span ><b>getFranchisee</b></span>
-                        <a href="#getFranchisee"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getFranchisee()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app/services/user.service.ts:15</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
-
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="getPublicContent"></a>
-                    <span class="name">
-                        <span ><b>getPublicContent</b></span>
-                        <a href="#getPublicContent"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-            <tr>
-                <td class="col-md-4">
-<code>getPublicContent()</code>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/app/services/user.service.ts:12</a></div>
-                </td>
-            </tr>
-
-
-            <tr>
-                <td class="col-md-4">
-
-                    <div class="io-description">
-                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
-
-                    </div>
-                </td>
-            </tr>
         </tbody>
     </table>
 </section>
@@ -271,28 +195,26 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &quot;@angular/core&quot;;
+import { Actions, createEffect, ofType } from &quot;@ngrx/effects&quot;;
 
-const API_URL &#x3D; &#x27;http://localhost:8081/api/test/&#x27;;
+import { concatMap, map } from &quot;rxjs/operators&quot;;
+import { AuthActions } from &quot;src/app/shared/store/action-types&quot;;
 
-@Injectable({
-  providedIn: &#x27;root&#x27;,
-})
-export class UserService {
-  constructor(private http: HttpClient) {}
-  getPublicContent(): Observable&lt;any&gt; {
-    return this.http.get(API_URL + &#x27;all&#x27;, { responseType: &#x27;text&#x27; });
-  }
-  getFranchisee(): Observable&lt;any&gt; {
-    return this.http.get(API_URL + &#x27;franchise&#x27;, { responseType: &#x27;text&#x27; });
-  }
-  getAdmin(): Observable&lt;any&gt; {
-    return this.http.get(API_URL + &#x27;admin&#x27;, { responseType: &#x27;text&#x27; });
-  }
-}
-</code></pre>
+import { AuthService } from &quot;../services/auth.service&quot;;
+
+
+@Injectable()
+export class AuthEffects {
+
+    loadUser$ &#x3D;
+        createEffect(() &#x3D;&gt; this.actions$.pipe(ofType(AuthActions.loadUser),
+            concatMap(() &#x3D;&gt; this.authService.getUser()),
+            map((user) &#x3D;&gt; AuthActions.userLoaded({ user }))
+        ));
+    
+    constructor(private actions$: Actions, private authService: AuthService){}
+}</code></pre>
     </div>
 
 </div>
@@ -334,7 +256,7 @@ export class UserService {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'injectable';
-            var COMPODOC_CURRENT_PAGE_URL = 'UserService.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthEffects.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 
