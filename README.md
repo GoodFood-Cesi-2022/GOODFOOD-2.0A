@@ -145,4 +145,4 @@ docker compose up --build -d
 # GITFLOW
 
 [Tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-![alt text](<img width="567" alt="gitflow" src="https://user-images.githubusercontent.com/57718801/161386203-1f68ae06-bd98-45ef-92fb-f0cd73e895bd.png">)
+![](src/assets/img/gitflow.png)
