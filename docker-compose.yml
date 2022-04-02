@@ -8,9 +8,13 @@ services:
       context: ./
       dockerfile: Dockerfile
     container_name: Angular
+    restart: unless-stopped
     image: goodfood-web:latest
     ports:
       - "4200:80"
+      # - "49153:49153"
+    # volumes:
+    #  - ../app:/app
 # ------------------------------ Compodoc
   compodoc:
     networks:
@@ -19,6 +23,7 @@ services:
       context: ./
       dockerfile: ./documentation/Dockerfile
     container_name: Compodoc
+    restart: unless-stopped
     image: goodfood-compodoc
     working_dir: /documentation
     volumes:
@@ -26,6 +31,6 @@ services:
     ports:
       - "4242:4201"
 
-networks: 
+networks:
   frontend:
     driver: bridge

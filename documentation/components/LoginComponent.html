@@ -138,6 +138,9 @@
                             <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
+                            <li>
+                                <a href="#onLogin" >onLogin</a>
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -156,15 +159,45 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor()</code>
+<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="8" class="link-to-prism">src/app/auth/login/login.component.ts:8</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/auth/login/login.component.ts:9</a></div>
                             </td>
                         </tr>
 
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>http</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -198,8 +231,45 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/app/auth/login/login.component.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="13"
+                            class="link-to-prism">src/app/auth/login/login.component.ts:13</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onLogin"></a>
+                    <span class="name">
+                        <span ><b>onLogin</b></span>
+                        <a href="#onLogin"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onLogin()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/app/auth/login/login.component.ts:15</a></div>
                 </td>
             </tr>
 
@@ -221,7 +291,8 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
 
 @Component({
   selector: &#x27;app-login&#x27;,
@@ -230,10 +301,14 @@
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http:HttpClient) { }
 
   ngOnInit(): void {
   }
+  onLogin() {
+    this.http.post(&#x27;http://localhost:8085/api/login&#x27;, {}).subscribe();
+  }
+
 }
 </code></pre>
     </div>
@@ -243,7 +318,7 @@ export class LoginComponent implements OnInit {
     &lt;div class&#x3D;&quot;w-6 py-8 md:px-2 align-items-center justify-content-center w-30rem relative&quot;
     style&#x3D;&quot;transform: translate(750px,-50px);&quot;&gt;
         &lt;div class&#x3D;&quot;p-6 shadow-4 text-center md:w-20 mb-2 &quot;&gt;
-            &lt;button pButton pRipple label&#x3D;&quot;Se connecter&quot; class&#x3D;&quot;border-none w-full outline-none&quot;&gt;&lt;/button&gt;
+            &lt;button pButton pRipple label&#x3D;&quot;Se connecter&quot; type&#x3D;&quot;submit&quot; class&#x3D;&quot;border-none w-full outline-none&quot;&gt;&lt;/button&gt;
         &lt;/div&gt;
     &lt;/div&gt;
 &lt;/form&gt;
@@ -296,12 +371,13 @@ button {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><form>    <div class="w-6 py-8 md:px-2 align-items-center justify-content-center w-30rem relative"    style="transform: translate(750px,-50px);">        <div class="p-6 shadow-4 text-center md:w-20 mb-2 ">            <button pButton pRipple label="Se connecter" class="border-none w-full outline-none"></button>        </div>    </div></form></div>'
-    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MenubarComponent', 'selector': 'app-menubar'},{'name': 'ProfileComponent', 'selector': 'app-profile'}];
+        var COMPONENT_TEMPLATE = '<div><form>    <div class="w-6 py-8 md:px-2 align-items-center justify-content-center w-30rem relative"    style="transform: translate(750px,-50px);">        <div class="p-6 shadow-4 text-center md:w-20 mb-2 ">            <button pButton pRipple label="Se connecter" type="submit" class="border-none w-full outline-none"></button>        </div>    </div></form></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MenubarComponent', 'selector': 'app-menubar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>
 <script src="../js/tree.js"></script>
+
 
 
 

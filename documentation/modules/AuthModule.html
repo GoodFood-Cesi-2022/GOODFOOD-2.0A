@@ -157,8 +157,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="48"
-                            class="link-to-prism">src/app/auth/auth.module.ts:48</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="26"
+                            class="link-to-prism">src/app/auth/auth.module.ts:26</a></div>
                 </td>
             </tr>
 
@@ -184,45 +184,23 @@ import { CommonModule } from &#x27;@angular/common&#x27;;
 import { ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
 import { FormsModule } from &quot;@angular/forms&quot;;
 import { RouterModule } from &#x27;@angular/router&#x27;;
-
 import { ButtonModule } from &#x27;primeng/button&#x27;;
-import { CheckboxModule } from &#x27;primeng/checkbox&#x27;;
-import { ChipsModule } from &quot;primeng/chips&quot;;
-import { InputTextModule } from &quot;primeng/inputtext&quot;;
-import { RippleModule } from &#x27;primeng/ripple&#x27;;
-import { PasswordModule } from &#x27;primeng/password&#x27;;
-
-import { EffectsModule } from &#x27;@ngrx/effects&#x27;;
-import { StoreModule } from &#x27;@ngrx/store&#x27;;
-
+import { RippleModule } from &quot;primeng/ripple&quot;;
 import { LoginComponent } from &#x27;./login/login.component&#x27;;
-import { ResetpwComponent } from &#x27;./resetpw/resetpw.component&#x27;;
-
-import { AuthService } from &#x27;./common/services/auth.service&#x27;;
-import * as fromAuth from &#x27;./common/store/auth.reducer&#x27;;
-import { AuthEffects } from &#x27;./common/store/auth.effects&#x27;;
 
 
 @NgModule({
   declarations: [
-    LoginComponent,
-    ResetpwComponent
+    LoginComponent
   ],
   imports: [
     CommonModule,
-    CheckboxModule,
-    ChipsModule,
-    InputTextModule,
-    RippleModule,
-    PasswordModule,
     ButtonModule,
+    RippleModule,
     ReactiveFormsModule,
     FormsModule,
     RouterModule.forChild([
-      { path: &#x27;&#x27;, component: LoginComponent },
-      { path: &#x27;&#x27;, component: ResetpwComponent }]),
-    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.AuthReducer),
-    EffectsModule.forFeature([AuthEffects]),
+      { path: &#x27;login&#x27;, component: LoginComponent }]),
   ]
 })
  export class AuthModule {
@@ -230,16 +208,15 @@ import { AuthEffects } from &#x27;./common/store/auth.effects&#x27;;
     return {
       ngModule: AuthModule,
       providers: [
-        AuthService,
+        // AuthService,
       ]
     }
-  } 
+  }
 }
-
-// EffectsModule.forFeature([fromAuth.authFeatureKey, fromAuth.authReducer]),
-//     StoreModule.forFeature(AuthEffects),</code></pre>
+</code></pre>
     </div>
 </div>
+
 
 
 
