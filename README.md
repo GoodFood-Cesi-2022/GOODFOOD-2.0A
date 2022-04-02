@@ -141,3 +141,8 @@ npm run compodoc
 ```sh
 docker compose up --build -d
 ```
+
+# GITFLOW
+
+[Tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+![alt text](/Users/zahra/CESI/GOODFOOD-2.0A/src/assets/img/gitflow.png)
