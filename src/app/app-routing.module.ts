@@ -1,3 +1,4 @@
+import { DefaultModule } from './layouts/default/default.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
@@ -8,16 +9,26 @@ import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './auth/login/login.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'admin', component: AdminComponent },
-  //{ path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+  //{ path: '', component: HomeComponent },
+  //{ path: 'login', component: LoginComponent },
+  //{ path: 'profile', component: ProfileComponent },
+  //{ path: 'admin', component: AdminComponent },
+  
+  
+  //     { path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
   /**
    * Otherwise redirect to home
    * @url https://angular.io/guide/router
    */
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+ 
+ //{ path: '**', redirectTo: '', pathMatch: 'full' },
+  
+  
+  {
+    path: '',
+    loadChildren: () => import('./modules/').then((m).DefaultModule),
+    canActivate:[]
+  }
 ];
 
 @NgModule({

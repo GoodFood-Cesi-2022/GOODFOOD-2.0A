@@ -5,23 +5,10 @@
       <!-- <img src="assets/images/logo.png" width="200" height="54" alt="GOODFOOD"> -->
       <!-- <img class="ms-2" src="assets/images/logo-ag2r.svg" alt="GOOD FOOD"> -->
       <div class="d-inline">
-        <span class="ms-3 fw-bolder text-uppercase">Saisie des temps  </span>
-        <span class="d-block text-end font-monospace version-font">{{ VERSION }}</span>
+        <span class="ms-3 fw-bolder text-uppercase">GOOD FOOD</span>
       </div>
 
     </div>
-
-    <ng-container *ngIf="(user$ | async) as user">
-        <div class="d-flex">
-          <span class="me-3" *ngIf="hideHomeBtn">
-            <button pButton pRipple type="button" icon="pi pi-home" [routerLink]="'/account'"
-              class="p-button-rounded p-button-info p-button-outlined" pTooltip="Accueil" tooltipPosition="bottom"
-              tooltipStyleClass="customTooltip"></button>
-          </span>
-        </div>
-      </ng-container>
-      <!-- ./à la place de  -->
-
       <!-- personne authentifier -->
       <ng-container *ngIf="!hideAuthenticatedPersonne">
         <span class="navbar-text">

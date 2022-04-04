@@ -13,11 +13,10 @@ import { Const } from 'src/app/shared/constants/constants';
 export class MenuComponent implements OnInit {
 
   user$: Observable<User>;
-  VERSION = const.VERSION;
   hideHomeBtn = false;
 
 
-  constructor(private store: Store<AppState>, private rouer: Router, private sidebarStoreService: SidebarStoreService) {
+  constructor(private store: Store<AppState>, private rouer: Router, private sidebarService: SidebarService) {
     this.initMenu();
 }
 
