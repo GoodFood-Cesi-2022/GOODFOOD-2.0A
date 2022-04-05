@@ -4,20 +4,14 @@ import { RouterModule } from '@angular/router';
 
 import { DefaultComponent } from './default.component';
 import { ComponentsModule } from './../components/components.module';
-import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-  declarations: [
-    DefaultComponent
-  ],
-  exports: [
-    DefaultComponent
-  ],
+  declarations: [ DefaultComponent ],
+  exports: [ DefaultComponent ],
   imports: [
     CommonModule,
     RouterModule,
-    ComponentsModule,
-    ToastModule
-  ],
+    ComponentsModule
+  ]
 })
 export class DefaultModule { }

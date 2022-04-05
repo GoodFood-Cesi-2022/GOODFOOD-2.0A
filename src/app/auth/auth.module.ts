@@ -12,6 +12,9 @@ import { LoginComponent } from './login/login.component';
   declarations: [
     LoginComponent
   ],
+  exports: [
+    LoginComponent
+  ],
   imports: [
     CommonModule,
     ButtonModule,
@@ -27,7 +30,6 @@ import { LoginComponent } from './login/login.component';
     return {
       ngModule: AuthModule,
       providers: [
-        // AuthService,
       ]
     }
   }
