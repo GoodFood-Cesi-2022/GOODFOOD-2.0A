@@ -3,26 +3,29 @@ import {
   NO_ERRORS_SCHEMA,
   CUSTOM_ELEMENTS_SCHEMA,
 } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRoutingModule
-import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthModule } from './auth/auth.module';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AppRoutingModule } from './app-routing.module'; // CLI imports AppRoutingModule
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { DefaultComponent } from './layouts/default/default.component';
 
-// import { EffectsModule } from '@ngrx/effects';
+import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
+import { LayoutsModule } from './layouts/layouts.module';
 
 @NgModule({
-  declarations: [AppComponent, DefaultComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule, // CLI adds AppRoutingModule to the AppModule's imports arra
+    BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
     AuthModule.forRoot(),
+    LayoutsModule.forRoot(),
     EffectsModule.forRoot([]),
     StoreModule.forRoot({}),
   ],

@@ -1,16 +1,20 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DefaultComponent } from './default/default.component';
 import { DefaultModule } from './default/default.module';
 
 @NgModule({
   imports: [
-    DefaultModule
+    DefaultModule,
+    RouterModule.forChild([{ path: 'home', component: DefaultComponent }]),
   ],
-  exports: [
-    DefaultModule
-  ],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ]
+  exports: [DefaultModule],
 })
-export class LayoutsModule { }
+export class LayoutsModule {
+  static forRoot(): ModuleWithProviders<LayoutsModule> {
+    return {
+      ngModule: LayoutsModule,
+      providers: [],
+    };
+  }
+}

@@ -1,65 +1,40 @@
-<p-sidebar [(visible)]="display" (onHide)="sidenavClosed()" position="right" [baseZIndex]="10000" styleClass="p-sidebar-md">
-
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12">
-
-      </div>
-    </div>
-
-    <div class="row mt-5">
-      <div class="col-lg-12 text-center">
-        <h3 class="mb-5"> Sélectionner un utilisateur</h3>
-      </div>
-    </div>
-
-    <form [formGroup]="form">
-
-      <!-- <div class="form-group row mt-5">
-        <label for="selectedEquipe" class="col-sm-2">Equipe </label>
-        <div class="col-sm-10">
-          <p-dropdown [options]="equipes" [autoDisplayFirst]="false" optionLabel="libelle" dataKey='idEquipe'
-            formControlName="selectedEquipe" id="selectedEquipe" (onChange)="onChangeEquipe($event)"
-            [style]="{'width':'100%'}">
-          </p-dropdown>
-        </div>
-      </div> -->
-
-      <div class="form-group row mt-3">
-        <div class="col-sm-2">
-        </div>
-        <div class="col-sm-10">
-          <!-- <p-checkbox label="Membres actuels uniquement" [binary]="true" formControlName="allHistorique" id="allHistorique" (onChange)="onChangeHistorique($event)" ></p-checkbox> -->
-        </div>
-      </div>
-
-      <div class="form-group row mt-2">
-        <label for="selectedPersonne" class="col-sm-2">Ressource </label>
-        <!-- <div class="col-sm-10" *ngIf="(personnesEquipe$ | async) as personnesEquipe">
-          <p-dropdown [options]="personnesEquipe" [autoDisplayFirst]="false" optionLabel="nom" dataKey='idPersonne'
-            formControlName="selectedPersonne" [style]="{'width':'100%'}">
-            <ng-template let-item pTemplate="selectedItem">
-                {{item.value.nom}}  {{item.value.prenom}}
-            </ng-template>
-            <ng-template let-item pTemplate="item">
-                {{item.value.nom}}  {{item.value.prenom}}
-            </ng-template>
-          </p-dropdown>
-        </div> -->
-      </div>
-
-      <!-- <div class="row mt-5">
-        <div class="col-sm-6 ">
-          <button pButton type="button" (click)="onClose()" label="ANNULER" class="p-button-danger float-end"></button>
-        </div>
-        <div class="col-sm-6">
-          <button pButton type="button" (click)="onSubmit()" label="VALIDER" class="p-button-info float-start"
-            [disabled]="!form.valid"></button>
-        </div>
-      </div> -->
-
-    </form>
-
-  </div>
-
+<p-sidebar [(visible)]="display" [baseZIndex]="10000" [ngStyle]="{ width: '5em' }">
+  <ul class="nav flex-column">
+    <li>
+      <button pButton pRipple type="button" label="Utilisateurs" class="p-button-info p-button-text" icon="pi pi-users"
+        routerLink="/account"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Franchisés" class="p-button-text p-button-info"
+        icon="pi pi-briefcase"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Réclamations clients" class="p-button-info p-button-text"
+        icon="pi pi-comments"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Notifications" class="p-button-info p-button-text"
+        icon="pi pi-bell"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Recettes" class="p-button-info p-button-text"
+        icon="pi pi-list"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Commandes" class="p-button-info p-button-text"
+        icon="pi pi-shopping-cart"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Compte" class="p-button-info p-button-text"
+        icon="pi pi-user"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Aide" class="p-button-success p-button-text"
+        icon="pi pi-info-circle"></button>
+    </li>
+  </ul>
+  <p-button type="button" styleClass="p-button-warning" (click)="logOut()" label="Se déconnecter" icon="pi pi-sign-out">
+  </p-button>
 </p-sidebar>
+<p-button type="button" styleClass="p-button-rounded p-button-success" (click)="display = true" icon="pi pi-plus">
+</p-button>
