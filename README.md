@@ -1,6 +1,7 @@
 # GoodFood - web
+## Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.1.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.6.
 
 ## Development server
 
@@ -32,9 +33,9 @@ Run `ctrl c` to exit a dev server.
 
 # Versions
 
-- Nodejs : 16.13.0
-- Angular : 13.2.0
-- PrimeNG : 13.1.0
+- Nodejs : 16.13.02
+- Angular : 13.2.6
+- PrimeNG : 13.3.2
 
 # Installation
 
@@ -136,38 +137,14 @@ npm run compodoc
 ./node_modules/.bin/compodoc -s -r 4201
 ```
 
-## Dockerhub
-
-In the official Docker hub site ([dockerhub](https://hub.docker.com))
-
-### [SonarQube](https://hub.docker.com/_/sonarqube)
-
-```sh
-docker pull sonarqube
-```
-
-```sh
-docker compose up -d
-```
-
-```sh
-docker-compose restart sonarqube
-```
-
-### [Jenkins](https://hub.docker.com/_/jenkins)
-
-```sh
-docker pull jenkins
-```
-
-### Configure sonarqube in Jenkins
-
-- [SonarScanner for Jenkins](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-jenkins/)
-
-- [Analysis Parameters](https://docs.sonarqube.org/latest/analysis/analysis-parameters/)
-
 ### docker compose
 
 ```sh
 docker compose up --build -d
 ```
+
+# GITFLOW
+
+[Tutorial Git flow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+
+<img src="src/assets/img/gitflow.png" width="500">
