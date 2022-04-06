@@ -1,6 +1,40 @@
-<p-sidebar [(visible)]="display" [baseZIndex]="10000">
-  <h1 style="font-weight:normal">Left Sidebar</h1>
-  <p-button type="button" (click)="display = false" label="Save" styleClass="p-button-success"></p-button>
-  <p-button type="button" (click)="display = false" label="Cancel" styleClass="p-button-secondary"></p-button>
+<p-sidebar [(visible)]="display" [baseZIndex]="10000" [ngStyle]="{ width: '5em' }">
+  <ul class="nav flex-column">
+    <li>
+      <button pButton pRipple type="button" label="Utilisateurs" class="p-button-info p-button-text" icon="pi pi-users"
+        routerLink="/account"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Franchisés" class="p-button-text p-button-info"
+        icon="pi pi-briefcase"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Réclamations clients" class="p-button-info p-button-text"
+        icon="pi pi-comments"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Notifications" class="p-button-info p-button-text"
+        icon="pi pi-bell"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Recettes" class="p-button-info p-button-text"
+        icon="pi pi-list"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Commandes" class="p-button-info p-button-text"
+        icon="pi pi-shopping-cart"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Compte" class="p-button-info p-button-text"
+        icon="pi pi-user"></button>
+    </li>
+    <li>
+      <button pButton pRipple type="button" label="Aide" class="p-button-success p-button-text"
+        icon="pi pi-info-circle"></button>
+    </li>
+  </ul>
+  <p-button type="button" styleClass="p-button-warning" (click)="logOut()" label="Se déconnecter" icon="pi pi-sign-out">
+  </p-button>
 </p-sidebar>
-<button type="button" (click)="display = true" icon="pi pi-arrow-right"></button>
+<p-button type="button" styleClass="p-button-rounded p-button-success" (click)="display = true" icon="pi pi-plus">
+</p-button>

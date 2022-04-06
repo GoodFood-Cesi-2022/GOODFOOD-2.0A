@@ -6,12 +6,8 @@ import { DefaultComponent } from './default.component';
 import { ComponentsModule } from './../components/components.module';
 
 @NgModule({
-  declarations: [ DefaultComponent ],
-  exports: [ DefaultComponent ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    ComponentsModule
-  ]
+  declarations: [DefaultComponent],
+  exports: [DefaultComponent],
+  imports: [CommonModule, RouterModule, ComponentsModule],
 })
-export class DefaultModule { }
+export class DefaultModule {}

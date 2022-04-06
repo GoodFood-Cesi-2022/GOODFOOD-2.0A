@@ -11,33 +11,23 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
 import { RippleModule } from 'primeng/ripple';
 
-import { MenuComponent } from './menu/menu.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 
-
 @NgModule({
-  declarations: [
-    MenuComponent,
-    SidebarComponent,
-    FooterComponent
+  declarations: [SidebarComponent, FooterComponent],
+  exports: [SidebarComponent, FooterComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    ProgressSpinnerModule,
+    CheckboxModule,
+    ButtonModule,
+    TooltipModule,
+    SidebarModule,
+    DropdownModule,
+    RippleModule,
   ],
-  exports: [
-    MenuComponent,
-    SidebarComponent,
-    FooterComponent
-  ],
- imports: [
-   CommonModule,
-   RouterModule,
-   ReactiveFormsModule,
-   ProgressSpinnerModule,
-   CheckboxModule,
-   ButtonModule,
-   TooltipModule,
-   SidebarModule,
-   DropdownModule,
-   RippleModule
-  ]
 })
-export class ComponentsModule { }
+export class ComponentsModule {}

@@ -1,7 +1,5 @@
-.p-button {
-  background-color: antiquewhite;
-}
+@import "src/styles.scss";
 
-.full-with {
-  width: 100% !important;
+:host ::ng-deep button {
+  margin-right: 0.25em;
 }

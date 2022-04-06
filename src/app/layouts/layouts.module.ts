@@ -6,17 +6,15 @@ import { DefaultModule } from './default/default.module';
 @NgModule({
   imports: [
     DefaultModule,
-    RouterModule.forChild([
-      { path: 'home', component: DefaultComponent }])
+    RouterModule.forChild([{ path: 'home', component: DefaultComponent }]),
   ],
-  exports: [ DefaultModule ]
+  exports: [DefaultModule],
 })
 export class LayoutsModule {
   static forRoot(): ModuleWithProviders<LayoutsModule> {
     return {
       ngModule: LayoutsModule,
-      providers: [
-      ]
-    }
+      providers: [],
+    };
   }
 }
