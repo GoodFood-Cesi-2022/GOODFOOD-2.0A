@@ -7,16 +7,6 @@ pipeline {
       }
 
     stages {
-        stage('version') {
-          steps {
-            echo 'node version'
-            sh 'node --version'
-            echo 'angular version'
-            sh 'ng --version'
-          }
-        }
-
-    stages {
         stage('install') {
           steps {
             sh 'npm install'
