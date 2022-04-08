@@ -1,9 +1,9 @@
-name: GFA
+name: 'CI/CD automatization'
 on:
-  [push, pull_request]
+  [push]
 jobs:
   build:
-    name: Build & Test
+    # name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Ckeckout
