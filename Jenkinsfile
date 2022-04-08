@@ -15,14 +15,11 @@ pipeline {
 
     stage('build') {
       steps {
-        sh 'npm build'
+        sh 'npm run build'
       }
     }
 
     stage('Quality') {
-      environment {
-        scannerHome = tool 'SonarQubeScanner'
-      }
       steps {
         withSonarQubeEnv(installationName: 'CodeQuality') {
         }
