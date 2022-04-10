@@ -1,36 +1,23 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from "@angular/forms";
-import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { RippleModule } from "primeng/ripple";
+import { RippleModule } from 'primeng/ripple';
 import { LoginComponent } from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
 
+const routes: Routes = [{ path: 'login', component: LoginComponent }];
 
 @NgModule({
-  declarations: [
-    LoginComponent
-  ],
-  exports: [
-    LoginComponent
-  ],
+  declarations: [LoginComponent],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    FormsModule,
     ButtonModule,
     RippleModule,
-    ReactiveFormsModule,
-    FormsModule,
-    RouterModule.forChild([
-      { path: 'login', component: LoginComponent }]),
-  ]
+  ],
 })
- export class AuthModule {
-  static forRoot(): ModuleWithProviders<AuthModule> {
-    return {
-      ngModule: AuthModule,
-      providers: [
-      ]
-    }
-  }
-}
+export class AuthModule {}
