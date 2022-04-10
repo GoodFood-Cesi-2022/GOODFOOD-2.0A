@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -9,9 +10,17 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'GOODFOOD';
 
-  constructor(private primengConfig: PrimeNGConfig) {}
+  constructor(private primengConfig: PrimeNGConfig, private router: Router) {}
 
   ngOnInit() {
     this.primengConfig.ripple = true;
+
+    this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        if (!!event.url && event.url.match(/^\/#/)) {
+          this.router.navigate([event.url.replace('/#', '')]);
+        }
+      }
+    });
   }
 }
