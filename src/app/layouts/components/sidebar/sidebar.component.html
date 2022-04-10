@@ -1,32 +1,32 @@
-<p-sidebar [(visible)]="display" [baseZIndex]="10000" [ngStyle]="{ width: '5em' }">
+<p-sidebar [(visible)]="display" [baseZIndex]="10000" styleClass="p-sidebar-sm">
   <ul class="nav flex-column">
     <li>
       <button pButton pRipple type="button" label="Utilisateurs" class="p-button-info p-button-text" icon="pi pi-users"
-        routerLink="/account"></button>
+        routerLink="/home/users"></button>
     </li>
     <li>
-      <button pButton pRipple type="button" label="Franchisés" class="p-button-text p-button-info"
-        icon="pi pi-briefcase"></button>
+      <button pButton pRipple type="button" label="Franchisés" class="p-button-info p-button-text"
+        icon="pi pi-briefcase" routerLink="/home/franchisee"></button>
     </li>
     <li>
       <button pButton pRipple type="button" label="Réclamations clients" class="p-button-info p-button-text"
-        icon="pi pi-comments"></button>
+        icon="pi pi-comments" routerLink="/home/client-complaint"></button>
     </li>
     <li>
-      <button pButton pRipple type="button" label="Notifications" class="p-button-info p-button-text"
-        icon="pi pi-bell"></button>
+      <button pButton pRipple type="button" label="Notifications" class="p-button-info p-button-text" icon="pi pi-bell"
+        routerLink="/home/notifications"></button>
     </li>
     <li>
-      <button pButton pRipple type="button" label="Recettes" class="p-button-info p-button-text"
-        icon="pi pi-list"></button>
+      <button pButton pRipple type="button" label="Recettes" class="p-button-info p-button-text" icon="pi pi-list"
+        routerLink="/home/recipes"></button>
     </li>
     <li>
       <button pButton pRipple type="button" label="Commandes" class="p-button-info p-button-text"
-        icon="pi pi-shopping-cart"></button>
+        icon="pi pi-shopping-cart" routerLink="/home/orders"></button>
     </li>
     <li>
-      <button pButton pRipple type="button" label="Compte" class="p-button-info p-button-text"
-        icon="pi pi-user"></button>
+      <button pButton pRipple type="button" label="Compte" class="p-button-info p-button-text" icon="pi pi-user"
+        routerLink="account"></button>
     </li>
     <li>
       <button pButton pRipple type="button" label="Aide" class="p-button-success p-button-text"
