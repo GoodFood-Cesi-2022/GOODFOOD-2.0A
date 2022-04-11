@@ -12,11 +12,10 @@ import { BadgeModule } from 'primeng/badge';
 
 import { AccountComponent } from './account.component';
 
-const routes: Routes = [{ path: '', component: AccountComponent }];
+const routes: Routes = [{ path: 'account', component: AccountComponent }];
 
 @NgModule({
   declarations: [AccountComponent],
-  exports: [AccountComponent],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
