@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import getPkce from 'oauth-pkce';
-import { StringService } from '../shared/services/string.service';
-import { LocalStorageService } from '../shared/services/local-storage.service';
-import { AccessTokenModel } from '../shared/models/access-token.model';
+import { StringService } from './string.service';
+import { LocalStorageService } from './local-storage.service';
+import { AccessTokenModel } from '../models/access-token.model';
 import { catchError, firstValueFrom, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { environment } from '../environments/environment';
-import { UserModel } from '../shared/models/user.model';
+import { environment } from '../../environments/environment';
+import { UserModel } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
