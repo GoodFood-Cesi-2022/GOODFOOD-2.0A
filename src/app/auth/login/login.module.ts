@@ -4,20 +4,20 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
-import { LoginComponent } from './login/login.component';
-import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login.component';
+import { LoginRouter } from './login-routing.module';
+import { CallbackComponent } from './callback/callback.component';
 
-const routes: Routes = [{ path: 'login', component: LoginComponent }];
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, CallbackComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    RouterModule.forChild(routes),
+    LoginRouter,
     FormsModule,
     ButtonModule,
     RippleModule,
   ],
 })
-export class AuthModule {}
+export class LoginModule {}

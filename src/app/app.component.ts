@@ -10,9 +10,15 @@ import { PrimeNGConfig } from 'primeng/api';
 export class AppComponent implements OnInit {
   title = 'GOODFOOD';
 
-  constructor(private primengConfig: PrimeNGConfig, private router: Router) {}
+  constructor(
+    private primengConfig: PrimeNGConfig, 
+    private router: Router
+  ) {}
 
   ngOnInit() {
+
+    console.log('[APPCOMPONENT] INIT')
+
     this.primengConfig.ripple = true;
 
     this.router.events.subscribe((event) => {

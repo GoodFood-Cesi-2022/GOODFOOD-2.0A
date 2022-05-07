@@ -24,7 +24,7 @@ import { ConfirmationService } from 'primeng/api';
 import { GlobalHttpInterceptorService } from './app.interceptor';
 import { routing } from './app-routing.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { WithCredentialsHttpInterceptor } from '../../services/WithCredentielsHttpIntercepter';
+import { ApiTokenInterceptorService } from './shared/interceptors/api-token-interceptor.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -40,11 +40,6 @@ import { WithCredentialsHttpInterceptor } from '../../services/WithCredentielsHt
   ],
   providers: [
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: WithCredentialsHttpInterceptor,
-      multi: true,
-    },
-    {
       provide: ErrorHandler,
     },
     {
@@ -59,6 +54,11 @@ import { WithCredentialsHttpInterceptor } from '../../services/WithCredentielsHt
       useClass: GlobalHttpInterceptorService,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiTokenInterceptorService,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],
