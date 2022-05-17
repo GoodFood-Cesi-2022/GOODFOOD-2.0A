@@ -1,4 +1,4 @@
-<p-sidebar [(visible)]="display" [baseZIndex]="10000" styleClass="p-sidebar-sm">
+<p-sidebar [(visible)]="display" [baseZIndex]="10000" styleClass="p-sidebar-sm" *ngIf="user$ | async as user">
   <ul class="nav flex-column">
     <li>
       <button pButton pRipple type="button" label="Utilisateurs" class="p-button-info p-button-text" icon="pi pi-users"
@@ -26,7 +26,8 @@
     </li>
     <li>
       <button pButton pRipple type="button" label="Compte" class="p-button-info p-button-text" icon="pi pi-user"
-        routerLink="account"></button>
+        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" [routerLink]="['/account']"
+        routerLinkActive="active"></button>
     </li>
     <li>
       <button pButton pRipple type="button" label="Aide" class="p-button-success p-button-text"

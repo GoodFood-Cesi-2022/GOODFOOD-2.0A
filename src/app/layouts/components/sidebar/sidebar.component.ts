@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { EndPoints } from 'src/app/shared/constants/constants';
+import { User } from 'src/app/shared/models/user.model';
+import { UserState } from 'src/app/shared/store/state/user';
+import { selectUserDetails } from 'src/app/shared/store/state/user/user.selector';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,12 +13,17 @@ import { Router } from '@angular/router';
 })
 export class SidebarComponent implements OnInit {
   display: any;
+  user$?: Observable<User | undefined>;
 
-  constructor(private router: Router) {}
+  constructor(private store: Store<UserState>) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.user$ != new Observable<undefined>()) {
+      this.user$ = this.store.pipe(select(selectUserDetails));
+    }
+  }
 
   logOut(): void {
-    this.router.navigateByUrl('/login');
+    window.location.href = EndPoints.LOGOUT;
   }
 }
