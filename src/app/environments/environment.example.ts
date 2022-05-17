@@ -7,12 +7,12 @@
  * The list of file replacements can be found in `angular.json`.
  * 
  */ 
-export const environment = {
+ export const environment = {
     production: false,
     appUrl: 'http://localhost:4200',
-    apiBaseUrl: 'http://localhost:8080/api',
+    apiBaseUrl: 'http://localhost/8085/api',
     oAuthProviderBaseUrl: 'http://localhost:8085/oauth',
-    oAuthClientId: '962e63ce-3ca3-4a95-818f-2d9bb2eedc02',
+    oAuthClientId: '',
     oAuthCallbackUri: 'http://localhost:4200/login/redirect'
 };
   
