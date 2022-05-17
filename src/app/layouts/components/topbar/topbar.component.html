@@ -1,0 +1,37 @@
+<!-- <app-topbar> -->
+<nav class="navbar fixed-top bg-light">
+  <div class="topbar clearfix">
+    <div class="topbar-left">
+      <!-- <ng-container *ngIf="(user$ | async) as user"></ng-container> -->
+      <!-- *ngIf="hideHomeBtn" -->
+      <a routerlink="/home">
+        <img src="assets/logo/logo.svg" alt="GOOD FOOD" routerlink="/home" class="topbar-logo" tabindex="0" />
+      </a>
+    </div>
+    <div class="d-flex">
+      <span class="me-3">
+        <button pButton pRipple type="button" icon="pi pi-angle-right" pTooltip="Menu" tooltipPosition="top"
+          (click)="openSidebar()">
+        </button>
+      </span>
+      <!-- <div class="topbar-right"> -->
+      <!-- <a id="menu-button" (click)="openSidebar()" class=""> -->
+      <!-- <i class="pi pi-angle-left"></i> -->
+      <!-- </a> -->
+    </div>
+  </div>
+</nav>
+<!-- </app-topbar> -->
+
+
+<!-- <div
+  class="bg-gray-100 text-gray-100 p-1 flex justify-content-between lg:justify-content-center align-items-center flex-wrap">
+  <div class="align-items-center hidden lg:flex">
+    <span class="line-height-3">Libero voluptatum atque exercitationem praesentium provident odit.</span>
+  </div>
+  <a pRipple
+    class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150"
+    style="width:2rem; height: 2rem">
+    <i class="pi pi-times"></i>
+  </a>
+</div> -->
