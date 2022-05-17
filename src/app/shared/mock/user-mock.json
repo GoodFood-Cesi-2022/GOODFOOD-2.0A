@@ -1,0 +1,11 @@
+{
+  "data": [
+    {
+      "id": 0,
+      "firstname": "string",
+      "lastname": "string",
+      "phone": "string",
+      "email": "user@example.com"
+    }
+  ]
+}
