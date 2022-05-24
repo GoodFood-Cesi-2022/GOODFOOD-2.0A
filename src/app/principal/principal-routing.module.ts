@@ -15,7 +15,14 @@ const ROUTES: Routes = [
       {
         path: 'account',
         loadChildren: () =>
-          import('./account/account.module').then((m) => m.AccountModule),
+          import('./profile/profile.module').then((m) => m.ProfileModule),
+      },
+      {
+        path: 'recipes',
+        loadChildren: () =>
+          import('./recipe-management/recipes/recipes.module').then(
+            (m) => m.RecipesModule
+          ),
       },
       // {
       //   path: 'gestion-taches', loadChildren: () =>

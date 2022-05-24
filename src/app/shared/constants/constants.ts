@@ -15,12 +15,21 @@ export enum CodeHTTP {
 
 export enum EndPoints {
   LOGIN = '/login',
-  //TODO check with @Thomas
   LOGOUT = '/api/logout',
   SECURE_USER = 'SECURE_USER',
+  GENERIC_SUCCESS = 'Les modifications ont bien été prises en compte.',
+  PAYLOAD = 'payload',
 }
 
 export enum Roles {
-  ADMIN = 'admin',
+  ADMIN = 'goodfood',
   FRANCHISEE = 'contractor',
+}
+
+export enum StorageKeys {
+  STATE = 'AUTH_STATE',
+  CODE_VERIFY = 'AUTH_CODE_VERIFIER',
+  USER_TOKEN = 'AUTH_USER_TOKEN',
+  USER = 'CURRENT_USER',
+  ROLE = 'ROLE',
 }

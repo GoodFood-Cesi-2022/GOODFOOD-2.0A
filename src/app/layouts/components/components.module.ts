@@ -16,8 +16,8 @@ import { FooterComponent } from './footer/footer.component';
 import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
-  declarations: [SidebarComponent, FooterComponent, TopbarComponent],
-  exports: [SidebarComponent, FooterComponent, TopbarComponent],
+  declarations: [TopbarComponent, SidebarComponent, FooterComponent],
+  exports: [TopbarComponent, SidebarComponent, FooterComponent],
   imports: [
     CommonModule,
     RouterModule,

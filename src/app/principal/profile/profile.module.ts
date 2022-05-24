@@ -1,3 +1,4 @@
+import { ComponentsModule } from 'src/app/layouts/components/components.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
@@ -10,7 +11,6 @@ import { RippleModule } from 'primeng/ripple';
 import { AvatarModule } from 'primeng/avatar';
 import { BadgeModule } from 'primeng/badge';
 
-import { ProfileComponent } from './components/profile/profile.component';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
@@ -22,8 +22,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClientModule } from '@angular/common/http';
-// import { UserService } from 'src/app/shared/services/user/user.service';
-// import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [{ path: '', component: ProfileComponent }];
 
@@ -46,13 +45,12 @@ const routes: Routes = [{ path: '', component: ProfileComponent }];
     MultiSelectModule,
     ContextMenuModule,
     DropdownModule,
-    ButtonModule,
     ToastModule,
     InputTextModule,
     ProgressBarModule,
     HttpClientModule,
     FormsModule,
+    ComponentsModule,
   ],
-  // providers: [UserService],
 })
 export class ProfileModule {}

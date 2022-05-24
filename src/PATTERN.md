@@ -1,31 +1,34 @@
 ```
 app
-|-- AuthModule
-|            |-- login
+|- AuthModule
+|           |- login
+|           |- callback
 |
-|-- LayoutsModule
-|         |-- components
-|         |           |-- sidebar
-|         |           |-- footer
-|         |           |-- topebar ?
-|         |-- default
+|- LayoutsModule
+|           |- components
+|           |           |- sidebar
+|           |           |- footer
+|           |           |- topebar
+|           |- default
 |
-|-- principal
-|         |-- home
-|         |-- profile
-|                   |-- components
-|                               |-- profile
-|                               |-- edit-profile
-|-- shared
-|         |-- constants
-|         |-- services
-|         |         |--
-|         |-- models
-|         |         |--
-|         |-- store
-|         |         |--
-|         |-- guards
-|                   |-- admin-guard
-|                   |-- franchisee-guard
+|- principal
+|           |- home
+|           |- profile
+|                   |- components
+|                               |- profile
+|                               |- edit-profile == dialog-profile
+|- shared
+|         |- constants
+|         |- services
+|         |        |-
+|         |- models
+|         |        |- User.model
+|         |        |- franchisee.model
+|         |- store
+|         |        |-
+|         |- guards
+|                  |- admin.guard
+|                  |- franchisee.guard
+|                  |- auth.quard
 
 ```

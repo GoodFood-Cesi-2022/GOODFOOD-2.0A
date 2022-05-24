@@ -1,12 +1,10 @@
 export interface User {
-  id?: number,
+  id?: number;
   firstname?: string;
   lastname?: string;
   phone?: string;
   email?: string;
-  created_at: string,
-  updated_at: string
-  roles?: string[];
+  code?: string;
   autorisations?: Autorisation;
 }
 export interface Autorisation {

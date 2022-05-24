@@ -1,6 +1,7 @@
-import { UserState } from './user.state';
+// import { AppState } from './user.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Roles } from 'src/app/shared/constants/constants';
+import { UserState } from './user.reducer';
 
 /**
  * Feature selector
@@ -13,11 +14,11 @@ import { Roles } from 'src/app/shared/constants/constants';
  *  - adminAccess | franchiseeAccess
  */
 
-export const selectUserState = createFeatureSelector<UserState>('auth');
+export const selectUserState = createFeatureSelector<UserState>('user');
 
 export const selectUserDetails = createSelector(
   selectUserState,
-  (state: UserState) => state.userDetails
+  (user) => user?.userDetails
 );
 
 export const selectIsLoggedIn = createSelector(
@@ -25,11 +26,11 @@ export const selectIsLoggedIn = createSelector(
   (userDetails) => !!userDetails
 );
 
-function canAccess(auth: UserState, roles: string[]): boolean {
+function canAccess(user: UserState, roles: string[]): boolean {
   let grantedAccess = false;
 
   for (const role of roles) {
-    if (auth?.userDetails && auth?.userDetails?.roles?.includes(role)) {
+    if (user?.userDetails && user?.userDetails?.code?.includes(role)) {
       grantedAccess = true;
       break;
     }
@@ -37,10 +38,10 @@ function canAccess(auth: UserState, roles: string[]): boolean {
   return grantedAccess;
 }
 
-export const adminAccess = createSelector(selectUserState, (auth) => {
-  return canAccess(auth, [Roles.ADMIN]);
+export const adminAccess = createSelector(selectUserState, (user) => {
+  return canAccess(user, [Roles.ADMIN, Roles.FRANCHISEE]);
 });
 
-export const franchiseeAccess = createSelector(selectUserState, (auth) => {
-  return canAccess(auth, [Roles.ADMIN, Roles.FRANCHISEE]);
+export const franchiseeAccess = createSelector(selectUserState, (user) => {
+  return canAccess(user, [Roles.FRANCHISEE]);
 });
