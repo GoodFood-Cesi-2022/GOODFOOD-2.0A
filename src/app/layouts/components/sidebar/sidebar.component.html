@@ -2,38 +2,38 @@
   <ul class="nav flex-column">
     <li>
       <button *ngIf="user.autorisations?.isAdmin" pButton pRipple type="button" label="Utilisateurs"
-        class="p-button-info p-button-text" icon="pi pi-users" [routerLink]="['/users']"
-        routerLinkActive="active"></button>
+        class="p-button-info p-button-text" icon="pi pi-users" routerLink="/users" routerLinkActive="active"
+        (click)="onClose()"></button>
     </li>
     <li>
       <button *ngIf="user.autorisations?.isAdmin" pButton pRipple type="button" label="Franchisés"
-        class="p-button-info p-button-text" icon="pi pi-briefcase" [routerLink]="['/franchisees']"
+        class="p-button-info p-button-text" icon="pi pi-briefcase" routerLink="/franchisees" (click)="onClose()"
         routerLinkActive="active"></button>
     </li>
     <li>
       <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
         label="Réclamations clients" class="p-button-info p-button-text" icon="pi pi-comments"
-        routerLink="/client-complaint" routerLinkActive="active"></button>
+        routerLink="/client-complaint" (click)="onClose()" routerLinkActive="active"></button>
     </li>
     <li>
       <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
-        label="Notifications" class="p-button-info p-button-text" icon="pi pi-bell" [routerLink]="['/notifications']"
+        label="Notifications" class="p-button-info p-button-text" icon="pi pi-bell" routerLink="/notifications"
+        (click)="onClose()" routerLinkActive="active"></button>
+    </li>
+    <li>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Recettes" class="p-button-info p-button-text" icon="pi pi-list" routerLink="/recipes" (click)="onClose()"
         routerLinkActive="active"></button>
     </li>
     <li>
       <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
-        label="Recettes" class="p-button-info p-button-text" icon="pi pi-list" routerLink="/recipes"
-        routerLinkActive="active"></button>
-    </li>
-    <li>
-      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
-        label="Commandes" class="p-button-info p-button-text" icon="pi pi-shopping-cart" [routerLink]="['/orders']"
-        routerLinkActive="active"></button>
+        label="Commandes" class="p-button-info p-button-text" icon="pi pi-shopping-cart" routerLink="/orders"
+        (click)="onClose()" routerLinkActive="active"></button>
     </li>
     <li>
       <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
         label="Compte" class="p-button-info p-button-text" icon="pi pi-user" routerLink="/account"
-        routerLinkActive="active"></button>
+        routerLinkActive="active" (click)="onClose()"></button>
     </li>
     <li>
       <button pButton pRipple type="button" label="Aide" class="p-button-success p-button-text"
