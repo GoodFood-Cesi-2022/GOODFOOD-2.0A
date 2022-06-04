@@ -80,7 +80,7 @@ export class UsersComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'User Updated',
+          detail: "Mise à jour d'utilisateur.",
           life: 3000,
         });
       } else {
@@ -89,7 +89,7 @@ export class UsersComponent implements OnInit {
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',
-          detail: 'User Created',
+          detail: 'Création de nouvel utilisateur.',
           life: 3000,
         });
       }
@@ -112,13 +112,7 @@ export class UsersComponent implements OnInit {
     return index;
   }
 
-  createId(): string {
-    let id = '';
-    var chars =
-      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
+  createId(): number {
+    return Math.floor(Math.random() * Math.floor(299) + 1);
   }
 }

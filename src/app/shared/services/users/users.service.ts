@@ -29,7 +29,7 @@ export class UsersService {
 
   getUsers() {
     return this.http
-      .get<any>('src/app/app/mock/users-mock.json')
+      .get<any>('assets/users.json')
       .toPromise()
       .then((res) => <User[]>res.data)
       .then((data) => {
