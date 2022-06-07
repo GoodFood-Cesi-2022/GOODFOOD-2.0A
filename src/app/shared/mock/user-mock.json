@@ -2,9 +2,9 @@
   "data": [
     {
       "id": 0,
-      "firstname": "string",
-      "lastname": "string",
-      "phone": "string",
+      "firstname": "Rose",
+      "lastname": "Loyal",
+      "phone": "0099887766",
       "email": "user@example.com"
     }
   ]

@@ -31,6 +31,7 @@ const routes: Routes = [{ path: '', component: ProfileComponent }];
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
+    FormsModule,
     ReactiveFormsModule,
     ProgressSpinnerModule,
     ButtonModule,
@@ -49,7 +50,6 @@ const routes: Routes = [{ path: '', component: ProfileComponent }];
     InputTextModule,
     ProgressBarModule,
     HttpClientModule,
-    FormsModule,
     ComponentsModule,
   ],
 })
