@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "id": 1,
+      "name": "Salade Cesar",
+      "description": "Product Description",
+      "base_price": 15,
+      "star": true,
+      "code": "zz21cz3c1"
+    },
+    {
+      "id": 2,
+      "name": "Black Watch",
+      "description": "Product Description",
+      "base_price": 22,
+      "star": true,
+      "code": "zz21cz3c1"
+    },
+    {
+      "id": 3,
+      "name": "Blue Band",
+      "description": "Product Description",
+      "base_price": 19,
+      "star": false,
+      "code": "zz21cz3c1"
+    }
+  ]
+}
