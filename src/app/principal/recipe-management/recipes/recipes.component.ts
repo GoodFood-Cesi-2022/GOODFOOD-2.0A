@@ -1,13 +1,24 @@
+import { loadRecipe } from './../../../shared/store/state/recipe/recipe.actions';
+import { selectRecipe } from './../../../shared/store/state/recipe/recipe.selector';
+import { RecipeState } from './../../../shared/store/state/recipe/recipe.reducer';
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
-import { PrimeNGConfig } from 'primeng/api';
-import { Product } from 'src/app/shared/models/products.model';
-//import { ProductService } from 'src/app/shared/services/product/product-service.service';
+import { MessageService, SelectItem } from 'primeng/api';
+import { DialogService } from 'primeng/dynamicdialog';
+import { Recipe } from 'src/app/shared/models/recipe.model';
+import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
+import { RecipeDialogComponent } from '../recipe-dialog/recipe-dialog.component';
+import { FormGroup } from '@angular/forms';
+import { filter, forkJoin, Observable, of, switchMap, tap } from 'rxjs';
+import { select, Store } from '@ngrx/store';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Ingredients } from 'src/app/shared/models/ingredients.model';
+import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.scss'],
+  providers: [DialogService, MessageService],
   styles: [
     `
       :host ::ng-deep .p-button {
@@ -32,59 +43,100 @@ import { Product } from 'src/app/shared/models/products.model';
   ],
 })
 export class RecipesComponent implements OnInit {
-  stateOptions: any[];
+  form: FormGroup;
+  displayModal: boolean;
 
-  paymentOptions!: any[];
+  recipes: Recipe[] = [];
+  recipe: Recipe;
+  recipeType: Recipe;
+  ingredients: Ingredients[] = [];
+  ingredientsTypes: Ingredients[] = [];
+  sortOptions: SelectItem[];
+  sortOrder: number;
+  sortField: string;
 
-  justifyOptions: any[];
+  submitted: boolean;
+  recipeDialog: boolean;
+  sortKey: string;
+  id: number;
+  first = 0;
+  idUser: number;
 
-  value1: string = 'Tout';
-
-  value2: string = 'Disponible';
-
-  value3: string = 'Rupture';
-
-  displayModal!: boolean;
-
-  products!: Product[];
-
-  sortOptions!: SelectItem[];
-
-  sortOrder!: number;
-
-  sortField!: string;
+  // Logique du store pour la récupération des données du réferentiel pour alimenter les listes de choix
+  // private recipeStore$ = this.store.pipe(select(selectRecipe)).pipe(
+  //   tap((recipe) => {
+  //     if (recipe == null) {
+  //       this.store.dispatch(loadRecipe());
+  //     } else {
+  //       console.log('===========> recipes component');
+  //     }
+  //   })
+  // );
 
   constructor(
-    //private productService: ProductService,
-    private primengConfig: PrimeNGConfig
-  ) {
-    this.stateOptions = [
-      { label: 'Tout', value: 'Tout' },
-      { label: 'Disponible', value: 'Disponible' },
-      { label: 'Rupture', value: 'Rupture' },
-    ];
-
-    this.justifyOptions = [
-      { icon: 'pi pi-align-left', justify: 'Left' },
-      { icon: 'pi pi-align-right', justify: 'Right' },
-      { icon: 'pi pi-align-center', justify: 'Center' },
-      { icon: 'pi pi-align-justify', justify: 'Justify' },
-    ];
-  }
+    private recipeService: RecipeService,
+    public dialogService: DialogService,
+    public messageService: MessageService,
+    private store: Store<RecipeState>,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    //this.productService.getProducts().then((data) => (this.products = data));
+    //this.recipeService.getRecipes();
 
     this.sortOptions = [
       { label: 'Price High to Low', value: '!price' },
       { label: 'Price Low to High', value: 'price' },
     ];
+    // var user = this.authService.getAppUser().subscribe();
+    // console.log('listes des recettes', user);
+    this.initRecipes(this.id);
+    this.initIngredients();
 
-    this.primengConfig.ripple = true;
+    this.recipeService.getRecipes().subscribe((res) => {
+      this.recipe = res;
+      console.log('==========> recipes : ', res);
+    });
   }
 
-  onSortChange(event: any) {
-    // let element = event.target as HTMLTextAreaElement;
+  private initRecipes(id: number): Observable<Recipe> {
+    return this.recipeService
+      .getRecipes()
+      .pipe(tap(() => this.initIngredientsAndIngredientsType(id)));
+  }
+  private initIngredients(): Observable<Ingredients[]> {
+    return this.recipeService.getIngredients();
+  }
+  private initIngredientsAndIngredientsType(id: number): void {
+    forkJoin([
+      this.recipeService.getIngredientsByRecipeId(id),
+      this.recipeService.getIngredientsTypes(),
+      this.recipeService.getRecipesType(),
+    ]).subscribe((res) => {
+      this.ingredients = res[0];
+      this.ingredientsTypes = res[1];
+      this.recipeType = res[2];
+    });
+  }
+
+  // private recipeInit(idUser: number): Observable<Recipe>{
+  //   return this.recipeService.getRecipes().pipe(filter(recipes=>recipes.length>=0),tap(()=>this.))
+  // }
+  onSortChange(event) {
+    // https://www.tektutorialshub.com/angular/property-value-does-not-exist-on-type-eventtarget-error-in-angular/
+    let value = (event.target as HTMLTextAreaElement).value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
+  }
+  onChangeValue(event) {
     let value = event.value;
 
     if (value.indexOf('!') === 0) {
@@ -95,8 +147,38 @@ export class RecipesComponent implements OnInit {
       this.sortField = value;
     }
   }
+  openNew() {
+    //this.recipe = {};
+    this.submitted = false;
+    this.recipeDialog = true;
+  }
+  // inDisponibility(): void {
+  //   const isAvailable = this.form.controls['isAvailable'].value;
+  //   Object.keys(this.form.controls).map((key) => {
+  //     if (key === 'isAvailable') {
+  //     }
+  //   });
+  // }
 
-  showModalDialog() {
-    this.displayModal = true;
+  CreateNewRecipe(): void {
+    const ref = this.dialogService.open(RecipeDialogComponent, {
+      header: 'Ajouter une nouvelle recette',
+      width: '70%',
+      contentStyle: { 'max-height': '500px', overflow: 'auto' },
+      baseZIndex: 10000,
+      data: {
+        recipe: [],
+      },
+    });
+
+    ref.onClose.subscribe((recipe: Recipe) => {
+      if (recipe) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Succès',
+          detail: 'recipe.name',
+        });
+      }
+    });
   }
 }

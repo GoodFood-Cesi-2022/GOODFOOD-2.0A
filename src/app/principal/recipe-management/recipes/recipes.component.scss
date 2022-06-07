@@ -1,3 +1,11 @@
+.title {
+  padding: 1rem !important;
+}
+
+.p-button-outlined {
+  width: max-content;
+}
+
 :host ::ng-deep {
   .p-dropdown {
     width: 14rem;
@@ -15,11 +23,11 @@
 
   .product-category-icon {
     vertical-align: middle;
-    margin-right: 0.35rem;
+    margin-right: 0.5rem;
   }
 
   .product-category {
-    font-weight: 500;
+    font-weight: 600;
     vertical-align: middle;
   }
 
@@ -44,8 +52,8 @@
     }
 
     .product-price {
-      font-size: 1rem;
-      font-weight: 400;
+      font-size: 1.5rem;
+      font-weight: 600;
       margin-bottom: 0.5rem;
       align-self: flex-end;
     }
@@ -82,17 +90,10 @@
     }
 
     .product-price {
-      font-size: 1rem;
+      font-size: 1.5rem;
       font-weight: 600;
     }
   }
-}
-.title {
-  padding: 1rem !important;
-}
-
-.p-button-outlined {
-  width: max-content;
 }
 
 .card {
@@ -118,7 +119,7 @@
     }
 
     .product-price {
-      align-self: right;
+      align-self: center;
     }
 
     .product-list-action {

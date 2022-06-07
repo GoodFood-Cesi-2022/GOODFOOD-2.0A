@@ -1,0 +1,158 @@
+<p-toast position="top-center" [baseZIndex]="5000"></p-toast>
+<ng-container [formGroup]="form">
+  <div class="p-grid p-fluid">
+    <div class="p-col-12 p-md-4">
+      <div class="formgrid grid">
+        <div class="field col">
+          <label>Nom de plat</label>
+          <input type="text" pInputText formControlName="name" />
+        </div>
+        <div class="field col">
+          <label for="recipeFor">Type de recette</label>
+          <!-- <div class="col-sm-9"> -->
+          <p-dropdown [options]="recipesType" optionLabel="recipeType" [autoDisplayFirst]="false"
+            formControlName="recipeType" id="recipeFor" appendTo="body" [style]="{'width':'100%'}">
+          </p-dropdown>
+          <small id="recipeTypeFor-help" class="p-invalid" *ngIf="checkError('recipeType', 'required')">Champ
+            obligatoire..</small>
+        </div>
+        <div class="field col">
+          <label for="price">Prix</label>
+          <p-inputNumber id="price" mode="currency" currency="EUR" formControlName="base_price">
+          </p-inputNumber>
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+      <div class="formgrid grid">
+        <div class="field col">
+          <label for="ingreFor">Ingredients</label>
+          <!-- <div class="col-sm-9"> -->
+          <p-dropdown [options]="ingredients" optionLabel="ingredientsDetails" dataKey='idRecipe'
+            [autoDisplayFirst]="false" formControlName="ingredientsDetails" id="ingreFor" appendTo="body"
+            [style]="{'width':'100%'}">
+          </p-dropdown>
+          <small id="ingreFor-help" class="p-invalid" *ngIf="checkError('ingredientsDetails', 'required')">Champ
+            obligatoire..</small>
+        </div>
+        <div class="field col">
+          <label for="ingreTypeFor">Type d'ingredients</label>
+          <!-- <div class="col-sm-9"> -->
+          <p-dropdown [options]="ingredientsTypes" optionLabel="types" dataKey='idRecipe' [autoDisplayFirst]="false"
+            formControlName="types" id="ingreTypeFor" appendTo="body" [style]="{'width':'100%'}">
+          </p-dropdown>
+          <small id="ingreTypeFor-help" class="p-invalid" *ngIf="checkError('types', 'required')">Champ
+            obligatoire..</small>
+        </div>
+        <div class="field col">
+          <label>Recette Star</label>
+          <div class="p-field">
+            <p-radioButton id="star1" name="star" formControlName="star" [value]="true">
+            </p-radioButton>
+            <label for="star2">Oui</label>
+            <p-radioButton id="star2" name="star" formControlName="star" [value]="false">
+            </p-radioButton>
+            <label for="star2">Non</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="p-col-12 p-md-4">
+      <label>Description</label>
+      <textarea formControlName="description" rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
+    </div>
+
+    <div class="p-col-12 p-md-4">
+      <div class="pt-3 flex ng-star-inserted">
+        <button pButton type="button" (click)="onSubmit()" label="Confirmer"
+          class="p-element p-ripple w-6 ml-2 p-button p-component" style="margin-left: 0.25rem"></button>
+        <button pButton type="button" (click)="onClose()" label="Annuler"
+          class="p-element p-ripple p-button-outlined w-6 mr-2 p-button p-component"
+          style="margin-right: 0.25rem"></button>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+
+<!-- <div class="p-col-12 p-md-4">
+      <p-fileUpload url="./upload.php" (onUpload)="onUpload($event)" [multiple]="true" [showCancelButton]="false"
+        [showUploadButton]="false" accept="image/*" [maxFileSize]="1000000"
+        chooseLabel="Choisir une ou plusieurs images">
+        <ng-template pTemplate="content">
+          <ul *ngIf="uploadedFiles.length">
+            <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+          </ul>
+        </ng-template>
+      </p-fileUpload>
+    </div> -->
+
+
+<!-- <button pButton type="button" (click)="onSubmit()" label="Confirmer"
+          class="p-element p-ripple w-6 ml-2 p-button p-component" style="margin-left: 0.25rem"
+          [disabled]="!form.valid"></button> -->
+
+
+<!-- <div class="p-col-12 p-md-4">
+  <div class="formgrid grid">
+    <div class="p-field">
+      <label class="p-mb-3">Recette Star</label>
+      <div class="p-formgrid p-grid">
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton id="star1" name="star" formControlName="star" [value]="true">
+          </p-radioButton>
+          <label for="star2">Oui</label>
+        </div>
+        <div class="p-field-radiobutton p-col-6">
+          <p-radioButton id="star2" name="star" formControlName="star" [value]="false">
+          </p-radioButton>
+          <label for="star2">Non</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="p-col-12 p-md-4">
+      <p-dropdown [options]="ingreType" optionLabel="RecipeType" formControlName="recipeType" [showClear]="true"
+        placeholder="Type de recette" appendTo="body" [style]="{'width':'70%'}">
+        <ng-template let-item pTemplate="selectedItem">
+          {{item.value.name}}
+          <input type="text" pInputText placeholder="quantite" formControlName="code" />
+        </ng-template>
+      </p-dropdown>
+    </div> -->
+<!-- <div class="p-col-12 p-md-4"> -->
+<!-- <div class="p-inputgroup"> -->
+<!-- <p-inputNumber mode="currency" currency="EUR" locale="fr-FR" placeholder="Prix" formControlName="base_price">
+      </p-inputNumber> -->
+<!-- </div> -->
+<!-- </div> -->
+
+<!-- <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+        <p-dropdown [options]="ingredients" optionLabel="ingredientsDetails" formControlName="ingredientsDetails"
+          [filter]="true" filterBy="name" [showClear]="true" placeholder="Ajouter des ingredients" appendTo="body"
+          [style]="{'width':'100%'}">
+          <ng-template let-item pTemplate="selectedItem">
+            {{item.value.name}}
+            <input type="text" pInputText placeholder="quantite" formControlName="code" />
+          </ng-template>
+        </p-dropdown><br>
+        <p-dropdown [options]="ingredientsTypes" optionLabel="types" formControlName="types" [showClear]="true"
+          placeholder="Type de recette" appendTo="body" [style]="{'width':'100%'}"> -->
+<!-- <ng-template let-item pTemplate="selectedItem">
+          {{item.value.name}}
+          <input type="text" pInputText placeholder="quantite" formControlName="code" />
+        </ng-template> -->
+<!-- </p-dropdown>
+      </div> -->
+<!-- <br> -->
+<!-- <div class="p-inputgroup"> -->
+
+<!-- </div> -->
+
+<!-- <div class="p-col-12 p-md-4">
+      <div class="p-inputgroup">
+        <input type="text" pInputText placeholder="???" formControlName="code" />
+      </div>
+    </div> -->
