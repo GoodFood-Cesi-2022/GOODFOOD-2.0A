@@ -6,10 +6,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./principal.component.scss'],
 })
 export class PrincipalComponent implements OnInit {
-  
   constructor() {}
 
-  async ngOnInit(): Promise<void> {
-    console.log('[PRINCIPALCOMPONENT] INIT')
-  }
+  // async ngOnInit(): Promise<void> {
+  //   console.log('[PRINCIPALCOMPONENT] INIT')
+  // }
+  ngOnInit(): void {}
 }

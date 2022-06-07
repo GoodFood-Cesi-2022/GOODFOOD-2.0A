@@ -13,5 +13,6 @@ export class LoginComponent implements OnInit {
 
   onLogin() {
     this.authService.getAuthorizationCode();
+    //this.authService.getAuthByMe();
   }
 }

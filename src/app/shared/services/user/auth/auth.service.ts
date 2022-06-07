@@ -9,6 +9,7 @@ import { User } from '../../../models/user.model';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { StringService } from '../string/string.service';
 import { Roles, StorageKeys } from 'src/app/shared/constants/constants';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -106,16 +107,8 @@ export class AuthService {
         this.localStorageService.remove(StorageKeys.STATE);
         this.localStorageService.remove(StorageKeys.CODE_VERIFY);
         await this.getCurrentUser();
-        // const currentUser = <User>(
-        //   this.localStorageService.get(StorageKeys.USER)
-        // );
-        // console.log(
-        //   'auth service > current user : ',
-        //   currentUser.id,
-        //   currentUser
-        // );
-        //const id: number = this.localStorageService.get(this.STORAGE_KEY_USER)[id];
-        //await this.getRole(id);
+        //await this.getCurrentUserRemote();
+
         this.router.navigate(['/home']);
       });
   }
@@ -135,7 +128,7 @@ export class AuthService {
       this.localStorageService.get(StorageKeys.USER_TOKEN)
     );
 
-    console.log(this.accessTokenIsExpired(userAccessToken));
+    //console.log(this.accessTokenIsExpired(userAccessToken));
     if (this.accessTokenIsExpired(userAccessToken)) {
       console.log('REFRESH USER TOKEN');
       await this.refreshToken(userAccessToken);
@@ -152,8 +145,76 @@ export class AuthService {
   isAuthenticated(): boolean {
     return (
       !!this.localStorageService.has(StorageKeys.USER) &&
+      !!this.localStorageService.has(StorageKeys.ROLE) &&
       !!this.localStorageService.has(StorageKeys.USER_TOKEN)
     );
+  }
+
+  // TODO : Test get auth with localStorage
+  getAuthByMe(): void {
+    if (localStorage.getItem(StorageKeys.USER_TOKEN)) {
+      this.router.navigate(['/home']);
+    }
+  }
+  getAppUser(): Observable<User> {
+    return this.http.get<User>(`${environment.apiBaseUrl}/users/current`).pipe(
+      tap(() => localStorage.removeItem('AUTHENTICATED')),
+      map((user) => this.roleById(user))
+    );
+  }
+  getUserById(id: number): Observable<User> {
+    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}`).pipe(
+      tap((res) => (res['payload'].json = JSON.parse(res['payload'].json))),
+      map((res) => res['payload'])
+    );
+  }
+  doSign(): Observable<any> {
+    return this.http
+      .get(`${environment.oAuthProviderBaseUrl}/token`)
+      .pipe(map((res) => res['payload']));
+  }
+  getUserByMe(): Observable<User> {
+    return this.http.get(`${environment.apiBaseUrl}/users/current`).pipe(
+      tap((res) => res['payload']),
+      map((res) => res['payload'], 'DECODE_FROM_SERVER')
+    );
+  }
+  // getUser(): Observable<User> {
+  //   return this.http
+  //     .get<User>(`${environment.apiBaseUrl}/users/current`)
+  //     .pipe(map((user) => this.initAuth(user)));
+  // }
+  getUser(): Observable<User> {
+    return this.http.get<User>(`${environment.apiBaseUrl}/users/current`).pipe(
+      tap((res) => (res['payload'].json = JSON.parse(res['payload'].json))),
+      map((user) => this.initAuth(user))
+    );
+  }
+
+  getUserRole(id: number): Observable<User> {
+    return this.http
+      .get<User>(`${environment.apiBaseUrl}/users/${id}/roles`)
+      .pipe(
+        tap((res) => (res['payload'].json = JSON.parse(res['payload'].json))),
+        map((user) => this.initAuth(user))
+      );
+  }
+
+  private initAuth(user: User): User {
+    const _user = {
+      ...user,
+      autorisations: {
+        isAdmin: false,
+        isFranchisee: false,
+      },
+    };
+    if (_user.code.includes(Roles.ADMIN)) {
+      _user.autorisations.isAdmin = true;
+    }
+    if (_user.code.includes(Roles.FRANCHISEE)) {
+      _user.autorisations.isFranchisee = true;
+    }
+    return _user;
   }
 
   async getCurrentUser(): Promise<User> {
@@ -170,6 +231,15 @@ export class AuthService {
       this.localStorageService.set(StorageKeys.USER, currentUser);
     }
     return this.getRole(currentUser);
+    //return currentUser;
+  }
+
+  async getCurrentUserRemote(): Promise<User> {
+    var currentUser: User;
+    const usr = this.http.get<User>(`${environment.apiBaseUrl}/users/current`);
+    currentUser = await firstValueFrom(usr);
+
+    return this.getRoleRemote(currentUser);
   }
 
   async getRole(user: User): Promise<User> {
@@ -192,8 +262,22 @@ export class AuthService {
     return this.roleById(user);
   }
 
+  async getRoleRemote(user: User): Promise<User> {
+    type role = { code: string };
+    type roleArrayType = Array<role>;
+    var currentRole: role;
+    const userRoles = this.http.get<roleArrayType>(
+      `${environment.apiBaseUrl}/users/${user.id}/roles`
+    );
+    const userCurrentRoles: roleArrayType = await firstValueFrom(userRoles);
+    currentRole = userCurrentRoles[0];
+
+    user.code = currentRole.code;
+    return this.roleById(user);
+  }
+
   /** Verify user role */
-  private roleById(_user: User): User {
+  public roleById(_user: User): User {
     const user = {
       ..._user,
       autorisations: {
@@ -201,10 +285,11 @@ export class AuthService {
         isFranchisee: false,
       },
     };
-    if (user.code?.includes(Roles.ADMIN)) {
+    //if (user && user.code?.includes(Roles.ADMIN))
+    if (user && user.code?.indexOf(Roles.ADMIN)) {
       user.autorisations.isAdmin = true;
     }
-    if (user.code?.includes(Roles.FRANCHISEE)) {
+    if (user && user.code?.indexOf(Roles.FRANCHISEE)) {
       user.autorisations.isFranchisee = true;
     }
     return user;

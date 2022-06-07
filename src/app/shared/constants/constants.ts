@@ -17,8 +17,13 @@ export enum EndPoints {
   LOGIN = '/login',
   LOGOUT = '/api/logout',
   SECURE_USER = 'SECURE_USER',
+  CREATE_RECIPE = 'Créer une nouvelle recette',
   GENERIC_SUCCESS = 'Les modifications ont bien été prises en compte.',
   PAYLOAD = 'payload',
+}
+
+export enum Message {
+  UPDATE = 'La recette est bien modifié.',
 }
 
 export enum Roles {

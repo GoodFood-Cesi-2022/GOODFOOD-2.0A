@@ -5,9 +5,9 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { from, lastValueFrom } from 'rxjs';
+import { from, lastValueFrom, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../services/user/auth/auth.service';
+import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +15,11 @@ import { AuthService } from '../services/user/auth/auth.service';
 export class ApiTokenInterceptorService implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    console.log('[INTERCEPT API TOKEN] handle');
+  intercept(
+    req: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
+    console.log('[INTERCEPT API TOKEN] handle', req);
 
     if (!req.urlWithParams.startsWith(environment.apiBaseUrl)) {
       return next.handle(req);

@@ -22,9 +22,7 @@ export class SidebarComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router,
     private sidebarService: SidebarService
-  ) {
-    this.initMenu();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.sidebarService.display$.subscribe((res) => (this.display = res));
@@ -34,50 +32,11 @@ export class SidebarComponent implements OnInit {
     }
   }
 
-  logOut(): void {
-    window.location.href = EndPoints.LOGOUT;
+  onClose(): void {
+    this.sidebarService.open(false);
   }
 
-  private initMenu(): void {
-    this.router.events
-      .pipe(
-        filter(
-          (event): event is NavigationEnd => event instanceof NavigationEnd
-        )
-      )
-      .subscribe((event: NavigationEnd) => {
-        switch (event.url) {
-          case '/home':
-            this.hideHomeBtn = false;
-            break;
-          case '/users':
-            this.hideHomeBtn = false;
-            break;
-          case '/franchisee':
-            this.hideHomeBtn = true;
-            break;
-          case '/client-complaint':
-            this.hideHomeBtn = false;
-            break;
-          case '/notifications':
-            this.hideHomeBtn = false;
-            break;
-          case '/recipes':
-            this.hideHomeBtn = true;
-            break;
-          case '/orders':
-            this.hideHomeBtn = false;
-            break;
-          case '/account':
-            this.hideHomeBtn = true;
-            break;
-          case '/':
-            this.hideHomeBtn = true;
-            break;
-          default:
-            this.hideHomeBtn = !event.url.includes('/');
-            break;
-        }
-      });
+  logOut(): void {
+    window.location.href = EndPoints.LOGOUT;
   }
 }
