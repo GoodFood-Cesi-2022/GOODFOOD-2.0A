@@ -1,4 +1,4 @@
-import { Ingredients } from './ingredients.model';
+import { Ingredient } from './ingredient.model';
 
 export interface Recipe {
   id?: number;
@@ -6,14 +6,14 @@ export interface Recipe {
   base_price?: number;
   description?: string;
   star?: boolean;
-  ingredients?: Ingredients[];
+  ingredients?: Ingredient[];
   recipe_type?: RecipeType;
-  // created_by: number;
+  created_by: number;
   available_at?: Date;
 }
 
 export interface RecipeType {
-  //id?: number;
+  id?: number;
   code?: string;
   name?: string;
   description?: string;

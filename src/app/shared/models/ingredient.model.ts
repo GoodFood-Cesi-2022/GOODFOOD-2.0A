@@ -1,18 +1,18 @@
 /*
  * url : /ingredients
  */
-export interface Ingredients {
+export interface Ingredient {
   id?: number;
   name?: string;
   allergen?: boolean;
-  types?: Types[];
+  types?: IngreType[];
 }
 
 /*
  * url : /ingredients/types
  * As fish, meat, vegetable, fruits, ..
  */
-export interface Types {
+export interface IngreType {
   id?: number;
   name?: string;
   code?: string;

@@ -1,5 +1,22 @@
+.p-fileupload .p-fileupload-basic .p-fileupload-choose {
+  border-radius: 50% !important;
+  min-width: 0rem !important;
+}
+.p-md-4 .p-col-12 {
+padding: 1rem;
+}
+#fileUploader {
+  min-width: 0rem;
+}
+
 .title {
   padding: 1rem !important;
+}
+
+.row {
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .p-button-outlined {
@@ -27,7 +44,8 @@
   }
 
   .product-category {
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 400;
     vertical-align: middle;
   }
 
@@ -47,13 +65,13 @@
       flex: 1 1 0;
     }
 
-    .p-rating {
-      margin: 0 0 0.5rem 0;
-    }
+    // .p-rating {
+    //   margin: 0 0 0.5rem 0;
+    // }
 
     .product-price {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 400;
       margin-bottom: 0.5rem;
       align-self: flex-end;
     }
@@ -82,7 +100,7 @@
     img {
       width: 75%;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      margin: 2rem 0;
+      margin: 1rem 0;
     }
 
     .product-grid-item-content {
@@ -90,18 +108,27 @@
     }
 
     .product-price {
-      font-size: 1.5rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+
+    .pi-tag {
+      size: 2rem;
+    }
+
+    #buttonBottom {
+      min-width: 0% !important;
     }
   }
 }
 
 .card {
-  padding: 2rem;
+  padding: 1rem 2rem 1rem 2rem;
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 576px) {

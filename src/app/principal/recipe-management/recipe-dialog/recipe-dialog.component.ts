@@ -1,11 +1,16 @@
 import { EndPoints } from './../../../shared/constants/constants';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { Recipe, RecipeType } from 'src/app/shared/models/recipe.model';
 import { User } from 'src/app/shared/models/user.model';
-import { Ingredients, Types } from 'src/app/shared/models/ingredients.model';
+import { Ingredient, IngreType } from 'src/app/shared/models/ingredient.model';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { forkJoin } from 'rxjs';
 
@@ -16,166 +21,226 @@ import { forkJoin } from 'rxjs';
 })
 export class RecipeDialogComponent implements OnInit {
   mode: 'UPDATE' | 'CREATE';
-  buttonText = 'Modifié' || 'Créer';
+  Textbutton = 'Modifier' || 'Créer';
   form: FormGroup;
-  uploadedFiles: any[] = [];
-  //-------------------------------
-  recipe: Recipe;
-  recipeType: Recipe;
+  //------------------------------- Recipe Type : dropdown (1)
   recipesType: Recipe[] = [];
-  //------------------------------- Ingredients details : drop down (1)
-  ingredients: Ingredients[] = [];
-  ingredientsDetails: Ingredients;
-  //------------------------------- Ingredients types : drop down (2)
-  ingredientsTypes: Ingredients[] = [];
-  types: Ingredients;
+  recipe: Recipe;
+  //------------------------------- Ingredients details : drop down (2)
+  ingredients: Ingredient[] = [];
+  ingredientsDetails: Ingredient;
+  //------------------------------- Ingredients types : drop down (3)
+  // ingredientsType: Types[];
+  recipeType: RecipeType;
   //------------------------------- User & User id
   user: User[] = [];
   idUser: number;
   submitted: boolean;
+  idRecipe: number;
+  star: boolean;
+  // ---------------------- Upload image
+  uploadedFiles: any[] = [];
   //-------------------------------
+  isDisabledControlForm = false;
   //item: string;
   //items: SelectItem[];
   //first = 0;
 
+  // view: CalendarView = CalendarView.Month;
+
+  // viewDate: Date = new Date();
+
+  // events: CalendarEvent[] = [];
+
+  locale = 'fr';
+  public calendar_fr: any;
+  public calendar: any;
+
   constructor(
     public ref: DynamicDialogRef,
     public config: DynamicDialogConfig,
-    public messageService: MessageService,
     private fb: FormBuilder,
+    private messageService: MessageService,
     private recipeService: RecipeService
   ) {
     this.user = config.data.user;
+    this.recipe = config.data.recipe;
     this.ingredients = config.data.ingredients;
     this.mode = config.data.mode;
 
-    //this.recipe = config.data.recipe;
+    // this.user.forEach((user) => {
+    //   user.firstname + '' + user.lastname;
+    // });
 
-    if (this.mode === 'CREATE') {
-      this.buttonText = EndPoints.CREATE_RECIPE;
-    } else {
-      // this.ingredient = {
-      //   ingredient: this.recipe ? this.recipe.ingredient : '',
-      //   userID: this.recipe ? this.recipe.idUser : -1,
+    if (this.mode === 'UPDATE') {
+      this.isDisabledControlForm = true;
+      this.Textbutton = EndPoints.EDIT_RECIPE;
+      // this.recipeType = {
+      //   code: this.recipe ? this.recipe.recipe_type : '',
+      //   idRecipe: this.recipe ? this.recipe.id : -1,
       // };
+      // this.ingredientsDetails = {
+      //   name: this.recipe ? this.recipe.ingredients.forEach((x) => x.name) : '',
+      // };
+    } else {
+      this.Textbutton = EndPoints.CREATE_RECIPE;
     }
   }
 
   ngOnInit(): void {
+    this.calendar_fr = {
+      closeText: 'Fermer',
+      prevText: 'Précédent',
+      nextText: 'Suivant',
+      currentText: "Aujourd'hui",
+      monthNames: [
+        'janvier',
+        'février',
+        'mars',
+        'avril',
+        'mai',
+        'juin',
+        'juillet',
+        'août',
+        'septembre',
+        'octobre',
+        'novembre',
+        'décembre',
+      ],
+      monthNamesShort: [
+        'janv.',
+        'févr.',
+        'mars',
+        'avr.',
+        'mai',
+        'juin',
+        'juil.',
+        'août',
+        'sept.',
+        'oct.',
+        'nov.',
+        'déc.',
+      ],
+      dayNames: [
+        'dimanche',
+        'lundi',
+        'mardi',
+        'mercredi',
+        'jeudi',
+        'vendredi',
+        'samedi',
+      ],
+      dayNamesShort: ['dim.', 'lun.', 'mar.', 'mer.', 'jeu.', 'ven.', 'sam.'],
+      dayNamesMin: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+      weekHeader: 'Sem.',
+      dateFormat: 'dd/mm/yy',
+      firstDay: 1,
+      isRTL: false,
+      showMonthAfterYear: false,
+      yearSuffix: '',
+    };
+
+    /* retrieve recipe types */
     this.recipeService.getRecipesType().subscribe((res) => {
-      this.recipeType = res;
-      console.log('+++++++++++> recipe type : ', res);
+      this.recipesType = res;
     });
     /* retrieve ingredients data */
     this.recipeService.getIngredients().subscribe((res) => {
       this.ingredients = res;
-      console.log('----------> ingredient : ', res);
+      console.log('----------> component > ingredient : ', res, 'x value : ');
     });
     /* retrieve ingredients types */
-    this.recipeService.getIngredientsTypes().subscribe((res) => {
-      this.ingredientsTypes = res;
-      console.log('^^^^^^^^^^^^^ type ingredients : ', res);
-    });
+    // this.recipeService.getIngredientsTypes().subscribe((res) => {
+    //   this.ingredientsType = res;
+    //   console.log('^^^^^^^^^^^^^ component > type ingredients : ', res);
+    // });
 
     this.initForm();
   }
 
-  // private initIngredientsAndIngredientsType(id: number): void {
-  //   forkJoin([
-  //     this.recipeService.getIngredientsByRecipeId(id),
-  //     this.recipeService.getIngredientsTypes(),
-  //     this.recipeService.getRecipesType(),
-  //   ]).subscribe((res) => {
-  //     this.ingredients = res[0];
-  //     this.ingredientsTypes = res[1];
-  //     this.recipeType = res[2];
-  //   });
-  // }
   initForm(): void {
     this.form = this.fb.group({
-      name: ['', [Validators.required]],
-      recipeType: [this.recipeType],
-      base_price: ['', [Validators.required]],
-      ingredientsDetails: [this.ingredientsDetails],
-      types: [this.types],
-      description: ['', [Validators.required]],
-      star: [false, [Validators.required]],
-      code: ['', [Validators.required]],
+      title: ['', [Validators.required]],
+      recipeType: new FormControl(),
+      price: ['', [Validators.required]],
+      ingredientsDetails: new FormControl(),
+      description: [''],
+      //star:[this.recipe.star],
+      star: new FormControl(),
+      availableDate: ['', [Validators.required]],
     });
     //if (this.mode === 'CREATE') {
-    this.formAddIngredientsDetailsValidators();
-    this.formAddIngredientsTypesValidators();
-    this.changeStatusIngredientsDetails('CREATE');
-    this.changeStatusIngredientsTypes('CREATE');
+    // this.formAddIngredientsDetailsValidators();
+    // this.formAddIngredientsTypeValidators();
+    // this.changeStatusIngredientsDetails('CREATE');
+    // this.changeStatusingredientsType('CREATE');
     // } else {
     // console.log('En attend de la partie update une recette.');
     // }
   }
 
-  private formAddRecipesTypeValidators(): void {
-    this.form.get('recipeType').clearValidators();
-    this.form.get('recipeType').updateValueAndValidity();
-  }
-  private formAddIngredientsDetailsValidators(): void {
-    this.form.get('ingredientsDetails').clearValidators();
-    this.form.get('ingredientsDetails').updateValueAndValidity();
-  }
-  private formAddIngredientsTypesValidators(): void {
-    this.form.get('types').clearValidators();
-    this.form.get('types').updateValueAndValidity();
+  onClickStar(event: any): void {
+    // console.log(
+    //   'recipe dialog component -> onStar -> event.checked',
+    //   event.checked
+    // );
+    this.star = event.checked;
+    this.recipe.star = event.checked;
+    if (event.checked) {
+      this.star = true;
+      this.form.get('star').setValue(true);
+    } else {
+      this.form.get('star').setValue(false);
+    }
   }
 
-  private changeStatusRecipesType(mode: string): void {
-    if (mode === 'CREATE') {
-      this.form.controls['recipeType'].enable();
-    } else {
-      this.form.controls['recipeType'].disable();
-    }
-  }
-  private changeStatusIngredientsDetails(mode: string): void {
-    if (mode === 'CREATE') {
-      this.form.controls['ingredientsDetails'].enable();
-    } else {
-      this.form.controls['ingredientsDetails'].disable();
-    }
-  }
-  private changeStatusIngredientsTypes(mode: string): void {
-    if (mode === 'CREATE') {
-      this.form.controls['types'].enable();
-    } else {
-      this.form.controls['types'].disable();
-    }
-  }
-  onUpload(event) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
+  // private formAddRecipesTypeValidators(): void {
+  //   this.form.get('recipeType').clearValidators();
+  //   this.form.get('recipeType').updateValueAndValidity();
+  // }
+  // private formAddIngredientsDetailsValidators(): void {
+  //   this.form.get('ingredientsDetails').clearValidators();
+  //   this.form.get('ingredientsDetails').updateValueAndValidity();
+  // }
+  // private formAddIngredientsTypeValidators(): void {
+  //   this.form.get('types').clearValidators();
+  //   this.form.get('types').updateValueAndValidity();
+  // }
 
-    this.messageService.add({
-      severity: 'info',
-      summary: 'Success',
-      detail: 'File Uploaded',
-    });
-  }
+  // private changeStatusRecipesType(mode: string): void {
+  //   if (mode === 'CREATE') {
+  //     this.form.controls['recipeType'].enable();
+  //   } else {
+  //     this.form.controls['recipeType'].disable();
+  //   }
+  // }
+  // private changeStatusIngredientsDetails(mode: string): void {
+  //   if (mode === 'CREATE') {
+  //     this.form.controls['ingredientsDetails'].enable();
+  //   } else {
+  //     this.form.controls['ingredientsDetails'].disable();
+  //   }
+  // }
+  // private changeStatusingredientsType(mode: string): void {
+  //   if (mode === 'CREATE') {
+  //     this.form.controls['types'].enable();
+  //   } else {
+  //     this.form.controls['types'].disable();
+  //   }
+  // }
 
   private makeRecipe(): void {
-    if (this.mode === 'CREATE') {
-      this.recipe.recipe_type =
-        this.form.controls['recipeType'].value.recipeType;
-      this.recipe.ingredients =
-        this.form.controls['ingredientsDetails'].value.ingredientsDetails;
+    //if (this.mode === 'CREATE') {
+    this.recipe.name = this.form.value.title;
+    this.recipe.recipe_type = this.form.controls['recipeType'].value.code;
+    this.recipe.base_price = this.form.value.base_price;
+    this.recipe.ingredients = this.form.controls['ingredientsDetails'].value;
+    this.recipe.star = this.form.value.star;
+    this.recipe.available_at = this.form.value.availableDate;
+    this.recipe.description = this.form.value.description;
 
-      // this.recipe.ingredients =
-      //   this.form.controls['ingredientsDetails'].value.ingredients;
-    }
-    // this.recipe.id = this.form.controls['id'].value;
-    this.recipe.name = this.form.controls['name'].value;
-    this.recipe.description = this.form.controls['description'].value;
-    this.recipe.base_price = this.form.controls['base_price'].value;
-    this.recipe.star = this.form.controls['star'].value;
-
-    //this.recipe.user = [];
-
+    console.log('make new recipe : ', this.recipe);
+    //}
     // this.form['user'].value.forEach((element) => {
     //   this.recipe.user.push(element);
     // });
@@ -198,35 +263,28 @@ export class RecipeDialogComponent implements OnInit {
     this.ref.close();
   }
 
-  public checkError(controlName: string, errorName: string): boolean {
-    return (
-      this.form.controls[controlName].dirty &&
-      this.form.controls[controlName].hasError(errorName)
-    );
+  onUpload(event) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Success',
+      detail: 'File Uploaded',
+    });
   }
-  // const ref = this.dialogService.open(RecipeDialogComponent, {
-  //   header: 'Ajouter une nouvelle recette',
-  //   width: '70%',
-  //   data: {
-  //     mode: 'CREATE',
-  //     user: this.user,
-  //     recipe: { ID: this.userID, user: [] },
-  //   },
-  //   contentStyle: { 'max-height': '500px', overflow: 'auto' },
-  //   baseZIndex: 10000,
-  // });
-
-  // ref.onClose.subscribe((recipe: Recipe) => {
-  //   if (recipe) {
-  //     this.recipes.unshift(recipe);
-  //     this.recipes = [...this.recipes];
-
-  //     this.messageService.add({
-  //       severity: 'success',
-  //       summary: 'Succès',
-  //       detail: 'recipe.name',
-  //     });
-  //   }
-  // });
+  onBasicUpload(event) {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Success',
+      detail: 'File Uploaded with Basic Mode',
+    });
+  }
+  // public checkError(controlName: string, errorName: string): boolean {
+  //   return (
+  //     this.form.controls[controlName].dirty &&
+  //     this.form.controls[controlName].hasError(errorName)
+  //   );
   // }
 }

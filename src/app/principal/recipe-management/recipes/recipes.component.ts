@@ -2,16 +2,15 @@ import { loadRecipe } from './../../../shared/store/state/recipe/recipe.actions'
 import { selectRecipe } from './../../../shared/store/state/recipe/recipe.selector';
 import { RecipeState } from './../../../shared/store/state/recipe/recipe.reducer';
 import { Component, OnInit } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { RecipeDialogComponent } from '../recipe-dialog/recipe-dialog.component';
-import { FormGroup } from '@angular/forms';
 import { filter, forkJoin, Observable, of, switchMap, tap } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Ingredients } from 'src/app/shared/models/ingredients.model';
+import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 
 @Component({
@@ -43,15 +42,13 @@ import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
   ],
 })
 export class RecipesComponent implements OnInit {
-  form: FormGroup;
   displayModal: boolean;
 
   recipes: Recipe[] = [];
-  recipe: Recipe;
-  recipeType: Recipe;
-  ingredients: Ingredients[] = [];
-  ingredientsTypes: Ingredients[] = [];
-  sortOptions: SelectItem[];
+  recipesType: Recipe[] = [];
+  ingredients: Ingredient[] = [];
+
+  sortOptions: SelectItem[] = [];
   sortOrder: number;
   sortField: string;
 
@@ -77,6 +74,7 @@ export class RecipesComponent implements OnInit {
     private recipeService: RecipeService,
     public dialogService: DialogService,
     public messageService: MessageService,
+    private confirmationService: ConfirmationService,
     private store: Store<RecipeState>,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -84,42 +82,47 @@ export class RecipesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //this.recipeService.getRecipes();
-
+    this.initRecipes();
     this.sortOptions = [
       { label: 'Price High to Low', value: '!price' },
       { label: 'Price Low to High', value: 'price' },
     ];
     // var user = this.authService.getAppUser().subscribe();
     // console.log('listes des recettes', user);
-    this.initRecipes(this.id);
-    this.initIngredients();
-
-    this.recipeService.getRecipes().subscribe((res) => {
-      this.recipe = res;
-      console.log('==========> recipes : ', res);
-    });
+    //this.initIngredients();
   }
 
-  private initRecipes(id: number): Observable<Recipe> {
-    return this.recipeService
-      .getRecipes()
-      .pipe(tap(() => this.initIngredientsAndIngredientsType(id)));
-  }
-  private initIngredients(): Observable<Ingredients[]> {
-    return this.recipeService.getIngredients();
-  }
-  private initIngredientsAndIngredientsType(id: number): void {
-    forkJoin([
-      this.recipeService.getIngredientsByRecipeId(id),
-      this.recipeService.getIngredientsTypes(),
-      this.recipeService.getRecipesType(),
-    ]).subscribe((res) => {
-      this.ingredients = res[0];
-      this.ingredientsTypes = res[1];
-      this.recipeType = res[2];
+  private initRecipes(): void {
+    this.recipeService.getRecipes().subscribe((recipes) => {
+      this.recipes = recipes;
+      // this.recipes.forEach((e) => e.ingredients);
+      // this.recipes.forEach((e) => e.recipe_type);
+      // this.recipes.forEach((e) => {
+      //   e.ingredients.forEach((x) => {
+      //     const _name = x.name;
+      //     console.log('e ingredients : ', _name);
+      //   });
+      // });
+      //console.log('-> component -> initRecipes -> recipes : ', recipes);
     });
   }
+  // return this.recipeService
+  //   .getRecipes()
+  //   .pipe(tap(() => this.initIngredientsAndIngredientsType(id)));
+  // }
+  // private initIngredients(): Observable<Ingredients[]> {
+  //   return this.recipeService.getIngredients();
+  // }
+  // private initIngredientsAndTecipesType(): void {
+  //   forkJoin([
+  //     this.recipeService.getIngredients(),
+  //     this.recipeService.getRecipesType(),
+  //   ]).subscribe((res) => {
+  //     this.ingredients = res[0];
+  //     this.recipesType = res[1];
+  //     console.log('----------------------> res[0] :', res[0]);
+  //   });
+  // }
 
   // private recipeInit(idUser: number): Observable<Recipe>{
   //   return this.recipeService.getRecipes().pipe(filter(recipes=>recipes.length>=0),tap(()=>this.))
@@ -147,19 +150,6 @@ export class RecipesComponent implements OnInit {
       this.sortField = value;
     }
   }
-  openNew() {
-    //this.recipe = {};
-    this.submitted = false;
-    this.recipeDialog = true;
-  }
-  // inDisponibility(): void {
-  //   const isAvailable = this.form.controls['isAvailable'].value;
-  //   Object.keys(this.form.controls).map((key) => {
-  //     if (key === 'isAvailable') {
-  //     }
-  //   });
-  // }
-
   CreateNewRecipe(): void {
     const ref = this.dialogService.open(RecipeDialogComponent, {
       header: 'Ajouter une nouvelle recette',
@@ -167,10 +157,11 @@ export class RecipesComponent implements OnInit {
       contentStyle: { 'max-height': '500px', overflow: 'auto' },
       baseZIndex: 10000,
       data: {
+        ingredientsTypes: [],
+        ingredients: [],
         recipe: [],
       },
     });
-
     ref.onClose.subscribe((recipe: Recipe) => {
       if (recipe) {
         this.messageService.add({
@@ -179,6 +170,34 @@ export class RecipesComponent implements OnInit {
           detail: 'recipe.name',
         });
       }
+    });
+  }
+  public removeRecipe(recipe: Recipe): void {
+    this.confirmationService.confirm({
+      message: `Voulez-vous vraiment supprimer la recette << ${recipe.name} >> ?`,
+      header: 'Confirmation de suppression',
+      icon: 'pi pi-exclamation-triangle',
+      acceptButtonStyleClass: 'accept',
+      accept: () => {
+        this.recipeService.removeRecipe(recipe.id).subscribe(
+          (message) => {
+            const index = this.recipes.indexOf(recipe);
+            this.recipes.splice(index, 1);
+            this.recipes = [...this.recipes];
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: message,
+            });
+          },
+          (err) =>
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur',
+              detail: err.error.message,
+            })
+        );
+      },
     });
   }
 }

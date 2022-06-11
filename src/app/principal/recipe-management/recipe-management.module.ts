@@ -1,3 +1,6 @@
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -25,6 +28,8 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ApiTokenInterceptorService } from 'src/app/shared/interceptors/api-token-interceptor.service';
+// import { ConfirmationService } from 'primeng/api';
+import { CalendarModule } from 'primeng/calendar';
 
 const routes: Routes = [{ path: '', component: RecipesComponent }];
 
@@ -34,6 +39,7 @@ const routes: Routes = [{ path: '', component: RecipesComponent }];
     ButtonModule,
     CommonModule,
     ComponentsModule,
+    ConfirmDialogModule,
     DataViewModule,
     DropdownModule,
     DynamicDialogModule,
@@ -53,6 +59,9 @@ const routes: Routes = [{ path: '', component: RecipesComponent }];
     TooltipModule,
     PanelModule,
     ProgressSpinnerModule,
+    DialogModule,
+    CheckboxModule,
+    CalendarModule,
   ],
   entryComponents: [RecipeDialogComponent],
   providers: [

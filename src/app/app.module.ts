@@ -30,7 +30,6 @@ import { metaReducers, reducers } from './shared/store/state/store.reducer';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
-import { Router } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent],
