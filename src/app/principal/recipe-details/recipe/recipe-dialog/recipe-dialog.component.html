@@ -27,17 +27,16 @@
       <div class="formgrid grid">
         <div class="field col">
           <label for="ingreFor">Ingredients</label>
-          <p-dropdown [options]="ingredients" optionLabel="name" formControlName="ingredientsDetails"
+          <!-- <p-dropdown [options]="ingredients" optionLabel="name" formControlName="ingredientsDetails"
             [autoDisplayFirst]="false" id="ingreFor" appendTo="body" [style]="{'width':'100%'}">
-          </p-dropdown>
+          </p-dropdown> -->
           <!-- <small id="ingreFor-help" class="p-invalid" *ngIf="checkError('ingredientsDetails', 'required')">Champ
             obligatoire..</small> -->
+          <p-multiSelect [options]="ingredients" formControlName="ingredientsDetails" defaultLabel="" optionLabel="name"
+            display="chip" [panelStyle]="{'width':'300px'}" [style]="{'width':'300px'}">
+          </p-multiSelect>
         </div>
         <!-- <div class="field col">
-          <label for="ingreTypeFor">Type d'ingredients</label>
-          <p-dropdown [options]="ingredientsType" optionLabel="code" formControlName="types" [autoDisplayFirst]="false"
-            id="ingreTypeFor" appendTo="body" [style]="{'width':'100%'}">
-          </p-dropdown>
           <!-- <small id="ingreTypeFor-help" class="p-invalid" *ngIf="checkError('types', 'required')">Champ
             obligatoire..</small> -->
         <!-- </div>  -->

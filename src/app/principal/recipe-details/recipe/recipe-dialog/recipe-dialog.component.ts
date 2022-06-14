@@ -1,4 +1,4 @@
-import { EndPoints } from './../../../shared/constants/constants';
+import { EndPoints } from '../../../../shared/constants/constants';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -147,7 +147,7 @@ export class RecipeDialogComponent implements OnInit {
     /* retrieve ingredients data */
     this.recipeService.getIngredients().subscribe((res) => {
       this.ingredients = res;
-      console.log('----------> component > ingredient : ', res, 'x value : ');
+      console.log('----------> component > ingredient : ', res);
     });
     /* retrieve ingredients types */
     // this.recipeService.getIngredientsTypes().subscribe((res) => {
@@ -165,7 +165,6 @@ export class RecipeDialogComponent implements OnInit {
       price: ['', [Validators.required]],
       ingredientsDetails: new FormControl(),
       description: [''],
-      //star:[this.recipe.star],
       star: new FormControl(),
       availableDate: ['', [Validators.required]],
     });
@@ -180,10 +179,6 @@ export class RecipeDialogComponent implements OnInit {
   }
 
   onClickStar(event: any): void {
-    // console.log(
-    //   'recipe dialog component -> onStar -> event.checked',
-    //   event.checked
-    // );
     this.star = event.checked;
     this.recipe.star = event.checked;
     if (event.checked) {
@@ -244,7 +239,6 @@ export class RecipeDialogComponent implements OnInit {
     // this.form['user'].value.forEach((element) => {
     //   this.recipe.user.push(element);
     // });
-    console.log('makeRecipe > recipe dialog component');
   }
 
   onSubmit(): void {

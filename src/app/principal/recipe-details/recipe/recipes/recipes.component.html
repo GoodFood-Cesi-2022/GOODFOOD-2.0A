@@ -1,12 +1,12 @@
 <p-toast></p-toast>
-<div class="card title">
-  <p-toolbar>
-    <div>
-      <h3>RECETTES</h3>
-      <p>L'ensemble de vos recettes, créer, modifier et supprimer.</p>
-    </div>
-  </p-toolbar>
-</div>
+<!-- <div class="card title"> -->
+<p-toolbar>
+  <div>
+    <h4>RECETTES</h4>
+    <p>L'ensemble de vos recettes, créer, modifier et supprimer.</p>
+  </div>
+</p-toolbar>
+<!-- </div> -->
 
 <div class="card">
   <p-dataView #dv [value]="recipes" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField"
