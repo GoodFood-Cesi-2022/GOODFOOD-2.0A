@@ -1,11 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { Roles } from 'src/app/shared/constants/constants';
 import { User } from 'src/app/shared/models/user.model';
 import { SidebarService } from 'src/app/shared/services/sidebar/sidebar.service';
-import { selectUserDetails, UserState } from 'src/app/shared/store/state/user';
+import { LocalStorageService } from 'src/app/shared/services/user/local-storage/local-storage.service';
+import { AppState } from 'src/app/shared/store/state/store.reducer';
+import {
+  selectUserDetails,
+  UserActions,
+} from 'src/app/shared/store/state/user';
 
 @Component({
   selector: 'app-topbar',
@@ -13,52 +18,44 @@ import { selectUserDetails, UserState } from 'src/app/shared/store/state/user';
   styleUrls: ['./topbar.component.scss'],
 })
 export class TopbarComponent implements OnInit {
-  user$?: Observable<User | undefined>;
-  hideHomeBtn = false;
+  user?: User;
+  titre1!: string;
   constructor(
-    private store: Store<UserState>,
+    private store: Store<AppState>,
     private router: Router,
-    private sidebarService: SidebarService
-  ) {
-    this.initMenu();
-  }
+    private sidebarService: SidebarService //, private localStorage: LocalStorageService
+  ) {}
 
   ngOnInit(): void {
-    this.user$ = this.store.pipe(select(selectUserDetails));
+    this.loadAppUser();
+  }
+
+  private loadAppUser(): void {
+    //this.user$ = this.store.pipe(select(selectUserDetails));
+    //console.log(this.localStorage.get('CURRENT_USER'));
+    this.store.pipe(select(selectUserDetails)).subscribe(
+      (user) => {
+        console.log('STORE > user: ', user);
+        if (user == null) {
+          this.store.dispatch(UserActions.loadUser());
+        } else {
+          this.user = user;
+          if (
+            this.user.code?.includes(Roles.ADMIN) ||
+            this.user.code?.includes(Roles.FRANCHISEE)
+          ) {
+            this.router.navigateByUrl('/home');
+          } else {
+            this.router.navigateByUrl('/');
+          }
+        }
+      },
+      (err) =>
+        console.log('TOPBAR COMPONENT > STORE > loadAppUser > error: ', err)
+    );
   }
 
   public openSidebar(): void {
     this.sidebarService.open(true);
-  }
-
-  private initMenu(): void {
-    this.router.events
-      .pipe(
-        filter(
-          (event): event is NavigationEnd => event instanceof NavigationEnd
-        )
-      )
-      .subscribe((event: NavigationEnd) => {
-        switch (event.url) {
-          case '/home':
-            this.hideHomeBtn = false;
-            break;
-          case '/franchisee':
-            this.hideHomeBtn = true;
-            break;
-          case '/recipes':
-            this.hideHomeBtn = true;
-            break;
-          case '/account':
-            this.hideHomeBtn = true;
-            break;
-          case '/':
-            this.hideHomeBtn = false;
-            break;
-          default:
-            this.hideHomeBtn = !event.url.includes('/home');
-            break;
-        }
-      });
   }
 }

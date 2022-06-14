@@ -1,33 +1,39 @@
-<p-sidebar [(visible)]="display" [baseZIndex]="10000" styleClass="p-sidebar-sm" *ngIf="user$ | async as user">
+<p-sidebar [(visible)]="display" [baseZIndex]="10000" styleClass="p-sidebar-sm" *ngIf="(user$ | async) as user">
   <ul class="nav flex-column">
     <li>
-      <button pButton pRipple type="button" label="Utilisateurs" class="p-button-info p-button-text" icon="pi pi-users"
-        routerLink="/home/users"></button>
+      <button *ngIf="user.autorisations?.isAdmin" pButton pRipple type="button" label="Utilisateurs"
+        class="p-button-info p-button-text" icon="pi pi-users" routerLink="/users" routerLinkActive="active"
+        (click)="onClose()"></button>
     </li>
     <li>
-      <button pButton pRipple type="button" label="Franchisés" class="p-button-info p-button-text"
-        icon="pi pi-briefcase" routerLink="/home/franchisee"></button>
-    </li>
-    <li>
-      <button pButton pRipple type="button" label="Réclamations clients" class="p-button-info p-button-text"
-        icon="pi pi-comments" routerLink="/home/client-complaint"></button>
-    </li>
-    <li>
-      <button pButton pRipple type="button" label="Notifications" class="p-button-info p-button-text" icon="pi pi-bell"
-        routerLink="/home/notifications"></button>
-    </li>
-    <li>
-      <button pButton pRipple type="button" label="Recettes" class="p-button-info p-button-text" icon="pi pi-list"
-        routerLink="/home/recipes"></button>
-    </li>
-    <li>
-      <button pButton pRipple type="button" label="Commandes" class="p-button-info p-button-text"
-        icon="pi pi-shopping-cart" routerLink="/home/orders"></button>
-    </li>
-    <li>
-      <button pButton pRipple type="button" label="Compte" class="p-button-info p-button-text" icon="pi pi-user"
-        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" [routerLink]="['/account']"
+      <button *ngIf="user.autorisations?.isAdmin" pButton pRipple type="button" label="Franchisés"
+        class="p-button-info p-button-text" icon="pi pi-briefcase" routerLink="/franchisees" (click)="onClose()"
         routerLinkActive="active"></button>
+    </li>
+    <li>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Réclamations clients" class="p-button-info p-button-text" icon="pi pi-comments"
+        routerLink="/client-complaint" (click)="onClose()" routerLinkActive="active"></button>
+    </li>
+    <li>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Notifications" class="p-button-info p-button-text" icon="pi pi-bell" routerLink="/notifications"
+        (click)="onClose()" routerLinkActive="active"></button>
+    </li>
+    <li>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Recettes" class="p-button-info p-button-text" icon="pi pi-list" routerLink="/recipes" (click)="onClose()"
+        routerLinkActive="active"></button>
+    </li>
+    <li>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Commandes" class="p-button-info p-button-text" icon="pi pi-shopping-cart" routerLink="/orders"
+        (click)="onClose()" routerLinkActive="active"></button>
+    </li>
+    <li>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Compte" class="p-button-info p-button-text" icon="pi pi-user" routerLink="/account"
+        routerLinkActive="active" (click)="onClose()"></button>
     </li>
     <li>
       <button pButton pRipple type="button" label="Aide" class="p-button-success p-button-text"
@@ -37,5 +43,5 @@
   <p-button type="button" styleClass="p-button-warning" (click)="logOut()" label="Se déconnecter" icon="pi pi-sign-out">
   </p-button>
 </p-sidebar>
-<p-button type="button" styleClass="p-button-rounded p-button-success" (click)="display = true" icon="pi pi-plus">
-</p-button>
+<!-- <p-button type="button" styleClass="p-button-rounded p-button-success" (click)="display = true" icon="pi pi-plus"> -->
+<!-- </p-button> -->

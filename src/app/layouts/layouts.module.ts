@@ -6,7 +6,7 @@ import { DefaultModule } from './default/default.module';
 @NgModule({
   imports: [
     DefaultModule,
-    RouterModule.forChild([{ path: 'home', component: DefaultComponent }]),
+    RouterModule.forChild([{ path: '', component: DefaultComponent }]),
   ],
   exports: [DefaultModule],
 })

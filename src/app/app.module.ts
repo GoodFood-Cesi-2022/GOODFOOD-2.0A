@@ -25,6 +25,11 @@ import { GlobalHttpInterceptorService } from './app.interceptor';
 import { routing } from './app-routing.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ApiTokenInterceptorService } from './shared/interceptors/api-token-interceptor.service';
+import { AuthModule } from './auth/auth.module';
+import { metaReducers, reducers } from './shared/store/state/store.reducer';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,9 +39,26 @@ import { ApiTokenInterceptorService } from './shared/interceptors/api-token-inte
     HttpClientModule,
     ProgressSpinnerModule,
     ReactiveFormsModule,
+    AuthModule.forRoot(),
     routing,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictStateSerializability: true,
+        strictActionImmutability: true,
+        strictActionSerializability: true,
+      },
+    }),
     EffectsModule.forRoot([]),
-    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+      routerState: RouterState.Minimal,
+    }),
   ],
   providers: [
     {
@@ -57,8 +79,8 @@ import { ApiTokenInterceptorService } from './shared/interceptors/api-token-inte
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiTokenInterceptorService,
-      multi: true
-    }
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA, CUSTOM_ELEMENTS_SCHEMA],

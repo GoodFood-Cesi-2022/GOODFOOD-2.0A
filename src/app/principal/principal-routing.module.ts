@@ -15,13 +15,20 @@ const ROUTES: Routes = [
       {
         path: 'account',
         loadChildren: () =>
-          import('./account/account.module').then((m) => m.AccountModule),
+          import('./profile/profile.module').then((m) => m.ProfileModule),
       },
-      // {
-      //   path: 'gestion-taches', loadChildren: () =>
-      //  import('./gestion-taches/gestion-taches.module').then((m)
-      //  => m.GestionTachesModule)
-      // },
+      {
+        path: 'recipes',
+        loadChildren: () =>
+          import('./recipe-management/recipe-management.module').then(
+            (m) => m.RecipeManagementModule
+          ),
+      },
+      {
+        path: 'users',
+        loadChildren: () =>
+          import('./users/users.module').then((m) => m.UsersModule),
+      },
       { path: '**', redirectTo: 'page-not-found' },
     ],
   },
