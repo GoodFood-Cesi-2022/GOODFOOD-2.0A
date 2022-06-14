@@ -94,8 +94,8 @@ export class RecipeService {
     return this.http
       .get<Ingredient[]>(`${environment.apiBaseUrl}/ingredients/types`)
       .pipe(
-        tap((obj) => console.log('service > ingredients types : ', obj)),
-        map((res) => res['data'])
+        // tap((obj) => console.log('service > ingredients types : ', obj)),
+        map((res) => res)
       );
   }
 
@@ -120,7 +120,19 @@ export class RecipeService {
   createRecipe(change: Partial<Recipe>): Observable<string> {
     return this.http
       .post(`${environment.apiBaseUrl}/recipes`, change)
-      .pipe(map((res) => res['payload']));
+      .pipe(map((res) => (res ? res['message'] : '')));
+  }
+
+  /**
+   * Create new ingredient
+   * @param change
+   * @returns
+   */
+  createIngredient(change: Partial<Ingredient>): Observable<string> {
+    return this.http.post(`${environment.apiBaseUrl}/ingredients`, change).pipe(
+      //tap((obj) => console.log('service > ingredients types : ', obj)),
+      map((res) => (res ? res['message'] : ''))
+    );
   }
 
   /**

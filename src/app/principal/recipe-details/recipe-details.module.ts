@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
-import { RecipeDialogComponent } from './recipe-dialog/recipe-dialog.component';
+import { RecipeDialogComponent } from './recipe/recipe-dialog/recipe-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { DataViewModule } from 'primeng/dataview';
@@ -18,9 +18,8 @@ import { RippleModule } from 'primeng/ripple';
 import { ToastModule } from 'primeng/toast';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { RecipesComponent } from './recipes/recipes.component';
+import { RecipesComponent } from './recipe/recipes/recipes.component';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-import { MessageModule } from 'primeng/message';
 import { ComponentsModule } from 'src/app/layouts/components/components.module';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -28,13 +27,21 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { TooltipModule } from 'primeng/tooltip';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { ApiTokenInterceptorService } from 'src/app/shared/interceptors/api-token-interceptor.service';
-// import { ConfirmationService } from 'primeng/api';
 import { CalendarModule } from 'primeng/calendar';
+import { TabViewModule } from 'primeng/tabview';
+import { IngredientComponent } from './ingredient/ingredient.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { MultiSelectModule } from 'primeng/multiselect';
 
-const routes: Routes = [{ path: '', component: RecipesComponent }];
+const routes: Routes = [{ path: '', component: TabsComponent }];
 
 @NgModule({
-  declarations: [RecipesComponent, RecipeDialogComponent],
+  declarations: [
+    RecipesComponent,
+    RecipeDialogComponent,
+    IngredientComponent,
+    TabsComponent,
+  ],
   imports: [
     ButtonModule,
     CommonModule,
@@ -62,11 +69,12 @@ const routes: Routes = [{ path: '', component: RecipesComponent }];
     DialogModule,
     CheckboxModule,
     CalendarModule,
+    TabViewModule,
+    MultiSelectModule,
   ],
   entryComponents: [RecipeDialogComponent],
   providers: [
     RecipeService,
-    MessageModule,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiTokenInterceptorService,
