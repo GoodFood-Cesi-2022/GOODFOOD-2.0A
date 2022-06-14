@@ -2,9 +2,9 @@ footer {
   color: lightgoldenrodyellow;
   font-family: "Optima";
   font-size: small;
-  position: absolute;
+  position: fixed !important;
   padding-right: 10px;
   margin-bottom: -20px;
-  bottom: 0;
+  bottom: 0%;
   right: 0;
 }

@@ -18,7 +18,8 @@ export class SidebarService {
   readonly url: any;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.url = this.authService.getCurrentUser;
+    //this.url = this.authService.getCurrentUser;
+    this.url = this.authService.getUser;
   }
 
   public open(display: boolean): void {

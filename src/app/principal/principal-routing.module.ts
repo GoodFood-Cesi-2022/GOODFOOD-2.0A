@@ -17,6 +17,11 @@ const ROUTES: Routes = [
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
+      // {
+      //   path: 'recipes',
+      //   loadChildren: () =>
+      //     import('./recipe/recipe.module').then((m) => m.RecipeModule),
+      // },
       {
         path: 'recipes',
         loadChildren: () =>

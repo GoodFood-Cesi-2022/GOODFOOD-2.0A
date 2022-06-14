@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from 'src/app/shared/models/user.model';
-
+import { Update } from '@ngrx/entity';
 /**
  * User-related Actions that we need for our user Store. Logout,
  * and user changed Action to keep the user details in our Store in sync with Auth
@@ -22,22 +22,7 @@ export const updateUser = createAction(
   props<{ userDetails: User }>()
 );
 
-export const updateUserFirstname = createAction(
-  '[Profile Component] Update Firstname',
-  props<{ userDetails: User }>()
-);
-
-export const updateUserLastname = createAction(
-  '[Profile Component] Update Lastname',
-  props<{ userDetails: User }>()
-);
-
-export const updateUserPhone = createAction(
-  '[Profile Component] Update Phone',
-  props<{ userDetails: User }>()
-);
-
-export const updateUserEmail = createAction(
-  '[Profile Component] Update Email',
+export const userUpdated = createAction(
+  '[Profile Component] User Updated',
   props<{ userDetails: User }>()
 );

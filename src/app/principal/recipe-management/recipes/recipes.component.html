@@ -1,59 +1,90 @@
+<p-toast></p-toast>
 <div class="card title">
-  <h2>RECETTES</h2>
-  <p>L'ensemble de vos recettes, créer, modifer et gérer les disponbilités</p>
+  <p-toolbar>
+    <div>
+      <h3>RECETTES</h3>
+      <p>L'ensemble de vos recettes, créer, modifier et supprimer.</p>
+    </div>
+  </p-toolbar>
 </div>
+
 <div class="card">
-  <p-dataView #dv [value]="products" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField"
-    [sortOrder]="sortOrder" layout="grid">
+  <p-dataView #dv [value]="recipes" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField"
+    [sortOrder]="sortOrder" layout="grid" (onChange)="onSortChange($event)">
     <ng-template pTemplate="header">
-      <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
-        <span class="p-input-icon-left p-mb-2 p-mb-md-0">
-          <i class="pi pi-search"></i>
-          <!-- <input type="search" pInputText placeholder="Rechercher..." (input)="dv.filter($event.target.value)" /> -->
-        </span>
-        <p-selectButton class="" [options]="stateOptions" [(ngModel)]="value1" optionLabel="label" optionValue="value">
-        </p-selectButton>
-        <button pButton pRipple class="p-button-outlined" (click)="showModalDialog()" icon="pi pi-plus" label="Ajouter"
-          type="button"></button>
-        <p-dialog header="Header" [(visible)]="displayModal" [modal]="true" [style]="{ width: '50vw' }"
-          [baseZIndex]="10000" [draggable]="false" [resizable]="false">
-          <p class="p-m-0">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          </p>
-          <ng-template pTemplate="footer">
-            <button pButton (click)="displayModal = false" label="Confirmer" class="p-button-text"></button>
-            <p-button (click)="displayModal = false" label="Annuler"></p-button>
-          </ng-template>
-        </p-dialog>
+      <div class="row">
+        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+          <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+            <i class="pi pi-search"></i>
+            <input pInputText type="search" placeholder="Rechercher une recette par nom" filterBy="name"
+              (input)="dv.filter($any($event.target).value, 'contains')" />
+          </span>
+        </div>
+        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+          <!-- <ng-template let-recipe pTemplate="gridItem">
+          {{ recipe.id }}
+        </ng-template> -->
+          <!-- <p-selectButton [options]="disponibility" formControlName="isAvailable" optionLabel="label" optionValue="value"> -->
+          <!-- </p-selectButton> -->
+          <button pButton pRipple class="p-button-outlined p-button-success" (click)="CreateNewRecipe()"
+            icon="pi pi-plus" label="Nouvelle recette" type="button"></button>
+        </div>
       </div>
+      <!-- <button pButton pRipple label="Nouvel utilisateur" icon="pi pi-plus" class="p-button-success p-mr-2"></button> -->
     </ng-template>
-    <ng-template let-product pTemplate="gridItem">
+    <!-- <ng-template pTemplate="footer">
+      <button pButton (click)="displayModal = false" label="Confirmer" class="p-button-text"></button>
+      <p-button (click)="displayModal = false" label="Annuler"></p-button>
+    </ng-template> -->
+    <ng-template let-recipe pTemplate="gridItem">
       <div class="p-col-12 p-md-4">
         <div class="product-grid-item card">
+          <i *ngIf="recipe.star" class="pi pi-star-fill" [style]="{ color: '#E6E600' }"></i>
+          <i *ngIf="!recipe.star" class="pi pi-star" [style]="{ color: '#d6d6d6' }"></i>
           <div class="product-grid-item-top">
-            <img src="assets/images/blocks/blog/blog-4.jpg" alt="Image" class="border-round-left"
-              style="max-height: 234px;" />
+            <!-- <img src="assets/images/blocks/blog/blog-4.jpg" alt="Image" class="border-round-left"
+              style="max-height: 234px;" /> -->
           </div>
           <div class="product-grid-item-content">
-            <div class="product-name">{{ product.name }}</div>
-            <div>
-              <span [class]="
-                  'product-badge status-' +
-                  product.inventoryStatus.toLowerCase()
-                ">{{ product.inventoryStatus }}
-              </span>
-              <i class="pi pi-tag product-category-icon"></i>
-              <span class="product-category">{{ product.category }}</span>
+            <div class="product-name">{{ recipe.name }}</div>
+            <div class="product-grid-item-top">
+              <div class="product-price">€ {{ recipe.base_price }}</div>
+              <div class="product-category">
+                <i class="pi pi-tag product-category-icon"></i>
+                {{ recipe.recipe_type.code }}
+              </div>
             </div>
-            <div class="font-medium text-900 mb-3 line-height-3">
-              <span class="product-price">{{ product.price }} €</span>
-            </div>
-            <div class="product-description">{{ product.description }}</div>
+            <span *ngFor="let value of recipe.ingredients">{{
+              value.name
+              }}</span>
+          </div>
+          <div class="product-grid-item-bottom justify-content-end">
+            <!-- <button pButton pRipple id="buttonBottom" icon="pi pi-plus"
+              class="p-button-rounded p-button-text p-button-plain" pTooltip="Ajouter des images"
+              tooltipPosition="bottom"></button> -->
+            <!-- <p-fileUpload id="fileUploader" mode="basic" name="demo[]" url="./upload.php" accept="image/*"
+              [maxFileSize]="1000000" (onUpload)="onBasicUpload($event)" pTooltip="Ajouter des images"
+              tooltipPosition="bottom"></p-fileUpload> -->
+            <button pButton pRipple id="buttonBottom" icon="pi pi-pencil"
+              class="p-button-rounded p-button-success p-button-text" pTooltip="Modifier la recette"
+              tooltipPosition="bottom"></button>
+            <button pButton pRipple (click)="removeRecipe(recipe)" id="buttonBottom" icon="pi pi-trash"
+              class="p-button-rounded p-button-danger p-button-text" pTooltip="Supprimer la recette"
+              tooltipPosition="bottom"></button>
           </div>
         </div>
       </div>
     </ng-template>
   </p-dataView>
 </div>
+
+<!-- Confirmation Dialog -->
+<p-confirmDialog #cd>
+  <p-footer>
+    <button type="button" pButton label="OUI" class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"></button>
+    <button type="button" pButton label="NON" class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"></button>
+  </p-footer>
+</p-confirmDialog>
+<!-- /Confirmation Dialog -->

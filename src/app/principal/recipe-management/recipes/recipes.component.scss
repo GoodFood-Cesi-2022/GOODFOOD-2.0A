@@ -1,3 +1,28 @@
+.p-fileupload .p-fileupload-basic .p-fileupload-choose {
+  border-radius: 50% !important;
+  min-width: 0rem !important;
+}
+.p-md-4 .p-col-12 {
+padding: 1rem;
+}
+#fileUploader {
+  min-width: 0rem;
+}
+
+.title {
+  padding: 1rem !important;
+}
+
+.row {
+  justify-content: space-between;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.p-button-outlined {
+  width: max-content;
+}
+
 :host ::ng-deep {
   .p-dropdown {
     width: 14rem;
@@ -15,11 +40,12 @@
 
   .product-category-icon {
     vertical-align: middle;
-    margin-right: 0.35rem;
+    margin-right: 0.5rem;
   }
 
   .product-category {
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 400;
     vertical-align: middle;
   }
 
@@ -39,12 +65,12 @@
       flex: 1 1 0;
     }
 
-    .p-rating {
-      margin: 0 0 0.5rem 0;
-    }
+    // .p-rating {
+    //   margin: 0 0 0.5rem 0;
+    // }
 
     .product-price {
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: 400;
       margin-bottom: 0.5rem;
       align-self: flex-end;
@@ -74,7 +100,7 @@
     img {
       width: 75%;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-      margin: 2rem 0;
+      margin: 1rem 0;
     }
 
     .product-grid-item-content {
@@ -82,25 +108,27 @@
     }
 
     .product-price {
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+
+    .pi-tag {
+      size: 2rem;
+    }
+
+    #buttonBottom {
+      min-width: 0% !important;
     }
   }
 }
-.title {
-  padding: 1rem !important;
-}
-
-.p-button-outlined {
-  width: max-content;
-}
 
 .card {
-  padding: 2rem;
+  padding: 1rem 2rem 1rem 2rem;
   box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
     0 1px 3px 0 rgba(0, 0, 0, 0.12);
   border-radius: 4px;
   margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 576px) {
@@ -118,7 +146,7 @@
     }
 
     .product-price {
-      align-self: right;
+      align-self: center;
     }
 
     .product-list-action {

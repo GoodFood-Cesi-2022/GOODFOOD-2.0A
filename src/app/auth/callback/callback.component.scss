@@ -7,20 +7,20 @@
 
   100%,
   0% {
-    stroke: #16697a;
+    stroke: #9FB7ED;
   }
 
   40% {
-    stroke: #489fb5;
+    stroke: #D4DFF7;
   }
 
   66% {
-    stroke: #82c0cc;
+    stroke: #ffa62b;
   }
 
   80%,
   90% {
-    stroke: #ffa62b;
+    stroke: #ccbe1c;
   }
 }
 
@@ -39,4 +39,17 @@
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -124px;
   }
+}
+
+.spinner-container {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.258);
+  z-index: 950;
 }

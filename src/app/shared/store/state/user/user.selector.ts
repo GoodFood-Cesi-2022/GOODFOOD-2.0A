@@ -1,3 +1,4 @@
+import { User } from './../../../models/user.model';
 // import { AppState } from './user.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Roles } from 'src/app/shared/constants/constants';
@@ -18,8 +19,12 @@ export const selectUserState = createFeatureSelector<UserState>('user');
 
 export const selectUserDetails = createSelector(
   selectUserState,
-  (user) => user?.userDetails
+  (user) => user.userDetails
 );
+
+export const selectProfileUser = createSelector(selectUserDetails, (user) => {
+  return { user };
+});
 
 export const selectIsLoggedIn = createSelector(
   selectUserDetails,
