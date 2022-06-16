@@ -6,54 +6,50 @@
     <p>La création d'un ou des ingredients pour les recettes.</p>
   </div>
 </p-toolbar>
-
 <ng-container [formGroup]="form">
   <div class="p-grid p-fluid">
     <div class="formgrid grid">
       <div class="p-col-12 p-md-4">
         <div class="field col">
           <label>Nom d'ingredient</label>
-          <input type="text" pInputText formControlName="title" />
+          <input type="text" pInputText formControlName="name" />
         </div>
         <div class="field col">
           <label for="ingreFor">Type d'ingredient</label>
-          <p-dropdown [options]="typeArray" optionLabel="code" formControlName="typeIngredient"
-            [autoDisplayFirst]="false" id="ingreFor" appendTo="body" [style]="{ width: '100%' }">
+          <p-dropdown
+            [options]="typeArray"
+            optionLabel="code"
+            formControlName="typeIngredient"
+            [autoDisplayFirst]="false"
+            id="ingreFor"
+            appendTo="body"
+            [style]="{ width: '100%' }"
+          >
           </p-dropdown>
         </div>
-        <!-- *ngFor="let value of form.get('typeDetails')['controls']; let i = index;" -->
-        <!-- <div formArrayName="typeDetails">
-
-          <div formGroupName="i">
-            <div class="field col">
-              <label for="ingreFor">Type d'ingredient</label>
-              <p-dropdown [options]="typeArray" optionLabel="code" formControlName="typeIngredient"
-                [autoDisplayFirst]="false" id="ingreFor" appendTo="body" [style]="{ width: '100%' }">
-              </p-dropdown>
-            </div>
-            <div class="p-col-12 p-md-4">
-              <label>Description</label>
-              <textarea formControlName="description" rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
-            </div>
-          </div>
-        </div> -->
-
       </div>
       <div class="p-col-12 p-md-4">
-        <p-checkbox class="p-col-12 mt-4" formControlName="allergen" (onChange)="isAllergen($event)" label="Allergen"
-          value="allergen" [binary]="true"></p-checkbox>
+        <p-checkbox
+          class="p-col-12 mt-4"
+          formControlName="allergen"
+          (onChange)="isAllergen($event)"
+          label="Allergen"
+          value="allergen"
+          [binary]="true"
+        ></p-checkbox>
       </div>
     </div>
     <div class="p-col-12 p-md-4">
       <div class="pt-3 flex ng-star-inserted">
-        <button pButton type="button" (click)="onSubmit()" label="Confirmer"
-          class="p-element p-ripple w-6 ml-2 p-button p-component" style="margin-left: 0.25rem"></button>
-        <button pButton type="button" (click)="onClose()" label="Annuler"
-          class="p-element p-ripple p-button-outlined w-6 mr-2 p-button p-component"
-          style="margin-right: 0.25rem"></button>
+        <button
+          pButton
+          type="button"
+          (click)="onSubmit()"
+          label="Confirmer"
+          class="p-element p-ripple p-button p-component"
+        ></button>
       </div>
     </div>
   </div>
-  <!-- </div> -->
 </ng-container>
 <!-- /app-ingredient -->
