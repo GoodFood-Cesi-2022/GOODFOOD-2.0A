@@ -100,7 +100,7 @@ export class RecipesComponent implements OnInit {
       //     console.log('e ingredients : ', _name);
       //   });
       // });
-      //console.log('-> component -> initRecipes -> recipes : ', recipes);
+      // console.log('-> component -> initRecipes -> recipes : ', recipes);
     });
   }
   // return this.recipeService
