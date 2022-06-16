@@ -2,6 +2,13 @@
   width: 14rem;
 }
 
+.p-fileupload .p-fileupload-basic .p-fileupload-choose {
+  border-radius: 50% !important;
+  min-width: 0rem !important;
+}
+#fileUploader {
+  min-width: 0rem;
+}
 // .ui-multiselect-label {
 //   max-width: 150px !important;
 //   white-space: nowrap;
