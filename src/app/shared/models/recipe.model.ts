@@ -8,7 +8,7 @@ export interface Recipe {
   star?: boolean;
   ingredients?: Ingredient[];
   recipe_type?: RecipeType;
-  created_by: number;
+  //created_by: number;
   available_at?: Date;
 }
 
