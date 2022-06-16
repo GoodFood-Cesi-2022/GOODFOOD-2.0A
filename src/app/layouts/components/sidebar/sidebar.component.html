@@ -1,14 +1,14 @@
 <p-sidebar [(visible)]="display" [baseZIndex]="10000" styleClass="p-sidebar-sm" *ngIf="(user$ | async) as user">
   <ul class="nav flex-column">
     <li>
-      <button *ngIf="user.autorisations?.isAdmin" pButton pRipple type="button" label="Utilisateurs"
-        class="p-button-info p-button-text" icon="pi pi-users" routerLink="/users" routerLinkActive="active"
-        (click)="onClose()"></button>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Utilisateurs" class="p-button-info p-button-text" icon="pi pi-users" routerLink="/users"
+        routerLinkActive="active" (click)="onClose()"></button>
     </li>
     <li>
-      <button *ngIf="user.autorisations?.isAdmin" pButton pRipple type="button" label="Franchisés"
-        class="p-button-info p-button-text" icon="pi pi-briefcase" routerLink="/franchisees" (click)="onClose()"
-        routerLinkActive="active"></button>
+      <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"
+        label="Franchisés" class="p-button-info p-button-text" icon="pi pi-briefcase" routerLink="/franchisees"
+        (click)="onClose()" routerLinkActive="active"></button>
     </li>
     <li>
       <button *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee" pButton pRipple type="button"

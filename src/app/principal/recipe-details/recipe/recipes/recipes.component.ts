@@ -1,6 +1,6 @@
-import { loadRecipe } from './../../../shared/store/state/recipe/recipe.actions';
-import { selectRecipe } from './../../../shared/store/state/recipe/recipe.selector';
-import { RecipeState } from './../../../shared/store/state/recipe/recipe.reducer';
+import { loadRecipe } from '../../../../shared/store/state/recipe/recipe.actions';
+import { selectRecipe } from '../../../../shared/store/state/recipe/recipe.selector';
+import { RecipeState } from '../../../../shared/store/state/recipe/recipe.reducer';
 import { Component, OnInit } from '@angular/core';
 import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { DialogService } from 'primeng/dynamicdialog';
@@ -24,17 +24,14 @@ import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
         margin: 0 0.5rem 0 0;
         min-width: 10rem;
       }
-
       p {
         margin: 0;
       }
-
       .confirmation-content {
         display: flex;
         align-items: center;
         justify-content: center;
       }
-
       :host ::ng-deep .p-dialog .p-button {
         min-width: 6rem;
       }
@@ -103,7 +100,7 @@ export class RecipesComponent implements OnInit {
       //     console.log('e ingredients : ', _name);
       //   });
       // });
-      //console.log('-> component -> initRecipes -> recipes : ', recipes);
+      // console.log('-> component -> initRecipes -> recipes : ', recipes);
     });
   }
   // return this.recipeService

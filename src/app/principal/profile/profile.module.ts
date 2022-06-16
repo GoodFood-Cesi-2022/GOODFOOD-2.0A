@@ -23,6 +23,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
 import { HttpClientModule } from '@angular/common/http';
 import { ProfileComponent } from './profile/profile.component';
+import { ToolbarModule } from 'primeng/toolbar';
 
 const routes: Routes = [{ path: '', component: ProfileComponent }];
 
@@ -51,6 +52,7 @@ const routes: Routes = [{ path: '', component: ProfileComponent }];
     ProgressBarModule,
     HttpClientModule,
     ComponentsModule,
+    ToolbarModule,
   ],
 })
 export class ProfileModule {}

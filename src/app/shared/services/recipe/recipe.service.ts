@@ -5,7 +5,7 @@ import { map, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Recipe } from '../../models/recipe.model';
 import { Message } from '../../constants/constants';
-import { Picture } from '../../models/picture.model';
+import { File } from '../../models/file.model';
 
 //const getRecipes$=getIngredients().pipe(mergeMap(res=>getRecipes(res)))
 
@@ -45,10 +45,7 @@ export class RecipeService {
   public getRecipesType(): Observable<Recipe[]> {
     return this.http
       .get<Recipe[]>(`${environment.apiBaseUrl}/recipes/types`)
-      .pipe(
-        // tap((obj) => console.log('service > type recipe: ', obj)),
-        map((res) => res)
-      );
+      .pipe(map((res) => res));
   }
 
   /**
@@ -68,10 +65,7 @@ export class RecipeService {
   public getIngredientsByRecipeId(id: number): Observable<Recipe[]> {
     return this.http
       .get(`${environment.apiBaseUrl}/recipes/${id}/ingredients`)
-      .pipe(
-        tap((obj) => console.log('service > ingredients by recipe: ', obj)),
-        map((res) => res['data'])
-      );
+      .pipe(map((res) => res['data']));
   }
   /**
    *
@@ -81,7 +75,7 @@ export class RecipeService {
     return this.http
       .get<Ingredient[]>(`${environment.apiBaseUrl}/ingredients`)
       .pipe(
-        tap((obj) => console.log('service > ingredients : ', obj)),
+        tap((obj) => console.log('---> service -> All ingre : ', obj)),
         map((res) => res['data'])
       );
   }
@@ -94,8 +88,8 @@ export class RecipeService {
     return this.http
       .get<Ingredient[]>(`${environment.apiBaseUrl}/ingredients/types`)
       .pipe(
-        tap((obj) => console.log('service > ingredients types : ', obj)),
-        map((res) => res['data'])
+        tap((obj) => console.log('---> service -> All type ingre : ', obj)),
+        map((res) => res)
       );
   }
 
@@ -104,23 +98,47 @@ export class RecipeService {
    * @param id uuid
    * @returns all pictures of recipe
    */
-  public getPictures(id: number): Observable<Picture[]> {
+  public getPictures(id: number): Observable<File[]> {
     return this.http
       .get(`${environment.apiBaseUrl}/recipes/${id}/pictures`)
       .pipe(map((res) => res['data']));
   }
 
-  // public uploadPicture(d:number):
+  public uploadPicture(_new: File): Observable<File> {
+    return this.http.post(`${environment.apiBaseUrl}/files`, _new).pipe(
+      tap((obj) => console.log('service > ingredients types : ', obj)),
+      map((res) => res)
+    );
+  }
 
   /**
    * Create new recipe with igredients
-   * @param change RecipeModel
+   * @param item RecipePostModel
    * @returns
    */
-  createRecipe(change: Partial<Recipe>): Observable<string> {
+  createRecipe(item: Recipe): Observable<Recipe> {
     return this.http
-      .post(`${environment.apiBaseUrl}/recipes`, change)
-      .pipe(map((res) => res['payload']));
+      .post(`${environment.apiBaseUrl}/recipes`, {
+        ...item,
+        base_price: item.base_price,
+        ingredients: item.ingredients.map((ingredient) => ingredient.id),
+        // recipe_type: item.recipe_type.code,
+      })
+      .pipe(
+        tap((obj) => console.log('service > ingredients types : ', obj)),
+        map((res) => res)
+      );
+  }
+
+  /**
+   * Create new ingredient
+   * @param change
+   * @returns
+   */
+  createIngredient(item: Ingredient): Observable<Ingredient> {
+    return this.http
+      .post(`${environment.apiBaseUrl}/ingredients`, item)
+      .pipe(map((res) => res));
   }
 
   /**
@@ -140,8 +158,9 @@ export class RecipeService {
    * @returns Delete a recipe
    */
   public removeRecipe(id: number): Observable<string> {
-    return this.http
-      .delete(`${environment.apiBaseUrl}/recipes/${id}`)
-      .pipe(map((res) => (res ? res['message'] : '')));
+    return this.http.delete(`${environment.apiBaseUrl}/recipes/${id}`).pipe(
+      tap((obj) => console.log('service > ingredients types : ', obj)),
+      map((res) => (res ? res['message'] : ''))
+    );
   }
 }

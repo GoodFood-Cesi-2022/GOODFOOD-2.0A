@@ -1,4 +1,4 @@
-import { EndPoints } from './../../../shared/constants/constants';
+import { EndPoints } from '../../../../shared/constants/constants';
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
 import { Component, OnInit } from '@angular/core';
 import {
@@ -51,7 +51,7 @@ export class RecipeDialogComponent implements OnInit {
   // viewDate: Date = new Date();
 
   // events: CalendarEvent[] = [];
-
+  idIng: number;
   locale = 'fr';
   public calendar_fr: any;
   public calendar: any;
@@ -147,13 +147,14 @@ export class RecipeDialogComponent implements OnInit {
     /* retrieve ingredients data */
     this.recipeService.getIngredients().subscribe((res) => {
       this.ingredients = res;
-      console.log('----------> component > ingredient : ', res, 'x value : ');
+      //   this.ingredients.forEach((e) => { e.id; });
+      //   console.log('----------> component > ingredient : ', res,);
+      // });
+      /* retrieve ingredients types */
+      // this.recipeService.getIngredientsTypes().subscribe((res) => {
+      //   this.ingredientsType = res;
+      //   console.log('^^^^^^^^^^^^^ component > type ingredients : ', res);
     });
-    /* retrieve ingredients types */
-    // this.recipeService.getIngredientsTypes().subscribe((res) => {
-    //   this.ingredientsType = res;
-    //   console.log('^^^^^^^^^^^^^ component > type ingredients : ', res);
-    // });
 
     this.initForm();
   }
@@ -165,8 +166,7 @@ export class RecipeDialogComponent implements OnInit {
       price: ['', [Validators.required]],
       ingredientsDetails: new FormControl(),
       description: [''],
-      //star:[this.recipe.star],
-      star: new FormControl(),
+      star: false,
       availableDate: ['', [Validators.required]],
     });
     //if (this.mode === 'CREATE') {
@@ -180,10 +180,6 @@ export class RecipeDialogComponent implements OnInit {
   }
 
   onClickStar(event: any): void {
-    // console.log(
-    //   'recipe dialog component -> onStar -> event.checked',
-    //   event.checked
-    // );
     this.star = event.checked;
     this.recipe.star = event.checked;
     if (event.checked) {
@@ -234,28 +230,54 @@ export class RecipeDialogComponent implements OnInit {
     this.recipe.name = this.form.value.title;
     this.recipe.recipe_type = this.form.controls['recipeType'].value.code;
     this.recipe.base_price = this.form.value.base_price;
+
+    //this.recipe.ingredients = this.form.controls['ingredientsDetails'].value;
+
+    // let idIngre: number[] = [];
+    // var ingredients = this.form.controls['ingredientsDetails'].value;
+    // ingredients.forEach((e) => {
+    //   idIngre.push(e.id);
+    //   console.log('idIngre ---> ', idIngre);
+    // });
     this.recipe.ingredients = this.form.controls['ingredientsDetails'].value;
+
     this.recipe.star = this.form.value.star;
     this.recipe.available_at = this.form.value.availableDate;
     this.recipe.description = this.form.value.description;
 
     console.log('make new recipe : ', this.recipe);
-    //}
-    // this.form['user'].value.forEach((element) => {
-    //   this.recipe.user.push(element);
+    // var ingredients = this.form.controls['ingredientsDetails'].value;
+    // for (let obj of ingredients) {
+    //   for (let key in obj) {
+    //     if (key == 'id') {
+    //       console.log('key:', key, 'value:', obj[key]);
+    //     }
+    //   }
+    // }
+
+    // this.form.controls['ingredientsDetails'].value.forEach((e) => {
+    //   this.recipe.ingredients.push(e);
+    //   console.log('xxxxxxxxx : ', e);
     // });
-    console.log('makeRecipe > recipe dialog component');
+    //this.idIng  = this.form.controls['ingredientsDetails'].value.id;
+
+    // this.form['ingredientsDetails'].value.forEach((e) => {
+    //   this.recipe.ingredients.forEach((e) => e.id);
+    //   console.log('idIng ===> ', e);
+    // });
   }
 
   onSubmit(): void {
+    console.log('on submit recipe');
     //if (this.form.valid) {
     this.makeRecipe();
-    if (this.mode === 'CREATE') {
-      this.recipeService
-        .createRecipe(this.recipe)
-        .pipe()
-        .subscribe((res) => this.ref.close(res));
-    }
+    //if (this.mode === 'CREATE') {
+
+    this.recipeService
+      .createRecipe(this.recipe)
+      .pipe()
+      .subscribe((res) => this.ref.close(res));
+    //}
     //}
   }
 

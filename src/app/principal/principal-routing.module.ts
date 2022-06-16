@@ -17,15 +17,10 @@ const ROUTES: Routes = [
         loadChildren: () =>
           import('./profile/profile.module').then((m) => m.ProfileModule),
       },
-      // {
-      //   path: 'recipes',
-      //   loadChildren: () =>
-      //     import('./recipe/recipe.module').then((m) => m.RecipeModule),
-      // },
       {
         path: 'recipes',
         loadChildren: () =>
-          import('./recipe-management/recipe-management.module').then(
+          import('./recipe-details/recipe-details.module').then(
             (m) => m.RecipeManagementModule
           ),
       },
