@@ -3,24 +3,20 @@
 <p-toolbar>
   <div>
     <h4>Profil utilisateur</h4>
-    <p>Les details de profil d'utilisateur, modifer et demander la supression de compte.</p>
+    <p>
+      Les details de profil d'utilisateur, modifer et demander la supression de
+      compte.
+    </p>
   </div>
 </p-toolbar>
-<div class="flex justify-content-center flex-wrap card-container yellow-container">
-  <div class="surface-card p-4 border-round shadow-3 w-8"
-    [style]="{'width': '75rem', 'margin-bottom': '2em', 'display':'relative'}">
-    <div class="text-3xl font-medium text-900 mb-3">Profil utilisateur</div>
-    <div class="font-medium text-500 mb-3">
-      Les details de profil d'utilisateur, modifer et demander la supression de compte.
-    </div>
-    <!-- <div style="height: 150px" class="border-2 border-dashed surface-border"></div> -->
-  </div>
-</div>
 <form [formGroup]="form">
-  <div class="flex justify-content-center flex-wrap card-container yellow-container p-4">
-    <div *ngIf="(user$ | async) as user" class="flex-auto">
-      <div class="justify-content-center w-8 md:px-2 align-items-center justify-content-center
-relative">
+  <div
+    class="flex justify-content-center flex-wrap card-container yellow-container p-4"
+  >
+    <div *ngIf="user$ | async as user" class="flex-auto">
+      <div
+        class="justify-content-center w-8 md:px-2 align-items-center justify-content-center relative"
+      >
         <!-- <div class="surface-section"> -->
         <div class="p-6 shadow-4 text-center md:w-20 mb-2">
           <!-- <div class="col-12 md:col-4"> -->
@@ -30,86 +26,211 @@ relative">
           <!-- </div> -->
           <div class="mb-4">
             <ul class="list-none p-0 m-0">
-              <li class="flex align-items-center py-3 px-2 surface-border flex-wrap">
-                <div class="text-600 w-6 md:w-2 font-medium text-left">Prénom</div>
-                <div class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1">
-                  <span id="user.firstname" *ngIf="!editModeFirstname">{{user.firstname}}</span>
+              <li
+                class="flex align-items-center py-3 px-2 surface-border flex-wrap"
+              >
+                <div class="text-600 w-6 md:w-2 font-medium text-left">
+                  Prénom
+                </div>
+                <div
+                  class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1"
+                >
+                  <span id="user.firstname" *ngIf="!editModeFirstname">{{
+                    user.firstname
+                  }}</span>
                   <span id="user.firstname" *ngIf="editModeFirstname">
-                    <input pInputText class="focus:border-primary" type="text" formControlName="firstname">
+                    <input
+                      pInputText
+                      class="focus:border-primary"
+                      type="text"
+                      formControlName="firstname"
+                    />
                   </span>
                 </div>
                 <div class="w-6 md:w-2 flex justify-content-end">
+                  <button
+                    pButton
+                    pRipple
+                    class="p-button-rounded p-button-text p-button-success p-mr-2"
+                    icon="pi pi-check"
+                    (click)="
+                      updateField('FIRSTNAME'); editModeFirstname = false
+                    "
+                    *ngIf="editModeFirstname"
+                  ></button>
 
-                  <button pButton pRipple class="p-button-rounded p-button-text p-button-success p-mr-2"
-                    icon="pi pi-check" (click)="updateField('FIRSTNAME') ; editModeFirstname = false"
-                    *ngIf="editModeFirstname"></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-text p-button-danger p-mr-2"
+                    (click)="editModeFirstname = false"
+                    *ngIf="editModeFirstname"
+                  ></button>
 
-                  <button pButton pRipple type="button" icon="pi pi-times"
-                    class="p-button-rounded p-button-text p-button-danger p-mr-2" (click)="editModeFirstname = false"
-                    *ngIf="editModeFirstname"></button>
-
-                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
-                    (click)="editModeFirstname = true; editModeLastname = false; editModePhone = false; editModeEmail = false "
-                    *ngIf="!editModeFirstname"></button>
-
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-pencil"
+                    class="p-button-rounded p-button-text"
+                    (click)="
+                      editModeFirstname = true;
+                      editModeLastname = false;
+                      editModePhone = false;
+                      editModeEmail = false
+                    "
+                    *ngIf="!editModeFirstname"
+                  ></button>
                 </div>
-
               </li>
-              <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
+              <li
+                class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap"
+              >
                 <div class="text-600 w-6 md:w-2 font-medium text-left">Nom</div>
-                <div class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1">
-                  <span id="user.lastname" *ngIf="!editModeLastname">{{user.lastname}}</span>
+                <div
+                  class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1"
+                >
+                  <span id="user.lastname" *ngIf="!editModeLastname">{{
+                    user.lastname
+                  }}</span>
                   <span id="user.lastname" *ngIf="editModeLastname">
-                    <input pInputText class="focus:border-primary" formControlName="lastname">
+                    <input
+                      pInputText
+                      class="focus:border-primary"
+                      formControlName="lastname"
+                    />
                   </span>
                 </div>
                 <div class="w-6 md:w-2 flex justify-content-end">
-                  <button pButton pRipple type="button" icon="pi pi-check"
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-check"
                     class="p-button-rounded p-button-text p-button-success p-mr-2"
-                    (click)="updateField('LASTNAME'); editModeLastname = false" *ngIf="editModeLastname"></button>
-                  <button pButton pRipple type="button" icon="pi pi-times"
-                    class="p-button-rounded p-button-text p-button-danger p-mr-2" (click)="editModeLastname = false"
-                    *ngIf="editModeLastname"></button>
-                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
-                    (click)="editModeLastname = true" *ngIf="!editModeLastname"></button>
+                    (click)="updateField('LASTNAME'); editModeLastname = false"
+                    *ngIf="editModeLastname"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-text p-button-danger p-mr-2"
+                    (click)="editModeLastname = false"
+                    *ngIf="editModeLastname"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-pencil"
+                    class="p-button-rounded p-button-text"
+                    (click)="editModeLastname = true"
+                    *ngIf="!editModeLastname"
+                  ></button>
                 </div>
               </li>
-              <li class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap">
-                <div class="text-600 w-6 md:w-2 font-medium text-left">Numéro de téléphone</div>
-                <div class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1">
-                  <span id="user.phone" *ngIf="!editModePhone">{{user.phone}}</span>
+              <li
+                class="flex align-items-center py-3 px-2 border-top-1 surface-border flex-wrap"
+              >
+                <div class="text-600 w-6 md:w-2 font-medium text-left">
+                  Numéro de téléphone
+                </div>
+                <div
+                  class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1"
+                >
+                  <span id="user.phone" *ngIf="!editModePhone">{{
+                    user.phone
+                  }}</span>
                   <span id="user.phone" *ngIf="editModePhone">
-                    <input pInputText class="focus:border-primary" formControlName="phone">
+                    <input
+                      pInputText
+                      class="focus:border-primary"
+                      formControlName="phone"
+                    />
                   </span>
                 </div>
                 <div class="w-6 md:w-2 flex justify-content-end">
-                  <button pButton pRipple type="button" icon="pi pi-check"
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-check"
                     class="p-button-rounded p-button-text p-button-success p-mr-2"
-                    (click)="updateField('PHONE'); editModePhone = false" *ngIf="editModePhone"></button>
-                  <button pButton pRipple type="button" icon="pi pi-times"
-                    class="p-button-rounded p-button-text p-button-danger p-mr-2" (click)="editModePhone = false"
-                    *ngIf="editModePhone"></button>
-                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
-                    (click)="editModePhone = true" *ngIf="!editModePhone"></button>
+                    (click)="updateField('PHONE'); editModePhone = false"
+                    *ngIf="editModePhone"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-text p-button-danger p-mr-2"
+                    (click)="editModePhone = false"
+                    *ngIf="editModePhone"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-pencil"
+                    class="p-button-rounded p-button-text"
+                    (click)="editModePhone = true"
+                    *ngIf="!editModePhone"
+                  ></button>
                 </div>
               </li>
-              <li class="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap">
-                <div class="text-600 w-6 md:w-2 font-medium text-left">Email</div>
-                <div class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1">
-                  <span id="user.email" *ngIf="!editModeEmail">{{user.email}}</span>
+              <li
+                class="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 surface-border flex-wrap"
+              >
+                <div class="text-600 w-6 md:w-2 font-medium text-left">
+                  Email
+                </div>
+                <div
+                  class="text-800 w-full md:w-8 md:flex-order-0 flex-order-1"
+                >
+                  <span id="user.email" *ngIf="!editModeEmail">{{
+                    user.email
+                  }}</span>
                   <span id="user.email" *ngIf="editModeEmail">
-                    <input pInputText class="focus:border-primary" formControlName="email">
+                    <input
+                      pInputText
+                      class="focus:border-primary"
+                      formControlName="email"
+                    />
                   </span>
                 </div>
                 <div class="w-6 md:w-2 flex justify-content-end">
-                  <button pButton pRipple type="button" icon="pi pi-check"
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-check"
                     class="p-button-rounded p-button-text p-button-success p-mr-2"
-                    (click)="updateField('EMAIL'); editModeEmail = false" *ngIf="editModeEmail"></button>
-                  <button pButton pRipple type="button" icon="pi pi-times"
-                    class="p-button-rounded p-button-text p-button-danger p-mr-2" (click)="editModeEmail = false"
-                    *ngIf="editModeEmail"></button>
-                  <button pButton pRipple type="button" icon="pi pi-pencil" class="p-button-rounded p-button-text"
-                    (click)="editModeEmail = true" *ngIf="!editModeEmail"></button>
+                    (click)="updateField('EMAIL'); editModeEmail = false"
+                    *ngIf="editModeEmail"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-times"
+                    class="p-button-rounded p-button-text p-button-danger p-mr-2"
+                    (click)="editModeEmail = false"
+                    *ngIf="editModeEmail"
+                  ></button>
+                  <button
+                    pButton
+                    pRipple
+                    type="button"
+                    icon="pi pi-pencil"
+                    class="p-button-rounded p-button-text"
+                    (click)="editModeEmail = true"
+                    *ngIf="!editModeEmail"
+                  ></button>
                 </div>
               </li>
             </ul>
