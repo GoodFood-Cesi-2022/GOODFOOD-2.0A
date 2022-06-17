@@ -1,0 +1,17 @@
+
+.layout-wrapper .layout-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    overflow: auto;
+    height: calc(100% - 7rem);
+    width: calc(100% - 14rem);
+    margin-top: 7rem;
+    border-top-left-radius: 30px;
+    transition: all 0.2s;
+}
+* {
+    box-sizing: border-box;
+}
+

@@ -29,6 +29,13 @@ const ROUTES: Routes = [
         loadChildren: () =>
           import('./users/users.module').then((m) => m.UsersModule),
       },
+      {
+        path: 'franchisee',
+        loadChildren: () =>
+          import('./franchisee/franchisee.module').then(
+            (m) => m.FranchiseeModule
+          ),
+      },
       { path: '**', redirectTo: 'page-not-found' },
     ],
   },
