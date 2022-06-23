@@ -1,29 +1,17 @@
 <p-toast></p-toast>
 <!-- Title -->
-<div
-  class="card-header shadow mt-4 bg-yellow-50 border-yellow-50"
-  style="border-radius: 6px"
->
-  <div class="col">
-    <h4>Franchisée</h4>
-    <h6>L'espace de franchisé pour gérer ensemble de l'info.</h6>
-  </div>
-</div>
-<!-- Content -->
+<app-title [title]="'Franchisée'" [description]="'L\'espace de franchisé pour gérer ensemble de l\'infoe'">
+</app-title>
+<!-- Franchisee -->
 <div class="grid">
   <div class="col-12 lg:col-6">
     <div class="p-3 h-full">
-      <div
-        class="shadow-2 p-3 h-full flex flex-column surface-card"
-        style="border-radius: 4px"
-      >
-        <div
-          class="card-header flex align-items-center justify-content-between bg-yellow-50"
-        >
+      <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 4px">
+        <div class="card-header flex align-items-center justify-content-between bg-yellow-50">
           <span class="text-800 font-bold text-xl mb-1">Chez Tom's</span>
-          <span class="ml-2 font-medium text-600"
-            ><i class="pi pi-pencil text-blue-500 text-xl"></i
-          ></span>
+          <span class="ml-2 font-medium text-600">
+            <i class="pi pi-pencil text-blue-500 text-xl"></i>
+          </span>
         </div>
         <ul class="list-none p-0 m-0 flex-grow-1 mt-5">
           <li class="flex align-items-center mb-3">
@@ -44,25 +32,14 @@
   </div>
   <div class="col-12 lg:col-6">
     <div class="p-3 h-full">
-      <div
-        class="shadow-2 p-3 flex flex-column surface-card"
-        style="border-radius: 6px"
-      >
-        <div
-          class="card-header flex align-items-center justify-content-between bg-yellow-50"
-        >
+      <div class="shadow-2 p-3 flex flex-column surface-card" style="border-radius: 6px">
+        <div class="card-header flex align-items-center justify-content-between bg-yellow-50">
           <span class="text-800 font-bold text-xl mb-1">Horaires</span>
-          <span class="ml-2 font-medium text-600"
-            ><i class="pi pi-pencil text-blue-500 text-xl"></i
-          ></span>
+          <span class="ml-2 font-medium text-600"><i class="pi pi-pencil text-blue-500 text-xl"></i></span>
         </div>
         <div class="flex align-items-center justify-content-end mt-5">
-          <span class="font-bold text-800 align-items-center mr-8 ml-2"
-            >Midi</span
-          >
-          <span class="font-bold text-800 align-items-center mr-5 ml-5"
-            >Soir</span
-          >
+          <span class="font-bold text-800 align-items-center mr-8 ml-2">Midi</span>
+          <span class="font-bold text-800 align-items-center mr-5 ml-5">Soir</span>
         </div>
         <hr class="my-3 mx-0 border-top-1 border-none surface-border" />
         <ul class="list-none p-0 m-0 flex-grow-1">
@@ -70,13 +47,8 @@
             <div>
               <div class="flex align-items-center flex-wrap">
                 <span class="text-600 align-items-center mr-8">Lundi</span>
-                <span
-                  class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-8"
-                  >10:00</span
-                >
-                <span class="font-mediumtext-800 align-items-center mr-5 ml-5"
-                  >19:00</span
-                >
+                <span class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-8">10:00</span>
+                <span class="font-mediumtext-800 align-items-center mr-5 ml-5">19:00</span>
               </div>
             </div>
           </li>
@@ -84,13 +56,8 @@
             <div>
               <div class="flex align-items-center flex-wrap">
                 <span class="text-600 align-items-center mr-8">Mardi</span>
-                <span
-                  class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-8"
-                  >10:00</span
-                >
-                <span class="font-mediumtext-800 align-items-center mr-5 ml-5"
-                  >19:00</span
-                >
+                <span class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-8">10:00</span>
+                <span class="font-mediumtext-800 align-items-center mr-5 ml-5">19:00</span>
               </div>
             </div>
           </li>
@@ -98,13 +65,8 @@
             <div>
               <div class="flex align-items-center flex-wrap">
                 <span class="text-600 align-items-center mr-8">Mercredi</span>
-                <span
-                  class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-6"
-                  >10:00</span
-                >
-                <span class="font-mediumtext-800 align-items-center mr-5 ml-5"
-                  >19:00</span
-                >
+                <span class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-6">10:00</span>
+                <span class="font-mediumtext-800 align-items-center mr-5 ml-5">19:00</span>
               </div>
             </div>
           </li>
@@ -112,13 +74,8 @@
             <div>
               <div class="flex align-items-center flex-wrap">
                 <span class="text-600 align-items-center mr-8">Jeudi</span>
-                <span
-                  class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-8"
-                  >10:00</span
-                >
-                <span class="font-mediumtext-800 align-items-center mr-5 ml-5"
-                  >19:00</span
-                >
+                <span class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-8">10:00</span>
+                <span class="font-mediumtext-800 align-items-center mr-5 ml-5">19:00</span>
               </div>
             </div>
           </li>
@@ -126,13 +83,8 @@
             <div>
               <div class="flex align-items-center flex-wrap">
                 <span class="text-600 align-items-center mr-8">Vendredi</span>
-                <span
-                  class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-6"
-                  >10:00</span
-                >
-                <span class="font-mediumtext-800 align-items-center mr-5 ml-5"
-                  >19:00</span
-                >
+                <span class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-6">10:00</span>
+                <span class="font-mediumtext-800 align-items-center mr-5 ml-5">19:00</span>
               </div>
             </div>
           </li>
@@ -141,13 +93,8 @@
               <div class="flex align-items-center flex-wrap">
                 <span class="text-600 align-items-center mr-8">Samedi</span>
 
-                <span
-                  class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-7"
-                  >10:00</span
-                >
-                <span class="font-mediumtext-800 align-items-center mr-5 ml-5"
-                  >19:00</span
-                >
+                <span class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-7">10:00</span>
+                <span class="font-mediumtext-800 align-items-center mr-5 ml-5">19:00</span>
               </div>
             </div>
           </li>
@@ -156,13 +103,8 @@
               <div class="flex align-items-center flex-wrap">
                 <div class="flex align-items-center justify-content-end">
                   <span class="text-600 align-items-center mr-8">Dimanche</span>
-                  <span
-                    class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-6"
-                    >10:00</span
-                  >
-                  <span class="font-mediumtext-800 align-items-center mr-5 ml-5"
-                    >19:00</span
-                  >
+                  <span class="font-mediumtext-800 align-items-center mr-8 ml-2 pl-6">10:00</span>
+                  <span class="font-mediumtext-800 align-items-center mr-5 ml-5">19:00</span>
                 </div>
               </div>
             </div>
@@ -186,3 +128,4 @@
     </div>
   </div>
 </div>
+<!-- /Franchisee -->
