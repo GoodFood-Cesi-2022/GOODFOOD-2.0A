@@ -1,4 +1,6 @@
 import { Ingredient } from './ingredient.model';
+import { Picture } from './picture.model';
+import { RecipeType } from './recipe-type.model';
 
 export interface Recipe {
   id?: number;
@@ -10,11 +12,5 @@ export interface Recipe {
   recipe_type?: RecipeType;
   //created_by: number;
   available_at?: Date;
-}
-
-export interface RecipeType {
-  id?: number;
-  code?: string;
-  name?: string;
-  description?: string;
+  pictures?: Picture[];
 }

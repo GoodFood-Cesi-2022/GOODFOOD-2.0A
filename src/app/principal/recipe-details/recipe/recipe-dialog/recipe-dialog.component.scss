@@ -2,6 +2,17 @@
   width: 14rem;
 }
 
+.DynamicDialog {
+  :host ::ng-deep {
+    .p-dialog .p-dialog-header {
+      background: #d8f6f6 !important;
+    }
+  }
+}
+:host ::ng-deep .ui-dialog .ui-dialog-titlebar {
+  background-color: rgba(255, 234, 0, 0.325);
+}
+
 .p-fileupload .p-fileupload-basic .p-fileupload-choose {
   border-radius: 50% !important;
   min-width: 0rem !important;
@@ -21,31 +32,31 @@
 
 :host ::ng-deep .multiselect-custom {
   .p-multiselect-label {
-      padding-top: .25rem;
-      padding-bottom: .25rem;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
   }
 
   .country-item-value {
-      padding: .25rem .5rem;
-      border-radius: 3px;
-      display: inline-flex;
-      margin-right: .5rem;
-      background-color: var(--primary-color);
-      color: var(--primary-color-text);
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    display: inline-flex;
+    margin-right: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
 
-      img.flag {
-          width: 17px;
-      }
+    img.flag {
+      width: 17px;
+    }
   }
 
   .country-placeholder {
-      padding: 0.25rem;
+    padding: 0.25rem;
   }
 }
 :host ::ng-deep {
   @media screen and (max-width: 640px) {
-      .p-multiselect {
-          width: 100%;
-      }
+    .p-multiselect {
+      width: 100%;
+    }
   }
 }
