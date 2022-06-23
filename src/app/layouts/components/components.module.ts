@@ -14,10 +14,24 @@ import { RippleModule } from 'primeng/ripple';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { TitleComponent } from './title/title/title.component';
+import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
-  declarations: [TopbarComponent, SidebarComponent, FooterComponent],
-  exports: [TopbarComponent, SidebarComponent, FooterComponent],
+  declarations: [
+    TopbarComponent,
+    SidebarComponent,
+    TitleComponent,
+    LoadingComponent,
+    FooterComponent,
+  ],
+  exports: [
+    TopbarComponent,
+    SidebarComponent,
+    TitleComponent,
+    LoadingComponent,
+    FooterComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,

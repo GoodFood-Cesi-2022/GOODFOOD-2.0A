@@ -7,7 +7,7 @@
   <ul class="nav flex-column">
     <li>
       <button
-        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
+        *ngIf="user.autorisations?.isAdmin"
         pButton
         pRipple
         type="button"
@@ -63,14 +63,14 @@
     </li>
     <li>
       <button
-        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
+        *ngIf="user.autorisations?.isAdmin"
         pButton
         pRipple
         type="button"
         label="Recettes"
         class="p-button-info p-button-text"
         icon="pi pi-list"
-        routerLink="/recipe"
+        routerLink="/recipes"
         routerLinkActive="active"
         (click)="onClose()"
       ></button>
