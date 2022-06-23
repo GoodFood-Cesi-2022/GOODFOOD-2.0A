@@ -14,7 +14,6 @@ export class LayoutsModule {
   static forRoot(): ModuleWithProviders<LayoutsModule> {
     return {
       ngModule: LayoutsModule,
-      providers: [],
     };
   }
 }

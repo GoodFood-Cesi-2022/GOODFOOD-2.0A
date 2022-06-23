@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { filter, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { EndPoints } from 'src/app/shared/constants/constants';
 import { User } from 'src/app/shared/models/user.model';
 import { SidebarService } from 'src/app/shared/services/sidebar/sidebar.service';
@@ -20,9 +19,10 @@ export class SidebarComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private router: Router,
     private sidebarService: SidebarService
-  ) {}
+  ) {
+    // No code
+  }
 
   ngOnInit(): void {
     this.sidebarService.display$.subscribe((res) => (this.display = res));

@@ -11,4 +11,6 @@ import { ToastModule } from 'primeng/toast';
   exports: [DefaultComponent],
   imports: [CommonModule, RouterModule, ComponentsModule, ToastModule],
 })
-export class DefaultModule {}
+export class DefaultModule {
+  // No code
+}
