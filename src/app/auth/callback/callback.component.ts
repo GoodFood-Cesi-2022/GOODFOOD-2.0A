@@ -45,10 +45,13 @@ export class CallbackComponent implements OnInit {
           console.log('je passe dans *** callback dispatch ***', user);
         } else {
           this.user = user;
-          if (
-            this.user.code.includes(Roles.ADMIN) ||
-            this.user.code.includes(Roles.FRANCHISEE)
-          ) {
+          var authorized: boolean = false;
+          user.roles.forEach((e) => {
+            if (e['code'] === Roles.ADMIN || e['code'] === Roles.FRANCHISEE) {
+              authorized = true;
+            }
+          });
+          if (authorized) {
             this.router.navigateByUrl('/home');
           } else {
             this.router.navigateByUrl('/');

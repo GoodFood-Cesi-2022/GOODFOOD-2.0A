@@ -1,9 +1,10 @@
 <!-- <app-topbar> -->
 <div *ngIf="(user$ | async) as user"
-  class="bg-blue-500 text-white-100 p-1 flex lg:justify-content-left align-items-center flex-wrap">
-  <p>{{titre1}}</p>
-  <button *ngIf="user.autorisations.isAdmin || user.autorisations.isFranchisee" pButton pRipple label="GOOD FOOD"
-    type="button" icon="pi pi-angle-right" pTooltip="Menu" tooltipPosition="top" (click)="openSidebar()">
+  class="bg-indigo-900 text-white-100 p-1 flex lg:justify-content-left align-items-center flex-wrap">
+  <!-- <p>{{titre1}}</p> -->
+  <button *ngIf="user.autorisations.isAdmin || user.autorisations.isFranchisee" pButton pRipple
+    class="p-button-raised bg-indigo-900 border-0 text-blue-50" label="GOOD FOOD" type="button" icon="pi pi-angle-right"
+    pTooltip="Menu" tooltipPosition="top" (click)="openSidebar()">
   </button>
 </div>
 <!-- </app-topbar> -->

@@ -1,7 +1,7 @@
 /*
  * URL : recipes/${id}/pictures
  */
-export interface File {
+export interface Picture {
   uuid?: string;
   name?: string;
   size?: number;

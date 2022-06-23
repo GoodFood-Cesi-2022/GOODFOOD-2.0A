@@ -12,6 +12,7 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { DropdownModule } from 'primeng/dropdown';
 import { CardModule } from 'primeng/card';
+import { ComponentsModule } from 'src/app/layouts/components/components.module';
 
 const routes: Routes = [{ path: '', component: FranchiseeComponent }];
 
@@ -31,6 +32,7 @@ const routes: Routes = [{ path: '', component: FranchiseeComponent }];
     ToolbarModule,
     DropdownModule,
     CardModule,
+    ComponentsModule
   ],
 })
 export class FranchiseeModule {}

@@ -1,6 +1,8 @@
 import { CheckboxModule } from 'primeng/checkbox';
-import { DialogModule } from 'primeng/dialog';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DataViewModule } from 'primeng/dataview';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -8,9 +10,7 @@ import { ButtonModule } from 'primeng/button';
 import { RecipeDialogComponent } from './recipe/recipe-dialog/recipe-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { DataViewModule } from 'primeng/dataview';
 import { PanelModule } from 'primeng/panel';
-import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SelectButtonModule } from 'primeng/selectbutton';
@@ -29,9 +29,13 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { ApiTokenInterceptorService } from 'src/app/shared/interceptors/api-token-interceptor.service';
 import { CalendarModule } from 'primeng/calendar';
 import { TabViewModule } from 'primeng/tabview';
+import { TableModule } from 'primeng/table';
 import { IngredientComponent } from './ingredient/ingredient.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { IngredientTypeComponent } from './ingredient-type/ingredient-type/ingredient-type.component';
+import { DividerModule } from 'primeng/divider';
 
 const routes: Routes = [{ path: '', component: TabsComponent }];
 
@@ -41,6 +45,7 @@ const routes: Routes = [{ path: '', component: TabsComponent }];
     RecipeDialogComponent,
     IngredientComponent,
     TabsComponent,
+    IngredientTypeComponent,
   ],
   imports: [
     ButtonModule,
@@ -61,6 +66,7 @@ const routes: Routes = [{ path: '', component: TabsComponent }];
     RippleModule,
     RouterModule.forChild(routes),
     SelectButtonModule,
+    TableModule,
     ToastModule,
     ToolbarModule,
     TooltipModule,
@@ -71,6 +77,8 @@ const routes: Routes = [{ path: '', component: TabsComponent }];
     CalendarModule,
     TabViewModule,
     MultiSelectModule,
+    KeyFilterModule,
+    DividerModule,
   ],
   entryComponents: [RecipeDialogComponent],
   providers: [

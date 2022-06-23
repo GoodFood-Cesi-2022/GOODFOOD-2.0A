@@ -46,7 +46,7 @@ export class UserEffects {
     this.actions$.pipe(
       ofType(UserActions.loadUser),
       //concatMap(() => this.authService.getAppUser()),
-      concatMap(() => this.authService.getCurrentUserRemote()),
+      concatMap(() => this.authService.getUser()),
       //concatMap(() => this.authService.getUser()),
       map((userDetails) => UserActions.userLoaded({ userDetails }))
     )

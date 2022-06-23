@@ -35,8 +35,12 @@ function canAccess(user: UserState, roles: string[]): boolean {
   let grantedAccess = false;
 
   for (const role of roles) {
-    if (user?.userDetails && user?.userDetails?.code?.includes(role)) {
-      grantedAccess = true;
+    user.userDetails.roles.forEach((e) => {
+      if (e['code'] === role) {
+        grantedAccess = true;
+      }
+    });
+    if (grantedAccess) {
       break;
     }
   }

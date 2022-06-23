@@ -1,31 +1,75 @@
 ```
 app
 |- AuthModule
-|           |- login
-|           |- callback
+|         |- login
+|         |- callback
+|
 |
 |- LayoutsModule
-|           |- components
-|           |           |- sidebar
-|           |           |- footer
-|           |           |- topebar
-|           |- default
+|         |- components
+|         |         |- sidebar
+|         |         |- footer
+|         |         |- topebar
+|         |         |- title
+|         |
+|         |
+|         |- default
+|
 |
 |- principal
-|           |- home
-|           |- profile
-|                   |- components
-|                               |- profile
-|                               |- edit-profile == dialog-profile
+|         |- home
+|         |- profile
+|         |         |- profile
+|         |
+|         |
+|         |- franchisee
+|         |- recipe-details
+|         |         |- ingredient
+|         |         |- recipe
+|         |                  |- recipe-dialog
+|         |                  |- recipes
+|         |                  |- tabs
+|         |- users        
+|
 |- shared
 |         |- constants
-|         |- services
-|         |        |-
+|         |        |- constant
+|         |
+|         |
 |         |- models
-|         |        |- User.model
-|         |        |- franchisee.model
+|         |        |- User
+|         |        |- franchisee
+|         |        |- access-token
+|         |        |- ingredient
+|         |        |- ingredients-type
+|         |        |- picture
+|         |        |- recipe
+|         |        |- recipe-type
+|         |        |- schedule
+|         |
+|         |
+|         |- services
+|         |        |- franchisee
+|         |        |- ingredient
+|         |        |- ingredient-type
+|         |        |- profile
+|         |        |- recipe
+|         |        |- sidebar
+|         |        |- user
+|         |        |      |- auth
+|         |        |      |- local-storage
+|         |        |      |- string
+|         |        |
+|         |        |- users
+|         |        |- messages
+|         |
+|         |
 |         |- store
-|         |        |-
+|         |        |- state
+|         |                |- user
+|         |                |- recipe
+|         |
+|         |
 |         |- guards
 |                  |- admin.guard
 |                  |- franchisee.guard

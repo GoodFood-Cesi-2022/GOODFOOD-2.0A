@@ -1,5 +1,9 @@
 <p-toast></p-toast>
-
+<!-- Title -->
+<app-title [title]="'Profil d\'utilisateur'"
+  [description]="'Les details de profil d\'utilisateur, modifier et demander la supression de compte'">
+</app-title>
+<!-- app-users -->
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
@@ -63,6 +67,7 @@
     </ng-template>
   </p-table>
 </div>
+<!-- /app-users -->
 
 <p-dialog [(visible)]="userDialog" [style]="{ width: '450px' }" header="User Details" [modal]="true"
   styleClass="p-fluid">
