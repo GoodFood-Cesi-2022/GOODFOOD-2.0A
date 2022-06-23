@@ -1,5 +1,12 @@
 name: build
-on: push
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/*
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: Build & Test
@@ -8,7 +15,7 @@ jobs:
       - name: Ckeckout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
 
       # Setup of NodeJS
       - name: Setup NodeJS
@@ -28,7 +35,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - run: echo "🍏 This job's status is ${{ job.status }}. 🚀 "

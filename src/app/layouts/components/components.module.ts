@@ -14,7 +14,7 @@ import { RippleModule } from 'primeng/ripple';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FooterComponent } from './footer/footer.component';
 import { TopbarComponent } from './topbar/topbar.component';
-import { TitleComponent } from './title/title/title.component';
+import { TitleComponent } from './title/title.component';
 import { LoadingComponent } from './loading/loading.component';
 
 @NgModule({
@@ -45,4 +45,6 @@ import { LoadingComponent } from './loading/loading.component';
     RippleModule,
   ],
 })
-export class ComponentsModule {}
+export class ComponentsModule {
+  // No code
+}

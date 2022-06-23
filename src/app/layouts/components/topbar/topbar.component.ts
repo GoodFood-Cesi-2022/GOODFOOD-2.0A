@@ -21,18 +21,18 @@ export class TopbarComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private sidebarService: SidebarService
-  ) {}
+  ) {
+    // No code
+  }
 
   ngOnInit(): void {
     this.loadAppUser();
     this.user$ = this.store.pipe(select(selectUserDetails));
-    // console.log('STORE > topbar > ngOnInit > user$: ', this.user$);
   }
 
   private loadAppUser(): void {
     this.store.pipe(select(selectUserDetails)).subscribe(
       (user) => {
-        // console.log('STORE > loadAppUser > user: ', user);
         if (user == null) {
           this.store.dispatch(UserActions.loadUser());
         } else {

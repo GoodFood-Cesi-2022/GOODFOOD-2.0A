@@ -9,7 +9,11 @@ export class TitleComponent implements OnInit {
   @Input() title: string;
   @Input() description: string;
 
-  constructor() {}
+  constructor() {
+    // No code
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // No code
+  }
 }
