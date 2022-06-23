@@ -27,11 +27,12 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { UsersComponent } from './users/users.component';
 // Service
 import { UsersService } from 'src/app/shared/services/users/users.service';
+import { ComponentsModule } from 'src/app/layouts/components/components.module';
 
-const routes: Routes = [{ path: '', component: UsersComponent }];
+const routes: Routes = [ { path: '', component: UsersComponent } ];
 
 @NgModule({
-  declarations: [UsersComponent],
+  declarations: [ UsersComponent ],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -48,6 +49,7 @@ const routes: Routes = [{ path: '', component: UsersComponent }];
     ToastModule,
     ToolbarModule,
     ProgressBarModule,
+    ComponentsModule
     //ContextMenuModule,
     //MultiSelectModule,
     //DropdownModule,
@@ -55,6 +57,6 @@ const routes: Routes = [{ path: '', component: UsersComponent }];
     //FileUploadModule,
     // RadioButtonModule,
   ],
-  providers: [UsersService, MessageService, ConfirmationService],
+  providers: [ UsersService, MessageService, ConfirmationService ],
 })
-export class UsersModule {}
+export class UsersModule { }

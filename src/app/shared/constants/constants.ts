@@ -24,7 +24,7 @@ export enum EndPoints {
 }
 
 export enum Message {
-  UPDATE = 'La recette est bien modifié.',
+  UPDATE = 'La recette est bien mise à jour.',
 }
 
 export enum Roles {

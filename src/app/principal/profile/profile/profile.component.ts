@@ -38,24 +38,19 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private store: Store<AppState>,
-    private messageService: MessageService,
     private profileService: ProfileService,
+    private messageService: MessageService,
     private fb: FormBuilder
   ) {}
   ngOnInit(): void {
-    this.init();
-    this.createForm();
-
+    this.user$ = this.store.pipe(select(selectUserDetails));
     this.user = this.profileService.getCurrentUser();
-    //this.user = this.profileService.getUser();
     this.editModeFirstname = false;
     this.editModeLastname = false;
     this.editModeEmail = false;
     this.editModePhone = false;
-  }
 
-  private init(): void {
-    this.user$ = this.store.pipe(select(selectUserDetails));
+    this.initForm();
   }
 
   updateField(type: string): User {
@@ -96,10 +91,10 @@ export class ProfileComponent implements OnInit {
   /**
    * In input form : + Verify value form (character form and length)
    */
-  private createForm(): void {
+  private initForm(): void {
     this.form = this.fb.group({
       firstname: [
-        this.user.firstname,
+        this.user?.firstname,
         [
           Validators.required,
           Validators.minLength(3),
@@ -107,7 +102,7 @@ export class ProfileComponent implements OnInit {
         ],
       ],
       lastname: [
-        this.user.lastname,
+        this.user?.lastname,
         [
           Validators.required,
           Validators.minLength(3),
@@ -115,11 +110,11 @@ export class ProfileComponent implements OnInit {
         ],
       ],
       phone: [
-        this.user.phone,
+        this.user?.phone,
         [Validators.required, Validators.pattern('/^[0][0-9]{9}$')],
       ],
       email: [
-        this.user.email,
+        this.user?.email,
         [
           Validators.required,
           Validators.email,
