@@ -11,7 +11,7 @@ import {
 } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, tap } from 'rxjs';
-import { AppState } from '../../store/state/store.reducer';
+import { AppState } from '../../store/store.reducer';
 import { franchiseeAccess } from '../../store/state/user/user.selector';
 
 /**

@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { User } from 'src/app/shared/models/user.model';
-import { Update } from '@ngrx/entity';
+
 /**
  * User-related Actions that we need for our user Store. Logout,
  * and user changed Action to keep the user details in our Store in sync with Auth

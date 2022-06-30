@@ -6,7 +6,7 @@ import { Router } from 'express';
 import { Observable, map } from 'rxjs';
 import { Roles } from 'src/app/shared/constants/constants';
 import { User } from 'src/app/shared/models/user.model';
-import { AppState } from 'src/app/shared/store/state';
+import { AppState } from 'src/app/shared/store';
 import { environment } from 'src/environments/environment';
 
 @Injectable({

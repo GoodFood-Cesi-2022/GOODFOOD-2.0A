@@ -1,3 +1,4 @@
+import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
@@ -14,6 +15,7 @@ import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 
 import { Store } from '@ngrx/store';
 import { RecipeState } from '../../../../shared/store/state/recipe/recipe.reducer';
+import { Picture } from 'src/app/shared/models/picture.model';
 
 @Component({
   selector: 'app-recipes',
@@ -46,7 +48,8 @@ export class RecipesComponent implements OnInit {
   recipes: Recipe[] = [];
   recipesType: Recipe[] = [];
   ingredients: Ingredient[] = [];
-
+  ingredientType: IngreType[] = [];
+  pictures: Picture[] = [];
   sortOptions: SelectItem[] = [];
   sortOrder: number;
   sortField: string;
@@ -68,14 +71,6 @@ export class RecipesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.initRecipes();
-    this.sortOptions = [
-      { label: 'Price High to Low', value: '!price' },
-      { label: 'Price Low to High', value: 'price' },
-    ];
-  }
-
-  private initRecipes(): void {
     this.loading.loadingOn();
 
     this.recipeService
@@ -122,6 +117,7 @@ export class RecipesComponent implements OnInit {
       contentStyle: { 'max-height': '550px', overflow: 'auto' },
       baseZIndex: 10000,
       data: {
+        mode: 'CREATE',
         recipe: [],
         recipeType: [],
         ingredientsTypes: [],
@@ -172,6 +168,33 @@ export class RecipesComponent implements OnInit {
             })
         );
       },
+    });
+  }
+
+  public updateRecipe(recipe: Recipe): void {
+    const ref = this.dialogService.open(RecipeDialogComponent, {
+      header: `${recipe.name}`,
+      width: '70%',
+      // styleClass: 'DynamicDialog',
+      // contentStyle: { 'max-height': '550px', overflow: 'auto' },
+      // baseZIndex: 10000,
+      data: {
+        mode: 'UPDATE',
+        recipeType: this.recipesType,
+        ingredientsTypes: this.ingredientType,
+        ingredients: this.ingredients,
+        pictures: this.pictures,
+        recipe,
+      },
+    });
+    ref.onClose.subscribe((recipe: Recipe) => {
+      if (recipe) {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Succès',
+          detail: 'La recette est bien modifié.',
+        });
+      }
     });
   }
 }

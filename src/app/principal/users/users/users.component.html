@@ -1,31 +1,55 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Profil d\'utilisateur'"
-  [description]="'Les details de profil d\'utilisateur, modifier et demander la supression de compte'">
+<app-title
+  [title]="'Profil d\'utilisateur'"
+  [description]="
+    'Les details de profil d\'utilisateur, modifier et demander la supression de compte'
+  "
+>
 </app-title>
 <!-- app-users -->
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
     <ng-template pTemplate="left">
-      <button pButton pRipple label="Nouvel utilisateur" icon="pi pi-plus" class="p-button-success p-mr-2"
-        (click)="openNew()"></button>
+      <button
+        pButton
+        pRipple
+        label="Nouvel utilisateur"
+        icon="pi pi-plus"
+        class="p-button-success p-mr-2"
+        (click)="openNew()"
+      ></button>
     </ng-template>
   </p-toolbar>
 
-  <p-table #dt [value]="users" [rows]="10" [paginator]="true" [globalFilterFields]="[
+  <p-table
+    #dt
+    [value]="users"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="[
       'lastname',
       'country.lastname',
       'representative.lastname',
       'status'
-    ]" [(selection)]="selectedUsers" [rowHover]="true" dataKey="id" currentPageReportTemplate=" {first} - {last} "
-    [showCurrentPageReport]="true">
+    ]"
+    [(selection)]="selectedUsers"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate=" {first} - {last} "
+    [showCurrentPageReport]="true"
+  >
     <ng-template pTemplate="caption">
       <div class="p-d-flex p-ai-center p-jc-between">
         <h5 class="p-m-0">Gestion d'utilisateurs</h5>
         <span class="p-input-icon-left">
           <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Rechercher par nom..." />
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Rechercher par nom..."
+          />
         </span>
       </div>
     </ng-template>
@@ -53,10 +77,20 @@
         <td>{{ user.email }}</td>
         <td>{{ user.phone }}</td>
         <td>
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-outlined p-button-success p-mr-2"
-            (click)="editUser(user)"></button>
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-outlined p-button-danger"
-            (click)="deleteUser(user)"></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-outlined p-button-success p-mr-2"
+            (click)="editUser(user)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-outlined p-button-danger"
+            (click)="deleteUser(user)"
+          ></button>
         </td>
       </tr>
     </ng-template>
@@ -68,38 +102,90 @@
   </p-table>
 </div>
 <!-- /app-users -->
-
-<p-dialog [(visible)]="userDialog" [style]="{ width: '450px' }" header="User Details" [modal]="true"
-  styleClass="p-fluid">
+<!-- New user -->
+<p-dialog
+  [(visible)]="userDialog"
+  [style]="{ width: '450px' }"
+  header="User Details"
+  [modal]="true"
+  styleClass="p-fluid"
+>
   <ng-template pTemplate="content">
     <div class="p-field">
       <label for="firstname">Prénom</label>
-      <input type="text" pInputText id="firstname" [(ngModel)]="user.firstname" required autofocus />
-      <small class="p-invalid" *ngIf="submitted && !user.firstname">Firstname is required.</small>
+      <input
+        type="text"
+        pInputText
+        id="firstname"
+        [(ngModel)]="user.firstname"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !user.firstname"
+        >Firstname is required.</small
+      >
     </div>
     <div class="p-field">
       <label for="lastname">Nom</label>
-      <input type="text" pInputText id="lastname" [(ngModel)]="user.lastname" required autofocus />
-      <small class="p-invalid" *ngIf="submitted && !user.lastname">Lastname is required.</small>
+      <input
+        type="text"
+        pInputText
+        id="lastname"
+        [(ngModel)]="user.lastname"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !user.lastname"
+        >Lastname is required.</small
+      >
     </div>
     <div class="p-field">
       <label for="email">Email</label>
-      <input type="text" pInputText id="email" [(ngModel)]="user.email" required autofocus />
-      <small class="p-invalid" *ngIf="submitted && !user.email">Email is required.</small>
+      <input
+        type="text"
+        pInputText
+        id="email"
+        [(ngModel)]="user.email"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !user.email"
+        >Email is required.</small
+      >
     </div>
     <div class="p-field">
       <label for="phone">Téléphone</label>
-      <input type="text" pInputText id="phone" [(ngModel)]="user.phone" required autofocus />
-      <small class="p-invalid" *ngIf="submitted && !user.phone">Phone is required.</small>
+      <input
+        type="text"
+        pInputText
+        id="phone"
+        [(ngModel)]="user.phone"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !user.phone"
+        >Phone is required.</small
+      >
     </div>
   </ng-template>
-
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"
-      (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text p-button-success"
-      (click)="saveUser()"></button>
+    <button
+      pButton
+      pRipple
+      label="Cancel"
+      icon="pi pi-times"
+      class="p-button-text p-button-danger"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Save"
+      icon="pi pi-check"
+      class="p-button-text p-button-success"
+      (click)="saveUser()"
+    ></button>
   </ng-template>
 </p-dialog>
-
+<!-- Confirm dialog -->
 <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>

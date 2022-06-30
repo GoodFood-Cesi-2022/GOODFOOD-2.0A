@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { MessageService } from 'primeng/api';
 import { Observable, filter, first } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
-import { AppState } from 'src/app/shared/store/state';
+import { AppState } from 'src/app/shared/store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {
   selectUserDetails,
@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
   editModeEmail?: boolean;
   editModePhone?: boolean;
 
-  user$?: Observable<User>;
+  user$: Observable<User>;
   user: User;
 
   form: FormGroup;
@@ -39,12 +39,25 @@ export class ProfileComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private profileService: ProfileService,
-    private messageService: MessageService,
+    // private messageService: MessageService,
     private fb: FormBuilder
   ) {}
   ngOnInit(): void {
-    this.user$ = this.store.pipe(select(selectUserDetails));
-    this.user = this.profileService.getCurrentUser();
+    // this.store.pipe(select(selectUserDetails)).subscribe((user) => {
+    //   console.log(this.user);
+    //   if (user == null) {
+    //     this.store.dispatch(UserActions.loadUser());
+    //   }
+    // });
+    //this.user = this.profileService.getCurrentUser();
+    this.profileService.getUser().subscribe(
+      (res) => {
+        this.user = res;
+        this.form.patchValue(this.user);
+        console.log('res in profile : ', res);
+      },
+      (err) => console.log('erreu dans profile component : ', err)
+    );
     this.editModeFirstname = false;
     this.editModeLastname = false;
     this.editModeEmail = false;
@@ -62,6 +75,7 @@ export class ProfileComponent implements OnInit {
       )
       .subscribe(
         (user) => {
+          const userUpdate = { ...user } as User;
           const formValue = this.form.value;
           switch (type) {
             case 'FIRSTNAME':

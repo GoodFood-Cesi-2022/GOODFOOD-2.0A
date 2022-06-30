@@ -1,4 +1,4 @@
-import { IngreType } from "./ingredient-type.model";
+import { IngreType } from './ingredient-type.model';
 
 /*
  * url : /ingredients

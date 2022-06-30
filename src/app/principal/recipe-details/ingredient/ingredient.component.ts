@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import {
+  FormGroup,
+  Validators,
+  FormBuilder,
+  FormControl,
+} from '@angular/forms';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { IngreType } from 'src/app/shared/models/ingredient-type.model';
@@ -7,6 +12,7 @@ import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 import { IngredientService } from 'src/app/shared/services/ingredient/ingredient.service';
 import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/ingredient-type.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-ingredient',
@@ -24,7 +30,6 @@ import { MessageService, ConfirmationService } from 'primeng/api';
   providers: [MessageService, ConfirmationService],
 })
 export class IngredientComponent implements OnInit {
-  mode: 'CREATE' | 'UPDATE';
   form: FormGroup;
   allergen: boolean;
 
@@ -38,7 +43,10 @@ export class IngredientComponent implements OnInit {
   ingredientDialog: boolean;
   submitted: boolean;
 
-  first = 0;
+  first: number = 0;
+
+  id: number;
+  isCreate: boolean = true;
 
   constructor(
     private ingredientService: IngredientService,
@@ -50,6 +58,7 @@ export class IngredientComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
+    this.isCreate = !this.id;
     this.initForm();
   }
 
@@ -57,14 +66,11 @@ export class IngredientComponent implements OnInit {
     /* retrieve ingredient */
     this.ingredientService.getIngredients().subscribe((res) => {
       this.ingredients = res;
-      // console.log('component > ingredients : ', res);
     });
     /* retrieve ingredient types */
     this.ingredientTypeService.getIngredientsTypes().subscribe((res) => {
       this.typeArray = res;
-      // console.log('component > ingredient-type : ', res);
     });
-    this.initForm();
   }
 
   initForm(): void {
@@ -77,57 +83,90 @@ export class IngredientComponent implements OnInit {
           Validators.pattern('[a-zA-Z]'),
         ],
       ],
-      allergen: this.ingredient?.allergen || false, //false,
-      ingredientType: this.ingredient?.types || [], //new FormControl([]),
+      allergen: this.ingredient?.allergen || false,
+      ingredientType: this.ingredient?.types || new FormControl([]),
+      // [new FormControl([]), this.isCreate ? this.form.controls['ingredientType'].disable(),
+      // { value: new FormControl([]), disabled: !this.isCreate }, //
     });
-  }
 
-  isAllergen(event: any): void {
-    this.allergen = event.checked;
-    if (event.checked) {
-      this.allergen = true;
-      this.form.get('allergen').setValue(true);
-    } else {
-      this.form.get('allergen').setValue(false);
+    if (!this.isCreate) {
+      this.ingredientService
+        .getIngredient(this.id)
+        .pipe(first())
+        .subscribe((x) => this.form.patchValue(x));
     }
+
+    // if (this.isCreate) {
+    // this.form.get('name').setValue(this.ingredient?.name);
+    // this.form.get('allergen').setValue(this.ingredient?.allergen);
+    // this.form.controls['ingredientType'].disable();
+    // this.form.get('ingredientType').disable();
+    // }
   }
 
   onSubmit(): void {
+    // if (this.form.valid) {}
     this.submitted = true;
+    this.makeRecipe();
 
-    const ingredient: Ingredient = {
-      name: this.form.get('name').value,
-      allergen: this.form.get('allergen').value,
-      types: [this.form.controls['ingredientType'].value.code],
-    };
-    if (this.mode === 'UPDATE') {
+    if (this.ingredient.id) {
       this.ingredientService
-        .updateIngredient(ingredient)
+        .updateIngredient(this.ingredient)
         .pipe()
-        .subscribe((res) => {
-          console.log('res : ', res);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Updated',
-            life: 3000,
-          });
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: "Mise à jour d'ingredient",
+              life: 3000,
+            });
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de modification',
+              detail: error.error,
+            });
+          },
         });
     } else {
       this.ingredientService
-        .createIngredient(ingredient)
+        .createIngredient(this.ingredient)
         .pipe()
-        .subscribe((res) => {
-          console.log('res : ', res);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Created',
-            life: 3000,
-          });
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'Nouvel ingredient ajouté',
+              life: 3000,
+            });
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de création',
+              detail: error.error,
+            });
+          },
         });
     }
+
+    this.ingredients = [...this.ingredients];
     this.ingredientDialog = false;
+    this.ingredient = {};
+  }
+
+  private makeRecipe(): void {
+    if (this.isCreate) {
+      this.ingredient.name = this.form.get('name').value;
+      this.ingredient.allergen = this.form.get('allergen').value;
+      this.ingredient.types = [this.form.controls['ingredientType'].value.code];
+    } else {
+      this.ingredient.name = this.form.get('name').value;
+      this.ingredient.allergen = this.form.get('allergen').value;
+    }
   }
 
   newIngredient(): void {
@@ -136,35 +175,13 @@ export class IngredientComponent implements OnInit {
     this.ingredientDialog = true;
   }
 
-  // deleteSelectedIngredients(): void {
-  //   this.confirmationService.confirm({
-  //     message: 'Etes-vous sûre de vouloir supprimer ?',
-  //     header: 'Confirmation de suppression',
-  //     icon: 'pi pi-exclamation-triangle',
-  //     acceptButtonStyleClass: 'accept',
-  //     accept: (): void => {
-  //       //this.ingredientService.removeIngredient(this.ingredient.id).
-  //       this.ingredients = this.ingredients.filter(
-  //         (val) => !this.selectedIngredients.includes(val)
-  //       );
-  //       //this.ingredient = {};
-  //       this.selectedIngredients = null;
-  //       this.messageService.add({
-  //         severity: 'success',
-  //         summary: 'Succès',
-  //         detail: 'Ingredient est supprimé',
-  //         life: 3000,
-  //       });
-  //     },
-  //   });
-  // }
-
   updateIngredient(ingredient: Ingredient): void {
-    // const formValue = this.form.value;
-    // this.ingredient.name=formValue.name;
-    // this.ingredient.allergen=formValue.allergen;
-    // this.ingredient.types=formValue.types;
-    this.ingredient = { ...ingredient, ...this.form.value };
+    this.ingredient = { ...ingredient };
+    // this.initForm();
+    this.form.get('name').setValue(this.ingredient?.name);
+    this.form.get('allergen').setValue(this.ingredient?.allergen);
+    this.form.controls['ingredientType'].setValue(this.ingredient?.types);
+    // this.form.get('ingredientType').disable();
     this.ingredientDialog = true;
   }
 
@@ -198,8 +215,46 @@ export class IngredientComponent implements OnInit {
     });
   }
 
+  isAllergen(event: any): void {
+    this.allergen = event.checked;
+    if (event.checked) {
+      this.allergen = true;
+      this.form.get('allergen').setValue(true);
+    } else {
+      this.form.get('allergen').setValue(false);
+    }
+  }
+
   hideDialog(): void {
     this.ingredientDialog = false;
     this.submitted = false;
   }
+
+  // onRegister(): void {
+  //   this.submitted = true;
+  //   if (this.mode === 'CREATE') {
+  //     this.newIngredient();
+  //   } else {
+  //     this.update();
+  //   }
+  //   this.ingredientDialog = false;
+  // }
+
+  // update(): void {
+  // this.submitted = false;
+  //   this.ingredient = { ...this.ingredient };
+  //   this.form = this.fb.group({
+  //     name: [
+  //       this.ingredient?.name,
+  //       [
+  //         Validators.required,
+  //         Validators.minLength(3),
+  //         Validators.pattern('[a-zA-Z]'),
+  //       ],
+  //     ],
+  //     allergen: this.ingredient?.allergen || false,
+  //     ingredientType: this.ingredient?.types,
+  //   });
+  //   this.ingredientDialog = true;
+  // }
 }
