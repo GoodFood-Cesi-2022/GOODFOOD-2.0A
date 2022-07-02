@@ -7,8 +7,6 @@ on:
       - release/*
       - feature/*
   pull_request:
-    - main
-    - develop
     types: [opened, synchronize, reopened]
 jobs:
   build:
