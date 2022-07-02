@@ -28,11 +28,6 @@
   transform-origin: 310px 150px;
 }
 
-.olhos {
-  animation: olhos 2s alternate infinite;
-  transform-origin: center;
-}
-
 @keyframes scales {
   from {
     transform: scale(0.98)
@@ -98,7 +93,7 @@
 
   0%,
   30% {
-    fill: 4B4B62;
+    fill: #4B4B62;
     stroke-dashoffset: 0;
   }
 
