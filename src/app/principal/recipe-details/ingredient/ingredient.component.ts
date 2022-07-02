@@ -54,7 +54,9 @@ export class IngredientComponent implements OnInit {
     private fb: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    //NOSONAR
+  }
 
   ngOnInit(): void {
     this.init();

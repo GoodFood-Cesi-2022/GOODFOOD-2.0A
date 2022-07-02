@@ -24,7 +24,9 @@ export class UsersComponent implements OnInit {
     private usersService: UsersService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    //NOSONAR
+  }
 
   ngOnInit(): void {
     this.usersService.getUsers().then((data) => (this.users = data));

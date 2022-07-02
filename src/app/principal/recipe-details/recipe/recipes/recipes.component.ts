@@ -66,9 +66,10 @@ export class RecipesComponent implements OnInit {
     public dialogService: DialogService,
     public messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private loading: LoadingService,
-    private store: Store<RecipeState>
-  ) {}
+    private loading: LoadingService
+  ) {
+    //NOSONAR
+  }
 
   ngOnInit() {
     this.loading.loadingOn();

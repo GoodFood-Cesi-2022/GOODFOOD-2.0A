@@ -7,10 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DefaultComponent implements OnInit {
   constructor() {
-    // No code
+    //NOSONAR
   }
 
   ngOnInit(): void {
-    // No code
+    //NOSONAR
   }
 }

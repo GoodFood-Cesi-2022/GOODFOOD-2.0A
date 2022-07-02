@@ -10,10 +10,10 @@ export class TitleComponent implements OnInit {
   @Input() description: string;
 
   constructor() {
-    // No code
+    //NOSONAR
   }
 
   ngOnInit(): void {
-    // No code
+    //NOSONAR
   }
 }

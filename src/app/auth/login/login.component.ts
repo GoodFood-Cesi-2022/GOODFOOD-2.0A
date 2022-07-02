@@ -9,10 +9,11 @@ import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+     //NOSONAR
+  }
 
   onLogin() {
     this.authService.getAuthorizationCode();
-    //this.authService.getAuthByMe();
   }
 }

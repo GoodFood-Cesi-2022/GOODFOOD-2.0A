@@ -21,7 +21,7 @@ export class SidebarComponent implements OnInit {
     private store: Store<AppState>,
     private sidebarService: SidebarService
   ) {
-    // No code
+    //NOSONAR
   }
 
   ngOnInit(): void {
