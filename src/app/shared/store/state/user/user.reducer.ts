@@ -24,7 +24,7 @@ export const userReducer = createReducer(
   initialState,
   on(UserActions.userLoaded, (state, action) => {
     return {
-      // ...state,
+      ...state,
       userDetails: action.userDetails,
     };
   }),

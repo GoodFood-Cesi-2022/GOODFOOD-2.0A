@@ -7,17 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 // PrimeNG
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
-import { CalendarModule } from 'primeng/calendar';
 import { SliderModule } from 'primeng/slider';
-import { MultiSelectModule } from 'primeng/multiselect';
-import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { DropdownModule } from 'primeng/dropdown';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
-import { RadioButtonModule } from 'primeng/radiobutton';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
@@ -29,15 +24,16 @@ import { UsersComponent } from './users/users.component';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 import { ComponentsModule } from 'src/app/layouts/components/components.module';
 
-const routes: Routes = [ { path: '', component: UsersComponent } ];
+const routes: Routes = [{ path: '', component: UsersComponent }];
 
 @NgModule({
-  declarations: [ UsersComponent ],
+  declarations: [UsersComponent],
   imports: [
     CommonModule,
     HttpClientModule,
     RouterModule.forChild(routes),
     ButtonModule,
+    ComponentsModule,
     ConfirmDialogModule,
     DialogModule,
     FormsModule,
@@ -49,14 +45,7 @@ const routes: Routes = [ { path: '', component: UsersComponent } ];
     ToastModule,
     ToolbarModule,
     ProgressBarModule,
-    ComponentsModule
-    //ContextMenuModule,
-    //MultiSelectModule,
-    //DropdownModule,
-    //CalendarModule,
-    //FileUploadModule,
-    // RadioButtonModule,
   ],
-  providers: [ UsersService, MessageService, ConfirmationService ],
+  providers: [UsersService, MessageService, ConfirmationService],
 })
-export class UsersModule { }
+export class UsersModule {}

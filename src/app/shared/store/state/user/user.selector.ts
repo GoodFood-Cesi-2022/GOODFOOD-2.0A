@@ -1,5 +1,3 @@
-import { User } from './../../../models/user.model';
-// import { AppState } from './user.state';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Roles } from 'src/app/shared/constants/constants';
 import { UserState } from './user.reducer';

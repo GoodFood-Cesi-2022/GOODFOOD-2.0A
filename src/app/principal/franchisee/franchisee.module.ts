@@ -5,6 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
+
+import { CalendarModule } from 'primeng/calendar';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { RippleModule } from 'primeng/ripple';
@@ -26,13 +29,15 @@ const routes: Routes = [{ path: '', component: FranchiseeComponent }];
     ButtonModule,
     RippleModule,
     DialogModule,
+    DividerModule,
     ToastModule,
     InputTextModule,
     HttpClientModule,
     ToolbarModule,
     DropdownModule,
     CardModule,
-    ComponentsModule
+    CalendarModule,
+    ComponentsModule,
   ],
 })
 export class FranchiseeModule {}

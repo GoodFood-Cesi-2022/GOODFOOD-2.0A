@@ -1,78 +1,82 @@
 ```
 app
-|- AuthModule
-|         |- login
-|         |- callback
+├── AuthModule
+|         ├── login
+|         └── callback
 |
 |
-|- LayoutsModule
-|         |- components
-|         |         |- sidebar
-|         |         |- footer
-|         |         |- topebar
-|         |         |- title
+├── LayoutsModule
+|         ├── components
+|         |         ├── sidebar
+|         |         ├── footer
+|         |         ├── topebar
+|         |         ├── title
+|         |         └── page-not-found
 |         |
-|         |
-|         |- default
+|         └── default
 |
 |
-|- principal
-|         |- home
-|         |- profile
-|         |         |- profile
+├── principal
+|         ├── home
+|         ├── profile
+|         |         └── profile
 |         |
 |         |
-|         |- franchisee
-|         |- recipe-details
-|         |         |- ingredient
-|         |         |- recipe
-|         |                  |- recipe-dialog
-|         |                  |- recipes
-|         |                  |- tabs
-|         |- users        
+|         ├── franchisee
+|         ├── recipe-details
+|         |         ├── ingredient
+|         |         └── recipe
+|         |                  ├── ingredient
+|         |                  ├── ingredient-type
+|         |                  ├── recipe
+|         |                  |       ├── recipe-dialog
+|         |                  |       └── recipes
+|         |                  |
+|         |                  └── tabs
+|         ├── users
 |
-|- shared
-|         |- constants
-|         |        |- constant
+├── shared
+|         ├── constants
+|         |        └── constant
 |         |
 |         |
-|         |- models
-|         |        |- User
-|         |        |- franchisee
-|         |        |- access-token
-|         |        |- ingredient
-|         |        |- ingredients-type
-|         |        |- picture
-|         |        |- recipe
-|         |        |- recipe-type
-|         |        |- schedule
+|         ├── models
+|         |        ├── User
+|         |        ├── franchisee
+|         |        ├── access-token
+|         |        ├── ingredient
+|         |        ├── ingredients-type
+|         |        ├── picture
+|         |        ├── recipe
+|         |        ├── recipe-type
+|         |        └── schedule
 |         |
 |         |
-|         |- services
-|         |        |- franchisee
-|         |        |- ingredient
-|         |        |- ingredient-type
-|         |        |- profile
-|         |        |- recipe
-|         |        |- sidebar
-|         |        |- user
-|         |        |      |- auth
-|         |        |      |- local-storage
-|         |        |      |- string
+|         ├── services
+|         |        ├── franchisee
+|         |        ├── ingredient
+|         |        ├── ingredient-type
+|         |        ├── profile
+|         |        ├── recipe
+|         |        ├── sidebar
+|         |        ├── user
+|         |        |      ├── auth
+|         |        |      ├── local-storage
+|         |        |      └── string
 |         |        |
-|         |        |- users
-|         |        |- messages
+|         |        ├── users
+|         |        └─── messages
 |         |
 |         |
-|         |- store
-|         |        |- state
-|         |                |- user
-|         |                |- recipe
+|         ├── store
+|         |        └── state
+|         |                ├── user
+|         |                └── recipe
 |         |
 |         |
-|         |- guards
-|                  |- admin.guard
-|                  |- franchisee.guard
-|                  |- auth.quard
+|         └── guards
+|                  ├── admin.guard
+|                  ├── franchisee.guard
+|                  └── auth.quard
 
 ```

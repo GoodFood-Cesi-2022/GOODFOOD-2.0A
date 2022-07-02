@@ -4,7 +4,7 @@ import { select, Store } from '@ngrx/store';
 import { Roles } from 'src/app/shared/constants/constants';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
-import { AppState } from 'src/app/shared/store/state';
+import { AppState } from 'src/app/shared/store';
 import {
   selectUserDetails,
   UserActions,

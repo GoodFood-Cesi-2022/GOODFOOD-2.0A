@@ -26,22 +26,22 @@ export class UsersComponent implements OnInit {
     private confirmationService: ConfirmationService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.usersService.getUsers().then((data) => (this.users = data));
   }
 
-  openNew() {
+  openNew(): void {
     this.user = {};
     this.submitted = false;
     this.userDialog = true;
   }
 
-  editUser(user: User) {
+  editUser(user: User): void {
     this.user = { ...user };
     this.userDialog = true;
   }
 
-  deleteUser(user: User) {
+  deleteUser(user: User): void {
     this.confirmationService.confirm({
       message:
         'Vous êtes sûr de vouloir supprimer ' +
@@ -53,7 +53,7 @@ export class UsersComponent implements OnInit {
         '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
-      accept: () => {
+      accept: (): void => {
         this.users = this.users.filter((val) => val.id !== user.id);
         this.user = {};
         this.messageService.add({

@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { User } from 'src/app/shared/models/user.model';
 import { SidebarService } from 'src/app/shared/services/sidebar/sidebar.service';
-import { AppState } from 'src/app/shared/store/state/store.reducer';
+import { AppState } from 'src/app/shared/store/store.reducer';
 import {
   selectUserDetails,
   UserActions,

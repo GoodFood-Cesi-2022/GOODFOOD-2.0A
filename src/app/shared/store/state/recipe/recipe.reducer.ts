@@ -5,25 +5,25 @@ import * as RecipeActions from './recipe.actions';
 export const recipeFeatureKey = 'recipe';
 
 export interface RecipeState {
-  recipe?: Recipe;
+  recipe?: Recipe[];
 }
 
 export const initialState: RecipeState = {
   recipe: undefined,
 };
 
-export const userReducer = createReducer(
+export const recipeReducer = createReducer(
   initialState,
   on(RecipeActions.recipeLoaded, (state, action) => {
     return {
-      // ...state,
+      ...state,
       recipe: action.recipe,
     };
   })
-  // ,
-  // on(RecipeActions.updateUser, (state, action) => {
+  // on(RecipeActions.updateRecipe, (state, action) => {
   //   return {
-  //     userDetails: action.userDetails,
+  //     ...state,
+  //     recipe: action.recipe,
   //   };
   // })
 );

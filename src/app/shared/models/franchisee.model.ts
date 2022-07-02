@@ -1,3 +1,5 @@
+import { Recipe } from './recipe.model';
+
 export interface Franchisee {
   id?: number;
   name?: string;
@@ -15,8 +17,15 @@ export interface Address {
   first_line?: string;
   second_line?: string;
   zip_code?: string;
-  country?: string;
   city?: string;
+  country?: string;
   lat?: string;
   lon?: string;
+}
+
+export interface FranchiseeRecipe {
+  id?: number;
+  price?: number;
+  recipe_id?: number;
+  recipe?: Recipe;
 }
