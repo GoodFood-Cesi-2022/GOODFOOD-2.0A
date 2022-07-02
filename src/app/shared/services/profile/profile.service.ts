@@ -52,10 +52,10 @@ export class ProfileService {
   }
 
   getCurrentUser(): User {
-    var currentUser: User;
+    let currentUser: User;
     currentUser = <User>this.localStorageService.get(StorageKeys.USER);
     type role = { code: string };
-    var currentRole: role;
+    let currentRole: role;
     currentRole = <role>this.localStorageService.get(StorageKeys.ROLE);
     console.log([currentRole]);
     currentUser.roles = [];

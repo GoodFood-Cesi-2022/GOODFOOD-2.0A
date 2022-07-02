@@ -214,7 +214,7 @@ export class AuthService {
   }
 
   async getCurrentUser(): Promise<User> {
-    var currentUser: User;
+    let currentUser: User;
     if (this.localStorageService.has(StorageKeys.USER)) {
       console.log('[AUTHSERVICE] Retrieve USER from CACHE');
       currentUser = <User>this.localStorageService.get(StorageKeys.USER);
@@ -231,7 +231,7 @@ export class AuthService {
 
   // /users/current?include[]=roles
   async getCurrentUserRemote(): Promise<User> {
-    var currentUser: User;
+    let currentUser: User;
     const usr = this.http.get<User>(`${environment.apiBaseUrl}/users/current`);
     currentUser = await firstValueFrom(usr);
 
@@ -241,7 +241,7 @@ export class AuthService {
   async getRole(user: User): Promise<User> {
     type role = { code: string };
     type roleArrayType = Array<role>;
-    var currentRole: role;
+    let currentRole: role;
     if (this.localStorageService.has(StorageKeys.ROLE)) {
       console.log('[AUTHSERVICE] Retrieve ROLE from CACHE');
       currentRole = <role>this.localStorageService.get(StorageKeys.ROLE);
@@ -262,7 +262,7 @@ export class AuthService {
   async getRoleRemote(user: User): Promise<User> {
     type role = { code: string };
     type roleArrayType = Array<role>;
-    var currentRole: role;
+    let currentRole: role;
     const userRoles = this.http.get<roleArrayType>(
       `${environment.apiBaseUrl}/users/${user.id}/roles`
     );
