@@ -18,7 +18,9 @@ export class UserService {
     private router: Router,
     private http: HttpClient,
     @Inject(DOCUMENT) private document: Document
-  ) {}
+  ) {
+    //NOSONAR
+  }
 
   getNewUser(): Observable<User> {
     return this.http

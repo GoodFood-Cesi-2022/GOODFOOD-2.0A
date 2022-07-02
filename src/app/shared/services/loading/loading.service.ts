@@ -16,7 +16,9 @@ export class LoadingService {
 
   loading$: Observable<boolean> = this.loadingSubject.asObservable();
 
-  constructor() {} //NOSONAR
+  constructor() {
+    //NOSONAR
+  }
 
   public showLoaderUntilCompleted<T>(obs$: Observable<T>): Observable<T> {
     return of(null).pipe(

@@ -11,7 +11,9 @@ import { Schedule } from '../../models/schedule.model';
   providedIn: 'root',
 })
 export class FranchiseeService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    //NOSONAR
+  }
 
   /**
    * @url GET : localhost:8080/api/contractors

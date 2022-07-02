@@ -11,7 +11,9 @@ import { Message } from '../../constants/constants';
   providedIn: 'root',
 })
 export class IngredientService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    //NOSONAR
+  }
 
   /**
    * @url GET : localhost:8080/api/ingredients

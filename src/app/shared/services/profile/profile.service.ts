@@ -8,8 +8,6 @@ import { LocalStorageService } from 'src/app/shared/services/user/local-storage/
 import { Roles, StorageKeys } from 'src/app/shared/constants/constants';
 import { AuthService } from '../user/auth/auth.service';
 
-const PAYLOAD = 'payload';
-
 @Injectable({
   providedIn: 'root',
 })
@@ -18,7 +16,9 @@ export class ProfileService {
     private http: HttpClient,
     private localStorageService: LocalStorageService,
     private authService: AuthService
-  ) {}
+  ) {
+    //NOSONAR
+  }
 
   getUser(): Observable<User> {
     return this.http
