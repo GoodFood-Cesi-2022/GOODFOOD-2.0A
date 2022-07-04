@@ -67,7 +67,7 @@
     <div class="p-formgrid p-grid mt-3">
       <div class="p-field p-col">
         <label for="types">Type d'ingrédient</label>
-        <p-dropdown [readonly]="!isCreate" [options]="typeArray" optionLabel="code" formControlName="ingredientType"
+        <p-dropdown [options]="typeArray" [readonly]="!isCreate" optionLabel="code" formControlName="ingredientType"
           [autoDisplayFirst]="false" id="ingreTypeFor" appendTo="body" [style]="{ width: '100%' }">
         </p-dropdown>
       </div>
