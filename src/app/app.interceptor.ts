@@ -26,14 +26,15 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
           } else {
             console.log(`error status : ${error.status} ${error.statusText}`);
             if (error.status === 500) {
-              this.router.navigateByUrl(`/`).then(() => {
-                window.location.reload();
-              });
+              // this.router.navigateByUrl(`/`).then(() => {
+              //   window.location.reload();
+              // });
             }
           }
         } else {
           console.error('some thing else happened');
         }
+        console.log(req);
         return throwError(error);
       })
     );

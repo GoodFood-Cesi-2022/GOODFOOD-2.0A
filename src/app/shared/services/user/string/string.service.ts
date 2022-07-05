@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class StringService {
-  constructor() {}
+  constructor() {
+    //NOSONAR
+  }
 
   /**
    * Return a pseudo random string
@@ -15,7 +17,6 @@ export class StringService {
     if (randomString.length > length) {
       return randomString.slice(0, length);
     }
-
     return this.getRandomString(length, randomString);
   }
 }

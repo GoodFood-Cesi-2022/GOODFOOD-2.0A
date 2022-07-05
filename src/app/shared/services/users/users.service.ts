@@ -15,7 +15,9 @@ export class UsersService {
   ];
   userPhones: string[] = ['12345678', '11111111', '00000000'];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    //NOSONAR
+  }
 
   getUsersSmall() {
     return this.http

@@ -7,7 +7,11 @@ import { LocalStorageService } from 'src/app/shared/services/user/local-storage/
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  constructor() {}
+  constructor() {
+    //NOSONAR
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //NOSONAR
+  }
 }

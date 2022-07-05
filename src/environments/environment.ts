@@ -12,7 +12,7 @@ export const environment = {
   appUrl: 'http://localhost:4200',
   apiBaseUrl: 'http://localhost:8080/api',
   oAuthProviderBaseUrl: 'http://localhost:8085/oauth',
-  oAuthClientId: '96560464-28d1-401b-9c39-0fe271d28c2d',
+  oAuthClientId: '96b05134-a952-4e00-b94a-c47406527d49',
   oAuthCallbackUri: 'http://localhost:4200/login/redirect',
 };
 
@@ -23,4 +23,3 @@ export const environment = {
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

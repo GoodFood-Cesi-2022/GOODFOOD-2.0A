@@ -24,7 +24,9 @@ export class FranchiseeComponent implements OnInit {
   constructor(
     private franchiseeService: FranchiseeService,
     private loading: LoadingService
-  ) {}
+  ) {
+    //NOSONAR
+  }
 
   ngOnInit(): void {
     this.loading.loadingOn();
@@ -38,8 +40,14 @@ export class FranchiseeComponent implements OnInit {
       });
   }
 
-  newContact(): void {}
-  editContact(): void {}
+  newContact(): void {
+    //NOSONAR
+  }
+  editContact(): void {
+    //NOSONAR
+  }
 
-  newSchedule(): void {}
+  newSchedule(): void {
+    //NOSONAR
+  }
 }

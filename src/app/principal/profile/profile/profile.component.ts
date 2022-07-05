@@ -41,7 +41,10 @@ export class ProfileComponent implements OnInit {
     private profileService: ProfileService,
     // private messageService: MessageService,
     private fb: FormBuilder
-  ) {}
+  ) {
+    //NOSONAR
+  }
+
   ngOnInit(): void {
     // this.store.pipe(select(selectUserDetails)).subscribe((user) => {
     //   console.log(this.user);
@@ -140,5 +143,7 @@ export class ProfileComponent implements OnInit {
   }
 
   // TODO : *** code this part ***
-  onFieldCancel(user: User, index: number) {}
+  onFieldCancel(user: User, index: number) {
+    // Complete here
+  }
 }

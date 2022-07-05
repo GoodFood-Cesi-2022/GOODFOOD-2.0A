@@ -4,12 +4,12 @@
 }
 
 .pao-baixo {
-  animation: rotatepao 14s cubic-bezier(.1, .49, .41, .97) infinite;
+  animation: rotatepao 14s cubic-bezier(0.1, 0.49, 0.41, 0.97) infinite;
   transform-origin: center;
 }
 
 .pao-cima {
-  animation: rotatepao 7s 1s cubic-bezier(.1, .49, .41, .97) infinite;
+  animation: rotatepao 7s 1s cubic-bezier(0.1, 0.49, 0.41, 0.97) infinite;
   transform-origin: center;
 }
 
@@ -30,28 +30,27 @@
 
 @keyframes scales {
   from {
-    transform: scale(0.98)
+    transform: scale(0.98);
   }
 
   to {
-    transform: scale(1)
+    transform: scale(1);
   }
 }
 
 @keyframes rotatepao {
   0% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 
   50%,
   60% {
-    transform: rotate(-20deg)
+    transform: rotate(-20deg);
   }
 
   100% {
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
-
 }
 
 @keyframes olhos {
@@ -68,12 +67,9 @@
   0% {
     opacity: 0;
   }
-
 }
 
-
 .main {
-
   min-height: 600px;
   margin: 0px auto;
   width: auto;
@@ -90,10 +86,9 @@
 }
 
 @keyframes dash {
-
   0%,
   30% {
-    fill: #4B4B62;
+    fill: #4b4b62;
     stroke-dashoffset: 0;
   }
 
@@ -102,6 +97,4 @@
     fill: transparent;
     stroke-dashoffset: -200;
   }
-
-
 }

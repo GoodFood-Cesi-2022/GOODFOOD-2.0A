@@ -1,11 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/ingredient-type.service';
-import {
-  ConfirmationService,
-  LazyLoadEvent,
-  MessageService,
-} from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 
 @Component({
@@ -32,7 +28,9 @@ export class IngredientTypeComponent implements OnInit {
     private fb: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService
-  ) {}
+  ) {
+    //NOSONAR
+  }
 
   ngOnInit(): void {
     this.init();

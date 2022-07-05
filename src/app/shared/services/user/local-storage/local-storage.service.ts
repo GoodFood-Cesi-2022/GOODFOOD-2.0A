@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  constructor() {}
+  constructor() {
+    //NOSONAR
+  }
 
   set(key: string, value: string | object): void {
     let valueSerialized: string = '';

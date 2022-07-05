@@ -6,7 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./ingredient-dialog.component.scss'],
 })
 export class IngredientDialogComponent implements OnInit {
-  constructor() {}
+  constructor() {
+    //NOSONAR
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //NOSONAR
+  }
 }

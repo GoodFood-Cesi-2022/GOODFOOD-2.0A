@@ -23,7 +23,7 @@ export class LoadingComponent implements OnInit {
   detectRoutingOnGoing = false;
 
   constructor(public loadingService: LoadingService, private router: Router) {
-    // No code
+    //NOSONAR
   }
 
   ngOnInit(): void {

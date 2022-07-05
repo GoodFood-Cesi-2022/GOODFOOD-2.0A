@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { tap, map, Observable } from 'rxjs';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 
@@ -11,7 +11,9 @@ import { Message } from '../../constants/constants';
   providedIn: 'root',
 })
 export class IngredientService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    //NOSONAR
+  }
 
   /**
    * @url GET : localhost:8080/api/ingredients
@@ -52,11 +54,7 @@ export class IngredientService {
    */
   public updateIngredient(update: Partial<Ingredient>): Observable<string> {
     return this.http
-      .put(`${environment.apiBaseUrl}/ingredients/${update.id}`, {
-        ...update,
-        // name: update.name,
-        // allergen: update.allergen,
-      })
+      .put(`${environment.apiBaseUrl}/ingredients/${update.id}`, update)
       .pipe(map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS)));
   }
 

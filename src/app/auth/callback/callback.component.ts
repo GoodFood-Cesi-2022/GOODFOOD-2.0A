@@ -23,7 +23,9 @@ export class CallbackComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private authService: AuthService
-  ) {}
+  ) {
+    //NOSONAR
+  }
 
   ngOnInit(): void {
     let code: string = '';
@@ -45,7 +47,7 @@ export class CallbackComponent implements OnInit {
           console.log('je passe dans *** callback dispatch ***', user);
         } else {
           this.user = user;
-          var authorized: boolean = false;
+          let authorized: boolean = false;
           user.roles.forEach((e) => {
             if (e['code'] === Roles.ADMIN || e['code'] === Roles.FRANCHISEE) {
               authorized = true;

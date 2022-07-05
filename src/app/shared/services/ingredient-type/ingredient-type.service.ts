@@ -12,7 +12,9 @@ import { Message } from '../../constants/constants';
   providedIn: 'root',
 })
 export class IngredientTypeService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    //NOSONAR
+  }
 
   /**
    * @url localhost:8080/api/ingredients/types
