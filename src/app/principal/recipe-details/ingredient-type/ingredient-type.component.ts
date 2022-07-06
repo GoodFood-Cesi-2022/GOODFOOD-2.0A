@@ -11,8 +11,7 @@ import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 })
 export class IngredientTypeComponent implements OnInit {
   ingreType: IngreType;
-  typeArray: IngreType[] = [];
-  selectedIngredientType: IngreType[];
+  typeArray: IngreType[];
 
   form: FormGroup;
 
@@ -21,7 +20,7 @@ export class IngredientTypeComponent implements OnInit {
   ingredientTypeDialog: boolean;
   submitted: boolean;
 
-  mode: 'CREATE' | 'UPDATE';
+  isCreate: boolean;
 
   constructor(
     private ingredientTypeService: IngredientTypeService,
@@ -42,7 +41,6 @@ export class IngredientTypeComponent implements OnInit {
     this.ingredientTypeService.getIngredientsTypes().subscribe((res) => {
       this.typeArray = res;
     });
-    this.initForm();
   }
 
   initForm(): void {
@@ -59,29 +57,49 @@ export class IngredientTypeComponent implements OnInit {
     });
   }
 
+  private makeIngreType(): void {
+    var ingreType: IngreType = {};
+    if (this.isCreate) {
+      ingreType.name = this.form.get('name').value;
+      ingreType.description = this.form.get('description').value;
+    } else {
+      ingreType.id = this.ingreType.id;
+      ingreType.name = this.form.get('name').value;
+      ingreType.description = this.form.get('description').value;
+    }
+
+    this.ingreType = ingreType;
+    console.log('make Ingredient type --->', this.ingreType);
+  }
+
   onSubmit(): void {
     this.submitted = true;
+    this.makeIngreType();
 
-    const ingreType: IngreType = {
-      name: this.form.get('name').value,
-      description: this.form.get('description').value,
-    };
-    if (this.mode === 'UPDATE') {
+    if (this.ingreType.id) {
       this.ingredientTypeService
-        .updateIngredientType(ingreType)
-        .pipe()
-        .subscribe((res) => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Successful',
-            detail: 'Updated',
-            life: 3000,
-          });
+        .updateIngredientType(this.ingreType)
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: "Mise à jour de type d'ingredient",
+              life: 3000,
+            });
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de modification de type',
+              detail: error.error,
+            });
+            console.log('erreur le moment de modification type --->', error);
+          },
         });
     } else {
       this.ingredientTypeService
-        .createIngredientType(ingreType)
-        .pipe()
+        .createIngredientType(this.ingreType)
         .subscribe((res) => {
           console.log('res : ', res);
           this.messageService.add({
@@ -92,17 +110,22 @@ export class IngredientTypeComponent implements OnInit {
           });
         });
     }
+    this.typeArray = [...this.typeArray];
     this.ingredientTypeDialog = false;
+    this.ingreType = {};
   }
 
   newIngredientType(): void {
     this.ingreType = {};
+    this.initForm();
     this.submitted = false;
     this.ingredientTypeDialog = true;
   }
 
   updateIngredientType(ingreType: IngreType): void {
-    this.ingreType = { ...ingreType, ...this.form.value };
+    this.ingreType = { ...ingreType };
+    this.initForm();
+    this.submitted = false;
     this.ingredientTypeDialog = true;
   }
 

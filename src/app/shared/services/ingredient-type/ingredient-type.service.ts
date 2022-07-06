@@ -23,10 +23,7 @@ export class IngredientTypeService {
   public getIngredientsTypes(): Observable<IngreType[]> {
     return this.http
       .get<IngreType[]>(`${environment.apiBaseUrl}/ingredients/types`)
-      .pipe(
-        // tap((obj) => console.log('service -> ingredient types : ', obj)),
-        map((res) => res)
-      );
+      .pipe(map((res) => res));
   }
 
   /**
@@ -38,7 +35,10 @@ export class IngredientTypeService {
   public createIngredientType(item: IngreType): Observable<IngreType> {
     return this.http
       .post(`${environment.apiBaseUrl}/ingredients/types`, item)
-      .pipe(map((res) => res));
+      .pipe(
+        tap((obj) => console.log('service -> create ingredient type : ', obj)),
+        map((res) => res)
+      );
   }
 
   /**
@@ -48,7 +48,10 @@ export class IngredientTypeService {
   public updateIngredientType(update: Partial<IngreType>): Observable<string> {
     return this.http
       .put(`${environment.apiBaseUrl}/ingredients/types/${update.id}`, update)
-      .pipe(map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS)));
+      .pipe(
+        tap((obj) => console.log('service -> edit ingredient type : ', obj)),
+        map((data) => (data ? data['message'] : Message.UPDATE_SUCCESS))
+      );
   }
 
   /**

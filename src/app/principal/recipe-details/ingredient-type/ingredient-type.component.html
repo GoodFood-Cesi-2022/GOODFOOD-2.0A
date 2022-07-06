@@ -6,12 +6,11 @@
 </app-title>
 <!-- app-ingredient -->
 <div class="p-2 shadow-4 text-center md:w-20 mb-2" style="background: rgba(255, 255, 255, 0.441); border-radius: 5px">
-  <!-- <div class="card"> -->
   <p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
         <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
+          <i class="pi pi-search" aria-hidden="true"></i>
           <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Rechercher..." />
         </span>
@@ -23,37 +22,22 @@
     </ng-template>
   </p-toolbar>
   <p-table #dt [value]="typeArray" [rows]="10" [paginator]="true" responsiveLayout="scroll"
-    [globalFilterFields]="['name']" [(selection)]="selectedIngredientType" [rowHover]="false" dataKey="id"
+    [globalFilterFields]="['name']" [rowHover]="false" dataKey="id"
     currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} types" [showCurrentPageReport]="true"
     [rowsPerPageOptions]="[10, 25, 50, 100]" [(first)]="first" sortField="name" styleClass="p-datatable-sm">
-    <!-- <ng-template pTemplate="caption">
-      <div class="p-d-flex p-ai-center p-jc-between">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Rechercher..."
-          />
-        </span>
-      </div>
-    </ng-template> -->
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Nom" style="width: 30%; padding-left: 1.5rem"> Nom<p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="Name" style="width: 30%; padding-left: 1.5rem" scope="col"> Nom<p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="Description" style="width: 50%"> Description<p-sortIcon field="description"></p-sortIcon>
+        <th pSortableColumn="Description" style="width: 50%" scope="col"> Description<p-sortIcon field="description"></p-sortIcon>
         </th>
-        <th style="width: 10%"></th>
+        <th style="width: 10%" scope="col"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ingreType>
       <tr>
         <td style="padding-left: 1.5rem">{{ ingreType.name }}</td>
         <td>{{ ingreType.description }}</td>
-        <!-- <td *ngIf="ingredient.allergen">Oui</td>
-        <td *ngIf="!ingredient.allergen">Non</td> -->
         <td>
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-success mr-2"
             (click)="updateIngredientType(ingreType)"></button>
@@ -68,7 +52,6 @@
     </ng-template>
   </p-table>
 </div>
-<!-- </div> -->
 <!-- /app-ingredient -->
 <!-- dialog-app-ingredient -->
 <p-dialog [(visible)]="ingredientTypeDialog" [style]="{ width: '450px' }" header="Ajouter un nouvel ingredient"

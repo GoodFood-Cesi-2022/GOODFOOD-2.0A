@@ -8,7 +8,7 @@
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
         <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
+          <i class="pi pi-search" aria-hidden="true"></i>
           <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Rechercher..." />
         </span>
@@ -25,13 +25,14 @@
     [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50, 100]" [(first)]="first" sortField="name">
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Nom d'ingrédient"> Nom d'ingredient <p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="Name" scope="col"> Nom d'ingredient <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="type.code"> Type d'ingredient <p-sortIcon field="type d'ingrédient"></p-sortIcon>
+        <th pSortableColumn="type.code" scope="col"> Type d'ingredient <p-sortIcon field="type d'ingrédient">
+          </p-sortIcon>
         </th>
-        <th pSortableColumn="allergen"> Allergen <p-sortIcon field="allergen"></p-sortIcon>
+        <th pSortableColumn="allergen" scope="col"> Allergen <p-sortIcon field="allergen"></p-sortIcon>
         </th>
-        <th></th>
+        <th scope="col" class="right-50"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ingredient>
@@ -40,7 +41,7 @@
         <td *ngFor="let value of ingredient.types">{{ value.code }}</td>
         <td *ngIf="ingredient.allergen">Oui</td>
         <td *ngIf="!ingredient.allergen">Non</td>
-        <td>
+        <td id="icons">
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-success mr-2"
             (click)="updateIngredient(ingredient)"></button>
           <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
@@ -67,7 +68,7 @@
     <div class="p-formgrid p-grid mt-3">
       <div class="p-field p-col">
         <label for="types">Type d'ingrédient</label>
-        <p-dropdown [options]="typeArray" [readonly]="!isCreate" optionLabel="code" formControlName="ingredientType"
+        <p-dropdown [options]="typeArray" [disabled]="!isCreate" optionLabel="code" formControlName="ingredientType"
           [autoDisplayFirst]="false" id="ingreTypeFor" appendTo="body" [style]="{ width: '100%' }">
         </p-dropdown>
       </div>

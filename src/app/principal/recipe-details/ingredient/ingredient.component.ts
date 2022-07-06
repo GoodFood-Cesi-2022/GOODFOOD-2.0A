@@ -12,7 +12,6 @@ import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 import { IngredientService } from 'src/app/shared/services/ingredient/ingredient.service';
 import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/ingredient-type.service';
 import { MessageService, ConfirmationService } from 'primeng/api';
-import { first } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
 @Component({
@@ -89,10 +88,25 @@ export class IngredientComponent implements OnInit {
         ],
       ],
       allergen: this.ingredient?.allergen || false,
-      ingredientType: this.ingredient?.types,
+      ingredientType: this.ingredient?.types || new FormControl([]),
       // [new FormControl([]), this.isCreate ? this.form.controls['ingredientType'].disable(),
       // { value: new FormControl([]), disabled: !this.isCreate }, //
     });
+  }
+
+  private makeRecipe(): void {
+    var ingredient: Ingredient = {};
+    if (this.isCreate) {
+      ingredient.name = this.form.get('name').value;
+      ingredient.allergen = this.form.get('allergen').value;
+      ingredient.types = [this.form.controls['ingredientType'].value.code];
+    } else {
+      ingredient.id = this.ingredient.id;
+      ingredient.name = this.form.get('name').value;
+      ingredient.allergen = this.form.get('allergen').value;
+    }
+    this.ingredient = ingredient;
+    console.log('makeIngredient', this.ingredient);
   }
 
   onSubmit(): void {
@@ -112,6 +126,7 @@ export class IngredientComponent implements OnInit {
               detail: "Mise à jour d'ingredient",
               life: 3000,
             });
+            console.log('ccccc');
           },
           error: (error) => {
             this.messageService.add({
@@ -123,29 +138,25 @@ export class IngredientComponent implements OnInit {
           },
         });
     } else {
-      this.ingredientService
-        .createIngredient(this.ingredient)
-        .pipe()
-        .subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
-              detail: 'Nouvel ingredient ajouté',
-              life: 3000,
-            });
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur le moment de création',
-              detail: error.error,
-            });
-          },
-        });
+      this.ingredientService.createIngredient(this.ingredient).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Nouvel ingredient ajouté',
+            life: 3000,
+          });
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erreur le moment de création',
+            detail: error.error,
+          });
+        },
+      });
     }
 
-    //this.ingredients = [...this.ingredients];
     this.ingredientDialog = false;
     this.ingredient = {};
     this.router
@@ -153,21 +164,6 @@ export class IngredientComponent implements OnInit {
       .then(() => {
         window.location.reload();
       });
-  }
-
-  private makeRecipe(): void {
-    var ingredient: Ingredient = {};
-    if (this.isCreate) {
-      ingredient.name = this.form.get('name').value;
-      ingredient.allergen = this.form.get('allergen').value;
-      ingredient.types = [this.form.controls['ingredientType'].value.code];
-    } else {
-      ingredient.id = this.ingredient.id;
-      ingredient.name = this.form.get('name').value;
-      ingredient.allergen = this.form.get('allergen').value;
-    }
-    this.ingredient = ingredient;
-    console.log('makeIngredient', this.ingredient);
   }
 
   newIngredient(): void {

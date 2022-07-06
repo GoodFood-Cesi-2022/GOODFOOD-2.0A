@@ -1,11 +1,6 @@
 import { LoadingService } from './../../../../shared/services/loading/loading.service';
 import { Component, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 
 import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
@@ -22,6 +17,7 @@ import { IngredientService } from 'src/app/shared/services/ingredient/ingredient
 
 import { EndPoints } from '../../../../shared/constants/constants';
 import { IngreType } from 'src/app/shared/models/ingredient-type.model';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Component({
   selector: 'app-recipe-dialog',
@@ -70,7 +66,6 @@ export class RecipeDialogComponent implements OnInit {
     this._recipeType = config.data.recipeType;
     this.ingreType = config.data.ingredientsTypes;
     this.ingredients.forEach((x) => x.name);
-    // this._recipeType.forEach((x) => x.code);
     this.mode = config.data.mode;
 
     if (this.mode === 'UPDATE') {
@@ -85,12 +80,10 @@ export class RecipeDialogComponent implements OnInit {
     /* retrieve recipe types */
     this.recipeService.getRecipesType().subscribe((res) => {
       this.recipesType = res;
-      // this.form.patchValue(this.recipeType);
     });
     /* retrieve ingredients data */
     this.ingredientService.getIngredients().subscribe((res) => {
       this.ingredients = res;
-      // this.form.patchValue(this.ingredients);
     });
 
     this.initForm();
@@ -106,18 +99,6 @@ export class RecipeDialogComponent implements OnInit {
       star: this.recipe?.star || false,
       availableDate: [this.recipe?.available_at, [Validators.required]],
     });
-
-    // if (this.mode === 'UPDATE') {
-    //   this.formRemoveRecipeTypeValidators();
-    //   this.formRemoveIngredientsDetailsValidators();
-    // this.changeStatusRecipeType('UPDATE');
-    // this.changeStatusIngredientsDetails('UPDATE');
-    // } else {
-    // this.formAddRecipeTypeValidators();
-    // this.formAddIngredientsDetailsValidators();
-    // this.changeStatusRecipeType('CREATE');
-    // this.changeStatusIngredientsDetails('CREATE');
-    // }
   }
 
   onClickStar(event: any): void {
@@ -241,35 +222,4 @@ export class RecipeDialogComponent implements OnInit {
       this.form.controls[controlName].hasError(errorName)
     );
   }
-
-  // private formRemoveRecipeTypeValidators(): void {
-  //   this.form.get('recipeType').clearValidators();
-  //   this.form.get('recipeType').updateValueAndValidity();
-  // }
-  // private formRemoveIngredientsDetailsValidators(): void {
-  //   this.form.get('ingredientsDetails').clearValidators();
-  //   this.form.get('ingredientsDetails').updateValueAndValidity();
-  // }
-  // private formAddRecipeTypeValidators(): void {
-  //   this.form.get('recipeType').setValidators([Validators.required]);
-  //   this.form.get('recipeType').updateValueAndValidity();
-  // }
-  // private formAddIngredientsDetailsValidators(): void {
-  //   this.form.get('ingredientsDetails').setValidators([Validators.required]);
-  //   this.form.get('ingredientsDetails').updateValueAndValidity();
-  // }
-  // private changeStatusRecipeType(mode: string): void {
-  //   if (mode === 'UPDATE') {
-  //     this.form.controls['recipeType'].disable();
-  //   } else {
-  //     this.form.controls['recipeType'].enable();
-  //   }
-  // }
-  // private changeStatusIngredientsDetails(mode: string): void {
-  //   if (mode === 'UPDATE') {
-  //     this.form.controls['ingredientsDetails'].disable();
-  //   } else {
-  //     this.form.controls['ingredientsDetails'].enable();
-  //   }
-  // }
 }

@@ -7,15 +7,12 @@ import { DialogService } from 'primeng/dynamicdialog';
 
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
+import { Picture } from 'src/app/shared/models/picture.model';
 
 import { RecipeDialogComponent } from '../recipe-dialog/recipe-dialog.component';
 
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-
-import { Store } from '@ngrx/store';
-import { RecipeState } from '../../../../shared/store/state/recipe/recipe.reducer';
-import { Picture } from 'src/app/shared/models/picture.model';
 
 @Component({
   selector: 'app-recipes',
@@ -176,9 +173,9 @@ export class RecipesComponent implements OnInit {
     const ref = this.dialogService.open(RecipeDialogComponent, {
       header: `${recipe.name}`,
       width: '70%',
-      // styleClass: 'DynamicDialog',
-      // contentStyle: { 'max-height': '550px', overflow: 'auto' },
-      // baseZIndex: 10000,
+      styleClass: 'DynamicDialog',
+      contentStyle: { 'max-height': '550px', overflow: 'auto' },
+      baseZIndex: 10000,
       data: {
         mode: 'UPDATE',
         recipeType: this.recipesType,
