@@ -35,34 +35,6 @@
     </li>
     <li>
       <button
-        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
-        pButton
-        pRipple
-        type="button"
-        label="Réclamations clients"
-        class="p-button-info p-button-text"
-        icon="pi pi-comments"
-        routerLink="/client-complaint"
-        (click)="onClose()"
-        routerLinkActive="active"
-      ></button>
-    </li>
-    <li>
-      <button
-        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
-        pButton
-        pRipple
-        type="button"
-        label="Notifications"
-        class="p-button-info p-button-text"
-        icon="pi pi-bell"
-        routerLink="/notification"
-        routerLinkActive="active"
-        (click)="onClose()"
-      ></button>
-    </li>
-    <li>
-      <button
         *ngIf="user.autorisations?.isAdmin"
         pButton
         pRipple

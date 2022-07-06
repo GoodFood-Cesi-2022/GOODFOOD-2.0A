@@ -30,9 +30,10 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { LoadingService } from './shared/services/loading/loading.service';
+import { IngreTypeDialogComponent } from './ingre-type-dialog/ingre-type-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, IngreTypeDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
