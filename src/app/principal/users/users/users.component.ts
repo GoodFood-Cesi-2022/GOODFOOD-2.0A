@@ -1,7 +1,10 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { Component, OnInit } from '@angular/core';
+import { finalize } from 'rxjs/operators';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 import { User } from 'src/app/shared/models/user.model';
+
+import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { UsersService } from 'src/app/shared/services/users/users.service';
 
 @Component({
@@ -12,25 +15,45 @@ import { UsersService } from 'src/app/shared/services/users/users.service';
 export class UsersComponent implements OnInit {
   userDialog: boolean;
 
-  users: User[];
-
+  users: User[] = [];
   user: User;
-
   selectedUsers: User[];
 
+  idFranchisee: number;
   submitted: boolean;
 
   constructor(
     private usersService: UsersService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private loading: LoadingService
   ) {
     //NOSONAR
   }
 
   ngOnInit(): void {
-    this.usersService.getUsers().then((data) => (this.users = data));
+    this.loading.loadingOn();
+
+    this.usersService
+      .getAllFranchisees()
+      .pipe(finalize(() => this.loading.loadingOff()))
+      .subscribe((res) => {
+        this.users = res;
+        console.log('---> users --->', this.users);
+      });
   }
+
+  // private initFranchiseeAndRole(idFranchisee: number): void{
+  //   forkJoin([
+  //     this.usersService
+  //       .getAllFranchisees(),
+  //     this.usersService.getFranchiseeRole(this.idFranchisee)
+  //   ]).subscribe((res) => {
+  //     this.users = res[0];
+  //     this.users.forEach(e=>e.roles) = res[1];
+  //     console.log('---> users --->', this.users);
+  //   });
+  // }
 
   openNew(): void {
     this.user = {};
@@ -43,10 +66,10 @@ export class UsersComponent implements OnInit {
     this.userDialog = true;
   }
 
-  deleteUser(user: User): void {
+  delete(user: User): void {
     this.confirmationService.confirm({
       message:
-        'Vous êtes sûr de vouloir supprimer ' +
+        'Etes-vous sûre de vouloir supprimer' +
         ' "' +
         user.firstname +
         ' ' +
@@ -56,13 +79,26 @@ export class UsersComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: (): void => {
-        this.users = this.users.filter((val) => val.id !== user.id);
-        this.user = {};
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: 'User Deleted',
-          life: 3000,
+        this.usersService.removeFranchisee(user.id).subscribe({
+          next: () => {
+            const index = this.users.indexOf(user);
+            this.users.splice(index, 1);
+            this.user = {};
+            this.users = [...this.users];
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'Franchisé est supprimé',
+              life: 3000,
+            });
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de suppression',
+              detail: error.error,
+            });
+          },
         });
       },
     });
@@ -78,6 +114,7 @@ export class UsersComponent implements OnInit {
 
     if (this.user.email.trim()) {
       if (this.user.id) {
+        this.usersService.updateFranchisee(this.user);
         this.users[this.findIndexById(this.user.id)] = this.user;
         this.messageService.add({
           severity: 'success',

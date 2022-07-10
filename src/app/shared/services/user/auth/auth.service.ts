@@ -120,7 +120,7 @@ export class AuthService {
       });
   }
 
-  /** Revoke the authenticated user token */
+  /** Revoke the authenticated user token */ 
   logout() {
     // this.localStorageService.remove(this.STORAGE_KEY_USER);
     // this.router.navigateByUrl('/');
@@ -135,7 +135,6 @@ export class AuthService {
       this.localStorageService.get(StorageKeys.USER_TOKEN)
     );
 
-    //console.log(this.accessTokenIsExpired(userAccessToken));
     if (this.accessTokenIsExpired(userAccessToken)) {
       console.log('REFRESH USER TOKEN');
       await this.refreshToken(userAccessToken);
