@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Message } from '../../constants/constants';
-import { Franchisee, FranchiseeRecipe } from '../../models/franchisee.model';
+import { FranchiseeRecipe } from '../../models/franchisee-recipe.model';
+import { Franchisee } from '../../models/franchisee.model';
 import { Recipe } from '../../models/recipe.model';
 import { Schedule } from '../../models/schedule.model';
 

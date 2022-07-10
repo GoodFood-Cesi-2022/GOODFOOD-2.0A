@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { FormGroup } from '@angular/forms';
 
-import { Address, Franchisee } from 'src/app/shared/models/franchisee.model';
+import { Franchisee } from 'src/app/shared/models/franchisee.model';
 
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { Schedule } from 'src/app/shared/models/schedule.model';
+import { Address } from 'src/app/shared/models/address.model';
 
 @Component({
   selector: 'app-franchisee',
