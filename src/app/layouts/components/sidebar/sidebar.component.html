@@ -85,13 +85,16 @@
         icon="pi pi-info-circle"
       ></button>
     </li>
+    <li>
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-danger p-button-text"
+        (click)="logOut()"
+        label="Se déconnecter"
+        icon="pi pi-sign-out"
+      ></button>
+    </li>
   </ul>
-  <p-button
-    type="button"
-    styleClass="p-button-warning"
-    (click)="logOut()"
-    label="Se déconnecter"
-    icon="pi pi-sign-out"
-  >
-  </p-button>
 </p-sidebar>
