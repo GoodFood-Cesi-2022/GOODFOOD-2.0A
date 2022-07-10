@@ -6,4 +6,6 @@ export interface Picture {
   name?: string;
   size?: number;
   size_unit?: string;
+  link?: string;
+  external_link?: string;
 }

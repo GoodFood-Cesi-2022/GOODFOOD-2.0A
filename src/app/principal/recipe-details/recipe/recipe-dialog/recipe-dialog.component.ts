@@ -17,7 +17,6 @@ import { IngredientService } from 'src/app/shared/services/ingredient/ingredient
 
 import { EndPoints } from '../../../../shared/constants/constants';
 import { IngreType } from 'src/app/shared/models/ingredient-type.model';
-import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 
 @Component({
   selector: 'app-recipe-dialog',
@@ -40,7 +39,6 @@ export class RecipeDialogComponent implements OnInit {
   ingreType: IngreType[] = [];
 
   picture: Picture = null; // Variable to store picture
-
   submitted: boolean;
 
   idRecipe: number;
@@ -67,7 +65,7 @@ export class RecipeDialogComponent implements OnInit {
     this.ingreType = config.data.ingredientsTypes;
     this.ingredients.forEach((x) => x.name);
     this.mode = config.data.mode;
-
+    this.picture = config.data.pictures;
     if (this.mode === 'UPDATE') {
       this.isDisabledControlForm = true;
       this.Textbutton = EndPoints.EDIT_RECIPE;
@@ -85,7 +83,6 @@ export class RecipeDialogComponent implements OnInit {
     this.ingredientService.getIngredients().subscribe((res) => {
       this.ingredients = res;
     });
-
     this.initForm();
   }
 
@@ -143,23 +140,32 @@ export class RecipeDialogComponent implements OnInit {
       .pipe(finalize(() => this.loading.loadingOff()))
       .subscribe((res) => {
         this.picture = res;
-        this.recipeService
-          .createRecipe(this.recipe)
-          .pipe()
-          .subscribe((res) => {
+        this.recipeService.createRecipe(this.recipe).subscribe({
+          next: (res) => {
             this.ref.close(res);
             this.recipe = res;
             this.recipeService
               .attachPictures(this.picture, this.recipe)
-              .pipe()
               .subscribe();
-            (err) =>
-              this.messageService.add({
-                severity: 'error',
-                summary: 'Erreur',
-                detail: err.error.message,
-              });
-          });
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'Création de la recette',
+              life: 3000,
+            });
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de création de de la recette',
+              detail: error.error,
+            });
+            console.log(
+              'erreur le moment de création de la recette --->',
+              error
+            );
+          },
+        });
       });
   }
 
@@ -167,26 +173,24 @@ export class RecipeDialogComponent implements OnInit {
     this.recipeService
       .uploadPicture(this.picture)
       .pipe(finalize(() => this.loading.loadingOff()))
-      .subscribe((res) => {
-        this.picture = res;
-        this.recipeService
-          .updateRecipe(this.recipe)
-          .pipe()
-          .subscribe((res) => {
-            () => this.ref.close(this.recipe);
+      .subscribe(
+        (res) => {
+          this.picture = res;
+          this.recipeService.updateRecipe(this.recipe).subscribe((res) => {
+            this.ref.close(res);
             this.recipeService
               .attachPictures(this.picture, this.recipe)
-              .pipe()
               .subscribe();
           });
+        },
         (err) => {
           this.messageService.add({
             severity: 'error',
             summary: 'Erreur',
             detail: err.error,
           });
-        };
-      });
+        }
+      );
   }
 
   public onClose(): void {

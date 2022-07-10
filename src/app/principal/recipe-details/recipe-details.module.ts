@@ -34,8 +34,8 @@ import { IngredientComponent } from './ingredient/ingredient.component';
 import { TabsComponent } from './tabs/tabs.component';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { KeyFilterModule } from 'primeng/keyfilter';
-import { IngredientTypeComponent } from './ingredient-type/ingredient-type.component';
 import { DividerModule } from 'primeng/divider';
+import { IngredientTypeComponent } from './ingredient-type/ingredient-type.component';
 
 const routes: Routes = [{ path: '', component: TabsComponent }];
 

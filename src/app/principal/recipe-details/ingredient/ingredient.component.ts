@@ -5,14 +5,14 @@ import {
   FormBuilder,
   FormControl,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { MessageService, ConfirmationService } from 'primeng/api';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { IngreType } from 'src/app/shared/models/ingredient-type.model';
-
 import { IngredientService } from 'src/app/shared/services/ingredient/ingredient.service';
 import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/ingredient-type.service';
-import { MessageService, ConfirmationService } from 'primeng/api';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ingredient',
@@ -62,7 +62,7 @@ export class IngredientComponent implements OnInit {
 
   ngOnInit(): void {
     this.init();
-    this.isCreate = !this.id;
+    // this.isCreate = !this.id;
     this.initForm();
   }
 
@@ -79,18 +79,9 @@ export class IngredientComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: [
-        this.ingredient?.name || '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.pattern('[a-zA-Z]'),
-        ],
-      ],
+      name: [this.ingredient?.name || '', [Validators.required]],
       allergen: this.ingredient?.allergen || false,
       ingredientType: this.ingredient?.types || new FormControl([]),
-      // [new FormControl([]), this.isCreate ? this.form.controls['ingredientType'].disable(),
-      // { value: new FormControl([]), disabled: !this.isCreate }, //
     });
   }
 
@@ -110,7 +101,6 @@ export class IngredientComponent implements OnInit {
   }
 
   onSubmit(): void {
-    // if (this.form.valid) {}
     this.submitted = true;
     this.makeRecipe();
 
@@ -126,7 +116,6 @@ export class IngredientComponent implements OnInit {
               detail: "Mise à jour d'ingredient",
               life: 3000,
             });
-            console.log('ccccc');
           },
           error: (error) => {
             this.messageService.add({
@@ -138,32 +127,30 @@ export class IngredientComponent implements OnInit {
           },
         });
     } else {
-      this.ingredientService.createIngredient(this.ingredient).subscribe({
-        next: () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Succès',
-            detail: 'Nouvel ingredient ajouté',
-            life: 3000,
-          });
-        },
-        error: (error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur le moment de création',
-            detail: error.error,
-          });
-        },
-      });
+      this.ingredientService
+        .createIngredient(this.ingredient)
+        .pipe()
+        .subscribe({
+          next: () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Succès',
+              detail: 'Nouvel ingredient ajouté',
+              life: 3000,
+            });
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de création',
+              detail: error.error,
+            });
+          },
+        });
     }
-
+    this.ingredients = [...this.ingredients];
     this.ingredientDialog = false;
     this.ingredient = {};
-    this.router
-      .navigateByUrl(`/recipes`, { skipLocationChange: true })
-      .then(() => {
-        window.location.reload();
-      });
   }
 
   newIngredient(): void {
@@ -185,29 +172,32 @@ export class IngredientComponent implements OnInit {
   deleteIngredient(ingredient: Ingredient): void {
     this.confirmationService.confirm({
       message: 'Etes-vous sûre de vouloir supprimer "' + ingredient.name + '"?',
-      header: 'Confirmation de suppression',
+      header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass: 'accept',
       accept: (): void => {
-        this.ingredientService.removeIngredient(ingredient.id).subscribe(
-          (message: string) => {
-            const index = this.ingredients.indexOf(ingredient);
-            this.ingredients.splice(index, 1);
+        this.ingredientService.removeIngredient(ingredient.id).subscribe({
+          next: () => {
             this.ingredients = [...this.ingredients];
             this.messageService.add({
               severity: 'success',
               summary: 'Succès',
-              detail: message,
+              detail: "L'ingrédient est supprimé.",
               life: 3000,
             });
           },
-          (err: any) =>
+          error: (error) => {
             this.messageService.add({
               severity: 'error',
-              summary: 'Erreur',
-              detail: err.error.message,
-            })
-        );
+              summary: "Erreur le moment de création de l'ingrédient",
+              detail: error.error,
+            });
+            console.log(
+              "erreur le moment de création de l'ingrédient ->",
+              error
+            );
+          },
+        });
       },
     });
   }

@@ -1,17 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/ingredient-type.service';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+import { MessageService, ConfirmationService } from 'primeng/api';
+
 import { IngreType } from 'src/app/shared/models/ingredient-type.model';
+import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/ingredient-type.service';
 
 @Component({
   selector: 'app-ingredient-type',
   templateUrl: './ingredient-type.component.html',
   styleUrls: ['./ingredient-type.component.scss'],
+  styles: [
+    `
+      :host ::ng-deep .p-dialog .product-image {
+        width: 150px;
+        margin: 0 auto 2rem auto;
+        display: block;
+      }
+    `,
+  ],
+  providers: [MessageService, ConfirmationService],
 })
 export class IngredientTypeComponent implements OnInit {
   ingreType: IngreType;
-  typeArray: IngreType[];
+  typeArray: IngreType[] = [];
 
   form: FormGroup;
 
@@ -19,8 +31,6 @@ export class IngredientTypeComponent implements OnInit {
 
   ingredientTypeDialog: boolean;
   submitted: boolean;
-
-  isCreate: boolean;
 
   constructor(
     private ingredientTypeService: IngredientTypeService,
@@ -41,61 +51,38 @@ export class IngredientTypeComponent implements OnInit {
     this.ingredientTypeService.getIngredientsTypes().subscribe((res) => {
       this.typeArray = res;
     });
+    this.initForm();
   }
 
   initForm(): void {
     this.form = this.fb.group({
-      name: [
-        this.ingreType?.name || '',
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.pattern('[a-zA-Z]'),
-        ],
-      ],
+      name: [this.ingreType?.name || ''],
       description: this.ingreType?.description || '',
     });
   }
 
-  private makeIngreType(): void {
+  private makeIngredientType(): void {
     var ingreType: IngreType = {};
-    if (this.isCreate) {
-      ingreType.name = this.form.get('name').value;
-      ingreType.description = this.form.get('description').value;
-    } else {
-      ingreType.id = this.ingreType.id;
-      ingreType.name = this.form.get('name').value;
-      ingreType.description = this.form.get('description').value;
-    }
+
+    ingreType.name = this.form.get('name').value;
+    ingreType.description = this.form.get('description').value;
 
     this.ingreType = ingreType;
-    console.log('make Ingredient type --->', this.ingreType);
   }
 
   onSubmit(): void {
     this.submitted = true;
-    this.makeIngreType();
-
+    this.makeIngredientType();
     if (this.ingreType.id) {
       this.ingredientTypeService
         .updateIngredientType(this.ingreType)
-        .subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
-              detail: "Mise à jour de type d'ingredient",
-              life: 3000,
-            });
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur le moment de modification de type',
-              detail: error.error,
-            });
-            console.log('erreur le moment de modification type --->', error);
-          },
+        .subscribe(() => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Succès',
+            detail: "Le type d'ingrédient est bien modifié.",
+            life: 3000,
+          });
         });
     } else {
       this.ingredientTypeService
@@ -104,12 +91,13 @@ export class IngredientTypeComponent implements OnInit {
           console.log('res : ', res);
           this.messageService.add({
             severity: 'success',
-            summary: 'Successful',
-            detail: 'Created',
+            summary: 'Succès',
+            detail: "le type d'ingrédient est bien créé.",
             life: 3000,
           });
         });
     }
+
     this.typeArray = [...this.typeArray];
     this.ingredientTypeDialog = false;
     this.ingreType = {};
@@ -136,25 +124,27 @@ export class IngredientTypeComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass: 'accept',
       accept: (): void => {
-        this.ingredientTypeService.removeIngredientType(ingreType.id).subscribe(
-          (message: string) => {
-            const index = this.typeArray.indexOf(ingreType);
-            this.typeArray.splice(index, 1);
-            this.typeArray = [...this.typeArray];
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
-              detail: message,
-              life: 3000,
-            });
-          },
-          (err: any) =>
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur',
-              detail: err.error.message,
-            })
-        );
+        this.ingredientTypeService
+          .removeIngredientType(ingreType.id)
+          .subscribe({
+            next: () => {
+              this.typeArray = [...this.typeArray];
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Succès',
+                detail: "Création de type d'ingredient",
+                life: 3000,
+              });
+            },
+            error: (error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Erreur le moment de création de type',
+                detail: error.error,
+              });
+              console.log('erreur le moment de création type --->', error);
+            },
+          });
       },
     });
   }

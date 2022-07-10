@@ -8,24 +8,52 @@
     </div>
     <div class="field mb-5 col-12 md:col-4">
       <label for="recipeFor">Type de recette</label>
-      <p-dropdown [options]="recipesType" optionLabel="code" formControlName="recipeType" [autoDisplayFirst]="false"
-        id="recipeFor" appendTo="body" [style]="{ width: '100%' }">
+      <p-dropdown
+        [options]="recipesType"
+        optionLabel="code"
+        formControlName="recipeType"
+        [autoDisplayFirst]="false"
+        id="recipeFor"
+        appendTo="body"
+        [style]="{ width: '100%' }"
+      >
       </p-dropdown>
-      <small id="recipeTypeFor-help" class="p-invalid" *ngIf="checkError('recipeType', 'required')">Champ
-        obligatoire..</small>
+      <small
+        id="recipeTypeFor-help"
+        class="p-invalid"
+        *ngIf="checkError('recipeType', 'required')"
+        >Champ obligatoire</small
+      >
     </div>
     <div class="field mb-5 col-12 md:col-6">
       <label>Ingredients</label>
-      <small id="ingreFor-help" class="p-invalid" *ngIf="checkError('ingredientsDetails', 'required')">Champ
-        obligatoire..</small>
-      <p-multiSelect [options]="ingredients" formControlName="ingredientsDetails" defaultLabel="" optionLabel="name"
-        display="chip" [style]="{ width: '100%' }">
+      <small
+        id="ingreFor-help"
+        class="p-invalid"
+        *ngIf="checkError('ingredientsDetails', 'required')"
+        >Champ obligatoire</small
+      >
+      <p-multiSelect
+        [options]="ingredients"
+        formControlName="ingredientsDetails"
+        defaultLabel=""
+        optionLabel="name"
+        display="chip"
+        [style]="{ width: '100%' }"
+      >
       </p-multiSelect>
     </div>
     <div class="field mb-5 col-12 md:col-6">
       <label for="icon">Date disponiblité</label>
-      <p-calendar appendTo="body" formControlName="availableDate" [showIcon]="true" inputId="icon" [locale]="fr"
-        dateFormat="dd/mm/yy" [required]="true"></p-calendar>
+      <p-calendar
+        appendTo="body"
+        formControlName="availableDate"
+        [showIcon]="true"
+        inputId="icon"
+        [locale]="fr"
+        dateFormat="dd/mm/yy"
+        [required]="true"
+      ></p-calendar>
     </div>
   </div>
   <div class="grid p-fluid formgrid">
@@ -33,31 +61,84 @@
       <div class="grid p-fluid formgrid">
         <div class="field mb-5 col-12 md:col-12">
           <label for="price">Prix de base</label>
-          <p-inputNumber pKeyFilter="money" inputId="price" mode="currency" currency="EUR" locale="fr-FR"
-            formControlName="price">
+          <p-inputNumber
+            pKeyFilter="money"
+            inputId="price"
+            mode="currency"
+            currency="EUR"
+            locale="fr-FR"
+            formControlName="price"
+          >
           </p-inputNumber>
         </div>
         <div class="field mb-5 col-12 md:col-12 mt-3 pr-6">
-          <p-fileUpload mode="basic" [customUpload]="true" name="files[]" accept="image/*" [maxFileSize]="1000000"
-            (uploadHandler)="onUploadPic($event)" (onSelect)="onChange($event)" chooseLabel=" Ajouter une image"
-            uploadLabel=""></p-fileUpload>
+          <p-fileUpload
+            mode="basic"
+            [customUpload]="true"
+            name="files[]"
+            accept="image/*"
+            [maxFileSize]="1000000"
+            (uploadHandler)="onUploadPic($event)"
+            (onSelect)="onChange($event)"
+            chooseLabel=" Ajouter une image"
+            uploadLabel=""
+          ></p-fileUpload>
+        </div>
+        <div class="col-4 align-item-center">
+          <img
+            *ngIf="recipe.pictures[0]"
+            src="{{ recipe.pictures[0].external_link }}"
+            alt="Image"
+            class="border-round-left"
+          />
+          <img
+            *ngIf="!recipe.pictures[0]"
+            src="https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg"
+            alt="Image"
+            class="border-round-left"
+          />
         </div>
       </div>
     </div>
     <div class="field mb-5 col-12 md:col-8">
       <label>Description</label>
-      <textarea formControlName="description" rows="5" cols="30" pInputTextarea [autoResize]="true"></textarea>
+      <textarea
+        formControlName="description"
+        rows="5"
+        cols="30"
+        pInputTextarea
+        [autoResize]="true"
+      ></textarea>
     </div>
   </div>
   <div class="flex align-items-center field mb-5 col-12 col-4">
-    <p-checkbox class="p-element" formControlName="star" (onChange)="onClickStar($event)" value="star" [binary]="true">
-    </p-checkbox><span class="ml-2 text-900 text-primary">Plat star</span>
+    <p-checkbox
+      class="p-element"
+      formControlName="star"
+      (onChange)="onClickStar($event)"
+      value="star"
+      [binary]="true"
+    >
+    </p-checkbox
+    ><span class="ml-2 text-900 text-primary">Plat star</span>
   </div>
   <div class="field col-12 md:col-12">
-    <button pRipple pButton type="button" (click)="onSubmit()" label="Confirmer"
-      class="p-button-outlined p-button-success mr-3 pr-5 pl-5" style="margin-right: 0.5rem"
-      [disabled]="!form.valid"></button>
-    <button pRipple pButton type="button" (click)="onClose()" label="Annuler"
-      class="p-button-outlined p-button-danger pr-5 pl-5"></button>
+    <button
+      pRipple
+      pButton
+      type="button"
+      (click)="onClose()"
+      label="Annuler"
+      class="p-button-outlined p-button-danger pr-5 pl-5 mr-2"
+    ></button>
+    <button
+      pRipple
+      pButton
+      type="button"
+      (click)="onSubmit()"
+      label="Confirmer"
+      class="p-button-outlined p-button-success mr-3 pr-5 pl-5"
+      [disabled]="!form.valid"
+    ></button>
   </div>
 </ng-container>

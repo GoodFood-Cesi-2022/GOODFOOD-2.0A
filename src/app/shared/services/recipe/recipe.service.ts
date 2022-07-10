@@ -1,12 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { catchError, map, Observable, tap } from 'rxjs';
 
 import { Recipe } from '../../models/recipe.model';
 import { Picture } from '../../models/picture.model';
 
 import { environment } from 'src/environments/environment';
-
 import { Message } from '../../constants/constants';
 
 @Injectable({
@@ -34,7 +33,14 @@ export class RecipeService {
   public getRecipes(): Observable<Recipe[]> {
     return this.http
       .get<Recipe[]>(`${environment.apiBaseUrl}/recipes?includes[]=pictures`)
-      .pipe(map((res) => res['data']));
+      .pipe(
+        map((res) => res['data']),
+        tap((recipes) => {
+          this.log('fetched recipes');
+          console.log('get recipes in service class : ', recipes);
+        }),
+        catchError(this.handleError('getRecipes'))
+      );
   }
 
   /**
@@ -131,5 +137,32 @@ export class RecipeService {
     return this.http
       .post(`${environment.apiBaseUrl}/recipes/${recipe.id}/pictures`, formData)
       .pipe(map((res) => (res ? res['message'] : '')));
+  }
+
+  /**
+   * Returns a function that handles Http operation failures.
+   * This error handler lets the app continue to run as if no error occurred.
+   *
+   * @param operation - name of the operation that failed
+   */
+  private handleError<T>(operation = 'operation') {
+    return (error: HttpErrorResponse): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // If a native error is caught, do not transform it. We only want to
+      // transform response errors that are not wrapped in an `Error`.
+      if (error.error instanceof Event) {
+        throw error.error;
+      }
+
+      const message = `server returned code ${error.status} with body "${error.error}"`;
+      // TODO: better job of transforming error for user consumption
+      throw new Error(`${operation} failed: ${message}`);
+    };
+  }
+
+  private log(message: string) {
+    console.log('HeroService: ' + message);
   }
 }

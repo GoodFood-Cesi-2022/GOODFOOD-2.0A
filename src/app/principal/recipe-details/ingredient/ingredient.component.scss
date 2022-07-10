@@ -1,5 +1,5 @@
-.grid>.col,
-.grid>[class*=col] {
+.grid > .col,
+.grid > [class*="col"] {
   box-sizing: border-box;
 }
 
@@ -8,9 +8,9 @@
   padding: 1rem;
   width: 100%;
 }
-#icons{
+#icons {
   justify-content: center !important;
-  right:50%
+  right: 50%;
 }
 
 * {
@@ -34,7 +34,7 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100%;
-  background-image: linear-gradient(147.38deg, #FFFFFF 0%, #86A8C0 100%);
+  background-image: linear-gradient(147.38deg, #ffffff 0%, #86a8c0 100%);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -49,7 +49,7 @@ body {
   padding: 0;
   margin: 0;
   min-height: 100%;
-  background-image: linear-gradient(147.38deg, #FFFFFF 0%, #86A8C0 100%);
+  background-image: linear-gradient(147.38deg, #ffffff 0%, #86a8c0 100%);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -58,8 +58,6 @@ body {
 :root {
   --fc-daygrid-event-dot-width: 8px;
 }
-
-
 
 // ---------------------
 
@@ -71,11 +69,11 @@ body {
   }
 
   .p-progressbar {
-    height: .5rem;
-    background-color: #D8DADC;
+    height: 0.5rem;
+    background-color: #d8dadc;
 
     .p-progressbar-value {
-      background-color: #607D8B;
+      background-color: #607d8b;
     }
   }
 
@@ -103,11 +101,11 @@ body {
       padding: 1rem;
     }
 
-    .p-datatable-thead>tr>th {
+    .p-datatable-thead > tr > th {
       text-align: left;
     }
 
-    .p-datatable-tbody>tr>td {
+    .p-datatable-tbody > tr > td {
       cursor: auto;
     }
 
@@ -117,7 +115,7 @@ body {
   }
 
   /* Responsive */
-  .p-datatable-customers .p-datatable-tbody>tr>td .p-column-title {
+  .p-datatable-customers .p-datatable-tbody > tr > td .p-column-title {
     display: none;
   }
 }
@@ -126,16 +124,15 @@ body {
   :host ::ng-deep {
     .p-datatable {
       &.p-datatable-customers {
-
-        .p-datatable-thead>tr>th,
-        .p-datatable-tfoot>tr>td {
+        .p-datatable-thead > tr > th,
+        .p-datatable-tfoot > tr > td {
           display: none !important;
         }
 
-        .p-datatable-tbody>tr {
+        .p-datatable-tbody > tr {
           border-bottom: 1px solid var(--layer-2);
 
-          >td {
+          > td {
             text-align: left;
             display: block;
             border: 0 none !important;
@@ -145,20 +142,19 @@ body {
             border: 0 none;
 
             .p-column-title {
-              padding: .4rem;
+              padding: 0.4rem;
               min-width: 30%;
               display: inline-block;
-              margin: -.4rem 1rem -.4rem -.4rem;
+              margin: -0.4rem 1rem -0.4rem -0.4rem;
               font-weight: bold;
             }
 
             .p-progressbar {
-              margin-top: .5rem;
+              margin-top: 0.5rem;
             }
           }
         }
       }
     }
   }
-
 }

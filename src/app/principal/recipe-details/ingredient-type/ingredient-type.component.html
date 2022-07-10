@@ -1,35 +1,69 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Type d\'Ingredient'" [description]="
+<app-title
+  [title]="'Type d\'Ingredient'"
+  [description]="
     'La création, modification ou suppression d\'un ou des types d\'ingredients.'
-  ">
+  "
+>
 </app-title>
 <!-- app-ingredient -->
-<div class="p-2 shadow-4 text-center md:w-20 mb-2" style="background: rgba(255, 255, 255, 0.441); border-radius: 5px">
+<div
+  class="p-2 shadow-4 text-center md:w-20 mb-2"
+  style="background: rgba(255, 255, 255, 0.441); border-radius: 5px"
+>
   <p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
         <span class="p-input-icon-left">
           <i class="pi pi-search" aria-hidden="true"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Rechercher..." />
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Rechercher..."
+          />
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="right">
-      <button pButton pRipple label="Nouvelle type d'ingredient" icon="pi pi-plus"
-        class="p-button-raised p-button-success p-button-text p-mr-3" (click)="newIngredientType()"></button>
+      <button
+        pButton
+        pRipple
+        label="Nouvelle type d'ingredient"
+        icon="pi pi-plus"
+        class="p-button-raised p-button-success p-button-text p-mr-3"
+        (click)="newIngredientType()"
+      ></button>
     </ng-template>
   </p-toolbar>
-  <p-table #dt [value]="typeArray" [rows]="10" [paginator]="true" responsiveLayout="scroll"
-    [globalFilterFields]="['name']" [rowHover]="false" dataKey="id"
-    currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} types" [showCurrentPageReport]="true"
-    [rowsPerPageOptions]="[10, 25, 50, 100]" [(first)]="first" sortField="name" styleClass="p-datatable-sm">
+  <p-table
+    #dt
+    [value]="typeArray"
+    [rows]="10"
+    [paginator]="true"
+    responsiveLayout="scroll"
+    [globalFilterFields]="['name']"
+    [rowHover]="false"
+    dataKey="id"
+    currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} types"
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50, 100]"
+    [(first)]="first"
+    sortField="name"
+    styleClass="p-datatable-sm"
+  >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Name" style="width: 30%; padding-left: 1.5rem" scope="col"> Nom<p-sortIcon field="name"></p-sortIcon>
+        <th
+          pSortableColumn="name"
+          style="width: 30%; padding-left: 1.5rem"
+          scope="col"
+        >
+          Nom<p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="Description" style="width: 50%" scope="col"> Description<p-sortIcon field="description"></p-sortIcon>
+        <th pSortableColumn="description" style="width: 50%" scope="col">
+          Description<p-sortIcon field="description"></p-sortIcon>
         </th>
         <th style="width: 10%" scope="col"></th>
       </tr>
@@ -39,39 +73,84 @@
         <td style="padding-left: 1.5rem">{{ ingreType.name }}</td>
         <td>{{ ingreType.description }}</td>
         <td>
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-success mr-2"
-            (click)="updateIngredientType(ingreType)"></button>
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-            (click)="deleteIngredientType(ingreType)"></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text p-button-success mr-2"
+            (click)="updateIngredientType(ingreType)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="deleteIngredientType(ingreType)"
+          ></button>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-      <div class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"> Entotal il
-        y a {{ typeArray ? typeArray.length : 0 }} types. </div>
+      <div
+        class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"
+      >
+        Entotal il y a {{ typeArray ? typeArray.length : 0 }} types.
+      </div>
     </ng-template>
   </p-table>
 </div>
 <!-- /app-ingredient -->
 <!-- dialog-app-ingredient -->
-<p-dialog [(visible)]="ingredientTypeDialog" [style]="{ width: '450px' }" header="Ajouter un nouvel ingredient"
-  [modal]="true" styleClass="p-fluid">
+<p-dialog
+  [(visible)]="ingredientTypeDialog"
+  [style]="{ width: '450px' }"
+  header="Détails de type d'ingrédient"
+  [modal]="true"
+  styleClass="p-fluid"
+>
   <ng-template pTemplate="content" [formGroup]="form">
     <div class="p-field mt-3">
       <label for="name">Nom de type d'ingrédient</label>
-      <input type="text" pInputText id="name" formControlName="name" required />
-      <small class="p-invalid" *ngIf="submitted && !ingreType.name">Nom est obligatoire.</small>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        formControlName="name"
+        required
+        minlength="3"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !ingreType.name"
+        >Champ obligatoire.</small
+      >
     </div>
     <div class="p-field mt-3">
       <label for="description">Description</label>
-      <input type="text" pInputText id="description" formControlName="description" autofocus />
-      <small class="p-invalid" *ngIf="submitted && !ingreType.name">Nom est obligatoire.</small>
+      <textarea
+        pInputTextarea
+        [rows]="5"
+        [cols]="30"
+        id="description"
+        formControlName="description"
+      ></textarea>
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"
-      (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="onSubmit()"></button>
+    <button
+      pButton
+      pRipple
+      label="Annuler"
+      class="p-button-text p-button-danger"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Confirmer"
+      class="p-button-text"
+      (click)="onSubmit()"
+    ></button>
   </ng-template>
 </p-dialog>
 <!-- /dialog-app-ingredient -->

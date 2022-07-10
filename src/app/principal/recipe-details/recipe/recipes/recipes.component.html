@@ -1,8 +1,11 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Recettes'" [description]="
+<app-title
+  [title]="'Recettes'"
+  [description]="
     'L\'ensemble de vos recettes, création, modification et suppression.'
-  ">
+  "
+>
 </app-title>
 <!-- app-recipes -->
 <div class="card">
@@ -10,52 +13,112 @@
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
         <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="search" filterBy="['name', 'price']"
-            (input)="dv.filter($any($event.target).value, 'contains')" placeholder="Rechercher..." />
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input
+            pInputText
+            type="search"
+            filterBy="['name', 'price']"
+            (input)="dv.filter($any($event.target).value, 'contains')"
+            placeholder="Rechercher..."
+          />
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="right">
-      <button pButton pRipple label="Nouvelle recette" icon="pi pi-plus"
-        class="p-button-raised p-button-success p-button-text p-mr-3" (click)="CreateNewRecipe()"></button>
+      <button
+        pButton
+        pRipple
+        label="Nouvelle recette"
+        icon="pi pi-plus"
+        class="p-button-raised p-button-success p-button-text p-mr-3"
+        (click)="CreateNewRecipe()"
+      ></button>
     </ng-template>
   </p-toolbar>
-  <p-dataView #dv [value]="recipes" [paginator]="true" [rows]="9" filterBy="name" [sortField]="sortField"
-    [sortOrder]="sortOrder" layout="grid" (onChange)="onSortChange($event)">
+  <p-dataView
+    #dv
+    [value]="recipes"
+    [paginator]="true"
+    [rows]="9"
+    filterBy="name"
+    [sortField]="sortField"
+    [sortOrder]="sortOrder"
+    layout="grid"
+    (onChange)="onSortChange($event)"
+  >
     <ng-template let-recipe pTemplate="gridItem">
-      <div class="p-col-12 p-md-4  flex">
+      <div class="p-col-12 p-md-4 flex">
         <div class="product-grid-item card">
-          <div class="flex flex-1 ">
+          <div class="flex flex-1">
             <div class="col-4 align-item-center">
-              <img src="{{ recipe.pictures[0].external_link }}" alt="Image" class="border-round-left" />
+              <img
+                *ngIf="recipe.pictures[0]"
+                src="{{ recipe.pictures[0].external_link }}"
+                alt="Image"
+                class="border-round-left"
+              />
+              <img
+                *ngIf="!recipe.pictures[0]"
+                src="src/assets/img/no-photo.png"
+                alt="Image"
+                class="border-round-left"
+              />
             </div>
-            <p-divider layout="vertical" class="col-1"></p-divider>
+            <p-divider layout="vertical" class="col-1 mr-1"></p-divider>
             <div class="col-7 w-full">
               <div class="justify-content-end">
-                <i *ngIf="recipe.star" class="pi pi-star-fill" [style]="{ color: '#E6E600' }"></i>
-                <i *ngIf="!recipe.star" class="pi pi-star" [style]="{ color: '#d6d6d6' }"></i>
+                <i
+                  *ngIf="recipe.star"
+                  class="pi pi-star-fill"
+                  [style]="{ color: '#E6E600' }"
+                  aria-hidden="true"
+                ></i>
+                <i
+                  *ngIf="!recipe.star"
+                  class="pi pi-star"
+                  [style]="{ color: '#d6d6d6' }"
+                  aria-hidden="true"
+                ></i>
               </div>
               <div class="product-name">{{ recipe.name }}</div>
-              <div class="product-price ">€ {{ recipe.base_price }}</div>
+              <div class="product-price">€ {{ recipe.base_price }}</div>
               <div class="product-category mb-2">
-                <i class="pi pi-tag product-category-icon"
-                  style="font-size: 0.7rem; color: rgba(71, 71, 242, 0.828);"></i>
+                <i
+                  class="pi pi-tag product-category-icon"
+                  style="font-size: 0.7rem; color: rgba(71, 71, 242, 0.828)"
+                  aria-hidden="true"
+                ></i>
                 {{ recipe.recipe_type.code }}
               </div>
               <div class="inline-block">
-                <span *ngFor="let value of recipe.ingredients; let last=last; ">
-                  <span *ngIf="!last"> {{ value.name + ', ' }} </span>
+                <span *ngFor="let value of recipe.ingredients; let last = last">
+                  <span *ngIf="!last"> {{ value.name + ", " }} </span>
                   <span *ngIf="last"> {{ value.name }} </span>
                 </span>
               </div>
               <div class="mt-3">
-                <button pButton pRipple type="button" (click)="updateRecipe(recipe)" id="buttonBottom"
-                  icon="pi pi-pencil" class="p-button-rounded p-button-success p-button-text min-w-0"
-                  pTooltip="Modifier la recette" tooltipPosition="bottom"></button>
-                <button pButton pRipple type="button" (click)="removeRecipe(recipe)" id="buttonBottom"
-                  icon="pi pi-trash" class="p-button-rounded p-button-danger p-button-text min-w-0"
-                  pTooltip="Supprimer la recette" tooltipPosition="bottom"></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  (click)="updateRecipe(recipe)"
+                  id="buttonBottom"
+                  icon="pi pi-pencil"
+                  class="p-button-rounded p-button-success p-button-text min-w-0"
+                  pTooltip="Modifier la recette"
+                  tooltipPosition="bottom"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  type="button"
+                  (click)="removeRecipe(recipe)"
+                  id="buttonBottom"
+                  icon="pi pi-trash"
+                  class="p-button-rounded p-button-danger p-button-text min-w-0"
+                  pTooltip="Supprimer la recette"
+                  tooltipPosition="bottom"
+                ></button>
               </div>
             </div>
           </div>
@@ -68,10 +131,22 @@
 <!-- Confirmation Dialog -->
 <p-confirmDialog #cd>
   <p-footer>
-    <button type="button" pButton label="OUI" class="p-button-info p-button-text p-button-text-outlined"
-      (click)="cd.accept()"></button>
-    <button type="button" pButton label="NON" class="p-button-danger p-button-text p-button-text-outlined"
-      (click)="cd.reject()"></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="NON"
+      class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="OUI"
+      class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"
+    ></button>
   </p-footer>
 </p-confirmDialog>
 <!-- /Confirmation Dialog -->
