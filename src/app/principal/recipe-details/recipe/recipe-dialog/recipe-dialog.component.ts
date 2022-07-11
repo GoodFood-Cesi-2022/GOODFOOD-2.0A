@@ -15,7 +15,6 @@ import { Picture } from '../../../../shared/models/picture.model';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
 import { IngredientService } from 'src/app/shared/services/ingredient/ingredient.service';
 
-import { EndPoints } from '../../../../shared/constants/constants';
 import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 
 @Component({
@@ -66,12 +65,6 @@ export class RecipeDialogComponent implements OnInit {
     this.ingredients.forEach((x) => x.name);
     this.mode = config.data.mode;
     this.picture = config.data.pictures;
-    if (this.mode === 'UPDATE') {
-      this.isDisabledControlForm = true;
-      this.Textbutton = EndPoints.EDIT_RECIPE;
-    } else {
-      this.Textbutton = EndPoints.CREATE_RECIPE;
-    }
   }
 
   ngOnInit(): void {
@@ -87,6 +80,12 @@ export class RecipeDialogComponent implements OnInit {
   }
 
   initForm(): void {
+    var laDate: Date;
+    if (!this.recipe?.available_at) {
+      laDate = new Date(new Date().setDate(new Date().getDate() + 10));
+    } else {
+      laDate = new Date(this.recipe?.available_at);
+    }
     this.form = this.fb.group({
       title: [this.recipe?.name, [Validators.required]],
       recipeType: [this.recipe?.recipe_type, [Validators.required]],
@@ -94,7 +93,7 @@ export class RecipeDialogComponent implements OnInit {
       ingredientsDetails: [this.recipe?.ingredients, Validators.required],
       description: [this.recipe?.description],
       star: this.recipe?.star || false,
-      availableDate: [this.recipe?.available_at, [Validators.required]],
+      availableDate: [laDate, [Validators.required]],
     });
   }
 
@@ -111,14 +110,14 @@ export class RecipeDialogComponent implements OnInit {
 
   private makeRecipe(): void {
     if (this.mode === 'CREATE') {
-      this.recipe.name = this.form.value.title;
-      this.recipe.recipe_type = this.form.controls['recipeType'].value.code;
-      this.recipe.base_price = this.form.value.price;
-      this.recipe.ingredients = this.form.controls['ingredientsDetails'].value;
-      this.recipe.star = this.form.value.star;
       this.recipe.available_at = this.form.value.availableDate;
-      this.recipe.description = this.form.value.description;
     }
+    this.recipe.name = this.form.value.title;
+    this.recipe.recipe_type = this.form.controls['recipeType'].value.code;
+    this.recipe.base_price = this.form.value.price;
+    this.recipe.ingredients = this.form.controls['ingredientsDetails'].value;
+    this.recipe.star = this.form.value.star;
+    this.recipe.description = this.form.value.description;
   }
 
   public onSubmit(): void {
@@ -141,18 +140,12 @@ export class RecipeDialogComponent implements OnInit {
       .subscribe((res) => {
         this.picture = res;
         this.recipeService.createRecipe(this.recipe).subscribe({
-          next: (res) => {
-            this.ref.close(res);
-            this.recipe = res;
+          next: (_res) => {
+            this.ref.close(_res);
+            this.recipe = _res;
             this.recipeService
               .attachPictures(this.picture, this.recipe)
               .subscribe();
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
-              detail: 'Création de la recette',
-              life: 3000,
-            });
           },
           error: (error) => {
             this.messageService.add({
@@ -170,27 +163,22 @@ export class RecipeDialogComponent implements OnInit {
   }
 
   private updateRecipe(): void {
-    this.recipeService
-      .uploadPicture(this.picture)
-      .pipe(finalize(() => this.loading.loadingOff()))
-      .subscribe(
-        (res) => {
-          this.picture = res;
-          this.recipeService.updateRecipe(this.recipe).subscribe((res) => {
-            this.ref.close(res);
-            this.recipeService
-              .attachPictures(this.picture, this.recipe)
-              .subscribe();
-          });
-        },
-        (err) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur',
-            detail: err.error,
-          });
-        }
-      );
+    this.recipeService.updateRecipe(this.recipe).subscribe({
+      next: (res) => {
+        this.ref.close(res);
+      },
+      error: (error) => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur le moment de modification de de la recette',
+          detail: error.error,
+        });
+        console.log(
+          'erreur le moment de modification de la recette --->',
+          error
+        );
+      },
+    });
   }
 
   public onClose(): void {

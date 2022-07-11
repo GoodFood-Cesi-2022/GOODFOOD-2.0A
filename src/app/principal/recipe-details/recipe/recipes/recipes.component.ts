@@ -134,7 +134,7 @@ export class RecipesComponent implements OnInit {
    * Le message d'alerte de suppression
    * Le message de confirmation de suppression
    */
-  public removeRecipe(recipe: Recipe): void {
+  removeRecipe(recipe: Recipe): void {
     this.confirmationService.confirm({
       message: `Voulez-vous vraiment supprimer la recette "${recipe.name}" ?`,
       header: 'Confirm',
@@ -164,14 +164,12 @@ export class RecipesComponent implements OnInit {
     });
   }
 
-  public updateRecipe(recipe: Recipe): void {
+  updateRecipe(recipe: Recipe): void {
     this.ref = this.dialogService.open(RecipeDialogComponent, {
       header: `${recipe.name}`,
       width: '70%',
       styleClass: 'DynamicDialog',
       contentStyle: { 'max-height': '550px', overflow: 'auto' },
-      baseZIndex: 10000,
-
       data: {
         mode: 'UPDATE',
         recipeType: this.recipesType,

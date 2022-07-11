@@ -85,13 +85,28 @@ export class RecipeService {
    * @returns update recipe
    */
   public updateRecipe(update: Partial<Recipe>): Observable<string> {
+    console.log(
+      '***************************************',
+      update.ingredients,
+      update.name,
+      update.base_price,
+      update.description,
+      update.recipe_type,
+      update.star
+    );
     return this.http
       .put(`${environment.apiBaseUrl}/recipes/${update.id}`, {
-        ...update,
         ingredients: update.ingredients.map((ingredient) => ingredient.id),
-        recipe_type: update.recipe_type.code,
+        name: update.name,
+        description: update.description,
+        base_price: update.base_price,
+        star: update.star,
+        recipe_type: update.recipe_type,
       })
-      .pipe(map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS)));
+      .pipe(
+        tap((obj) => console.log('service ---------------------->  ', obj)),
+        map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS))
+      );
   }
 
   /**

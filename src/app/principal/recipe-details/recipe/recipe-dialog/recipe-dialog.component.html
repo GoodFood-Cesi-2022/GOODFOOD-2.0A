@@ -18,12 +18,12 @@
         [style]="{ width: '100%' }"
       >
       </p-dropdown>
-      <small
+      <!-- <small
         id="recipeTypeFor-help"
         class="p-invalid"
         *ngIf="checkError('recipeType', 'required')"
         >Champ obligatoire</small
-      >
+      > -->
     </div>
     <div class="field mb-5 col-12 md:col-6">
       <label>Ingredients</label>
@@ -45,6 +45,7 @@
     </div>
     <div class="field mb-5 col-12 md:col-6">
       <label for="icon">Date disponiblité</label>
+
       <p-calendar
         appendTo="body"
         formControlName="availableDate"
@@ -53,7 +54,8 @@
         [locale]="fr"
         dateFormat="dd/mm/yy"
         [required]="true"
-      ></p-calendar>
+        >{{ recipe.available_at }}</p-calendar
+      >
     </div>
   </div>
   <div class="grid p-fluid formgrid">
@@ -71,7 +73,10 @@
           >
           </p-inputNumber>
         </div>
-        <div class="field mb-5 col-12 md:col-12 mt-3 pr-6">
+        <div
+          class="field mb-5 col-12 md:col-12 mt-3 pr-6"
+          *ngIf="mode === 'CREATE'"
+        >
           <p-fileUpload
             mode="basic"
             [customUpload]="true"
@@ -84,11 +89,13 @@
             uploadLabel=""
           ></p-fileUpload>
         </div>
-        <div class="col-4 align-item-center">
+        <div class="col-4 align-item-center" *ngIf="mode === 'UPDATE'">
           <img
             *ngIf="recipe.pictures[0]"
             src="{{ recipe.pictures[0].external_link }}"
             alt="Image"
+            width="200px"
+            height="150px"
             class="border-round-left"
           />
           <img

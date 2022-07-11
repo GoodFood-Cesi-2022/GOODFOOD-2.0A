@@ -59,25 +59,33 @@
               />
               <img
                 *ngIf="!recipe.pictures[0]"
-                src="src/assets/img/no-photo.png"
+                src="assets/img/no-photo.png"
                 alt="Image"
                 class="border-round-left"
               />
             </div>
             <p-divider layout="vertical" class="col-1 mr-1"></p-divider>
             <div class="col-7 w-full">
-              <div class="justify-content-end">
+              <div class="flex justify-content-between flex-wrap my-1">
                 <i
                   *ngIf="recipe.star"
-                  class="pi pi-star-fill"
+                  class="pi pi-star-fill flex align-items-center justify-content-center"
                   [style]="{ color: '#E6E600' }"
                   aria-hidden="true"
                 ></i>
                 <i
                   *ngIf="!recipe.star"
-                  class="pi pi-star"
+                  class="pi pi-star flex align-items-center justify-content-center"
                   [style]="{ color: '#d6d6d6' }"
                   aria-hidden="true"
+                ></i>
+                <i
+                  class="pi pi-exclamation-circle flex align-items-center justify-content-center mr-1"
+                  *ngIf="recipe.trashed_at"
+                  style="color: red"
+                  aria-hidden="true"
+                  pTooltip="Cette recette bientôt disparaître!"
+                  tooltipPosition="top"
                 ></i>
               </div>
               <div class="product-name">{{ recipe.name }}</div>
@@ -96,7 +104,7 @@
                   <span *ngIf="last"> {{ value.name }} </span>
                 </span>
               </div>
-              <div class="mt-3">
+              <div class="flex justify-content-end flex-wrap mt-3">
                 <button
                   pButton
                   pRipple
@@ -104,9 +112,10 @@
                   (click)="updateRecipe(recipe)"
                   id="buttonBottom"
                   icon="pi pi-pencil"
-                  class="p-button-rounded p-button-success p-button-text min-w-0"
+                  class="p-button-rounded p-button-success p-button-text min-w-0 flex align-items-center justify-content-center"
                   pTooltip="Modifier la recette"
                   tooltipPosition="bottom"
+                  [disabled]="recipe.trashed_at"
                 ></button>
                 <button
                   pButton
@@ -115,9 +124,10 @@
                   (click)="removeRecipe(recipe)"
                   id="buttonBottom"
                   icon="pi pi-trash"
-                  class="p-button-rounded p-button-danger p-button-text min-w-0"
+                  class="p-button-rounded p-button-danger p-button-text min-w-0 flex align-items-center justify-content-center"
                   pTooltip="Supprimer la recette"
                   tooltipPosition="bottom"
+                  [disabled]="recipe.trashed_at"
                 ></button>
               </div>
             </div>
