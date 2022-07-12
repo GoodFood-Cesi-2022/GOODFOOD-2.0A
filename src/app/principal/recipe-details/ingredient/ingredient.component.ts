@@ -5,7 +5,6 @@ import {
   FormBuilder,
   FormControl,
 } from '@angular/forms';
-import { Router } from '@angular/router';
 
 import { MessageService, ConfirmationService } from 'primeng/api';
 
@@ -31,7 +30,6 @@ import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/i
 })
 export class IngredientComponent implements OnInit {
   form: FormGroup;
-  allergen: boolean;
 
   ingredient: Ingredient;
 
@@ -41,6 +39,7 @@ export class IngredientComponent implements OnInit {
   ingredients: Ingredient[] = [];
   selectedIngredients: Ingredient[];
 
+  allergen: boolean;
   ingredientDialog: boolean;
   submitted: boolean;
 
@@ -52,17 +51,15 @@ export class IngredientComponent implements OnInit {
   constructor(
     private ingredientService: IngredientService,
     private ingredientTypeService: IngredientTypeService,
-    private fb: FormBuilder,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private router: Router
+    private fb: FormBuilder
   ) {
     //NOSONAR
   }
 
   ngOnInit(): void {
     this.init();
-    // this.isCreate = !this.id;
     this.initForm();
   }
 
@@ -98,6 +95,22 @@ export class IngredientComponent implements OnInit {
     }
     this.ingredient = ingredient;
     console.log('makeIngredient', this.ingredient);
+  }
+
+  newIngredient(): void {
+    this.ingredient = {};
+    this.isCreate = true;
+    this.initForm();
+    this.submitted = false;
+    this.ingredientDialog = true;
+  }
+
+  updateIngredient(ingredient: Ingredient): void {
+    this.ingredient = { ...ingredient };
+    this.isCreate = false;
+    this.initForm();
+    this.submitted = false;
+    this.ingredientDialog = true;
   }
 
   onSubmit(): void {
@@ -153,22 +166,6 @@ export class IngredientComponent implements OnInit {
     this.ingredient = {};
   }
 
-  newIngredient(): void {
-    this.ingredient = {};
-    this.isCreate = true;
-    this.initForm();
-    this.submitted = false;
-    this.ingredientDialog = true;
-  }
-
-  updateIngredient(ingredient: Ingredient): void {
-    this.ingredient = { ...ingredient };
-    this.isCreate = false;
-    this.initForm();
-    this.submitted = false;
-    this.ingredientDialog = true;
-  }
-
   deleteIngredient(ingredient: Ingredient): void {
     this.confirmationService.confirm({
       message: 'Etes-vous sûre de vouloir supprimer "' + ingredient.name + '"?',
@@ -189,7 +186,7 @@ export class IngredientComponent implements OnInit {
           error: (error) => {
             this.messageService.add({
               severity: 'error',
-              summary: "Erreur le moment de création de l'ingrédient",
+              summary: "Erreur le moment de création de l'ingrédient!",
               detail: error.error,
             });
             console.log(

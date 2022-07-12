@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap, map, Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
-
 import { environment } from 'src/environments/environment';
 import { Message } from '../../constants/constants';
 
@@ -16,16 +15,6 @@ export class IngredientService {
   }
 
   /**
-   * @url GET : localhost:8080/api/ingredients
-   * @returns all ingredients
-   */
-  public getIngredients(): Observable<Ingredient[]> {
-    return this.http
-      .get<Ingredient[]>(`${environment.apiBaseUrl}/ingredients`)
-      .pipe(map((res) => res['data']));
-  }
-
-  /**
    * @url GET : localhost:8080/api/ingredients/{ingredient_id}
    * @param id ingredient
    * @returns an ingredient
@@ -34,6 +23,16 @@ export class IngredientService {
     return this.http
       .get<Ingredient>(`${environment.apiBaseUrl}/ingredients/${id}`)
       .pipe(map((res) => res));
+  }
+
+  /**
+   * @url GET : localhost:8080/api/ingredients
+   * @returns all ingredients
+   */
+  public getIngredients(): Observable<Ingredient[]> {
+    return this.http
+      .get<Ingredient[]>(`${environment.apiBaseUrl}/ingredients`)
+      .pipe(map((res) => res['data']));
   }
 
   /**
