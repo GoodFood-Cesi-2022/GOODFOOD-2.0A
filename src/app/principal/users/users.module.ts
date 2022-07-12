@@ -1,6 +1,6 @@
 // Angular
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -46,6 +46,7 @@ const routes: Routes = [{ path: '', component: UsersComponent }];
     ToastModule,
     ToolbarModule,
     ProgressBarModule,
+    ReactiveFormsModule,
   ],
   providers: [
     UsersService,

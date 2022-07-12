@@ -17,7 +17,8 @@
           <i class="pi pi-search" aria-hidden="true"></i>
           <input
             pInputText
-            type="text"
+            class="w-20rem"
+            type="search"
             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Rechercher..."
           />
@@ -102,7 +103,7 @@
 <p-dialog
   [(visible)]="ingredientDialog"
   [style]="{ width: '450px' }"
-  header="Ajouter un nouvel ingredient"
+  header="Détails d'ingredient"
   [modal]="true"
   styleClass="p-fluid"
   appendTo="body"

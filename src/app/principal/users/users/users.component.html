@@ -1,8 +1,10 @@
 <p-toast></p-toast>
 <!-- Title -->
 <app-title
-  [title]="'Profil d\'utilisateur'"
-  [description]="'Les details de profil d\'utilisateur, modifier et demander la supression de compte'"
+  [title]="'Utilisateurs'"
+  [description]="
+    'Les details des informations des utilisateurs, en tant qu\'administrateur vous pouvez créer, modifier et supprimer un ou des compte(s).'
+  "
 >
 </app-title>
 <!-- app-users -->
@@ -14,7 +16,7 @@
           <i class="pi pi-search" aria-hidden="true"></i>
           <input
             pInputText
-            class=""
+            class="w-20rem"
             type="search"
             filterBy="['firstname', 'lastname', 'phone', 'email']"
             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
@@ -52,19 +54,6 @@
     currentPageReportTemplate=" {first} - {last} "
     [showCurrentPageReport]="true"
   >
-    <ng-template pTemplate="caption">
-      <!-- <div class="p-d-flex p-ai-center p-jc-between">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search" aria-hidden="true"></i>
-          <input
-            pInputText
-            type="text"
-            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Rechercher par nom..."
-          />
-        </span>
-      </div> -->
-    </ng-template>
     <ng-template pTemplate="header">
       <tr>
         <th pSortableColumn="firstname" scope="col">
@@ -93,14 +82,14 @@
             pButton
             pRipple
             icon="pi pi-pencil"
-            class="p-button-rounded p-button-outlined p-button-success p-mr-2"
+            class="p-button-rounded p-button-text p-button-success mr-2"
             (click)="editUser(user)"
           ></button>
           <button
             pButton
             pRipple
             icon="pi pi-trash"
-            class="p-button-rounded p-button-outlined p-button-danger"
+            class="p-button-rounded p-button-text p-button-danger"
             (click)="onDelete(user)"
           ></button>
         </td>
@@ -121,15 +110,17 @@
   header="User Details"
   [modal]="true"
   styleClass="p-fluid"
+  appendTo="body"
 >
-  <ng-template pTemplate="content">
-    <div class="p-field">
+  <ng-template pTemplate="content" [formGroup]="form">
+    <div class="p-field my-3">
       <label for="firstname">Prénom</label>
       <input
         type="text"
         pInputText
         id="firstname"
-        [(ngModel)]="user.firstname"
+        formControlName="firstname"
+        placeholder="Sarah"
         required
         autofocus
       />
@@ -137,13 +128,14 @@
         >Firstname is required.</small
       >
     </div>
-    <div class="p-field">
+    <div class="p-field mb-3">
       <label for="lastname">Nom</label>
       <input
         type="text"
         pInputText
         id="lastname"
-        [(ngModel)]="user.lastname"
+        formControlName="lastname"
+        placeholder="Dubois"
         required
         autofocus
       />
@@ -151,13 +143,14 @@
         >Lastname is required.</small
       >
     </div>
-    <div class="p-field">
+    <div class="p-field mb-3">
       <label for="email">Email</label>
       <input
         type="text"
         pInputText
         id="email"
-        [(ngModel)]="user.email"
+        formControlName="email"
+        placeholder="Sarah@gmail.com"
         required
         autofocus
       />
@@ -165,13 +158,14 @@
         >Email is required.</small
       >
     </div>
-    <div class="p-field">
+    <div class="p-field mb-3">
       <label for="phone">Téléphone</label>
       <input
         type="text"
         pInputText
         id="phone"
-        [(ngModel)]="user.phone"
+        formControlName="phone"
+        placeholder="04 76 00 00 00"
         required
         autofocus
       />
@@ -184,20 +178,40 @@
     <button
       pButton
       pRipple
-      label="Cancel"
-      icon="pi pi-times"
+      label="Annuler"
       class="p-button-text p-button-danger"
       (click)="hideDialog()"
     ></button>
     <button
       pButton
       pRipple
-      label="Save"
-      icon="pi pi-check"
+      label="Confirm"
       class="p-button-text p-button-success"
       (click)="onSubmit()"
+      [disabled]="true"
     ></button>
   </ng-template>
 </p-dialog>
 <!-- Confirm dialog -->
-<p-confirmDialog [style]="{ width: '500px' }"></p-confirmDialog>
+<p-confirmDialog #cd [style]="{ width: '450px' }">
+  <p-footer>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="NON"
+      class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="OUI"
+      class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"
+      [disabled]="true"
+    ></button>
+  </p-footer>
+</p-confirmDialog>
+<!-- /Confirm dialog -->

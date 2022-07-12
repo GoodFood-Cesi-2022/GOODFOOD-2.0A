@@ -83,7 +83,7 @@ export class IngredientComponent implements OnInit {
   }
 
   private makeRecipe(): void {
-    var ingredient: Ingredient = {};
+    const ingredient: Ingredient = {};
     if (this.isCreate) {
       ingredient.name = this.form.get('name').value;
       ingredient.allergen = this.form.get('allergen').value;

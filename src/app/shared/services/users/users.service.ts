@@ -10,15 +10,6 @@ import { Message } from '../../constants/constants';
   providedIn: 'root',
 })
 export class UsersService {
-  // userFirstnames: string[] = ['Sara', 'Zara', 'bahar'];
-  // userLastnames: string[] = ['Dubois', 'Dubeau', 'Sdqi'];
-  // userEmails: string[] = [
-  //   'Product@Description.fr',
-  //   'Product@Description.com',
-  //   'Product@Description.org',
-  // ];
-  // userPhones: string[] = ['12345678', '11111111', '00000000'];
-
   constructor(private http: HttpClient) {
     //NOSONAR
   }
@@ -28,10 +19,9 @@ export class UsersService {
    * @returns one franchisee
    */
   public getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}`).pipe(
-      //tap((obj) => console.log('service -> create ingredient type : ', obj)),
-      map((res) => res)
-    );
+    return this.http
+      .get<User>(`${environment.apiBaseUrl}/users/${id}`)
+      .pipe(map((res) => res));
   }
 
   /**
@@ -41,10 +31,7 @@ export class UsersService {
   public getUsers(): Observable<User[]> {
     return this.http
       .get<User[]>(`${environment.apiBaseUrl}/users?role[]=contractor`)
-      .pipe(
-        tap((obj) => console.log('service -> get all franchisee : ', obj)),
-        map((res) => res['data'])
-      );
+      .pipe(map((res) => res['data']));
   }
 
   /**
@@ -80,10 +67,9 @@ export class UsersService {
    * @returns new franchisee
    */
   public newUser(item: User): Observable<User> {
-    return this.http.post(`${environment.apiBaseUrl}/users`, item).pipe(
-      tap((obj) => console.log('service -> create new user : ', obj)),
-      map((res) => res)
-    );
+    return this.http
+      .post(`${environment.apiBaseUrl}/users`, item)
+      .pipe(map((res) => res));
   }
 
   /**
@@ -95,7 +81,7 @@ export class UsersService {
     return this.http
       .put(`${environment.apiBaseUrl}/users/${update.id}`, update)
       .pipe(
-        tap((obj) => console.log('service -> update user : ', obj)),
+        // tap((obj) => console.log('service -> update user : ', obj)),
         map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS))
       );
   }
@@ -107,52 +93,8 @@ export class UsersService {
    */
   public deleteUser(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/users/${id}`).pipe(
-      tap((obj) => console.log('service -> delete : ', obj)),
+      // tap((obj) => console.log('service -> delete : ', obj)),
       map((res) => (res ? res['message'] : ''))
     );
   }
-
-  // getUsersSmall() {
-  //   return this.http
-  //     .get<any>('assets/users-small.json')
-  //     .toPromise()
-  //     .then((res) => <User[]>res.data)
-  //     .then((data) => {
-  //       return data;
-  //     });
-  // }
-  // getUsersWithOrdersSmall() {
-  //   return this.http
-  //     .get<any>('assets/users-orders-small.json')
-  //     .toPromise()
-  //     .then((res) => <User[]>res.data)
-  //     .then((data) => {
-  //       return data;
-  //     });
-  // }
-  // generatePrduct(): User {
-  //   const user: User = {
-  //     id: this.generateId(),
-  //     firstname: this.generateFirstname(),
-  //     lastname: this.generateLastname(),
-  //     email: this.generateEmail(),
-  //     phone: this.generatePhone(),
-  //   };
-  //   return user;
-  // }
-  // generateId() {
-  //   return Math.floor(Math.random() * Math.floor(299) + 1);
-  // }
-  // generateFirstname() {
-  //   return this.userFirstnames[Math.floor(Math.random() * Math.floor(30))];
-  // }
-  // generateLastname() {
-  //   return this.userLastnames[Math.floor(Math.random() * Math.floor(30))];
-  // }
-  // generateEmail() {
-  //   return this.userEmails[Math.floor(Math.random() * Math.floor(30))];
-  // }
-  // generatePhone() {
-  //   return this.userPhones[Math.floor(Math.random() * Math.floor(30))];
-  // }
 }
