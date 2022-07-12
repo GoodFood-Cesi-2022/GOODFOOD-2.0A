@@ -14,6 +14,7 @@
           <i class="pi pi-search" aria-hidden="true"></i>
           <input
             pInputText
+            class=""
             type="search"
             filterBy="['firstname', 'lastname', 'phone', 'email']"
             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
