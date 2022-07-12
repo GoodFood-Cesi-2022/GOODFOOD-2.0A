@@ -80,7 +80,7 @@ export class RecipeDialogComponent implements OnInit {
   }
 
   initForm(): void {
-    var laDate: Date;
+    let laDate: Date;
     if (!this.recipe?.available_at) {
       laDate = new Date(new Date().setDate(new Date().getDate() + 10));
     } else {

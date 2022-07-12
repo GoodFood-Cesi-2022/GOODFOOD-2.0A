@@ -16,6 +16,7 @@
           <i class="pi pi-search" aria-hidden="true"></i>
           <input
             pInputText
+            class="w-20rem"
             type="search"
             filterBy="['name', 'price']"
             (input)="dv.filter($any($event.target).value, 'contains')"

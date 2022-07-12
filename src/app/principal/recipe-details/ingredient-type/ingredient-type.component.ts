@@ -62,7 +62,7 @@ export class IngredientTypeComponent implements OnInit {
   }
 
   private makeIngredientType(): void {
-    var ingreType: IngreType = {};
+    let ingreType: IngreType = {};
 
     ingreType.name = this.form.get('name').value;
     ingreType.description = this.form.get('description').value;

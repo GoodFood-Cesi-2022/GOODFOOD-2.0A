@@ -161,11 +161,14 @@
     <div class="p-field mb-3">
       <label for="phone">Téléphone</label>
       <input
-        type="text"
+        type="tel"
         pInputText
         id="phone"
         formControlName="phone"
         placeholder="04 76 00 00 00"
+        Pattern="^9[0-9]{7}"
+        size="10"
+        maxlength="10"
         required
         autofocus
       />
@@ -185,7 +188,7 @@
     <button
       pButton
       pRipple
-      label="Confirm"
+      label="Confirmer"
       class="p-button-text p-button-success"
       (click)="onSubmit()"
       [disabled]="true"

@@ -4,7 +4,12 @@
   <div class="grid p-fluid formgrid">
     <div class="field mb-5 col-12 md:col-8">
       <label>Nom de plat</label>
-      <input type="text" pInputText formControlName="title" />
+      <input
+        type="text"
+        pInputText
+        formControlName="title"
+        placeholder="Le Hachis Parmentier"
+      />
     </div>
     <div class="field mb-5 col-12 md:col-4">
       <label for="recipeFor">Type de recette</label>
@@ -18,12 +23,6 @@
         [style]="{ width: '100%' }"
       >
       </p-dropdown>
-      <!-- <small
-        id="recipeTypeFor-help"
-        class="p-invalid"
-        *ngIf="checkError('recipeType', 'required')"
-        >Champ obligatoire</small
-      > -->
     </div>
     <div class="field mb-5 col-12 md:col-6">
       <label>Ingredients</label>

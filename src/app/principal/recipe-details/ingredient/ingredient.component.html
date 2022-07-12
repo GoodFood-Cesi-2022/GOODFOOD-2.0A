@@ -116,6 +116,7 @@
         pInputText
         id="name"
         formControlName="name"
+        placeholder="Salade"
         required
         autofocus
       />
@@ -141,7 +142,7 @@
     </div>
     <div class="p-field mt-3">
       <p-checkbox
-        class="p-col-12 mt-4"
+        class="p-col-12 mt-3"
         formControlName="allergen"
         (onChange)="isAllergen($event)"
         label="Allergen"
@@ -149,6 +150,22 @@
         [binary]="true"
       ></p-checkbox>
     </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button
+      pButton
+      pRipple
+      label="Annuler"
+      class="p-button-text p-button-danger"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Confirmer"
+      class="p-button-text"
+      (click)="onSubmit()"
+    ></button>
   </ng-template>
 </p-dialog>
 <!-- /dialog-app-ingredient -->

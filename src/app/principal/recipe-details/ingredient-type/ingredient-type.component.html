@@ -19,7 +19,8 @@
           <i class="pi pi-search" aria-hidden="true"></i>
           <input
             pInputText
-            type="text"
+            class="w-20rem"
+            type="search"
             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Rechercher..."
           />
@@ -60,7 +61,7 @@
           style="width: 30%; padding-left: 1.5rem"
           scope="col"
         >
-          Nom<p-sortIcon field="name"></p-sortIcon>
+          Nom de tyoe d'ingrédient<p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="description" style="width: 50%" scope="col">
           Description<p-sortIcon field="description"></p-sortIcon>
@@ -116,6 +117,7 @@
         pInputText
         id="name"
         formControlName="name"
+        placeholder="Fromages"
         required
         minlength="3"
         required
@@ -150,8 +152,30 @@
       label="Confirmer"
       class="p-button-text"
       (click)="onSubmit()"
+      [disabled]="true"
     ></button>
   </ng-template>
 </p-dialog>
-<!-- /dialog-app-ingredient -->
-<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+<!-- Confirm dialog -->
+<p-confirmDialog #cd [style]="{ width: '450px' }">
+  <p-footer>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="NON"
+      class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="OUI"
+      class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"
+      [disabled]="true"
+    ></button>
+  </p-footer>
+</p-confirmDialog>
+<!-- /Confirm dialog -->
