@@ -35,34 +35,6 @@
     </li>
     <li>
       <button
-        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
-        pButton
-        pRipple
-        type="button"
-        label="Réclamations clients"
-        class="p-button-info p-button-text"
-        icon="pi pi-comments"
-        routerLink="/client-complaint"
-        (click)="onClose()"
-        routerLinkActive="active"
-      ></button>
-    </li>
-    <li>
-      <button
-        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
-        pButton
-        pRipple
-        type="button"
-        label="Notifications"
-        class="p-button-info p-button-text"
-        icon="pi pi-bell"
-        routerLink="/notification"
-        routerLinkActive="active"
-        (click)="onClose()"
-      ></button>
-    </li>
-    <li>
-      <button
         *ngIf="user.autorisations?.isAdmin"
         pButton
         pRipple
@@ -113,13 +85,16 @@
         icon="pi pi-info-circle"
       ></button>
     </li>
+    <li>
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-danger p-button-text"
+        (click)="logOut()"
+        label="Se déconnecter"
+        icon="pi pi-sign-out"
+      ></button>
+    </li>
   </ul>
-  <p-button
-    type="button"
-    styleClass="p-button-warning"
-    (click)="logOut()"
-    label="Se déconnecter"
-    icon="pi pi-sign-out"
-  >
-  </p-button>
 </p-sidebar>

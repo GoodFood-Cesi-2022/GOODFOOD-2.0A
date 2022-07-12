@@ -1,4 +1,5 @@
 import { Routes, RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './layouts/components/page-not-found/page-not-found.component';
 import { IsAuthenticatedGuard } from './shared/guards/is-authenticated/is-authenticated.guard';
 import { IsUnauthenticatedGuard } from './shared/guards/is-unauthenticated/is-unauthenticated.guard';
 
@@ -25,7 +26,7 @@ const ROUTES: Routes = [
     // canLoad: [IsAuthenticatedGuard],
     canActivate: [IsAuthenticatedGuard],
   },
-  //{ path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+  { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 ];
 
 export const routing = RouterModule.forRoot(ROUTES, { useHash: false });

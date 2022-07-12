@@ -1,21 +1,16 @@
-import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 import { Component, OnInit } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 
-import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
-import { DialogService } from 'primeng/dynamicdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
-
-import { RecipeDialogComponent } from '../recipe-dialog/recipe-dialog.component';
-
+import { Picture } from 'src/app/shared/models/picture.model';
+import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-
-import { Store } from '@ngrx/store';
-import { RecipeState } from '../../../../shared/store/state/recipe/recipe.reducer';
-import { Picture } from 'src/app/shared/models/picture.model';
+import { RecipeDialogComponent } from '../recipe-dialog/recipe-dialog.component';
 
 @Component({
   selector: 'app-recipes',
@@ -43,30 +38,25 @@ import { Picture } from 'src/app/shared/models/picture.model';
   ],
 })
 export class RecipesComponent implements OnInit {
-  displayModal: boolean;
+  ref: DynamicDialogRef;
 
   recipes: Recipe[] = [];
   recipesType: Recipe[] = [];
   ingredients: Ingredient[] = [];
   ingredientType: IngreType[] = [];
   pictures: Picture[] = [];
-  sortOptions: SelectItem[] = [];
+
   sortOrder: number;
   sortField: string;
-
-  submitted: boolean;
   recipeDialog: boolean;
-  sortKey: string;
   id: number;
-  first = 0;
-  idUser: number;
 
   constructor(
     private recipeService: RecipeService,
-    public dialogService: DialogService,
-    public messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    public dialogService: DialogService,
+    public messageService: MessageService
   ) {
     //NOSONAR
   }
@@ -128,6 +118,7 @@ export class RecipesComponent implements OnInit {
     });
     ref.onClose.subscribe((recipe: Recipe) => {
       if (recipe) {
+        this.recipes = [...this.recipes];
         this.messageService.add({
           severity: 'success',
           summary: 'Succès',
@@ -143,42 +134,42 @@ export class RecipesComponent implements OnInit {
    * Le message d'alerte de suppression
    * Le message de confirmation de suppression
    */
-  public removeRecipe(recipe: Recipe): void {
+  removeRecipe(recipe: Recipe): void {
     this.confirmationService.confirm({
       message: `Voulez-vous vraiment supprimer la recette "${recipe.name}" ?`,
-      header: 'Confirmation de suppression',
+      header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass: 'accept',
       accept: () => {
-        this.recipeService.removeRecipe(recipe.id).subscribe(
-          (message: string) => {
-            const index = this.recipes.indexOf(recipe);
-            this.recipes.splice(index, 1);
+        this.recipeService.removeRecipe(recipe.id).subscribe({
+          next: () => {
             this.recipes = [...this.recipes];
             this.messageService.add({
               severity: 'success',
               summary: 'Succès',
-              detail: message,
+              detail: 'Cette recette sera supprimé définitivement bientôt.',
+              life: 5000,
             });
           },
-          (err: any) =>
+          error: (error) => {
             this.messageService.add({
               severity: 'error',
-              summary: 'Erreur',
-              detail: err.error.message,
-            })
-        );
+              summary: 'Erreur le moment de création de type',
+              detail: error.error,
+            });
+            console.log('erreur le moment de création type --->', error);
+          },
+        });
       },
     });
   }
 
-  public updateRecipe(recipe: Recipe): void {
-    const ref = this.dialogService.open(RecipeDialogComponent, {
+  updateRecipe(recipe: Recipe): void {
+    this.ref = this.dialogService.open(RecipeDialogComponent, {
       header: `${recipe.name}`,
       width: '70%',
-      // styleClass: 'DynamicDialog',
-      // contentStyle: { 'max-height': '550px', overflow: 'auto' },
-      // baseZIndex: 10000,
+      styleClass: 'DynamicDialog',
+      contentStyle: { 'max-height': '550px', overflow: 'auto' },
       data: {
         mode: 'UPDATE',
         recipeType: this.recipesType,
@@ -188,8 +179,8 @@ export class RecipesComponent implements OnInit {
         recipe,
       },
     });
-    ref.onClose.subscribe((recipe: Recipe) => {
-      if (recipe) {
+    this.ref.onClose.subscribe((_recipe: Recipe) => {
+      if (_recipe) {
         this.messageService.add({
           severity: 'success',
           summary: 'Succès',

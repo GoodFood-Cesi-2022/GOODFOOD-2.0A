@@ -4,7 +4,9 @@
  */
 export interface IngreType {
   id?: number;
-  name?: string;
   code?: string;
+  name?: string;
   description?: string;
+  created_at?: Date;
+  updated_at?: Date;
 }

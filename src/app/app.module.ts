@@ -8,28 +8,31 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
-
-import { AppComponent } from './app.component';
 import {
   HashLocationStrategy,
   LocationStrategy,
   PathLocationStrategy,
 } from '@angular/common';
+
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
+
 import { DialogService } from 'primeng/dynamicdialog';
 import { ConfirmationService } from 'primeng/api';
-import { GlobalHttpInterceptorService } from './app.interceptor';
-import { routing } from './app-routing.module';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+
+import { GlobalHttpInterceptorService } from './app.interceptor';
 import { ApiTokenInterceptorService } from './shared/interceptors/api-token-interceptor.service';
-import { AuthModule } from './auth/auth.module';
-import { metaReducers, reducers } from './shared/store/store.reducer';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 import { LoadingService } from './shared/services/loading/loading.service';
+import { AuthModule } from './auth/auth.module';
+import { routing } from './app-routing.module';
+import { metaReducers, reducers } from './shared/store/store.reducer';
+import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +40,8 @@ import { LoadingService } from './shared/services/loading/loading.service';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MessagesModule,
+    MessageModule,
     ProgressSpinnerModule,
     ReactiveFormsModule,
     AuthModule.forRoot(),

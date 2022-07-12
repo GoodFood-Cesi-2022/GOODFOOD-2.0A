@@ -1,9 +1,9 @@
 // Angular
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 // PrimeNG
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
@@ -15,14 +15,15 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 import { InputTextareaModule } from 'primeng/inputtextarea';
 // Component
 import { UsersComponent } from './users/users.component';
 // Service
 import { UsersService } from 'src/app/shared/services/users/users.service';
 import { ComponentsModule } from 'src/app/layouts/components/components.module';
+import { ApiTokenInterceptorService } from 'src/app/shared/interceptors/api-token-interceptor.service';
 
 const routes: Routes = [{ path: '', component: UsersComponent }];
 
@@ -45,7 +46,17 @@ const routes: Routes = [{ path: '', component: UsersComponent }];
     ToastModule,
     ToolbarModule,
     ProgressBarModule,
+    ReactiveFormsModule,
   ],
-  providers: [UsersService, MessageService, ConfirmationService],
+  providers: [
+    UsersService,
+    MessageService,
+    ConfirmationService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ApiTokenInterceptorService,
+      multi: true,
+    },
+  ],
 })
 export class UsersModule {}

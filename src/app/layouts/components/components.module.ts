@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { BadgeModule } from 'primeng/badge';
 import { ButtonModule } from 'primeng/button';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { TooltipModule } from 'primeng/tooltip';
@@ -38,6 +39,7 @@ import { LoadingComponent } from './loading/loading.component';
     ReactiveFormsModule,
     ProgressSpinnerModule,
     CheckboxModule,
+    BadgeModule,
     ButtonModule,
     TooltipModule,
     SidebarModule,

@@ -1,53 +1,126 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Franchisée'" [description]="
+<app-title
+  [title]="'Franchisée'"
+  [description]="
     'L\'espace de franchisé pour gérer ensemble de l\'informations de franchisés.'
-  ">
+  "
+>
 </app-title>
 <!-- New contact -->
 <ng-template pTemplate="right">
-  <button pButton pRipple label="Nouvel coordonnée" icon="pi pi-plus" class="p-button-purple p-mr-2 mr-2"
-    (click)="newContact()"></button>
-  <button pButton pRipple label="Nouvelles horaires" icon="pi pi-plus" class="p-button-info p-mr-2"
-    (click)="newSchedule()"></button>
+  <button
+    pButton
+    pRipple
+    label="Nouvel coordonnée"
+    icon="pi pi-plus"
+    class="p-button-purple p-mr-2 mr-2"
+    (click)="newContact()"
+  ></button>
+  <button
+    pButton
+    pRipple
+    label="Nouvelles horaires"
+    icon="pi pi-plus"
+    class="p-button-info p-mr-2"
+    (click)="newSchedule()"
+  ></button>
 </ng-template>
 <ng-template pTemplate="footer">
-  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"></button>
-  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text p-button-success"></button>
+  <button
+    pButton
+    pRipple
+    label="Cancel"
+    icon="pi pi-times"
+    class="p-button-text p-button-danger"
+  ></button>
+  <button
+    pButton
+    pRipple
+    label="Save"
+    icon="pi pi-check"
+    class="p-button-text p-button-success"
+  ></button>
 </ng-template>
 <!-- New schedule -->
 <div class="field col-12 md:col-4">
   <label for="timeonly">Time / 24h</label>
-  <p-calendar formControlName="date8" [timeOnly]="true" hourFormat="24" inputId="timeonly"></p-calendar>
+  <p-calendar
+    formControlName="date8"
+    [timeOnly]="true"
+    hourFormat="24"
+    inputId="timeonly"
+  ></p-calendar>
 </div>
 <ng-template pTemplate="footer">
-  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"></button>
-  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text p-button-success"></button>
+  <button
+    pButton
+    pRipple
+    label="Cancel"
+    icon="pi pi-times"
+    class="p-button-text p-button-danger"
+  ></button>
+  <button
+    pButton
+    pRipple
+    label="Save"
+    icon="pi pi-check"
+    class="p-button-text p-button-success"
+  ></button>
 </ng-template>
 <!-- Franchisee -->
-<div class="grid" [formGroup]="form">
+<div class="grid" [formGroup]="form" *ngIf="contact">
   <div class="col-12 lg:col-6">
     <div class="p-3 h-full">
-      <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 4px">
+      <div
+        class="shadow-2 p-3 h-full flex flex-column surface-card"
+        style="border-radius: 4px"
+      >
         <div class="text-800 w-full md:flex-order-0 flex-order-1 text-left">
-          <div class="card-header p-2 flex align-items-center justify-content-between bg-yellow-50">
+          <div
+            class="card-header p-2 flex align-items-center justify-content-between bg-yellow-50"
+          >
             <div class="grid">
               <div class="col-10">
-                <span id="contact.name" class="text-800 font-bold text-xl mb-1">xxxxx</span>
-                <span id="contact.name" class="text-800 font-bold text-xl mb-1" *ngIf="!editMode"> {{ contact.name }}
+                <span id="contact.name" class="text-800 font-bold text-xl mb-1"
+                  >xxxxx</span
+                >
+                <span
+                  id="contact.name"
+                  class="text-800 font-bold text-xl mb-1"
+                  *ngIf="!editMode"
+                >
+                  <!-- {{ contact.name }} -->
                 </span>
-                <span id="contact.name" class="text-800 font-bold text-xl mb-1" *ngIf="editMode">
-                  <input pInputText class="focus:border-primary" formControlName="name" />
+                <span
+                  id="contact.name"
+                  class="text-800 font-bold text-xl mb-1"
+                  *ngIf="editMode"
+                >
+                  <input
+                    pInputText
+                    class="focus:border-primary"
+                    formControlName="name"
+                  />
                 </span>
               </div>
             </div>
             <div class="col-1">
               <span>
-                <i *ngIf="contact == null && address == null" class="pi pi-plus text-blue-500 text-xl"
-                  (click)="newContact()"></i></span>
+                <i
+                  *ngIf="contact == null && address == null"
+                  class="pi pi-plus text-blue-500 text-xl"
+                  (click)="newContact()"
+                  aria-hidden="true"
+                ></i
+              ></span>
               <span>
-                <i *ngIf="contact != null && address != null" class="pi pi-pencil text-blue-500 text-xl"
-                  (click)="editContact()"></i>
+                <i
+                  *ngIf="contact != null && address != null"
+                  class="pi pi-pencil text-blue-500 text-xl"
+                  (click)="editContact()"
+                  aria-hidden="true"
+                ></i>
               </span>
             </div>
           </div>
@@ -55,46 +128,98 @@
         <ul class="list-none p-0 m-0 flex-grow-1 mt-5">
           <li class="flex align-items-center mb-3">
             <!-- <span class="text-900" formControlName="phone">{{ contact.phone }}</span> -->
-            <div class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left">
-              <i class="pi pi-phone text-green-500 mr-2"></i>
+            <div
+              class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left"
+            >
+              <i class="pi pi-phone text-green-500 mr-2" aria-hidden="true"></i>
               <span id="contact.phone"> xxxxxx </span>
-              <span id="contact.phone" *ngIf="!editMode"> {{ contact.phone }} </span>
+              <span id="contact.phone" *ngIf="!editMode">
+                <!-- {{ contact.phone }} -->
+              </span>
               <span id="contact.phone" *ngIf="editMode">
-                <input pInputText class="focus:border-primary" formControlName="phone" />
+                <input
+                  pInputText
+                  class="focus:border-primary"
+                  formControlName="phone"
+                />
               </span>
             </div>
           </li>
           <li class="flex align-items-center mb-3">
-            <div class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left">
-              <i class="pi pi-envelope text-purple-500 mr-2"></i>
-              <span id="contact.email" *ngIf="!editMode"> {{ contact.email }} </span>
+            <div
+              class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left"
+            >
+              <i
+                class="pi pi-envelope text-purple-500 mr-2"
+                aria-hidden="true"
+              ></i>
+              <span id="contact.email" *ngIf="!editMode">
+                <!-- {{ contact.email }} -->
+              </span>
               <span id="contact.email" *ngIf="editMode">
-                <input pInputText class="focus:border-primary" formControlName="email" />
+                <input
+                  pInputText
+                  class="focus:border-primary"
+                  formControlName="email"
+                />
               </span>
             </div>
             <!-- <span class="text-900" formControlName="email">{{ contact.email }}</span> -->
           </li>
           <li class="flex align-items-center mb-3">
-            <i class="pi pi-map-marker text-yellow-500 mr-2"></i>
-            <span id="contact.first_line" *ngIf="!editMode"> {{ contact.address.first_line }} </span>
+            <i
+              class="pi pi-map-marker text-yellow-500 mr-2"
+              aria-hidden="true"
+            ></i>
+            <span id="contact.first_line" *ngIf="!editMode">
+              <!-- {{ contact.address.first_line }} -->
+            </span>
             <span id="contact.first_line" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="first_line" />
+              <input
+                pInputText
+                class="focus:border-primary"
+                formControlName="first_line"
+              />
             </span>
-            <span id="contact.second_line" *ngIf="!editMode"> {{ contact.address.second_line }} </span>
+            <span id="contact.second_line" *ngIf="!editMode">
+              <!-- {{ contact.address.second_line }} -->
+            </span>
             <span id="contact.second_line" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="second_line" />
+              <input
+                pInputText
+                class="focus:border-primary"
+                formControlName="second_line"
+              />
             </span>
-            <span id="contact.zip_code" *ngIf="!editMode"> {{ contact.address.zip_code }} </span>
+            <span id="contact.zip_code" *ngIf="!editMode">
+              <!-- {{ contact.address.zip_code }} -->
+            </span>
             <span id="contact.zip_code" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="zip_code" />
+              <input
+                pInputText
+                class="focus:border-primary"
+                formControlName="zip_code"
+              />
             </span>
-            <span id="contact.city" *ngIf="!editMode"> {{ contact.address.city }} </span>
+            <span id="contact.city" *ngIf="!editMode">
+              <!-- {{ contact.address.city }} -->
+            </span>
             <span id="contact.city" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="city" />
+              <input
+                pInputText
+                class="focus:border-primary"
+                formControlName="city"
+              />
             </span>
-            <span id="contact.country" *ngIf="!editMode"> {{ contact.address.country }} </span>
+            <span id="contact.country" *ngIf="!editMode">
+              <!-- {{ contact.address.country }} -->
+            </span>
             <span id="contact.country" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="country" />
+              <input
+                pInputText
+                class="focus:border-primary"
+                formControlName="country"
+              />
             </span>
             <!-- <ng-template *ngIf="contact == null && address == null"> -->
             <!-- <label for="first_line">ligne 1</label>
@@ -117,8 +242,13 @@
   </div>
   <div class="col-12 lg:col-6">
     <div class="p-3 h-full">
-      <div class="shadow-2 p-3 flex flex-column surface-card" style="border-radius: 6px">
-        <div class="card-header flex align-items-center justify-content-between bg-yellow-50">
+      <div
+        class="shadow-2 p-3 flex flex-column surface-card"
+        style="border-radius: 6px"
+      >
+        <div
+          class="card-header flex align-items-center justify-content-between bg-yellow-50"
+        >
           <span class="text-800 font-bold text-xl mb-1">Horaires</span>
           <span><i class="pi pi-pencil text-blue-500 text-xl"></i></span>
         </div>

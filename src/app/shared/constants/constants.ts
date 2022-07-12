@@ -19,6 +19,8 @@ export enum EndPoints {
   SECURE_USER = 'SECURE_USER',
   CREATE_RECIPE = 'Créer une nouvelle recette',
   EDIT_RECIPE = 'Modifier la recette',
+  CREATE_TYPE = "Créer un nouveay type d'ingrédient",
+  EDIT_TYPE = "Modifier le type d'indrédient",
   GENERIC_SUCCESS = 'Les modifications ont bien été prises en compte.',
   PAYLOAD = 'payload',
 }

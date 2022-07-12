@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { catchError, tap, map, Observable } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { Message } from '../../constants/constants';
-import { Franchisee, FranchiseeRecipe } from '../../models/franchisee.model';
+import { FranchiseeRecipe } from '../../models/franchisee-recipe.model';
+import { Franchisee } from '../../models/franchisee.model';
 import { Recipe } from '../../models/recipe.model';
 import { Schedule } from '../../models/schedule.model';
 
@@ -19,10 +21,20 @@ export class FranchiseeService {
    * @url GET : localhost:8080/api/contractors
    * @returns all Franchisee
    */
-  public getFranchisee(): Observable<Franchisee> {
+  public getFranchisees(): Observable<Franchisee[]> {
     return this.http
-      .get<Franchisee>(`${environment.apiBaseUrl}/contractors`)
-      .pipe(map((res) => res));
+      .get<Franchisee[]>(`${environment.apiBaseUrl}/contractors`)
+      .pipe(
+        map((res: any) => res),
+        tap((franchisees: any) => {
+          this.log('fetched franchisees');
+          console.log(
+            '------------------> service -> all franchisees : ',
+            franchisees
+          );
+        }),
+        catchError(this.handleError('getFranchisees'))
+      );
   }
 
   /**
@@ -38,8 +50,8 @@ export class FranchiseeService {
         `${environment.apiBaseUrl}/contractors/${recipe.id}/recipes`
       )
       .pipe(
-        // tap((obj) => console.log('service -> All recipes : ', obj)),
-        map((res) => res['data'])
+        tap((obj: any) => console.log('service -> All recipes : ', obj)),
+        map((res: any) => res['data'])
       );
   }
 
@@ -49,9 +61,19 @@ export class FranchiseeService {
    * @returns franchisee id - message
    */
   public newFranchisee(create: Franchisee): Observable<Franchisee> {
-    return this.http
-      .post(`${environment.apiBaseUrl}/contractors`, create)
-      .pipe(map((res) => res));
+    console.log(
+      '******************* new franchisee **********************',
+      create.name,
+      create.phone,
+      create.email,
+      create.max_delivery_radius,
+      create.address_id,
+      create.owned_by
+    );
+    return this.http.post(`${environment.apiBaseUrl}/contractors`, create).pipe(
+      tap((obj: any) => console.log('service -> All recipes : ', obj)),
+      map((res: any) => res)
+    );
   }
 
   /**
@@ -60,12 +82,13 @@ export class FranchiseeService {
    * @param item franchisee (recipe)
    * @returns new recipe
    */
-  public newFranchiseeRecipe(
-    item: FranchiseeRecipe
-  ): Observable<FranchiseeRecipe> {
+  public addStarRecipe(item: Franchisee): Observable<FranchiseeRecipe> {
     return this.http
       .post(`${environment.apiBaseUrl}/contractors${item.id}/recipes`, item)
-      .pipe(map((res) => res));
+      .pipe(
+        tap((obj: any) => console.log('service -> All recipes : ', obj)),
+        map((res: any) => res)
+      );
   }
 
   /**
@@ -76,13 +99,35 @@ export class FranchiseeService {
   public updateRecipePrice(
     update: Partial<FranchiseeRecipe>,
     recipe: Recipe
-  ): Observable<FranchiseeRecipe> {
+  ): Observable<string> {
     return this.http
       .put(
         `${environment.apiBaseUrl}/contractors/${update.id}/recipes/${recipe.id}`,
         update
       )
-      .pipe(map((res) => (res ? res['message'] : Message.UPDATE)));
+      .pipe(
+        tap((obj: any) => console.log('service -> All recipes : ', obj)),
+        map((res: any) => (res ? res['message'] : Message.UPDATE))
+      );
+  }
+
+  /**
+   * @url DELETE : localhost:8080/api/contractors/{contractor_id}/recipes/{recipe_id}
+   * @param id franchisee_id
+   * @param recipe.id recipe_id
+   * @returns Remove a recipe from franchisee catalog
+   */
+  public removeRecipe(id: number, recipe: Recipe): Observable<string> {
+    return this.http
+      .delete(
+        `${environment.apiBaseUrl}/contractors/${id}/recipes/${recipe.id}`
+      )
+      .pipe(
+        tap((obj: any) =>
+          console.log('service -> Remove recipe from catalog : ', obj)
+        ),
+        map((res: any) => (res ? res['message'] : ''))
+      );
   }
 
   /**
@@ -95,7 +140,10 @@ export class FranchiseeService {
       .get<Schedule>(
         `${environment.apiBaseUrl}/contractors/${franchisee.id}/times`
       )
-      .pipe(map((res) => res));
+      .pipe(
+        tap((obj: any) => console.log('service -> schedule : ', obj)),
+        map((res: any) => res)
+      );
   }
 
   /**
@@ -106,7 +154,10 @@ export class FranchiseeService {
   public createSchedule(create: Partial<Franchisee>): Observable<Schedule> {
     return this.http
       .post(`${environment.apiBaseUrl}/contractors/${create.id}/times`, create)
-      .pipe(map((res) => (res ? res['message'] : Message.UPDATE)));
+      .pipe(
+        tap((obj: any) => console.log('service -> All recipes : ', obj)),
+        map((res: any) => (res ? res['message'] : Message.CREATE))
+      );
   }
 
   /**
@@ -117,6 +168,36 @@ export class FranchiseeService {
   public updateSchedule(update: Partial<Franchisee>): Observable<Schedule> {
     return this.http
       .put(`${environment.apiBaseUrl}/contractors/${update.id}/times`, update)
-      .pipe(map((res) => (res ? res['message'] : Message.UPDATE)));
+      .pipe(
+        tap((obj: any) => console.log('service -> All recipes : ', obj)),
+        map((res: any) => (res ? res['message'] : Message.UPDATE))
+      );
+  }
+
+  /**
+   * Returns a function that handles Http operation failures.
+   * This error handler lets the app continue to run as if no error occurred.
+   *
+   * @param operation - name of the operation that failed
+   */
+  private handleError<T>(operation = 'operation') {
+    return (error: HttpErrorResponse): Observable<T> => {
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // If a native error is caught, do not transform it. We only want to
+      // transform response errors that are not wrapped in an `Error`.
+      if (error.error instanceof Event) {
+        throw error.error;
+      }
+
+      const message = `server returned code ${error.status} with body "${error.error}"`;
+      // TODO: better job of transforming error for user consumption
+      throw new Error(`${operation} failed: ${message}`);
+    };
+  }
+
+  private log(message: string) {
+    console.log('FranchiseeService: ' + message);
   }
 }

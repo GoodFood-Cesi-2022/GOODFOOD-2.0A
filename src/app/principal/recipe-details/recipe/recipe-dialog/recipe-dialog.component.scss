@@ -9,6 +9,7 @@
     }
   }
 }
+
 :host ::ng-deep .ui-dialog .ui-dialog-titlebar {
   background-color: rgba(255, 234, 0, 0.325);
 }
@@ -17,13 +18,10 @@
   border-radius: 50% !important;
   min-width: 0rem !important;
 }
+
 #fileUploader {
   min-width: 0rem;
 }
-// .ui-multiselect-label {
-//   max-width: 150px !important;
-//   white-space: nowrap;
-// }
 
 :host ::ng-deep .p-multiselect {
   min-width: 15rem;
@@ -53,6 +51,23 @@
     padding: 0.25rem;
   }
 }
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(193, 213, 230);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgb(193, 213, 230);
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgb(193, 213, 230);
+}
+
 :host ::ng-deep {
   @media screen and (max-width: 640px) {
     .p-multiselect {

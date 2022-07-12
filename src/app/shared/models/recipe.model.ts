@@ -13,4 +13,5 @@ export interface Recipe {
   //created_by: number;
   available_at?: Date;
   pictures?: Picture[];
+  trashed_at?: Date;
 }

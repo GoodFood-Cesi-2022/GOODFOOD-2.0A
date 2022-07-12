@@ -1,6 +1,6 @@
 version: "3.9"
 services:
-# ------------------------------ Angular
+  # ------------------------------ Angular
   web:
     networks:
       frontend:
@@ -13,9 +13,11 @@ services:
     ports:
       - "4200:80"
       # - "49153:49153"
-    # volumes:
-    #  - ../app:/app
-# ------------------------------ Compodoc
+      # volumes:
+      #  - ../app:/app
+    volumes:
+      - .:/app:cached
+  # ------------------------------ Compodoc
   compodoc:
     networks:
       frontend:

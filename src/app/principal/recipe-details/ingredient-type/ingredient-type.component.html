@@ -8,20 +8,19 @@
 >
 </app-title>
 <!-- app-ingredient -->
-
 <div
   class="p-2 shadow-4 text-center md:w-20 mb-2"
   style="background: rgba(255, 255, 255, 0.441); border-radius: 5px"
 >
-  <!-- <div class="card"> -->
   <p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
         <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
+          <i class="pi pi-search" aria-hidden="true"></i>
           <input
             pInputText
-            type="text"
+            class="w-20rem"
+            type="search"
             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Rechercher..."
           />
@@ -39,7 +38,6 @@
       ></button>
     </ng-template>
   </p-toolbar>
-
   <p-table
     #dt
     [value]="typeArray"
@@ -47,7 +45,6 @@
     [paginator]="true"
     responsiveLayout="scroll"
     [globalFilterFields]="['name']"
-    [(selection)]="selectedIngredientType"
     [rowHover]="false"
     dataKey="id"
     currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} types"
@@ -57,36 +54,25 @@
     sortField="name"
     styleClass="p-datatable-sm"
   >
-    <!-- <ng-template pTemplate="caption">
-      <div class="p-d-flex p-ai-center p-jc-between">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input
-            pInputText
-            type="text"
-            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Rechercher..."
-          />
-        </span>
-      </div>
-    </ng-template> -->
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Nom" style="width: 30%; padding-left: 1.5rem">
-          Nom<p-sortIcon field="name"></p-sortIcon>
+        <th
+          pSortableColumn="name"
+          style="width: 30%; padding-left: 1.5rem"
+          scope="col"
+        >
+          Nom de tyoe d'ingrédient<p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="Description" style="width: 50%">
+        <th pSortableColumn="description" style="width: 50%" scope="col">
           Description<p-sortIcon field="description"></p-sortIcon>
         </th>
-        <th style="width: 10%"></th>
+        <th style="width: 10%" scope="col"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ingreType>
       <tr>
         <td style="padding-left: 1.5rem">{{ ingreType.name }}</td>
         <td>{{ ingreType.description }}</td>
-        <!-- <td *ngIf="ingredient.allergen">Oui</td>
-        <td *ngIf="!ingredient.allergen">Non</td> -->
         <td>
           <button
             pButton
@@ -114,57 +100,82 @@
     </ng-template>
   </p-table>
 </div>
-<!-- </div> -->
 <!-- /app-ingredient -->
 <!-- dialog-app-ingredient -->
 <p-dialog
   [(visible)]="ingredientTypeDialog"
   [style]="{ width: '450px' }"
-  header="Ajouter un nouvel ingredient"
+  header="Détails de type d'ingrédient"
   [modal]="true"
   styleClass="p-fluid"
 >
   <ng-template pTemplate="content" [formGroup]="form">
     <div class="p-field mt-3">
       <label for="name">Nom de type d'ingrédient</label>
-      <input type="text" pInputText id="name" formControlName="name" required />
-      <small class="p-invalid" *ngIf="submitted && !ingreType.name"
-        >Nom est obligatoire.</small
-      >
-    </div>
-
-    <div class="p-field mt-3">
-      <label for="description">Description</label>
       <input
         type="text"
         pInputText
-        id="description"
-        formControlName="description"
+        id="name"
+        formControlName="name"
+        placeholder="Fromages"
+        required
+        minlength="3"
+        required
         autofocus
       />
       <small class="p-invalid" *ngIf="submitted && !ingreType.name"
-        >Nom est obligatoire.</small
+        >Champ obligatoire.</small
       >
+    </div>
+    <div class="p-field mt-3">
+      <label for="description">Description</label>
+      <textarea
+        pInputTextarea
+        [rows]="5"
+        [cols]="30"
+        id="description"
+        formControlName="description"
+      ></textarea>
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
     <button
       pButton
       pRipple
-      label="Cancel"
-      icon="pi pi-times"
+      label="Annuler"
       class="p-button-text p-button-danger"
       (click)="hideDialog()"
     ></button>
     <button
       pButton
       pRipple
-      label="Save"
-      icon="pi pi-check"
+      label="Confirmer"
       class="p-button-text"
       (click)="onSubmit()"
+      [disabled]="true"
     ></button>
   </ng-template>
 </p-dialog>
-<!-- /dialog-app-ingredient -->
-<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+<!-- Confirm dialog -->
+<p-confirmDialog #cd [style]="{ width: '450px' }">
+  <p-footer>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="NON"
+      class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="OUI"
+      class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"
+      [disabled]="true"
+    ></button>
+  </p-footer>
+</p-confirmDialog>
+<!-- /Confirm dialog -->

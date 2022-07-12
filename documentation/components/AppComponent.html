@@ -170,12 +170,12 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(primengConfig: PrimeNGConfig)</code>
+<code>constructor(primengConfig: PrimeNGConfig, router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/app.component.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/app.component.ts:11</a></div>
                             </td>
                         </tr>
 
@@ -197,6 +197,18 @@
                                                   
                                                         <td>
                                                                     <code>PrimeNGConfig</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -242,8 +254,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="14"
-                            class="link-to-prism">src/app/app.component.ts:14</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="15"
+                            class="link-to-prism">src/app/app.component.ts:15</a></div>
                 </td>
             </tr>
 
@@ -289,7 +301,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/app.component.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">src/app/app.component.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -303,6 +315,7 @@
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { NavigationStart, Router } from &#x27;@angular/router&#x27;;
 import { PrimeNGConfig } from &#x27;primeng/api&#x27;;
 
 @Component({
@@ -313,18 +326,25 @@ import { PrimeNGConfig } from &#x27;primeng/api&#x27;;
 export class AppComponent implements OnInit {
   title &#x3D; &#x27;GOODFOOD&#x27;;
 
-  constructor(private primengConfig: PrimeNGConfig) { }
-  
+  constructor(private primengConfig: PrimeNGConfig, private router: Router) {}
+
   ngOnInit() {
     this.primengConfig.ripple &#x3D; true;
-}
+
+    this.router.events.subscribe((event) &#x3D;&gt; {
+      if (event instanceof NavigationStart) {
+        if (!!event.url &amp;&amp; event.url.match(/^\/#/)) {
+          this.router.navigate([event.url.replace(&#x27;/#&#x27;, &#x27;&#x27;)]);
+        }
+      }
+    });
+  }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
         <pre class="line-numbers"><code class="language-html">&lt;router-outlet&gt;&lt;/router-outlet&gt;
-&lt;app-footer&gt;&lt;/app-footer&gt;
 </code></pre>
     </div>
 
@@ -360,8 +380,8 @@ export class AppComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><router-outlet></router-outlet><app-footer></app-footer></div>'
-    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MenubarComponent', 'selector': 'app-menubar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
+        var COMPONENT_TEMPLATE = '<div><router-outlet></router-outlet></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'AppComponent'};
 </script>

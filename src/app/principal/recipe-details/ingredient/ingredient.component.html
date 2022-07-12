@@ -1,37 +1,68 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Ingredients'" [description]="'La création d\'un ou des ingredients pour les recettes'">
+<app-title
+  [title]="'Ingredients'"
+  [description]="'La création d\'un ou des ingredients pour les recettes'"
+>
 </app-title>
 <!-- app-ingredient -->
-<div class="p-2 shadow-4 text-center md:w-20 mb-2" style="background: rgba(255, 255, 255, 0.441); border-radius: 5px">
+<div
+  class="p-2 shadow-4 text-center md:w-20 mb-2"
+  style="background: rgba(255, 255, 255, 0.441); border-radius: 5px"
+>
   <p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
         <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input pInputText type="text" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
-            placeholder="Rechercher..." />
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input
+            pInputText
+            class="w-20rem"
+            type="search"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Rechercher..."
+          />
         </span>
       </div>
     </ng-template>
     <ng-template pTemplate="right">
-      <button pButton pRipple label="Nouvelle ingredient" icon="pi pi-plus"
-        class="p-button-raised p-button-success p-button-text p-mr-3" (click)="newIngredient()"></button>
+      <button
+        pButton
+        pRipple
+        label="Nouvelle ingredient"
+        icon="pi pi-plus"
+        class="p-button-raised p-button-success p-button-text p-mr-3"
+        (click)="newIngredient()"
+      ></button>
     </ng-template>
   </p-toolbar>
-  <p-table #dt [value]="ingredients" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'types.code']"
-    [(selection)]="selectedIngredients" [rowHover]="true" dataKey="id"
+  <p-table
+    #dt
+    [value]="ingredients"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['name', 'types.code']"
+    [(selection)]="selectedIngredients"
+    [rowHover]="true"
+    dataKey="id"
     currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} ingredients"
-    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50, 100]" [(first)]="first" sortField="name">
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50, 100]"
+    [(first)]="first"
+    sortField="name"
+  >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Nom d'ingrédient"> Nom d'ingredient <p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="Name" scope="col">
+          Nom d'ingredient <p-sortIcon field="name"></p-sortIcon>
         </th>
-        <th pSortableColumn="type.code"> Type d'ingredient <p-sortIcon field="type d'ingrédient"></p-sortIcon>
+        <th pSortableColumn="type.code" scope="col">
+          Type d'ingredient <p-sortIcon field="type.code"> </p-sortIcon>
         </th>
-        <th pSortableColumn="allergen"> Allergen <p-sortIcon field="allergen"></p-sortIcon>
+        <th pSortableColumn="allergen" scope="col">
+          Allergen <p-sortIcon field="allergen"></p-sortIcon>
         </th>
-        <th></th>
+        <th scope="col" class="right-50"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-ingredient>
@@ -40,48 +71,121 @@
         <td *ngFor="let value of ingredient.types">{{ value.code }}</td>
         <td *ngIf="ingredient.allergen">Oui</td>
         <td *ngIf="!ingredient.allergen">Non</td>
-        <td>
-          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-success mr-2"
-            (click)="updateIngredient(ingredient)"></button>
-          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
-            (click)="deleteIngredient(ingredient)"></button>
+        <td id="icons">
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text p-button-success mr-2"
+            (click)="updateIngredient(ingredient)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="deleteIngredient(ingredient)"
+          ></button>
         </td>
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-      <div class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"> En total
-        il y a {{ ingredients ? ingredients.length : 0 }} ingredients. </div>
+      <div
+        class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"
+      >
+        En total il y a {{ ingredients ? ingredients.length : 0 }} ingredients.
+      </div>
     </ng-template>
   </p-table>
 </div>
 <!-- /app-ingredient -->
 <!-- dialog-app-ingredient -->
-<p-dialog [(visible)]="ingredientDialog" [style]="{ width: '450px' }" header="Ajouter un nouvel ingredient"
-  [modal]="true" styleClass="p-fluid" appendTo="body">
+<p-dialog
+  [(visible)]="ingredientDialog"
+  [style]="{ width: '450px' }"
+  header="Détails d'ingredient"
+  [modal]="true"
+  styleClass="p-fluid"
+  appendTo="body"
+>
   <ng-template pTemplate="content" [formGroup]="form">
     <div class="p-field mt-3">
       <label for="name">Nom d'ingrédient</label>
-      <input type="text" pInputText id="name" formControlName="name" required autofocus />
-      <small class="p-invalid" *ngIf="submitted && !ingredient.name">Nom est obligatoire.</small>
+      <input
+        type="text"
+        pInputText
+        id="name"
+        formControlName="name"
+        placeholder="Salade"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !ingredient.name"
+        >Nom est obligatoire.</small
+      >
     </div>
     <div class="p-formgrid p-grid mt-3">
       <div class="p-field p-col">
         <label for="types">Type d'ingrédient</label>
-        <p-dropdown [options]="typeArray" [readonly]="!isCreate" optionLabel="code" formControlName="ingredientType"
-          [autoDisplayFirst]="false" id="ingreTypeFor" appendTo="body" [style]="{ width: '100%' }">
+        <p-dropdown
+          [options]="typeArray"
+          [disabled]="!isCreate"
+          optionLabel="code"
+          formControlName="ingredientType"
+          [autoDisplayFirst]="false"
+          id="ingreTypeFor"
+          appendTo="body"
+          [style]="{ width: '100%' }"
+        >
         </p-dropdown>
       </div>
     </div>
     <div class="p-field mt-3">
-      <p-checkbox class="p-col-12 mt-4" formControlName="allergen" (onChange)="isAllergen($event)" label="Allergen"
-        value="allergen" [binary]="true"></p-checkbox>
+      <p-checkbox
+        class="p-col-12 mt-3"
+        formControlName="allergen"
+        (onChange)="isAllergen($event)"
+        label="Allergen"
+        value="allergen"
+        [binary]="true"
+      ></p-checkbox>
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
-    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"
-      (click)="hideDialog()"></button>
-    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="onSubmit()"></button>
+    <button
+      pButton
+      pRipple
+      label="Annuler"
+      class="p-button-text p-button-danger"
+      (click)="hideDialog()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      label="Confirmer"
+      class="p-button-text"
+      (click)="onSubmit()"
+    ></button>
   </ng-template>
 </p-dialog>
 <!-- /dialog-app-ingredient -->
-<p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+<p-confirmDialog #cd [style]="{ width: '450px' }">
+  <p-footer>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="NON"
+      class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="OUI"
+      class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"
+    ></button>
+  </p-footer>
+</p-confirmDialog>

@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, tap, map } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Observable, tap, map, catchError, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-
 import { IngreType } from '../../models/ingredient-type.model';
-
-import { Message } from '../../constants/constants';
+import { CodeHTTP, Message } from '../../constants/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -24,8 +22,12 @@ export class IngredientTypeService {
     return this.http
       .get<IngreType[]>(`${environment.apiBaseUrl}/ingredients/types`)
       .pipe(
-        // tap((obj) => console.log('service -> ingredient types : ', obj)),
-        map((res) => res)
+        map((res) => res),
+        tap((values) => {
+          this.log('fetched recipes');
+          console.log('get recipes in service class : ', values);
+        }),
+        catchError((err) => this.handleError(err))
       );
   }
 
@@ -48,7 +50,10 @@ export class IngredientTypeService {
   public updateIngredientType(update: Partial<IngreType>): Observable<string> {
     return this.http
       .put(`${environment.apiBaseUrl}/ingredients/types/${update.id}`, update)
-      .pipe(map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS)));
+      .pipe(
+        tap((obj) => console.log('service -> edit ingredient type : ', obj)),
+        map((data) => (data ? data['message'] : Message.UPDATE_SUCCESS))
+      );
   }
 
   /**
@@ -61,5 +66,32 @@ export class IngredientTypeService {
     return this.http
       .delete(`${environment.apiBaseUrl}/ingredients/types/${id}`)
       .pipe(map((res) => (res ? res['message'] : '')));
+  }
+
+  /**
+   * Returns a function that handles Http operation failures.
+   * This error handler lets the app continue to run as if no error occurred.
+   *
+   * @param operation - name of the operation that failed
+   */
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    switch (error.status) {
+      case CodeHTTP.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED:
+        console.log("Désolé, vous n'etes pas authentifier sur notre serveur.");
+        break;
+      case CodeHTTP.HTTP_401_UNAUTHORIZED:
+        console.log("Désolé, vous n'etes pas autorise a acceder a cette page.");
+        break;
+      case CodeHTTP.HTTP_404_NOT_FOUND:
+        console.log('Page introuvable.');
+        break;
+      default:
+        console.log('Une erreur est survenue: ', error.message);
+    }
+    return throwError(error);
+  }
+
+  private log(message: string) {
+    console.log('IngredientTypesService: ' + message);
   }
 }
