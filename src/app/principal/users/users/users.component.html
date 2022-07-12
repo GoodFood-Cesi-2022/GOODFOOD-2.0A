@@ -10,6 +10,32 @@
 <!-- app-users -->
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input
+            pInputText
+            type="text"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Rechercher par nom..."
+          />
+        </span>
+      </div>
+
+      <!-- <div class="p-d-flex p-ai-center p-jc-between">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input
+            pInputText
+            type="search"
+            filterBy="['name', 'price']"
+            (input)="dt.filter($any($event.target).value, 'contains')"
+            placeholder="Rechercher..."
+          />
+        </span>
+      </div> -->
+    </ng-template>
     <ng-template pTemplate="right">
       <button
         pButton
@@ -40,10 +66,9 @@
     [showCurrentPageReport]="true"
   >
     <ng-template pTemplate="caption">
-      <div class="p-d-flex p-ai-center p-jc-between">
-        <h5 class="p-m-0">Gestion d'utilisateurs</h5>
+      <!-- <div class="p-d-flex p-ai-center p-jc-between">
         <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
+          <i class="pi pi-search" aria-hidden="true"></i>
           <input
             pInputText
             type="text"
@@ -51,23 +76,23 @@
             placeholder="Rechercher par nom..."
           />
         </span>
-      </div>
+      </div> -->
     </ng-template>
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="firstname">
+        <th pSortableColumn="firstname" scope="col">
           Prénom <p-sortIcon field="firstname"></p-sortIcon>
         </th>
-        <th pSortableColumn="lastname">
+        <th pSortableColumn="lastname" scope="col">
           Nom <p-sortIcon field="lastname"></p-sortIcon>
         </th>
-        <th pSortableColumn="email">
+        <th pSortableColumn="email" scope="col">
           Email <p-sortIcon field="email"></p-sortIcon>
         </th>
-        <th pSortableColumn="phone">
+        <th pSortableColumn="phone" scope="col">
           Téléphone <p-sortIcon field="phone"></p-sortIcon>
         </th>
-        <th></th>
+        <th scope="col"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-user>

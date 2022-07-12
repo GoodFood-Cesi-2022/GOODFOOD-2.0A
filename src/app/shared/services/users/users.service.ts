@@ -49,10 +49,12 @@ export class UsersService {
    * @returns all users (franch)
    */
   public getAllFranchisees(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.apiBaseUrl}/users?role[]=contractor`).pipe(
-      tap((obj) => console.log('service -> get all franchisee : ', obj)),
-      map((res) => res['data'])
-    );
+    return this.http
+      .get<User[]>(`${environment.apiBaseUrl}/users?role[]=contractor`)
+      .pipe(
+        tap((obj) => console.log('service -> get all franchisee : ', obj)),
+        map((res) => res['data'])
+      );
   }
 
   /**
@@ -89,7 +91,7 @@ export class UsersService {
    */
   public newFranchisee(item: User): Observable<User> {
     return this.http.post(`${environment.apiBaseUrl}/users`, item).pipe(
-      //tap((obj) => console.log('service -> create ingredient type : ', obj)),
+      tap((obj) => console.log('service -> create ingredient type : ', obj)),
       map((res) => res)
     );
   }

@@ -7,7 +7,7 @@ import { IngredientTypeService } from './ingredient-type.service';
 import { IngreType } from '../../models/ingredient-type.model';
 import { environment } from 'src/environments/environment';
 
-fdescribe('IngredientTypeService', () => {
+describe('IngredientTypeService', () => {
   let service: IngredientTypeService;
   let httpTestingController: HttpTestingController;
 
@@ -105,27 +105,32 @@ fdescribe('IngredientTypeService', () => {
       service.getIngredientsTypes().subscribe();
       service.getIngredientsTypes().subscribe();
       service.getIngredientsTypes().subscribe({
-        next: values => expect(values)
-          .withContext('should return ingredient-types')
-          .toEqual(getAll),
-        error: fail
+        next: (values) =>
+          expect(values)
+            .withContext('should return ingredient-types')
+            .toEqual(getAll),
+        error: fail,
       });
 
-      const requests = httpTestingController.match(`${environment.apiBaseUrl}/ingredients/types`);
+      const requests = httpTestingController.match(
+        `${environment.apiBaseUrl}/ingredients/types`
+      );
       expect(requests.length)
         .withContext('calls to getIngredientsTypes()')
         .toEqual(3);
 
       // Respond to each request with different mock hero results
       requests[0].flush([]);
-      requests[1].flush([{
-        id: 1,
-        code: 'vegetables',
-        name: 'vegetables',
-        description: 'description',
-        created_at: new Date('2019-09-27T14:15:20Z'),
-        updated_at: new Date('2019-09-24T14:15:22Z'),
-      }]);
+      requests[1].flush([
+        {
+          id: 1,
+          code: 'vegetables',
+          name: 'vegetables',
+          description: 'description',
+          created_at: new Date('2019-09-27T14:15:20Z'),
+          updated_at: new Date('2019-09-24T14:15:22Z'),
+        },
+      ]);
       requests[2].flush(getAll);
     });
   });

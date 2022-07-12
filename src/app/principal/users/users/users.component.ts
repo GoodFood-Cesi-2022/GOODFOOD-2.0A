@@ -123,8 +123,7 @@ export class UsersComponent implements OnInit {
           life: 3000,
         });
       } else {
-        this.user.id = this.createId();
-        this.users.push(this.user);
+        this.usersService.newFranchisee(this.user);
         this.messageService.add({
           severity: 'success',
           summary: 'Successful',

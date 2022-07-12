@@ -159,7 +159,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(http: <a href="https://angular.io/api/common/http/HttpClient" target="_blank">HttpClient</a>)</code>
+<code>constructor(authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -182,10 +182,10 @@
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>http</td>
+                                                        <td>authService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="https://angular.io/api/common/http/HttpClient" target="_blank" >HttpClient</a></code>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -231,8 +231,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="13"
-                            class="link-to-prism">src/app/auth/login/login.component.ts:13</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="12"
+                            class="link-to-prism">src/app/auth/login/login.component.ts:12</a></div>
                 </td>
             </tr>
 
@@ -268,8 +268,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app/auth/login/login.component.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="16"
+                            class="link-to-prism">src/app/auth/login/login.component.ts:16</a></div>
                 </td>
             </tr>
 
@@ -291,38 +291,33 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Component, OnInit } from &#x27;@angular/core&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { AuthService } from &#x27;src/app/shared/services/user/auth/auth.service&#x27;;
 
 @Component({
   selector: &#x27;app-login&#x27;,
   templateUrl: &#x27;./login.component.html&#x27;,
-  styleUrls: [&#x27;./login.component.scss&#x27;]
+  styleUrls: [&#x27;./login.component.scss&#x27;],
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private http:HttpClient) { }
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-  }
-  onLogin() {
-    this.http.post(&#x27;http://localhost:8085/api/login&#x27;, {}).subscribe();
+     //NOSONAR
   }
 
+  onLogin() {
+    this.authService.getAuthorizationCode();
+  }
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;form&gt;
-    &lt;div class&#x3D;&quot;w-6 py-8 md:px-2 align-items-center justify-content-center w-30rem relative&quot;
-    style&#x3D;&quot;transform: translate(750px,-50px);&quot;&gt;
-        &lt;div class&#x3D;&quot;p-6 shadow-4 text-center md:w-20 mb-2 &quot;&gt;
-            &lt;button pButton pRipple label&#x3D;&quot;Se connecter&quot; type&#x3D;&quot;submit&quot; class&#x3D;&quot;border-none w-full outline-none&quot;&gt;&lt;/button&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/form&gt;
-</code></pre>
+        <pre class="line-numbers"><code class="language-html">&lt;div&gt;
+    &lt;button pButton pRipple label&#x3D;&quot;Se connecter&quot; type&#x3D;&quot;submit&quot; class&#x3D;&quot;border-none w-full outline-none&quot;
+      (click)&#x3D;&quot;onLogin()&quot;&gt;&lt;/button&gt;
+&lt;/div&gt;</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -331,17 +326,9 @@ export class LoginComponent implements OnInit {
                 </p>
                 <pre class="line-numbers"><code class="language-scss">@import &quot;src/styles.scss&quot;;
 
-// .loginButton {
 button {
-  //   background: linear-gradient(-225deg, #e6edfa, #bbcef2 48%, #a0b8ec);
-  // @include styleclass(&quot;border-none w-full outline-none&quot;);
   background: #ccbe1c !important;
   border-radius: 8px;
-}
-
-#rememberLabel {
-  color: #d9e5fc !important;
-  transform: translate(0px, 3px);
 }
 </code></pre>
     </div>
@@ -371,8 +358,8 @@ button {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><form>    <div class="w-6 py-8 md:px-2 align-items-center justify-content-center w-30rem relative"    style="transform: translate(750px,-50px);">        <div class="p-6 shadow-4 text-center md:w-20 mb-2 ">            <button pButton pRipple label="Se connecter" type="submit" class="border-none w-full outline-none"></button>        </div>    </div></form></div>'
-    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MenubarComponent', 'selector': 'app-menubar'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'}];
+        var COMPONENT_TEMPLATE = '<div><div>    <button pButton pRipple label="Se connecter" type="submit" class="border-none w-full outline-none"      (click)="onLogin()"></button></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>
