@@ -8,7 +8,7 @@
     "lint": "ng lint",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:headless": "ng test --no-watch --no-progress --browsers=ChromeHeadlessCI",
+    "test:headless": "ng test --no-watch --no-progress --browsers=ChromeHeadless",
     "compodoc": "./node_modules/.bin/compodoc -s -r 4201 -p tsconfig.doc.json --theme material",
     "compodoc:build": "compodoc -p tsconfig.doc.json",
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
