@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map, tap, Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { map, tap, Observable, throwError, catchError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/shared/models/user.model';
-import { Message } from '../../constants/constants';
+import { CodeHTTP, Message } from '../../constants/constants';
 
 @Injectable({
   providedIn: 'root',
@@ -31,7 +31,14 @@ export class UsersService {
   public getUsers(): Observable<User[]> {
     return this.http
       .get<User[]>(`${environment.apiBaseUrl}/users?role[]=contractor`)
-      .pipe(map((res) => res['data']));
+      .pipe(
+        map((res) => res['data']),
+        tap((values) => {
+          this.log('fetched users');
+          console.log('get users in service class : ', values);
+        }),
+        catchError((err) => this.handleError(err))
+      );
   }
 
   /**
@@ -83,5 +90,32 @@ export class UsersService {
       // tap((obj) => console.log('service -> delete : ', obj)),
       map((res) => (res ? res['message'] : ''))
     );
+  }
+
+  /**
+   * Returns a function that handles Http operation failures.
+   * This error handler lets the app continue to run as if no error occurred.
+   *
+   * @param operation - name of the operation that failed
+   */
+  private handleError(error: HttpErrorResponse): Observable<never> {
+    switch (error.status) {
+      case CodeHTTP.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED:
+        console.log("Désolé, vous n'etes pas authentifier sur notre serveur.");
+        break;
+      case CodeHTTP.HTTP_401_UNAUTHORIZED:
+        console.log("Désolé, vous n'etes pas autorise a acceder a cette page.");
+        break;
+      case CodeHTTP.HTTP_404_NOT_FOUND:
+        console.log('Page introuvable.');
+        break;
+      default:
+        console.log('Une erreur est survenue: ', error.message);
+    }
+    return throwError(() => new Error(error.message));
+  }
+
+  private log(message: string) {
+    console.log('UsersService : ' + message);
   }
 }

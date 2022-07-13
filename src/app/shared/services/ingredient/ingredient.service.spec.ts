@@ -6,8 +6,9 @@ import {
 } from '@angular/common/http/testing';
 import { IngredientService } from './ingredient.service';
 import { environment } from 'src/environments/environment';
+import { HttpResponse } from '@angular/common/http';
 
-xdescribe('IngredientService', () => {
+fdescribe('IngredientService', () => {
   let service: IngredientService;
   let httpTestingController: HttpTestingController;
 
@@ -162,6 +163,88 @@ xdescribe('IngredientService', () => {
         },
       ]);
       requests[2].flush(getAll);
+    });
+  });
+
+  describe('#updateIngredient', () => {
+    // Expecting the query form of URL so should not 404 when id not found
+    // const makeUrl = (id: number) =>
+    //   `${environment.apiBaseUrl}/ingredients/${id}`;
+
+    it('should update an ingredient and return it', () => {
+      const update: Ingredient = {
+        id: 1,
+        name: 'Apple',
+        allergen: true,
+        types: [
+          {
+            id: 1,
+            code: 'fruits',
+            name: 'fruits',
+            description: 'string',
+          },
+        ],
+      };
+
+      service.updateIngredient(update).subscribe({
+        next: (data) =>
+          expect(data)
+            .withContext('should return the ingredient')
+            .toEqual(update),
+        error: fail,
+      });
+
+      // IngredientService should have made one request to PUT ingredient
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients/${update}`
+      );
+      expect(req.request.method).toEqual('PUT');
+      expect(req.request.body).toEqual(update);
+
+      // Expect server to return the ingredient after PUT
+      const expectedResponse = new HttpResponse({
+        status: 200,
+        statusText: 'OK',
+        body: update,
+      });
+      req.event(expectedResponse);
+    });
+
+    it('should turn 404 error into user-facing error', () => {
+      const msg = '404 Not Found';
+      const update: Ingredient = { id: 1, name: 'A' };
+      service.updateIngredient(update).subscribe({
+        next: (_values) => fail('expected to fail'),
+        error: (error) => expect(error.message).toContain(msg),
+      });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients/${update}`
+      );
+
+      // respond with a 404 and the error message in the body
+      req.flush(msg, { status: 404, statusText: 'Not Found' });
+    });
+
+    it('should turn network error into user-facing error', (done) => {
+      // Create mock ProgressEvent with type `error`, raised when something goes wrong at
+      // the network level. Connection timeout, DNS error, offline, etc.
+      const errorEvent = new ProgressEvent('error');
+
+      const update: Ingredient = { id: 1 };
+      service.updateIngredient(update).subscribe({
+        next: (_values) => fail('expected to fail'),
+        error: (error) => {
+          expect(error).toBe(errorEvent);
+          done();
+        },
+      });
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients/${update}`
+      );
+
+      // Respond with mock error
+      req.error(errorEvent);
     });
   });
 });
