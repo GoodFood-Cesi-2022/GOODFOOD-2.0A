@@ -33,7 +33,6 @@ jobs:
         run: npm run build
 
       - name: Coverage paths
-        uses: actions/setup-node@v2
         working-directory: ./coverage-sonar
         run: |
           sed -i 's/\/home\/runner\/work\//\/github\/workspace\//g' lcov.info
