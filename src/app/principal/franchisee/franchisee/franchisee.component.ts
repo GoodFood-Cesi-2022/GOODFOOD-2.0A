@@ -38,8 +38,8 @@ export class FranchiseeComponent implements OnInit {
       .pipe(finalize(() => this.loading.loadingOff()))
       .subscribe((res) => {
         this.contact = res;
-        // this.form.patchValue(this.contact);
-        console.log('franchisee componem --> get contact --> ', res);
+        this.form.patchValue(this.contact);
+        console.log('franchisee component --> get contact --> ', res);
       });
   }
 

@@ -1,5 +1,5 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
@@ -7,7 +7,6 @@ import { Message } from '../../constants/constants';
 import { FranchiseeRecipe } from '../../models/franchisee-recipe.model';
 import { Franchisee } from '../../models/franchisee.model';
 import { Recipe } from '../../models/recipe.model';
-import { Schedule } from '../../models/schedule.model';
 
 @Injectable({
   providedIn: 'root',
@@ -60,7 +59,7 @@ export class FranchiseeService {
    * @param create new franchisee
    * @returns franchisee id - message
    */
-  public newFranchisee(create: Franchisee): Observable<Franchisee> {
+  public newFranchisee(create: Partial<Franchisee>): Observable<string> {
     console.log(
       '******************* new franchisee **********************',
       create.name,
@@ -127,50 +126,6 @@ export class FranchiseeService {
           console.log('service -> Remove recipe from catalog : ', obj)
         ),
         map((res: any) => (res ? res['message'] : ''))
-      );
-  }
-
-  /**
-   * localhost:8080/api/contractors/{contractor_id}/times
-   * @param franchisee
-   * @returns
-   */
-  public getSchedule(franchisee: Franchisee): Observable<Schedule> {
-    return this.http
-      .get<Schedule>(
-        `${environment.apiBaseUrl}/contractors/${franchisee.id}/times`
-      )
-      .pipe(
-        tap((obj: any) => console.log('service -> schedule : ', obj)),
-        map((res: any) => res)
-      );
-  }
-
-  /**
-   * localhost:8080/api/contractors/{contractor_id}/times
-   * @param create franchisee schedule
-   * @returns update recipe
-   */
-  public createSchedule(create: Partial<Franchisee>): Observable<Schedule> {
-    return this.http
-      .post(`${environment.apiBaseUrl}/contractors/${create.id}/times`, create)
-      .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => (res ? res['message'] : Message.CREATE))
-      );
-  }
-
-  /**
-   * localhost:8080/api/contractors/{contractor_id}/times
-   * @param update franchisee schedule
-   * @returns update recipe
-   */
-  public updateSchedule(update: Partial<Franchisee>): Observable<Schedule> {
-    return this.http
-      .put(`${environment.apiBaseUrl}/contractors/${update.id}/times`, update)
-      .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => (res ? res['message'] : Message.UPDATE))
       );
   }
 

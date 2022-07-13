@@ -1,7 +1,5 @@
 import { routerReducer } from '@ngrx/router-store';
 import { ActionReducer, ActionReducerMap, MetaReducer } from '@ngrx/store';
-// import { State } from './store.state';
-// import * as UserReducer from './user/user.reducer';
 
 /**
  * @ActionReducerMap Map of all the reducers in this feature of which we have only one
@@ -23,7 +21,3 @@ export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 export const metaReducers: MetaReducer<AppState>[] = [];
-
-// export const reducers: ActionReducerMap<AppState> = {
-//   user: UserReducer.reducer,
-// };

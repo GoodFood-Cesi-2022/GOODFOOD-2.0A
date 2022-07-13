@@ -88,7 +88,7 @@ export class IngredientTypeService {
       default:
         console.log('Une erreur est survenue: ', error.message);
     }
-    return throwError(error);
+    return throwError(() => new Error(error.message));
   }
 
   private log(message: string) {
