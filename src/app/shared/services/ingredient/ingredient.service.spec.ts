@@ -7,7 +7,7 @@ import {
 import { IngredientService } from './ingredient.service';
 import { environment } from 'src/environments/environment';
 
-describe('IngredientService', () => {
+fdescribe('IngredientService', () => {
   let service: IngredientService;
   let httpTestingController: HttpTestingController;
 
@@ -36,37 +36,29 @@ describe('IngredientService', () => {
       getAll = [
         {
           id: 1,
-          name: 'apple',
+          name: 'Apple',
           allergen: true,
           types: [
             {
               id: 1,
-              name: 'dessert',
-              code: 'dessert',
-              description: 'description 1',
-              created_at: new Date('2019-08-24T14:15:22Z'),
-              updated_at: new Date('2019-08-24T14:15:22Z'),
+              code: 'fruits',
+              name: 'fruits',
+              description: 'string',
             },
           ],
-          created_at: new Date('2019-08-27T14:15:20Z'),
-          updated_at: new Date('2019-08-24T14:19:22Z'),
         },
         {
           id: 2,
-          name: 'meat',
+          name: 'Salmon',
           allergen: false,
           types: [
             {
               id: 2,
-              name: 'main course',
-              code: 'main course',
+              code: 'fish',
+              name: 'fish',
               description: 'description 2',
-              created_at: new Date('2019-08-24T14:15:22Z'),
-              updated_at: new Date('2019-08-24T14:15:22Z'),
             },
           ],
-          created_at: new Date('2019-08-24T14:15:22Z'),
-          updated_at: new Date('2019-08-24T14:17:22Z'),
         },
       ] as Ingredient[];
     });
@@ -75,7 +67,7 @@ describe('IngredientService', () => {
       service.getIngredients().subscribe({
         next: (values) =>
           expect(values)
-            .withContext('should return all ingredient')
+            .withContext('should return all ingredients')
             .toEqual(getAll),
         error: fail,
       });
@@ -86,7 +78,22 @@ describe('IngredientService', () => {
       );
       expect(req.request.method).toEqual('GET');
 
-      // Respond with the mock ingredient
+      // Respond with the mock ingredients
+      req.flush(getAll);
+    });
+
+    it('should return ingredient array length => 2', () => {
+      service.getIngredients().subscribe({
+        next: (values) => expect(values.length).toBe(2),
+      });
+
+      // IngredientService should have made one request to GET ingredient from URL
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients`
+      );
+      expect(req.request.method).toEqual('GET');
+
+      // Respond with the mock ingredients
       req.flush(getAll);
     });
 
@@ -137,16 +144,21 @@ describe('IngredientService', () => {
         .withContext('calls to getIngredients()')
         .toEqual(3);
 
-      // Respond to each request with different mock hero results
+      // Respond to each request with different mock ingredient results
       requests[0].flush([]);
       requests[1].flush([
         {
-          id: 1,
-          code: 'vegetables',
-          name: 'vegetables',
-          description: 'description',
-          created_at: new Date('2019-09-27T14:15:20Z'),
-          updated_at: new Date('2019-09-24T14:15:22Z'),
+          id: 3,
+          name: 'potato',
+          allergen: true,
+          types: [
+            {
+              id: 1,
+              code: 'vegetable',
+              name: 'vegetable',
+              description: '',
+            },
+          ],
         },
       ]);
       requests[2].flush(getAll);

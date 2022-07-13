@@ -7,7 +7,7 @@ import { IngredientTypeService } from './ingredient-type.service';
 import { IngreType } from '../../models/ingredient-type.model';
 import { environment } from 'src/environments/environment';
 
-fdescribe('IngredientTypeService', () => {
+describe('IngredientTypeService', () => {
   let service: IngredientTypeService;
   let httpTestingController: HttpTestingController;
 
@@ -39,16 +39,12 @@ fdescribe('IngredientTypeService', () => {
           code: 'fish',
           name: 'fish',
           description: 'description',
-          created_at: new Date('2019-08-27T14:15:20Z'),
-          updated_at: new Date('2019-08-24T14:19:22Z'),
         },
         {
           id: 2,
           code: 'meat',
           name: 'meat',
           description: 'description',
-          created_at: new Date('2019-08-24T14:15:22Z'),
-          updated_at: new Date('2019-08-24T14:17:22Z'),
         },
       ] as IngreType[];
     });
@@ -127,8 +123,6 @@ fdescribe('IngredientTypeService', () => {
           code: 'vegetables',
           name: 'vegetables',
           description: 'description',
-          created_at: new Date('2019-09-27T14:15:20Z'),
-          updated_at: new Date('2019-09-24T14:15:22Z'),
         },
       ]);
       requests[2].flush(getAll);
