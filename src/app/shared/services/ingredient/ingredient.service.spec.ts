@@ -7,7 +7,7 @@ import {
 import { IngredientService } from './ingredient.service';
 import { environment } from 'src/environments/environment';
 
-fdescribe('IngredientService', () => {
+xdescribe('IngredientService', () => {
   let service: IngredientService;
   let httpTestingController: HttpTestingController;
 
