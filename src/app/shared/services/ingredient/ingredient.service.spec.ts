@@ -8,7 +8,7 @@ import { IngredientService } from './ingredient.service';
 import { environment } from 'src/environments/environment';
 import { HttpResponse } from '@angular/common/http';
 
-fdescribe('IngredientService', () => {
+describe('IngredientService', () => {
   let service: IngredientService;
   let httpTestingController: HttpTestingController;
 

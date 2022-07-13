@@ -7,7 +7,7 @@ import { IngredientTypeService } from './ingredient-type.service';
 import { IngreType } from '../../models/ingredient-type.model';
 import { environment } from 'src/environments/environment';
 
-describe('IngredientTypeService', () => {
+fdescribe('IngredientTypeService', () => {
   let service: IngredientTypeService;
   let httpTestingController: HttpTestingController;
 

@@ -9,7 +9,7 @@ import { Schedule } from '../../models/schedule.model';
 import { ScheduleService } from './schedule.service';
 import { environment } from 'src/environments/environment';
 
-fdescribe('ScheduleService', () => {
+describe('ScheduleService', () => {
   let service: ScheduleService;
   let httpTestingController: HttpTestingController;
 

@@ -8,7 +8,7 @@ import { UsersService } from './users.service';
 import { environment } from 'src/environments/environment';
 import { User } from '../../models/user.model';
 
-fdescribe('UsersService', () => {
+describe('UsersService', () => {
   let service: UsersService;
   let httpTestingController: HttpTestingController;
 
