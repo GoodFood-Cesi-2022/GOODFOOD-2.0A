@@ -1,9 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { map, tap, Observable } from 'rxjs';
+
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/shared/models/user.model';
-import { Address } from '../../models/address.model';
 import { Message } from '../../constants/constants';
 
 @Injectable({
@@ -43,19 +43,6 @@ export class UsersService {
       .get<User>(`${environment.apiBaseUrl}/users/${id}/roles`)
       .pipe(
         tap((obj) => console.log('service -> get user role: ', obj)),
-        map((res) => res)
-      );
-  }
-
-  /**
-   * @url GET : localhost:8080/api/users/{user_id}/addresses
-   * @returns all users addresses
-   */
-  public getAddresses(id: number): Observable<Address[]> {
-    return this.http
-      .get<Address[]>(`${environment.apiBaseUrl}/users/${id}/addresses`)
-      .pipe(
-        tap((obj) => console.log('service -> create ingredient type : ', obj)),
         map((res) => res)
       );
   }

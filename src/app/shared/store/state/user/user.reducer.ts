@@ -30,6 +30,7 @@ export const userReducer = createReducer(
   }),
   on(UserActions.updateUser, (state, action) => {
     return {
+      ...state,
       userDetails: action.userDetails,
     };
   })
