@@ -33,7 +33,7 @@ jobs:
         run: npm run build
 
       - name: Coverage paths
-        working-directory: ./coverage-sonar
+        working-directory: coverage-sonar
         run: |
           sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' lcov.info
           sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' sonar-cloud-reporter.xml
