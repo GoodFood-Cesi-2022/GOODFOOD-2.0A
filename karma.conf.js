@@ -25,7 +25,7 @@ module.exports = function (config) {
     },
     coverageIstanbulReporter: {
       dir: require("path").join(__dirname, "./coverage-sonar/lcov-report"),
-      reports: ["html", "lcovonly"],
+      reports: ["json-summary", "html", "lcovonly"],
       fixWebpackSourcePaths: true,
     },
     jasmineHtmlReporter: {

@@ -35,13 +35,15 @@ jobs:
       - name: Coverage paths
         working-directory: ./coverage-sonar
         run: |
-          sed -i 's/\/home\/runner\/work\//\/github\/workspace\//g' lcov.info
-          sed -i 's/\/home\/runner\/work\//\/github\/workspace\//g' sonar-cloud-reporter.xml
+          sed -i 's/\/usr\/bin\/bash\//\/github\/workspace\//g' lcov.info
+          sed -i 's/\/usr\/bin\/bash\//\/github\/workspace\//g' sonar-cloud-reporter.xml
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          path: coverage-sonar/coverage-summary.json
+          title: Karma Test Coverage
 
       - run: echo "This job's status is ${{ job.status }}. 🚀 "
