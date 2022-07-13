@@ -149,10 +149,9 @@ docker compose up --build -d
 
 <img src="src/assets/img/gitflow.png" width="500">
 
+Sonar Status : [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)
 
-[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)
+<!-- [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)
 
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=coverage)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)
 
@@ -160,4 +159,4 @@ docker compose up --build -d
 
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)
 
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A) -->
