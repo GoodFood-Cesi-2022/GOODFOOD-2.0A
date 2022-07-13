@@ -7,10 +7,11 @@ module.exports = function (config) {
     frameworks: ["jasmine", "@angular-devkit/build-angular"],
     plugins: [
       require("karma-jasmine"),
-      require("karma-chrome-launcher"),
+      // require("karma-chrome-launcher"),
       require("karma-safari-launcher"),
       require("karma-jasmine-html-reporter"),
-      require("karma-coverage"),
+      require("karma-coverage-istanbul-reporter"),
+      // require("karma-coverage"),
       require("@angular-devkit/build-angular/plugins/karma"),
     ],
     client: {
@@ -30,15 +31,15 @@ module.exports = function (config) {
     jasmineHtmlReporter: {
       suppressAll: true, // removes the duplicated traces
     },
-    coverageReporter: {
-      dir: require("path").join(__dirname, "./coverage/goodfood"),
-      subdir: ".",
-      reporters: [
-        { type: "html" },
-        { type: "text-summary" },
-        { type: "lcov", subdir: "lcov-report" },
-      ],
-    },
+    // coverageReporter: {
+    //   dir: require("path").join(__dirname, "./coverage/goodfood"),
+    //   subdir: ".",
+    //   reporters: [
+    //     { type: "html" },
+    //     { type: "text-summary" },
+    //     { type: "lcov", subdir: "lcov-report" },
+    //   ],
+    // },
     reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,
