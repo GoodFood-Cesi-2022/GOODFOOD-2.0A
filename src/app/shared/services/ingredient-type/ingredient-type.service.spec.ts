@@ -7,7 +7,7 @@ import { IngredientTypeService } from './ingredient-type.service';
 import { IngreType } from '../../models/ingredient-type.model';
 import { environment } from 'src/environments/environment';
 
-describe('IngredientTypeService', () => {
+fdescribe('IngredientTypeService', () => {
   let service: IngredientTypeService;
   let httpTestingController: HttpTestingController;
 
@@ -90,7 +90,7 @@ describe('IngredientTypeService', () => {
     it('should turn 404 into a user-friendly error', () => {
       const msg = '404 Not Found';
       service.getIngredientsTypes().subscribe({
-        next: (values) => fail('expected to fail'),
+        next: (_values) => fail('expected to fail'),
         error: (error) => expect(error.message).toContain(msg),
       });
       const req = httpTestingController.expectOne(

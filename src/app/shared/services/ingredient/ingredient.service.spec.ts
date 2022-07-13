@@ -7,7 +7,7 @@ import {
 import { IngredientService } from './ingredient.service';
 import { environment } from 'src/environments/environment';
 
-describe('IngredientService', () => {
+fdescribe('IngredientService', () => {
   let service: IngredientService;
   let httpTestingController: HttpTestingController;
 
@@ -36,17 +36,35 @@ describe('IngredientService', () => {
       getAll = [
         {
           id: 1,
-          code: 'fish',
-          name: 'fish',
-          description: 'description',
+          name: 'apple',
+          allergen: true,
+          types: [
+            {
+              id: 1,
+              name: 'dessert',
+              code: 'dessert',
+              description: 'description 1',
+              created_at: new Date('2019-08-24T14:15:22Z'),
+              updated_at: new Date('2019-08-24T14:15:22Z'),
+            },
+          ],
           created_at: new Date('2019-08-27T14:15:20Z'),
           updated_at: new Date('2019-08-24T14:19:22Z'),
         },
         {
           id: 2,
-          code: 'meat',
           name: 'meat',
-          description: 'description',
+          allergen: false,
+          types: [
+            {
+              id: 2,
+              name: 'main course',
+              code: 'main course',
+              description: 'description 2',
+              created_at: new Date('2019-08-24T14:15:22Z'),
+              updated_at: new Date('2019-08-24T14:15:22Z'),
+            },
+          ],
           created_at: new Date('2019-08-24T14:15:22Z'),
           updated_at: new Date('2019-08-24T14:17:22Z'),
         },
@@ -90,7 +108,7 @@ describe('IngredientService', () => {
     it('should turn 404 into a user-friendly error', () => {
       const msg = '404 Not Found';
       service.getIngredients().subscribe({
-        next: (values) => fail('expected to fail'),
+        next: (_values) => fail('expected to fail'),
         error: (error) => expect(error.message).toContain(msg),
       });
       const req = httpTestingController.expectOne(
