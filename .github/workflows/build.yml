@@ -21,13 +21,13 @@ jobs:
       - name: Setup NodeJS
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: "16"
 
       - name: Install dependencies
         run: npm install
 
       - name: Test
-          run: npm run test:headless
+        run: npm run test:headless
 
       - name: Build
         run: npm run build
