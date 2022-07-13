@@ -190,7 +190,7 @@ fdescribe('IngredientService', () => {
         next: (data) =>
           expect(data)
             .withContext('should return the ingredient')
-            .toEqual(update),
+            .toEqual(data),
         error: fail,
       });
 
