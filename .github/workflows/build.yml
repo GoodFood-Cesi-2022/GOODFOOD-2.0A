@@ -32,6 +32,12 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: fix code coverage paths
+        working-directory: ./coverage
+        run: |
+          sed -i 's/\/home\/runner\/work\/GOODFOOD-2.0A\/GOODFOOD-2.0A\//\/github\/workspace\//g' lcov.info
+          sed -i 's/\/home\/runner\/work\/GOODFOOD-2.0A\/GOODFOOD-2.0A\//\/github\/workspace\//g' sonar-cloud-reporter.xml
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
