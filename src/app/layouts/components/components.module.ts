@@ -17,6 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { TitleComponent } from './title/title.component';
 import { LoadingComponent } from './loading/loading.component';
+import { ServerErrorComponent } from './server-error/server-error.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { LoadingComponent } from './loading/loading.component';
     TitleComponent,
     LoadingComponent,
     FooterComponent,
+    ServerErrorComponent,
   ],
   exports: [
     TopbarComponent,

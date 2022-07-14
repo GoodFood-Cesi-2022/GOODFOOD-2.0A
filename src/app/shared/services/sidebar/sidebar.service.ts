@@ -18,7 +18,6 @@ export class SidebarService {
   readonly url: any;
 
   constructor(private http: HttpClient, private authService: AuthService) {
-    //this.url = this.authService.getCurrentUser;
     this.url = this.authService.getUser;
   }
 
@@ -39,9 +38,4 @@ export class SidebarService {
       })
     );
   }
-  //   public getUserByRoleID(criteres: SearchUserRole): Observable<User[]> {
-  //     return this.http
-  //       .post(`${this.url.userRole}`, criteres)
-  //       .pipe(Object.values(PAYLOAD).map(res) => res()));
-  //   }
 }

@@ -148,3 +148,5 @@ docker compose up --build -d
 [Tutorial Git flow workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 
 <img src="src/assets/img/gitflow.png" width="500">
+
+Sonar Status : [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=GoodFood-Cesi-2022_GOODFOOD-2.0A&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=GoodFood-Cesi-2022_GOODFOOD-2.0A)

@@ -75,16 +75,19 @@
   border-radius: 4px;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: rgb(193, 213, 230);
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: rgb(193, 213, 230);
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: rgb(193, 213, 230);
 }
 
@@ -107,12 +110,9 @@
     }
 
     .product-list-action {
+      margin-top: 2rem;
       display: flex;
       flex-direction: column;
-    }
-
-    .product-list-action {
-      margin-top: 2rem;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;

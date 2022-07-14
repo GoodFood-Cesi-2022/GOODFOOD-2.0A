@@ -120,10 +120,10 @@ export class AuthService {
       });
   }
 
-  /** Revoke the authenticated user token */ 
+  /** Revoke the authenticated user token */
   logout() {
-    // this.localStorageService.remove(this.STORAGE_KEY_USER);
-    // this.router.navigateByUrl('/');
+    this.localStorageService.remove(StorageKeys.USER);
+    this.router.navigateByUrl('/');
   }
 
   async getAccessToken(): Promise<string> {
@@ -183,7 +183,7 @@ export class AuthService {
       .get<User>(`${environment.apiBaseUrl}/users/${user.id}/roles`)
       .pipe(
         tap(() => currentRole),
-        map((user) => this.initAuth(user))
+        map((value) => this.initAuth(value))
       );
   }
 
@@ -228,7 +228,6 @@ export class AuthService {
     return this.getRole(currentUser);
   }
 
-  // /users/current?include[]=roles
   async getCurrentUserRemote(): Promise<User> {
     let currentUser: User;
     const usr = this.http.get<User>(`${environment.apiBaseUrl}/users/current`);
@@ -289,12 +288,6 @@ export class AuthService {
         user.autorisations.isFranchisee = true;
       }
     });
-    // if (user.roles.forEach() === Roles.ADMIN) {
-    //   user.autorisations.isAdmin = true;
-    // }
-    // if (user.code === Roles.FRANCHISEE) {
-    //   user.autorisations.isFranchisee = true;
-    // }
     return user;
   }
 
