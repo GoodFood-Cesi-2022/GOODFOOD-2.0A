@@ -4,7 +4,8 @@ import { map, tap, Observable, throwError, catchError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/shared/models/user.model';
-import { CodeHTTP, Message } from '../../constants/constants';
+import { Message } from '../../constants/constants';
+import { CodeHTTP } from '../../constants/code-http';
 
 @Injectable({
   providedIn: 'root',

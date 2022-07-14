@@ -25,7 +25,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 
-import { GlobalHttpInterceptorService } from './app.interceptor';
+// import { GlobalHttpInterceptorService } from './app.interceptor';
 import { ApiTokenInterceptorService } from './shared/interceptors/api-token-interceptor.service';
 import { LoadingService } from './shared/services/loading/loading.service';
 import { AuthModule } from './auth/auth.module';
@@ -33,6 +33,7 @@ import { routing } from './app-routing.module';
 import { metaReducers, reducers } from './shared/store/store.reducer';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { HttpErrorInterceptor } from './shared/interceptors/http-error/http-error.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -79,9 +80,14 @@ import { AppComponent } from './app.component';
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: GlobalHttpInterceptorService,
+      useClass: HttpErrorInterceptor,
       multi: true,
     },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: GlobalHttpInterceptorService,
+    //   multi: true,
+    // },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiTokenInterceptorService,

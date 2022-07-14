@@ -4,7 +4,8 @@ import { catchError, map, Observable, tap, throwError } from 'rxjs';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { environment } from 'src/environments/environment';
-import { CodeHTTP, Message } from '../../constants/constants';
+import { Message } from '../../constants/constants';
+import { CodeHTTP } from '../../constants/code-http';
 
 @Injectable({
   providedIn: 'root',
