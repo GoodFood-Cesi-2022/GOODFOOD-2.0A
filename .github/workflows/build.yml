@@ -32,10 +32,6 @@ jobs:
       - name: Build
         run: npm run build
 
-      # - name: Display the path
-      #   run: echo $PATH
-      #   shell: bash
-
       # - name: Coverage paths
       #   working-directory: coverage/lcov-report
       #   run: |
