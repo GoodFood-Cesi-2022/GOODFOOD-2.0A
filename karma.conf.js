@@ -10,7 +10,7 @@ module.exports = function (config) {
       require("karma-chrome-launcher"),
       // require("karma-safari-launcher"),
       require("karma-jasmine-html-reporter"),
-      require("karma-coverage-istanbul-reporter"),
+      // require("karma-coverage-istanbul-reporter"),
       require("karma-coverage"),
       require("@angular-devkit/build-angular/plugins/karma"),
     ],
@@ -23,11 +23,11 @@ module.exports = function (config) {
       },
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
-    coverageIstanbulReporter: {
-      dir: require("path").join(__dirname, "./coverage/lcov-report"),
-      reports: ["json-summary", "html", "lcovonly"],
-      fixWebpackSourcePaths: true,
-    },
+    // coverageIstanbulReporter: {
+    //   dir: require("path").join(__dirname, "./coverage/lcov-report"),
+    //   reports: ["json-summary", "html", "lcovonly"],
+    //   fixWebpackSourcePaths: true,
+    // },
     jasmineHtmlReporter: {
       suppressAll: true, // removes the duplicated traces
     },
@@ -35,7 +35,7 @@ module.exports = function (config) {
       dir: require("path").join(__dirname, "./coverage"),
       subdir: ".",
       reporters: [
-        { type: "html" },
+        { type: "html", subdir: "html-report" },
         { type: "text-summary" },
         { type: "lcov", subdir: "lcov-report" },
       ],
