@@ -39,7 +39,7 @@ jobs:
       - name: Coverage paths
         working-directory: coverage/lcov-report
         run: |
-          sed -i 's/\/home\/runner\/work\//\/github\/workspace\//g' lcov.info
+          sed -i 's/\/home\/runner\/work\/GOODFOOD-2.0A\//\/github\/workspace\//g' lcov.info
         #sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' sonar-cloud-reporter.xml
 
       - name: SonarCloud Scan
