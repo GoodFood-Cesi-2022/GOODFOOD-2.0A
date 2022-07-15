@@ -7,9 +7,12 @@ import { HttpResponse } from '@angular/common/http';
 import { of, catchError, tap } from 'rxjs';
 
 import { IngredientTypeService } from './ingredient-type.service';
-import { IngreType } from '../../models/ingredient-type.model';
 import { environment } from 'src/environments/environment';
-import { mockType1, mockType2 } from 'src/app/shared/mock/ingredient-type.mock';
+import {
+  mockType1,
+  mockType2,
+  mockTypeArray,
+} from 'src/app/shared/mock/ingredient-type.mock';
 
 fdescribe('IngredientTypeService', () => {
   let service: IngredientTypeService;
@@ -33,24 +36,8 @@ fdescribe('IngredientTypeService', () => {
   });
 
   describe('should call getIngredientsTypes()', () => {
-    let getAll: IngreType[];
-
     beforeEach(() => {
       service = TestBed.inject(IngredientTypeService);
-      getAll = [
-        {
-          id: 1,
-          code: 'fish',
-          name: 'fish',
-          description: 'description',
-        },
-        {
-          id: 2,
-          code: 'meat',
-          name: 'meat',
-          description: 'description',
-        },
-      ] as IngreType[];
     });
 
     it('should return ingredient-types (called once)', () => {
@@ -58,7 +45,7 @@ fdescribe('IngredientTypeService', () => {
         next: (values) =>
           expect(values)
             .withContext('should return all ingredient-types')
-            .toEqual(getAll),
+            .toEqual(mockTypeArray),
         error: fail,
       });
 
@@ -69,7 +56,7 @@ fdescribe('IngredientTypeService', () => {
       expect(req.request.method).toEqual('GET');
 
       // Respond with the mock ingredient-types
-      req.flush(getAll);
+      req.flush(mockTypeArray);
     });
 
     it('should be OK returning no ingredient-types', () => {
@@ -94,7 +81,7 @@ fdescribe('IngredientTypeService', () => {
         next: (values) =>
           expect(values)
             .withContext('should return ingredient-types')
-            .toEqual(getAll),
+            .toEqual(mockTypeArray),
         error: fail,
       });
 
@@ -115,7 +102,7 @@ fdescribe('IngredientTypeService', () => {
           description: 'description',
         },
       ]);
-      requests[2].flush(getAll);
+      requests[2].flush(mockTypeArray);
     });
 
     it('call API & should handle errors', () => {

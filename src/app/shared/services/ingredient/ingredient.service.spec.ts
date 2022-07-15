@@ -1,14 +1,15 @@
-import { Ingredient } from './../../models/ingredient.model';
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { catchError, of, tap } from 'rxjs';
+
 import { IngredientService } from './ingredient.service';
 import { environment } from 'src/environments/environment';
-import { HttpResponse } from '@angular/common/http';
+import { mockIngre1, mockIngredientArray } from '../../mock/ingredients.mock';
 
-describe('IngredientService', () => {
+fdescribe('IngredientService', () => {
   let service: IngredientService;
   let httpTestingController: HttpTestingController;
 
@@ -30,38 +31,8 @@ describe('IngredientService', () => {
   });
 
   describe('get all ingredient', () => {
-    let getAll: Ingredient[];
-
     beforeEach(() => {
       service = TestBed.inject(IngredientService);
-      getAll = [
-        {
-          id: 1,
-          name: 'Apple',
-          allergen: true,
-          types: [
-            {
-              id: 1,
-              code: 'fruits',
-              name: 'fruits',
-              description: 'string',
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: 'Salmon',
-          allergen: false,
-          types: [
-            {
-              id: 2,
-              code: 'fish',
-              name: 'fish',
-              description: 'description 2',
-            },
-          ],
-        },
-      ] as Ingredient[];
     });
 
     it('should return ingredient (called once)', () => {
@@ -69,7 +40,7 @@ describe('IngredientService', () => {
         next: (values) =>
           expect(values)
             .withContext('should return all ingredients')
-            .toEqual(getAll),
+            .toEqual(mockIngredientArray),
         error: fail,
       });
 
@@ -80,7 +51,7 @@ describe('IngredientService', () => {
       expect(req.request.method).toEqual('GET');
 
       // Respond with the mock ingredients
-      req.flush(getAll);
+      req.flush({ data: mockIngredientArray });
     });
 
     it('should return ingredient array length => 2', () => {
@@ -95,7 +66,7 @@ describe('IngredientService', () => {
       expect(req.request.method).toEqual('GET');
 
       // Respond with the mock ingredients
-      req.flush(getAll);
+      req.flush(mockIngredientArray);
     });
 
     it('should be OK returning no ingredient', () => {
@@ -110,21 +81,7 @@ describe('IngredientService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients`
       );
-      req.flush([]); // Respond with no ingredient
-    });
-
-    it('should turn 404 into a user-friendly error', () => {
-      const msg = '404 Not Found';
-      service.getIngredients().subscribe({
-        next: (_values) => fail('expected to fail'),
-        error: (error) => expect(error.message).toContain(msg),
-      });
-      const req = httpTestingController.expectOne(
-        `${environment.apiBaseUrl}/ingredients`
-      );
-
-      // respond with a 404 and the error message in the body
-      req.flush(msg, { status: 404, statusText: 'Not Found' });
+      req.flush({ data: [] }); // Respond with no ingredient
     });
 
     it('should return ingredient (called multiple times)', () => {
@@ -134,7 +91,7 @@ describe('IngredientService', () => {
         next: (values) =>
           expect(values)
             .withContext('should return ingredient')
-            .toEqual(getAll),
+            .toEqual(mockIngredientArray),
         error: fail,
       });
 
@@ -146,105 +103,184 @@ describe('IngredientService', () => {
         .toEqual(3);
 
       // Respond to each request with different mock ingredient results
-      requests[0].flush([]);
-      requests[1].flush([
-        {
-          id: 3,
-          name: 'potato',
-          allergen: true,
-          types: [
-            {
-              id: 1,
-              code: 'vegetable',
-              name: 'vegetable',
-              description: '',
-            },
-          ],
-        },
-      ]);
-      requests[2].flush(getAll);
+      requests[0].flush({ data: [] });
+      requests[1].flush({
+        data: [
+          {
+            id: 3,
+            name: 'potato',
+            allergen: true,
+            types: [
+              {
+                id: 1,
+                code: 'vegetable',
+                name: 'vegetable',
+                description: '',
+              },
+            ],
+          },
+        ],
+      });
+      requests[2].flush({ data: mockIngredientArray });
+    });
+
+    it('call API & should handle errors', () => {
+      service
+        .getIngredients()
+        .pipe(
+          catchError((error: Error) => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_voices) => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response) => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients`
+      );
+
+      expect(req.request.method).toEqual('GET');
+      req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
 
-  describe('#updateIngredient', () => {
-    // Expecting the query form of URL so should not 404 when id not found
-    // const makeUrl = (id: number) =>
-    //   `${environment.apiBaseUrl}/ingredients/${id}`;
+  describe('should call createIngredient()', () => {
+    beforeEach(() => {
+      service = TestBed.inject(IngredientService);
+    });
 
-    it('should update an ingredient and return it', () => {
-      const update: Ingredient = {
-        id: 1,
-        name: 'Apple',
-        allergen: true,
-        types: [
-          {
-            id: 1,
-            code: 'fruits',
-            name: 'fruits',
-            description: 'string',
-          },
-        ],
-      };
+    it('should return new ingredient', () => {
+      service.createIngredient(mockIngre1).subscribe((data) => {
+        expect(data).toEqual(data);
+      });
 
-      service.updateIngredient(update).subscribe({
+      // IngredientService should have made one request to POST ingredient from URL
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients`
+      );
+      expect(req.request.method).toEqual('POST');
+
+      // Respond with the mock ingredient
+      req.flush(mockIngre1);
+    });
+
+    it('call API & should handle errors', () => {
+      service
+        .createIngredient(mockIngre1)
+        .pipe(
+          catchError((error: Error) => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_voices) => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response) => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients`
+      );
+
+      expect(req.request.method).toEqual('POST');
+      req.error(new ProgressEvent('TEST_ERROR'));
+    });
+  });
+
+  describe('should call updateIngredient()', () => {
+    beforeEach(() => {
+      service = TestBed.inject(IngredientService);
+    });
+
+    it('should return new ingredient', () => {
+      service.updateIngredient(mockIngre1).subscribe((data) => {
+        expect(data).toEqual(data);
+      });
+
+      // IngredientService should have made one request to POST ingredient from URL
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
+      );
+      expect(req.request.method).toEqual('PUT');
+
+      // Respond with the mock ingredient
+      req.flush(mockIngre1);
+    });
+
+    it('call API & should handle errors', () => {
+      service
+        .updateIngredient(mockIngre1)
+        .pipe(
+          catchError((error: Error) => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_voices) => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response) => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
+      );
+
+      expect(req.request.method).toEqual('PUT');
+      req.error(new ProgressEvent('TEST_ERROR'));
+    });
+  });
+
+  describe('should call deleteIngredient()', () => {
+    beforeEach(() => {
+      service = TestBed.inject(IngredientService);
+    });
+
+    it('should delete ingredient and return success message', () => {
+      service.deleteIngredient(mockIngre1.id).subscribe({
         next: (data) =>
           expect(data)
-            .withContext('should return the ingredient')
-            .toEqual(data),
+            .withContext('should return the success message')
+            .toEqual('204 No Content'),
         error: fail,
       });
 
-      // IngredientService should have made one request to PUT ingredient
       const req = httpTestingController.expectOne(
-        `${environment.apiBaseUrl}/ingredients/${update}`
+        `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
-      expect(req.request.body).toEqual(update);
-
-      // Expect server to return the ingredient after PUT
-      const expectedResponse = new HttpResponse({
-        status: 200,
-        statusText: 'OK',
-        body: update,
-      });
-      req.event(expectedResponse);
+      expect(req.request.method).toEqual('DELETE');
     });
 
-    it('should turn 404 error into user-facing error', () => {
-      const msg = '404 Not Found';
-      const update: Ingredient = { id: 1, name: 'A' };
-      service.updateIngredient(update).subscribe({
-        next: (_values) => fail('expected to fail'),
-        error: (error) => expect(error.message).toContain(msg),
-      });
+    it('call API & should handle errors', () => {
+      service
+        .deleteIngredient(mockIngre1.id)
+        .pipe(
+          catchError((error: Error) => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_voices) => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response) => {
+          fail('expected to fail');
+        });
 
       const req = httpTestingController.expectOne(
-        `${environment.apiBaseUrl}/ingredients/${update}`
+        `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
       );
 
-      // respond with a 404 and the error message in the body
-      req.flush(msg, { status: 404, statusText: 'Not Found' });
-    });
-
-    it('should turn network error into user-facing error', (done) => {
-      // Create mock ProgressEvent with type `error`, raised when something goes wrong at
-      // the network level. Connection timeout, DNS error, offline, etc.
-      const errorEvent = new ProgressEvent('error');
-
-      const update: Ingredient = { id: 1 };
-      service.updateIngredient(update).subscribe({
-        next: (_values) => fail('expected to fail'),
-        error: (error) => {
-          expect(error).toBe(errorEvent);
-          done();
-        },
-      });
-      const req = httpTestingController.expectOne(
-        `${environment.apiBaseUrl}/ingredients/${update}`
-      );
-
-      // Respond with mock error
-      req.error(errorEvent);
+      expect(req.request.method).toEqual('DELETE');
+      req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
 });

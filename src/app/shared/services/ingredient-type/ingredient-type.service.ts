@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, map, catchError, throwError } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { IngreType } from '../../models/ingredient-type.model';
@@ -27,16 +27,12 @@ export class IngredientTypeService {
       .get<IngreType[]>(`${environment.apiBaseUrl}/ingredients/types`)
       .pipe(
         map((res) => res),
-        tap((value) => {
-          this.log('fetched ingredient-types');
-          console.log('get ingredient-types in service class : ', value);
-        }),
         catchError((httpErrorResponse) => {
           this.errorHttpService.newErrorHttp(
             httpErrorResponse,
             'get all ingredient-types'
           );
-          return throwError(() => new Error(httpErrorResponse));
+          return throwError(httpErrorResponse);
         })
       );
   }
@@ -57,7 +53,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'create ingredient-type'
           );
-          return throwError(() => new Error(httpErrorResponse));
+          return throwError(httpErrorResponse);
         })
       );
   }
@@ -76,7 +72,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'update ingredient-type'
           );
-          return throwError(() => new Error(httpErrorResponse));
+          return throwError(httpErrorResponse);
         })
       );
   }
@@ -97,12 +93,8 @@ export class IngredientTypeService {
             httpErrorResponse,
             'delete ingredient-type'
           );
-          return throwError(() => new Error(httpErrorResponse));
+          return throwError(httpErrorResponse);
         })
       );
-  }
-
-  private log(message: string) {
-    console.log('IngredientTypesService: ' + message);
   }
 }

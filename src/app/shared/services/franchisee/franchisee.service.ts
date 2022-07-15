@@ -151,6 +151,17 @@ export class FranchiseeService {
       throw new Error(`${operation} failed: ${message}`);
     };
   }
+  /**
+   * @url DELETE : localhost:8080/api/contractors/{contractors_id}
+   * @param id franchisee_id
+   * @returns Delete a franchisee
+   */
+  public deleteFranchisee(id: number): Observable<string> {
+    return this.http.delete(`${environment.apiBaseUrl}/contractors/${id}`).pipe(
+      // tap((obj) => console.log('service -> delete : ', obj)),
+      map((res) => (res ? res['message'] : ''))
+    );
+  }
 
   private log(message: string) {
     console.log('FranchiseeService: ' + message);

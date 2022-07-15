@@ -134,14 +134,14 @@ export class RecipesComponent implements OnInit {
    * Le message d'alerte de suppression
    * Le message de confirmation de suppression
    */
-  removeRecipe(recipe: Recipe): void {
+  delete(recipe: Recipe): void {
     this.confirmationService.confirm({
       message: `Voulez-vous vraiment supprimer la recette "${recipe.name}" ?`,
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass: 'accept',
       accept: () => {
-        this.recipeService.removeRecipe(recipe.id).subscribe({
+        this.recipeService.deleteRecipe(recipe.id).subscribe({
           next: () => {
             this.recipes = [...this.recipes];
             this.messageService.add({
