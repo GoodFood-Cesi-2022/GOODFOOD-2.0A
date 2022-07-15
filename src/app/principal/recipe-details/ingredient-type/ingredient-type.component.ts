@@ -51,7 +51,6 @@ export class IngredientTypeComponent implements OnInit {
     this.ingredientTypeService.getIngredientsTypes().subscribe((res) => {
       this.typeArray = res;
     });
-    this.initForm();
   }
 
   initForm(): void {
