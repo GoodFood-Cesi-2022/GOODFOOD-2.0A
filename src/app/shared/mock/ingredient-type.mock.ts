@@ -14,13 +14,6 @@ const mockType2: IngreType = {
   description: 'description 2',
 };
 
-const mockType3: IngreType = {
-  id: 3,
-  code: 'vegetables',
-  name: 'vegetables',
-  description: '',
-};
+const mockTypeArray: IngreType[] = [mockType1, mockType2];
 
-const mockTypeArray: IngreType[] = [mockType1, mockType2, mockType3];
-
-export { mockType1, mockType2, mockType3, mockTypeArray };
+export { mockType1, mockType2, mockTypeArray };
