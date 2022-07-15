@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import {
   HttpRequest,
   HttpHandler,
@@ -12,10 +11,7 @@ import { MessageService } from 'primeng/api';
 
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
-  constructor(
-    private messageService: MessageService,
-    private readonly router: Router
-  ) {
+  constructor(private messageService: MessageService) {
     //NOSONAR
   }
 
