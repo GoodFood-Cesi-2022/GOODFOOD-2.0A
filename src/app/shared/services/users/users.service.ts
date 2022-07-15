@@ -30,16 +30,14 @@ export class UsersService {
    * @returns all users (franch)
    */
   public getUsers(): Observable<User[]> {
-    return this.http
-      .get<User[]>(`${environment.apiBaseUrl}/users?role[]=contractor`)
-      .pipe(
-        map((res) => res['data']),
-        tap((values) => {
-          this.log('fetched users');
-          console.log('get users in service class : ', values);
-        }),
-        catchError((err) => this.handleError(err))
-      );
+    return this.http.get<User[]>(`${environment.apiBaseUrl}/users`).pipe(
+      map((res) => res['data']),
+      tap((values) => {
+        this.log('fetched users');
+        console.log('get users in service class : ', values);
+      }),
+      catchError((err) => this.handleError(err))
+    );
   }
 
   /**

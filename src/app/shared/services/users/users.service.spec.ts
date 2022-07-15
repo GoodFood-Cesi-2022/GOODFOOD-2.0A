@@ -6,9 +6,9 @@ import {
 
 import { UsersService } from './users.service';
 import { environment } from 'src/environments/environment';
-import { User } from '../../models/user.model';
+import { mockUserArray } from '../../mock/users.mock';
 
-describe('UsersService', () => {
+fdescribe('UsersService', () => {
   let service: UsersService;
   let httpTestingController: HttpTestingController;
 
@@ -30,32 +30,16 @@ describe('UsersService', () => {
   });
 
   describe('get all users', () => {
-    let getAll: User[];
-
     beforeEach(() => {
       service = TestBed.inject(UsersService);
-      getAll = [
-        {
-          id: 1,
-          firstname: 'Zahra',
-          lastname: 'Dubeau',
-          phone: '1212121212',
-          email: 'user@vol.fr',
-        },
-        {
-          id: 2,
-          firstname: 'Sarah',
-          lastname: 'Dubois',
-          phone: '1122334455',
-          email: 'sara@gmail.fr',
-        },
-      ] as User[];
     });
 
     it('should return users (called once)', () => {
       service.getUsers().subscribe({
         next: (values) =>
-          expect(values).withContext('should return all users').toEqual(getAll),
+          expect(values)
+            .withContext('should return all users')
+            .toEqual(mockUserArray),
         error: fail,
       });
 
@@ -66,7 +50,7 @@ describe('UsersService', () => {
       expect(req.request.method).toEqual('GET');
 
       // Respond with the mock users
-      req.flush(getAll);
+      req.flush({ data: mockUserArray });
     });
 
     it('should be OK returning no users', () => {
@@ -81,7 +65,7 @@ describe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users`
       );
-      req.flush([]); // Respond with no users
+      req.flush({ data: [] }); // Respond with no users
     });
 
     it('should turn 404 into a user-friendly error', () => {
@@ -103,7 +87,9 @@ describe('UsersService', () => {
       service.getUsers().subscribe();
       service.getUsers().subscribe({
         next: (values) =>
-          expect(values).withContext('should return users').toEqual(getAll),
+          expect(values)
+            .withContext('should return users')
+            .toEqual(mockUserArray),
         error: fail,
       });
 
@@ -113,17 +99,19 @@ describe('UsersService', () => {
       expect(requests.length).withContext('calls to getUsers()').toEqual(3);
 
       // Respond to each request with different mock users results
-      requests[0].flush([]);
-      requests[1].flush([
-        {
-          id: 3,
-          firstname: 'Thomas',
-          lastname: 'Dubois',
-          phone: '0476112233',
-          email: 'thomas@gmail.fr',
-        },
-      ]);
-      requests[2].flush(getAll);
+      requests[0].flush({ data: [] });
+      requests[1].flush({
+        data: [
+          {
+            id: 3,
+            firstname: 'Thomas',
+            lastname: 'Dubois',
+            phone: '0476112233',
+            email: 'thomas@gmail.fr',
+          },
+        ],
+      });
+      requests[2].flush({ data: mockUserArray });
     });
   });
 });
