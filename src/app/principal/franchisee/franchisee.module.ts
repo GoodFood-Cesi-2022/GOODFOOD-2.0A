@@ -1,23 +1,29 @@
+// Angular
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FranchiseeComponent } from './franchisee/franchisee.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ButtonModule } from 'primeng/button';
-import { DividerModule } from 'primeng/divider';
-
-import { CalendarModule } from 'primeng/calendar';
-import { DialogModule } from 'primeng/dialog';
-import { InputTextModule } from 'primeng/inputtext';
-import { RippleModule } from 'primeng/ripple';
+// PrimeNG
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { SliderModule } from 'primeng/slider';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
-import { DropdownModule } from 'primeng/dropdown';
-import { CardModule } from 'primeng/card';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
+import { InputTextareaModule } from 'primeng/inputtextarea';
+// Component
+import { FranchiseeComponent } from './franchisee/franchisee.component';
+// Service
+import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { ComponentsModule } from 'src/app/layouts/components/components.module';
 import { ApiTokenInterceptorService } from 'src/app/shared/interceptors/api-token-interceptor.service';
-import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 
 const routes: Routes = [{ path: '', component: FranchiseeComponent }];
 
@@ -25,24 +31,27 @@ const routes: Routes = [{ path: '', component: FranchiseeComponent }];
   declarations: [FranchiseeComponent],
   imports: [
     CommonModule,
-    RouterModule.forChild(routes),
-    FormsModule,
-    ReactiveFormsModule,
-    ButtonModule,
-    RippleModule,
-    DialogModule,
-    DividerModule,
-    ToastModule,
-    InputTextModule,
     HttpClientModule,
-    ToolbarModule,
-    DropdownModule,
-    CardModule,
-    CalendarModule,
+    RouterModule.forChild(routes),
+    ButtonModule,
     ComponentsModule,
+    ConfirmDialogModule,
+    DialogModule,
+    FormsModule,
+    InputNumberModule,
+    InputTextareaModule,
+    InputTextModule,
+    SliderModule,
+    TableModule,
+    ToastModule,
+    ToolbarModule,
+    ProgressBarModule,
+    ReactiveFormsModule,
   ],
   providers: [
     FranchiseeService,
+    MessageService,
+    ConfirmationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiTokenInterceptorService,

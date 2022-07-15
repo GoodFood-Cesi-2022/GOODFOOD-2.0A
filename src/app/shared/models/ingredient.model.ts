@@ -8,6 +8,4 @@ export interface Ingredient {
   name?: string;
   allergen?: boolean;
   types?: IngreType[];
-  // created_at?: Date;
-  // updated_at?: Date;
 }

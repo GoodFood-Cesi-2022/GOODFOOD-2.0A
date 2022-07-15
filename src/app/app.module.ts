@@ -20,12 +20,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RouterState, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 import { DialogService } from 'primeng/dynamicdialog';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 
-// import { GlobalHttpInterceptorService } from './app.interceptor';
 import { ApiTokenInterceptorService } from './shared/interceptors/api-token-interceptor.service';
 import { LoadingService } from './shared/services/loading/loading.service';
 import { AuthModule } from './auth/auth.module';
@@ -34,6 +33,7 @@ import { metaReducers, reducers } from './shared/store/store.reducer';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { HttpErrorInterceptor } from './shared/interceptors/http-error/http-error.interceptor';
+import { ErrorHttpService } from './shared/services/error-http/error-http.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -76,6 +76,8 @@ import { HttpErrorInterceptor } from './shared/interceptors/http-error/http-erro
     },
     DialogService,
     ConfirmationService,
+    ErrorHttpService,
+    MessageService,
     LoadingService,
     { provide: LocationStrategy, useClass: PathLocationStrategy },
     {

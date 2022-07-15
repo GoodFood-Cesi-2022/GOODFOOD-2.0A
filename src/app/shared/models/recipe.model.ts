@@ -5,13 +5,13 @@ import { RecipeType } from './recipe-type.model';
 export interface Recipe {
   id?: number;
   name?: string;
-  description?: string;
-  base_price?: number;
   star?: boolean;
-  ingredients?: Ingredient[];
+  base_price?: number;
+  description?: string;
   recipe_type?: RecipeType;
+  ingredients?: Ingredient[];
   //created_by: number;
   available_at?: Date;
-  pictures?: Picture[];
   trashed_at?: Date;
+  pictures?: Picture[];
 }
