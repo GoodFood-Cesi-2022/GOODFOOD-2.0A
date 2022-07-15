@@ -1,16 +1,20 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, tap, map, catchError, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, map, catchError, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { IngreType } from '../../models/ingredient-type.model';
-import { CodeHTTP, Message } from '../../constants/constants';
+import { ErrorHttpService } from '../error-http/error-http.service';
+import { Message } from '../../constants/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class IngredientTypeService {
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private errorHttpService: ErrorHttpService
+  ) {
     //NOSONAR
   }
 
@@ -23,11 +27,13 @@ export class IngredientTypeService {
       .get<IngreType[]>(`${environment.apiBaseUrl}/ingredients/types`)
       .pipe(
         map((res) => res),
-        tap((values) => {
-          this.log('fetched recipes');
-          console.log('get recipes in service class : ', values);
-        }),
-        catchError((err) => this.handleError(err))
+        catchError((httpErrorResponse) => {
+          this.errorHttpService.newErrorHttp(
+            httpErrorResponse,
+            'get all ingredient-types'
+          );
+          return throwError(httpErrorResponse);
+        })
       );
   }
 
@@ -40,7 +46,16 @@ export class IngredientTypeService {
   public createIngredientType(item: IngreType): Observable<IngreType> {
     return this.http
       .post(`${environment.apiBaseUrl}/ingredients/types`, item)
-      .pipe(map((res) => res));
+      .pipe(
+        map((res) => res),
+        catchError((httpErrorResponse) => {
+          this.errorHttpService.newErrorHttp(
+            httpErrorResponse,
+            'create ingredient-type'
+          );
+          return throwError(httpErrorResponse);
+        })
+      );
   }
 
   /**
@@ -51,8 +66,14 @@ export class IngredientTypeService {
     return this.http
       .put(`${environment.apiBaseUrl}/ingredients/types/${update.id}`, update)
       .pipe(
-        tap((obj) => console.log('service -> edit ingredient type : ', obj)),
-        map((data) => (data ? data['message'] : Message.UPDATE_SUCCESS))
+        map((data) => (data ? data['message'] : Message.UPDATE_SUCCESS)),
+        catchError((httpErrorResponse) => {
+          this.errorHttpService.newErrorHttp(
+            httpErrorResponse,
+            'update ingredient-type'
+          );
+          return throwError(httpErrorResponse);
+        })
       );
   }
 
@@ -62,36 +83,18 @@ export class IngredientTypeService {
    * @returns Delete a ingredient_type
    * Attention : All ingredients attched to this type will lose their type
    */
-  public removeIngredientType(id: number): Observable<string> {
+  public deleteIngredientType(id: number): Observable<string> {
     return this.http
       .delete(`${environment.apiBaseUrl}/ingredients/types/${id}`)
-      .pipe(map((res) => (res ? res['message'] : '')));
-  }
-
-  /**
-   * Returns a function that handles Http operation failures.
-   * This error handler lets the app continue to run as if no error occurred.
-   *
-   * @param operation - name of the operation that failed
-   */
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    switch (error.status) {
-      case CodeHTTP.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED:
-        console.log("Désolé, vous n'etes pas authentifier sur notre serveur.");
-        break;
-      case CodeHTTP.HTTP_401_UNAUTHORIZED:
-        console.log("Désolé, vous n'etes pas autorise a acceder a cette page.");
-        break;
-      case CodeHTTP.HTTP_404_NOT_FOUND:
-        console.log('Page introuvable.');
-        break;
-      default:
-        console.log('Une erreur est survenue: ', error.message);
-    }
-    return throwError(() => new Error(error.message));
-  }
-
-  private log(message: string) {
-    console.log('IngredientTypesService: ' + message);
+      .pipe(
+        map((res) => (res ? res['message'] : '')),
+        catchError((httpErrorResponse) => {
+          this.errorHttpService.newErrorHttp(
+            httpErrorResponse,
+            'delete ingredient-type'
+          );
+          return throwError(httpErrorResponse);
+        })
+      );
   }
 }

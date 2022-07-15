@@ -51,7 +51,6 @@ export class IngredientTypeComponent implements OnInit {
     this.ingredientTypeService.getIngredientsTypes().subscribe((res) => {
       this.typeArray = res;
     });
-    this.initForm();
   }
 
   initForm(): void {
@@ -125,7 +124,7 @@ export class IngredientTypeComponent implements OnInit {
       acceptButtonStyleClass: 'accept',
       accept: (): void => {
         this.ingredientTypeService
-          .removeIngredientType(ingreType.id)
+          .deleteIngredientType(ingreType.id)
           .subscribe({
             next: () => {
               this.typeArray = [...this.typeArray];

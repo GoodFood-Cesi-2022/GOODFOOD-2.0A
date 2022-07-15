@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FranchiseeService } from './franchisee.service';
+import { ErrorHttpService } from './error-http.service';
 
-fdescribe('FranchiseeService', () => {
-  let service: FranchiseeService;
+fdescribe('ErrorHttpService', () => {
+  let service: ErrorHttpService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(FranchiseeService);
+    service = TestBed.inject(ErrorHttpService);
   });
 
   it('should be created', () => {

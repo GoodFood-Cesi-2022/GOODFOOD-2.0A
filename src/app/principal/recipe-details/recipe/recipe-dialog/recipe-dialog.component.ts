@@ -69,7 +69,7 @@ export class RecipeDialogComponent implements OnInit {
 
   ngOnInit(): void {
     /* retrieve recipe types */
-    this.recipeService.getRecipesType().subscribe((res) => {
+    this.recipeService.getRecipeType().subscribe((res) => {
       this.recipesType = res;
     });
     /* retrieve ingredients data */

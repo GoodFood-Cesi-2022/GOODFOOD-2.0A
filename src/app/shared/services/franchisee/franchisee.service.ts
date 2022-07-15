@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { catchError, tap, map, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { tap, map, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Message } from '../../constants/constants';
@@ -23,17 +23,7 @@ export class FranchiseeService {
   public getFranchisees(): Observable<Franchisee[]> {
     return this.http
       .get<Franchisee[]>(`${environment.apiBaseUrl}/contractors`)
-      .pipe(
-        map((res: any) => res),
-        tap((franchisees: any) => {
-          this.log('fetched franchisees');
-          console.log(
-            '------------------> service -> all franchisees : ',
-            franchisees
-          );
-        }),
-        catchError(this.handleError('getFranchisees'))
-      );
+      .pipe(map((res: any) => res));
   }
 
   /**
@@ -130,29 +120,14 @@ export class FranchiseeService {
   }
 
   /**
-   * Returns a function that handles Http operation failures.
-   * This error handler lets the app continue to run as if no error occurred.
-   *
-   * @param operation - name of the operation that failed
+   * @url DELETE : localhost:8080/api/contractors/{contractors_id}
+   * @param id franchisee_id
+   * @returns Delete a franchisee
    */
-  private handleError<T>(operation = 'operation') {
-    return (error: HttpErrorResponse): Observable<T> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // If a native error is caught, do not transform it. We only want to
-      // transform response errors that are not wrapped in an `Error`.
-      if (error.error instanceof Event) {
-        throw error.error;
-      }
-
-      const message = `server returned code ${error.status} with body "${error.error}"`;
-      // TODO: better job of transforming error for user consumption
-      throw new Error(`${operation} failed: ${message}`);
-    };
-  }
-
-  private log(message: string) {
-    console.log('FranchiseeService: ' + message);
+  public deleteFranchisee(id: number): Observable<string> {
+    return this.http.delete(`${environment.apiBaseUrl}/contractors/${id}`).pipe(
+      // tap((obj) => console.log('service -> delete : ', obj)),
+      map((res) => (res ? res['message'] : ''))
+    );
   }
 }

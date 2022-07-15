@@ -173,7 +173,7 @@ export class IngredientComponent implements OnInit {
       icon: 'pi pi-exclamation-triangle',
       acceptButtonStyleClass: 'accept',
       accept: (): void => {
-        this.ingredientService.removeIngredient(ingredient.id).subscribe({
+        this.ingredientService.deleteIngredient(ingredient.id).subscribe({
           next: () => {
             this.ingredients = [...this.ingredients];
             this.messageService.add({

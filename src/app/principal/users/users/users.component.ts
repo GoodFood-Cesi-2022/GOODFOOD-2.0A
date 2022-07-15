@@ -169,7 +169,6 @@ export class UsersComponent implements OnInit {
       accept: (): void => {
         this.usersService.deleteUser(user.id).subscribe({
           next: () => {
-            // TODO check line 181 and verify if it does work in INGREDIENT, INGREDIENT_TYPE also
             this.user = {};
             this.users = [...this.users];
             this.messageService.add({
