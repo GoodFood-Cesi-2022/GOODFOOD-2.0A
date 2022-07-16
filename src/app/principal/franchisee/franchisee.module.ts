@@ -16,42 +16,67 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
-
 import { InputTextareaModule } from 'primeng/inputtextarea';
-// Component
+
 import { FranchiseeComponent } from './franchisee/franchisee.component';
-// Service
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { ComponentsModule } from 'src/app/layouts/components/components.module';
 import { ApiTokenInterceptorService } from 'src/app/shared/interceptors/api-token-interceptor.service';
+import { FranchiseeDialogComponent } from './franchisee-dialog/franchisee-dialog.component';
+import { TooltipModule } from 'primeng/tooltip/public_api';
+import { DataViewModule } from 'primeng/dataview';
+import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { KeyFilterModule } from 'primeng/keyfilter';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { PanelModule } from 'primeng/panel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RippleModule } from 'primeng/ripple';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TabViewModule } from 'primeng/tabview';
 
 const routes: Routes = [{ path: '', component: FranchiseeComponent }];
 
 @NgModule({
   declarations: [FranchiseeComponent],
   imports: [
-    CommonModule,
-    HttpClientModule,
-    RouterModule.forChild(routes),
     ButtonModule,
+    CommonModule,
     ComponentsModule,
     ConfirmDialogModule,
-    DialogModule,
+    DataViewModule,
+    DropdownModule,
+    DynamicDialogModule,
+    FileUploadModule,
     FormsModule,
+    HttpClientModule,
     InputNumberModule,
-    InputTextareaModule,
     InputTextModule,
-    SliderModule,
+    InputTextareaModule,
+    RadioButtonModule,
+    ReactiveFormsModule,
+    RippleModule,
+    RouterModule.forChild(routes),
+    SelectButtonModule,
     TableModule,
     ToastModule,
     ToolbarModule,
-    ProgressBarModule,
-    ReactiveFormsModule,
+    TooltipModule,
+    PanelModule,
+    ProgressSpinnerModule,
+    DialogModule,
+
+    TabViewModule,
+    MultiSelectModule,
+    KeyFilterModule,
   ],
+  entryComponents: [FranchiseeDialogComponent],
   providers: [
     FranchiseeService,
-    MessageService,
-    ConfirmationService,
+    // MessageService,
+    // ConfirmationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiTokenInterceptorService,

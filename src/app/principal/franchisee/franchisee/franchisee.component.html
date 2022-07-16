@@ -1,405 +1,75 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title
-  [title]="'Gérer les Franchisées'"
-  [description]="'Espace pour gérer les franchisés'"
->
+<app-title [title]="'Franchisée'"
+  [description]="'L\'espace de franchisé pour gérer ensemble de l\'informations de franchisés.'">
 </app-title>
-<!-- App franchisé -->
-<p-toast></p-toast>
-<!-- Title -->
-<app-title
-  [title]="'Franchisée'"
-  [description]="
-    'L\'espace de franchisé pour gérer ensemble de l\'informations de franchisés.'
-  "
->
-</app-title>
-<!-- New contact -->
-<ng-template pTemplate="right">
-  <button
-    pButton
-    pRipple
-    label="Nouvel coordonnée"
-    icon="pi pi-plus"
-    class="p-button-purple p-mr-2 mr-2"
-    (click)="newContact()"
-  ></button>
-  <button
-    pButton
-    pRipple
-    label="Nouvelles horaires"
-    icon="pi pi-plus"
-    class="p-button-info p-mr-2"
-    (click)="newSchedule()"
-  ></button>
-</ng-template>
-<ng-template pTemplate="footer">
-  <button
-    pButton
-    pRipple
-    label="Cancel"
-    icon="pi pi-times"
-    class="p-button-text p-button-danger"
-  ></button>
-  <button
-    pButton
-    pRipple
-    label="Save"
-    icon="pi pi-check"
-    class="p-button-text p-button-success"
-  ></button>
-</ng-template>
-<!-- New schedule -->
-<ng-template pTemplate="footer">
-  <button
-    pButton
-    pRipple
-    label="Cancel"
-    icon="pi pi-times"
-    class="p-button-text p-button-danger"
-  ></button>
-  <button
-    pButton
-    pRipple
-    label="Save"
-    icon="pi pi-check"
-    class="p-button-text p-button-success"
-  ></button>
-</ng-template>
-<!-- Franchisee -->
-<div class="grid" [formGroup]="form" *ngIf="contact">
-  <div class="col-12 lg:col-6">
-    <div class="p-3 h-full">
-      <div
-        class="shadow-2 p-3 h-full flex flex-column surface-card"
-        style="border-radius: 4px"
-      >
-        <div class="text-800 w-full md:flex-order-0 flex-order-1 text-left">
-          <div
-            class="card-header p-2 flex align-items-center justify-content-between bg-yellow-50"
-          >
-            <div class="grid">
-              <div class="col-10">
-                <span id="contact.name" class="text-800 font-bold text-xl mb-1"
-                  >xxxxx</span
-                >
-                <span
-                  id="contact.name"
-                  class="text-800 font-bold text-xl mb-1"
-                  *ngIf="!editMode"
-                >
-                  <!-- {{ contact.name }} -->
-                </span>
-                <span
-                  id="contact.name"
-                  class="text-800 font-bold text-xl mb-1"
-                  *ngIf="editMode"
-                >
-                  <input
-                    pInputText
-                    class="focus:border-primary"
-                    formControlName="name"
-                  />
-                </span>
-              </div>
-            </div>
-            <div class="col-1">
-              <span>
-                <i
-                  *ngIf="contact == null && address == null"
-                  class="pi pi-plus text-blue-500 text-xl"
-                  (click)="newContact()"
-                  aria-hidden="true"
-                ></i
-              ></span>
-              <span>
-                <i
-                  *ngIf="contact != null && address != null"
-                  class="pi pi-pencil text-blue-500 text-xl"
-                  (click)="editContact()"
-                  aria-hidden="true"
-                ></i>
-              </span>
-            </div>
-          </div>
-        </div>
-        <ul class="list-none p-0 m-0 flex-grow-1 mt-5">
-          <li class="flex align-items-center mb-3">
-            <!-- <span class="text-900" formControlName="phone">{{ contact.phone }}</span> -->
-            <div
-              class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left"
-            >
-              <i class="pi pi-phone text-green-500 mr-2" aria-hidden="true"></i>
-              <span id="contact.phone" *ngIf="!editMode">
-                {{ contact.phone }}
-              </span>
-              <span id="contact.phone" *ngIf="editMode">
-                <input
-                  pInputText
-                  class="focus:border-primary"
-                  formControlName="phone"
-                />
-              </span>
-            </div>
-          </li>
-          <li class="flex align-items-center mb-3">
-            <div
-              class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left"
-            >
-              <i
-                class="pi pi-envelope text-purple-500 mr-2"
-                aria-hidden="true"
-              ></i>
-              <span id="contact.email" *ngIf="!editMode">
-                <!-- {{ contact.email }} -->
-              </span>
-              <span id="contact.email" *ngIf="editMode">
-                <input
-                  pInputText
-                  class="focus:border-primary"
-                  formControlName="email"
-                />
-              </span>
-            </div>
-            <!-- <span class="text-900" formControlName="email">{{ contact.email }}</span> -->
-          </li>
-          <li class="flex align-items-center mb-3">
-            <i
-              class="pi pi-map-marker text-yellow-500 mr-2"
-              aria-hidden="true"
-            ></i>
-            <span id="contact.first_line" *ngIf="!editMode">
-              {{ contact.address.first_line }}
-            </span>
-            <span id="contact.first_line" *ngIf="editMode">
-              <input
-                pInputText
-                class="focus:border-primary"
-                formControlName="first_line"
-              />
-            </span>
-            <span id="contact.second_line" *ngIf="!editMode">
-              {{ contact.address.second_line }}
-            </span>
-            <span id="contact.second_line" *ngIf="editMode">
-              <input
-                pInputText
-                class="focus:border-primary"
-                formControlName="second_line"
-              />
-            </span>
-            <span id="contact.zip_code" *ngIf="!editMode">
-              {{ contact.address.zip_code }}
-            </span>
-            <span id="contact.zip_code" *ngIf="editMode">
-              <input
-                pInputText
-                class="focus:border-primary"
-                formControlName="zip_code"
-              />
-            </span>
-            <span id="contact.city" *ngIf="!editMode">
-              {{ contact.address.city }}
-            </span>
-            <span id="contact.city" *ngIf="editMode">
-              <input
-                pInputText
-                class="focus:border-primary"
-                formControlName="city"
-              />
-            </span>
-            <span id="contact.country" *ngIf="!editMode">
-              {{ contact.address.country }}
-            </span>
-            <span id="contact.country" *ngIf="editMode">
-              <input
-                pInputText
-                class="focus:border-primary"
-                formControlName="country"
-              />
-            </span>
-            <!-- <ng-template *ngIf="contact == null && address == null"> -->
-            <!-- <label for="first_line">ligne 1</label>
-              <input pInputText type="text" id="first_line" formControlName="first_line" /> -->
-            <!-- <label for="second_line">ligne 1</label>
-              <input pInputText type="text" id="second_line" formControlName="second_line" /> -->
-            <!-- <label for="zip_code">ligne 1</label>
-              <input pInputText type="text" id="zip_code" formControlName="zip_code" /> -->
-            <!-- <label for="city">ligne 1</label>
-              <input pInputText type="text" id="city" formControlName="city" />
-              <label for="country">ligne 1</label>
-              <input pInputText type="text" id="country" formControlName="country" /> -->
-            <!-- </ng-template> -->
-            <!-- <span class="text-900"> {{ address.first_line }}, {{ address.second_line }}, {{ address.zip_code }}, {{
-              address.city }}, {{ address.country }} </span> -->
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-12 lg:col-6">
-    <div class="p-3 h-full">
-      <div
-        class="shadow-2 p-3 flex flex-column surface-card"
-        style="border-radius: 6px"
-      >
-        <div
-          class="card-header flex align-items-center justify-content-between bg-yellow-50"
-        >
-          <span class="text-800 font-bold text-xl mb-1">Horaires</span>
-          <span
-            ><i
-              class="pi pi-pencil text-blue-500 text-xl"
-              aria-hidden="true"
-            ></i
-          ></span>
-        </div>
-        <div class="grid border-bottom-1 border-gray-200 mb-3 mt-3">
-          <span class="align-content-end col-6"></span>
-          <span class="font-semibold align-content-end col-3">Midi</span>
-          <span class="font-semibold align-content-end col-3">Soir</span>
-        </div>
-        <ul class="list-none p-0 m-0 flex-grow-1">
-          <li class="mb-1 grid">
-            <span class="text-600 align-items-center col-6">Lundi</span>
-            <span class="text-sm align-items-center col-3">Fermé</span>
-            <span class="text-sm align-items-center col-3">Fermé</span>
-          </li>
-          <li class="mb-1 grid">
-            <span class="text-600 align-items-center col-6">Mardi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
-          </li>
-          <li class="mb-1 grid">
-            <span class="text-600 align-items-center col-6">Mercredi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
-          </li>
-          <li class="mb-1 grid">
-            <span class="text-600 align-items-center col-6">Jeudi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
-          </li>
-          <li class="mb-1 grid">
-            <span class="text-600 align-items-center col-6">Vendredi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
-          </li>
-          <li class="mb-1 grid">
-            <span class="text-600 align-items-center col-6">Samedi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
-          </li>
-          <li class="mb-1 grid">
-            <span class="text-600 align-items-center col-6">Dimanche</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- /app-franchisee -->
 <!-- New franchisee -->
-<p-dialog
-  [(visible)]="contactDialog"
-  [style]="{ width: '450px' }"
-  header="Contact Details"
-  [modal]="true"
-  styleClass="p-fluid"
-  appendTo="body"
->
-  <ng-template pTemplate="content" [formGroup]="form">
-    <div class="p-field my-3">
-      <label for="name">Nom</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        formControlName="name"
-        placeholder="Nom de la franchise"
-        required
-        autofocus
-      />
-      <small class="p-invalid" *ngIf="submitted && !contact.name"
-        >name is required.</small
-      >
-    </div>
-    <div class="p-field mb-3">
-      <label for="email">Email</label>
-      <input
-        type="text"
-        pInputText
-        id="email"
-        formControlName="email"
-        placeholder="Sarah@gmail.com"
-        required
-        autofocus
-      />
-      <small class="p-invalid" *ngIf="submitted && !contact.email"
-        >Email is required.</small
-      >
-    </div>
-    <div class="p-field mb-3">
-      <label for="phone">Téléphone</label>
-      <input
-        type="tel"
-        pInputText
-        id="phone"
-        formControlName="phone"
-        placeholder="04 76 00 00 00"
-        Pattern="^9[0-9]{7}"
-        size="10"
-        maxlength="10"
-        required
-        autofocus
-      />
-      <small class="p-invalid" *ngIf="submitted && !contact.phone"
-        >Phone is required.</small
-      >
+<p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
+  <ng-template pTemplate="left">
+    <div class="p-d-flex p-ai-center p-jc-between">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search" aria-hidden="true"></i>
+        <input pInputText class="w-20rem" type="search" (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+          placeholder="Rechercher..." />
+      </span>
     </div>
   </ng-template>
-  <ng-template pTemplate="footer">
-    <button
-      pButton
-      pRipple
-      label="Annuler"
-      class="p-button-text p-button-danger"
-      (click)="hideDialog()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      label="Confirmer"
-      class="p-button-text p-button-success"
-      (click)="onSubmit()"
-      [disabled]="true"
-    ></button>
+  <ng-template pTemplate="right">
+    <button pButton pRipple label="Nouvelle type d'ingredient" icon="pi pi-plus"
+      class="p-button-raised p-button-success p-button-text p-mr-3" (click)="create()"></button>
   </ng-template>
-</p-dialog>
-<!-- Confirm dialog -->
-<p-confirmDialog #cd [style]="{ width: '450px' }">
-  <p-footer>
-    <button
-      pButton
-      pRipple
-      type="button"
-      label="NON"
-      class="p-button-danger p-button-text p-button-text-outlined"
-      (click)="cd.reject()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      type="button"
-      label="OUI"
-      class="p-button-info p-button-text p-button-text-outlined"
-      (click)="cd.accept()"
-      [disabled]="true"
-    ></button>
-  </p-footer>
-</p-confirmDialog>
-<!-- /Confirm dialog -->
+</p-toolbar>
+<div class="p-2 shadow-4 text-center md:w-20 mb-2" style="background: rgba(255, 255, 255, 0.441); border-radius: 5px">
+  <p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
+    <ng-template pTemplate="left">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input pInputText class="w-20rem" type="search"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Rechercher..." />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <button pButton pRipple label="Nouvelle ingredient" icon="pi pi-plus"
+        class="p-button-raised p-button-success p-button-text p-mr-3" (click)="create()"></button>
+    </ng-template>
+  </p-toolbar>
+  <p-table #dt [value]="franchisees" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'email']"
+    [(selection)]="selectedFranchisee" [rowHover]="true" dataKey="id"
+    currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} franchisés"
+    [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50, 100]" [(first)]="first" sortField="name">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name" scope="col"> Nom de franchisé <p-sortIcon field="name"></p-sortIcon>
+        </th>
+        <th pSortableColumn="phone" scope="col"> Numéro de téléphone <p-sortIcon field="type.code"> </p-sortIcon>
+        </th>
+        <th pSortableColumn="email" scope="col"> Email <p-sortIcon field="allergen"></p-sortIcon>
+        </th>
+        <th pSortableColumn="franchisee.address" scope="col"> Adresse <p-sortIcon field="allergen"></p-sortIcon>
+        </th>
+        <th scope="col" class="right-50"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-franchisee>
+      <tr>
+        <td>{{ franchisee.name }}</td>
+        <td>{{ franchisee.phone }}</td>
+        <td>{{ franchisee.email }}</td>
+        <td *ngFor="let value of franchisee.address">{{ value.first_line }}, {{ value.second_line }},
+          {{ value.zip_code }}, {{ value.city }}, {{ value.country }}</td>
+        <td id="icons">
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-success mr-2"
+            (click)="update(franchisee)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger"
+            (click)="delete(franchisee)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"> En total
+        il y a {{ franchisees ? franchisees.length : 0 }} franchisees. </div>
+    </ng-template>
+  </p-table>
+</div>

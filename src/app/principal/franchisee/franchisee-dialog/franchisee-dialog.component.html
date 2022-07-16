@@ -1,0 +1,42 @@
+<!-- <p-toast></p-toast> -->
+<ng-container [formGroup]="form">
+  <div class="grid p-fluid formgrid">
+    <div class="field mb-5 col-12 md:col-8">
+      <label>Nom de plat</label>
+      <input type="text" pInputText formControlName="title" placeholder="Le Hachis Parmentier" />
+    </div>
+    <div class="field mb-5 col-12 md:col-4">
+      <label for="recipeFor">Type de recette</label>
+    </div>
+    <div class="field mb-5 col-12 md:col-6">
+      <label>Ingredients</label>
+      <small id="ingreFor-help" class="p-invalid" *ngIf="checkError('ingredientsDetails', 'required')">Champ
+        obligatoire</small>
+    </div>
+    <div class="field mb-5 col-12 md:col-6">
+      <label for="icon">Date disponiblité</label>
+    </div>
+  </div>
+  <div class="grid p-fluid formgrid">
+    <div class="field mb-5 col-12 md:col-4">
+      <div class="grid p-fluid formgrid">
+        <div class="field mb-5 col-12 md:col-12">
+          <label for="price">Prix de base</label>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="field mb-5 col-12 md:col-8">
+    <label>Description</label>
+    <textarea formControlName="description" rows="5" cols="30" pInputTextarea autoResize="true"></textarea>
+  </div>
+  <div class="flex align-items-center field mb-5 col-12 col-4">
+    <span class="ml-2 text-900 text-primary">Plat star</span>
+  </div>
+  <div class="field col-12 md:col-12">
+    <button pRipple pButton type="button" (click)="onClose()" label="Annuler"
+      class="p-button-outlined p-button-danger pr-5 pl-5 mr-2"></button>
+    <button pRipple pButton type="button" (click)="onSubmit()" label="Confirmer"
+      class="p-button-outlined p-button-success mr-3 pr-5 pl-5" [disabled]="!form.valid"></button>
+  </div>
+</ng-container>

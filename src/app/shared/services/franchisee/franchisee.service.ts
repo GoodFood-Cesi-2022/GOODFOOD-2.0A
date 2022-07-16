@@ -44,6 +44,13 @@ export class FranchiseeService {
       );
   }
 
+  public updateFranchisee(create: Partial<Franchisee>): Observable<string> {
+    return this.http.put(`${environment.apiBaseUrl}/contractors`, create).pipe(
+      tap((obj: any) => console.log('service -> edit franchisee : ', obj)),
+      map((res: any) => res)
+    );
+  }
+
   /**
    * @url POST : localhost:8080/api/contractors
    * @param create new franchisee
@@ -60,7 +67,7 @@ export class FranchiseeService {
       create.owned_by
     );
     return this.http.post(`${environment.apiBaseUrl}/contractors`, create).pipe(
-      tap((obj: any) => console.log('service -> All recipes : ', obj)),
+      tap((obj: any) => console.log('service -> new franchisee : ', obj)),
       map((res: any) => res)
     );
   }
