@@ -4,20 +4,38 @@ import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import {
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting
+  platformBrowserDynamicTesting,
 } from '@angular/platform-browser-dynamic/testing';
 
 declare const require: {
-  context(path: string, deep?: boolean, filter?: RegExp): {
+  context(
+    path: string,
+    deep?: boolean,
+    filter?: RegExp
+  ): {
     keys(): string[];
     <T>(id: string): T;
   };
 };
 
+let localStore;
+
+beforeEach(() => {
+  localStore = {};
+
+  spyOn(window.localStorage, 'getItem').and.callFake((key) =>
+    key in localStore ? localStore[key] : null
+  );
+  spyOn(window.localStorage, 'setItem').and.callFake(
+    (key, value) => (localStore[key] = value + '')
+  );
+  spyOn(window.localStorage, 'clear').and.callFake(() => (localStore = {}));
+});
+
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(
   BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting(),
+  platformBrowserDynamicTesting()
 );
 
 // Then we find all the tests.

@@ -13,6 +13,9 @@ import {
   mockRecipeArray,
 } from '../../mock/recipe.mock';
 import { mockRecipeTypeArray } from '../../mock/recipe-type.mock';
+import { Message } from '../../constants/constants';
+import { mockIngredientArray } from '../../mock/ingredients.mock';
+import { picture1 } from '../../mock/picture.mock';
 
 // https://angular.io/guide/testing-services
 fdescribe('RecipeService (with mocks)', () => {
@@ -91,58 +94,30 @@ fdescribe('RecipeService (with mocks)', () => {
       expect(req.request.method).toEqual('GET');
       req.error(new ProgressEvent('TEST_ERROR'));
     });
+  });
 
-    // it('should be OK returning no recipes', () => {
-    //   service.getRecipes().subscribe({
-    //     next: (recipes) =>
-    //       expect(recipes.length)
-    //         .withContext('should have empty recipes array')
-    //         .toEqual(0),
-    //     error: fail,
-    //   });
+  describe('get one recipes()', () => {
+    beforeEach(() => {
+      service = TestBed.inject(RecipeService);
+    });
 
-    //   const req = httpTestingController.expectOne(
-    //     `${environment.apiBaseUrl}/recipes?includes[]=pictures`
-    //   );
-    //   req.flush([]); // Respond with no recipes
-    // });
+    it('shoud return ALL recipes from API (called once)', () => {
+      service.getRecipe(mockRecipe1.id).subscribe({
+        next: (values) =>
+          expect(values)
+            .withContext('should return all recipes')
+            .toEqual(mockRecipe1),
+        error: fail,
+      });
 
-    // it('should turn 404 into a user-friendly error', () => {
-    //   const msg = 'Deliberate 404';
-    //   service.getRecipes().subscribe({
-    //     next: (recipes) => fail('expected to fail'),
-    //     error: (error) => expect(error.message).toContain(msg),
-    //   });
-    //   const req = httpTestingController.expectOne(
-    //     `${environment.apiBaseUrl}/recipes?includes[]=pictures`
-    //   );
-    //   // respond with a 404 and the error message in the body
-    //   req.flush(msg, { status: 404, statusText: 'Not Found' });
-    // });
-
-    // it('should return all recipes (called multiple times)', () => {
-    //   service.getRecipes().subscribe();
-    //   service.getRecipes().subscribe();
-    //   service.getRecipes().subscribe({
-    //     next: (recipes) =>
-    //       expect(recipes)
-    //         .withContext('should return all recipes')
-    //         .toEqual(getAll),
-    //     error: fail,
-    //   });
-
-    //   const requests = httpTestingController.match(
-    //     `${environment.apiBaseUrl}/recipes?includes[]=pictures`
-    //   );
-    //   expect(requests.length).withContext('calls to getRecipes()').toEqual(3);
-
-    //   // Respond to each request with different mock recipe results
-    //   requests[0].flush([]);
-    //   requests[1].flush([],
-    //     },
-    //   ]);
-    //   requests[2].flush(getAll);
-    // });
+      /* RecipeService should have made one request to GET recipes from expected URL */
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}`
+      );
+      expect(req.request.method).toBe('GET');
+      // Respond with the mock recipes
+      req.flush(mockRecipe1);
+    });
   });
 
   describe('should call getRecipeType()', () => {
@@ -242,7 +217,7 @@ fdescribe('RecipeService (with mocks)', () => {
 
     it('should return new recipe', () => {
       service.updateRecipe(mockRecipe1).subscribe((data) => {
-        expect(data).toEqual(data);
+        expect(data).toEqual(Message.UPDATE_SUCCESS);
       });
 
       // RecipeService should have made one request to POST recipe from URL
@@ -252,7 +227,7 @@ fdescribe('RecipeService (with mocks)', () => {
       expect(req.request.method).toEqual('PUT');
 
       // Respond with the mock recipe
-      req.flush(mockRecipe1);
+      req.flush({ message: Message.UPDATE_SUCCESS });
     });
 
     it('call API & should handle errors', () => {
@@ -290,7 +265,7 @@ fdescribe('RecipeService (with mocks)', () => {
         next: (data) =>
           expect(data)
             .withContext('should return the success message')
-            .toEqual('204 No Content'),
+            .toEqual(Message.DELETE),
         error: fail,
       });
 
@@ -298,6 +273,7 @@ fdescribe('RecipeService (with mocks)', () => {
         `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}`
       );
       expect(req.request.method).toEqual('DELETE');
+      req.flush({ message: Message.DELETE });
     });
 
     it('call API & should handle errors', () => {
@@ -322,6 +298,86 @@ fdescribe('RecipeService (with mocks)', () => {
 
       expect(req.request.method).toEqual('DELETE');
       req.error(new ProgressEvent('TEST_ERROR'));
+    });
+  });
+
+  describe('get ingredients recipe()', () => {
+    beforeEach(() => {
+      service = TestBed.inject(RecipeService);
+    });
+
+    it('shoud return ALL ingredients for a recipe', () => {
+      service.getIngredientsByRecipeId(mockRecipe1.id).subscribe({
+        next: (values) =>
+          expect(values)
+            .withContext('shoud return ALL ingredients for a recipe')
+            .toEqual(mockIngredientArray),
+        error: fail,
+      });
+
+      /* RecipeService should have made one request to GET recipes from expected URL */
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}/ingredients`
+      );
+      expect(req.request.method).toBe('GET');
+      // Respond with the mock recipes
+      req.flush(mockIngredientArray);
+    });
+  });
+
+  describe('uploadPicture()', () => {
+    beforeEach(() => {
+      service = TestBed.inject(RecipeService);
+    });
+
+    it('shoud upload a picture', () => {
+      service.uploadPicture(picture1).subscribe({
+        next: (values) =>
+          expect(values)
+            .withContext('shoud upload a picture')
+            .toEqual({ message: Message.UPDATE }),
+        error: fail,
+      });
+
+      /* RecipeService should have made one request to GET recipes from expected URL */
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/files`
+      );
+      const formData = new FormData();
+
+      formData.append('name', picture1.name);
+      formData.append('filename', <string>(<unknown>picture1));
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual(formData);
+      // Respond with the mock recipes
+      req.flush({ message: Message.UPDATE });
+    });
+  });
+
+  describe('attachPictures()', () => {
+    beforeEach(() => {
+      service = TestBed.inject(RecipeService);
+    });
+
+    it('shoud attach a picture to a recipe', () => {
+      service.attachPictures(mockRecipe1, mockRecipe1).subscribe({
+        next: (values) =>
+          expect(values)
+            .withContext('shoud return success of attachment')
+            .toEqual(Message.UPDATE),
+        error: fail,
+      });
+
+      /* RecipeService should have made one request to GET recipes from expected URL */
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}/pictures`
+      );
+      const formData = new FormData();
+      formData.append('file_uuid', picture1.uuid);
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual(formData);
+      // Respond with the mock recipes
+      req.flush({ message: Message.UPDATE });
     });
   });
 });

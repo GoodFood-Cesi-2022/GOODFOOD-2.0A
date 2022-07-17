@@ -25,11 +25,11 @@ export class SidebarService {
     this.subject.next(display);
   }
 
-  public getProfile(details: number): Observable<User> {
-    return this.http
-      .get(`${environment.apiBaseUrl}/${details}`)
-      .pipe(map((res: any) => res[PAYLOAD]));
-  }
+  // public getProfile(details: number): Observable<User> {
+  //   return this.http
+  //     .get(`${environment.apiBaseUrl}/${details}`)
+  //     .pipe(map((res: any) => res[PAYLOAD]));
+  // }
 
   getUsers() {
     return this.http.get(`${environment.apiBaseUrl}/users`).pipe(

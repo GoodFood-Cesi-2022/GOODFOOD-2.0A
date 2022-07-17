@@ -85,6 +85,6 @@ export class UsersService {
   public deleteUser(id: number): Observable<string> {
     return this.http
       .delete(`${environment.apiBaseUrl}/users/${id}`)
-      .pipe(map((res: Object): any => (res ? res['message'] : '')));
+      .pipe(map((res: Object): any => (res ? res['message'] : Message.DELETE)));
   }
 }

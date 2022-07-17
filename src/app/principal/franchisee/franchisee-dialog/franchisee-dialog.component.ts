@@ -10,6 +10,8 @@ import { Schedule } from 'src/app/shared/models/schedule.model';
 import { AddressService } from 'src/app/shared/services/address/address.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
+import { StorageKeys } from 'src/app/shared/constants/constants';
+import { User } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-franchisee-dialog',
@@ -28,6 +30,7 @@ export class FranchiseeDialogComponent implements OnInit {
 
   submitted: boolean;
   isDisabledControlForm: boolean = false;
+  localStorageService: any;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -114,20 +117,25 @@ export class FranchiseeDialogComponent implements OnInit {
       .subscribe((res) => {
         this.address = res;
         this.franchisee.address_id = res.id;
-        this.franchiseeService.newFranchisee(this.franchisee).subscribe({
-          next: (_res) => {
-            this.ref.close(_res);
-            this.franchisee = _res;
-            console.log('create franchisee in component : ', res);
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur le moment de création du franchisé.',
-              detail: error.error,
-            });
-          },
-        });
+        this.franchiseeService
+          .newFranchisee(
+            this.franchisee,
+            (<User>this.localStorageService.get(StorageKeys.USER)).id
+          )
+          .subscribe({
+            next: (_res) => {
+              this.ref.close(_res);
+              this.franchisee = _res;
+              console.log('create franchisee in component : ', res);
+            },
+            error: (error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Erreur le moment de création du franchisé.',
+                detail: error.error,
+              });
+            },
+          });
       });
   }
 

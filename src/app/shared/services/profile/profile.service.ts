@@ -51,18 +51,6 @@ export class ProfileService {
     return _user;
   }
 
-  getCurrentUser(): User {
-    let currentUser: User;
-    currentUser = <User>this.localStorageService.get(StorageKeys.USER);
-    type role = { code: string };
-    let currentRole: role;
-    currentRole = <role>this.localStorageService.get(StorageKeys.ROLE);
-    console.log([currentRole]);
-    currentUser.roles = [];
-    currentUser.roles.push(currentRole);
-    return this.authService.roleById(currentUser);
-  }
-
   updateUser(user: User): Observable<User> {
     const newUserDetails: User = { ...user };
 
