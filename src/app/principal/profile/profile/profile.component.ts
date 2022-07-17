@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
         this.form.patchValue(this.user);
         console.log('res in profile : ', res);
       },
-      (err) => console.log('erreu dans profile component : ', err)
+      (err) => console.log('erreur dans profile component : ', err)
     );
     this.editModeFirstname = false;
     this.editModeLastname = false;

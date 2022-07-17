@@ -1,20 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import getPkce from 'oauth-pkce';
-import {
-  catchError,
-  firstValueFrom,
-  forkJoin,
-  merge,
-  Observable,
-  throwError,
-} from 'rxjs';
-import { Router } from '@angular/router';
+import { catchError, firstValueFrom, Observable, throwError } from 'rxjs';
+import { Router, RouterStateSnapshot } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AccessTokenModel } from '../../../models/access-token.model';
 import { User } from '../../../models/user.model';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { StringService } from '../string/string.service';
 import { Roles, StorageKeys } from 'src/app/shared/constants/constants';
 import { map, tap } from 'rxjs/operators';
 
@@ -32,7 +24,6 @@ export class AuthService {
    */
   constructor(
     private http: HttpClient,
-    private stringService: StringService,
     private localStorageService: LocalStorageService,
     private router: Router
   ) {}
@@ -48,8 +39,7 @@ export class AuthService {
 
     this.localStorageService.remove(StorageKeys.STATE);
     this.localStorageService.remove(StorageKeys.CODE_VERIFY);
-
-    const state: string = this.stringService.getRandomString(40);
+    const state = RouterStateSnapshot.toString();
 
     getPkce(128, (error, { verifier, challenge }) => {
       if (!error) {

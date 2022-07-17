@@ -148,7 +148,7 @@ export class RecipeService {
    * @param picture
    * @returns
    */
-  public uploadPicture(picture): Observable<any> {
+  public uploadPicture(picture): Observable<Picture> {
     const formData = new FormData();
 
     formData.append('name', picture.name);
