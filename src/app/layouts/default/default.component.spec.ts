@@ -2,15 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DefaultComponent } from './default.component';
 
-describe('DefaultComponent', () => {
+fdescribe('DefaultComponent', () => {
   let component: DefaultComponent;
   let fixture: ComponentFixture<DefaultComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DefaultComponent ]
-    })
-    .compileComponents();
+      declarations: [DefaultComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

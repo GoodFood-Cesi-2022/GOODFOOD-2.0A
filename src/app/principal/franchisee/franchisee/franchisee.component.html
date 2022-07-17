@@ -23,16 +23,16 @@
     label="Nouvel coordonnée"
     icon="pi pi-plus"
     class="p-button-purple p-mr-2 mr-2"
-    (click)="newContact()"
   ></button>
+  <!-- (click)="newContact()" -->
   <button
     pButton
     pRipple
     label="Nouvelles horaires"
     icon="pi pi-plus"
     class="p-button-info p-mr-2"
-    (click)="newSchedule()"
   ></button>
+  <!-- (click)="newSchedule()" -->
 </ng-template>
 <ng-template pTemplate="footer">
   <button
@@ -107,7 +107,7 @@
             <div class="col-1">
               <span>
                 <i
-                  *ngIf="contact == null && address == null"
+                  *ngIf="contact == null"
                   class="pi pi-plus text-blue-500 text-xl"
                   (click)="newContact()"
                   aria-hidden="true"
@@ -115,9 +115,8 @@
               ></span>
               <span>
                 <i
-                  *ngIf="contact != null && address != null"
+                  *ngIf="contact != null"
                   class="pi pi-pencil text-blue-500 text-xl"
-                  (click)="editContact()"
                   aria-hidden="true"
                 ></i>
               </span>
@@ -402,4 +401,4 @@
     ></button>
   </p-footer>
 </p-confirmDialog>
-<!-- /Confirm dialog -->
+/Confirm dialog
