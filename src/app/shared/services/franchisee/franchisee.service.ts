@@ -3,12 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { tap, map, Observable, catchError, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { Message, StorageKeys } from '../../constants/constants';
+import { Message } from '../../constants/constants';
 import { FranchiseeRecipe } from '../../models/franchisee-recipe.model';
 import { Franchisee } from '../../models/franchisee.model';
-import { Recipe } from '../../models/recipe.model';
-import { User } from '../../models/user.model';
-import { LocalStorageService } from '../user/local-storage/local-storage.service';
 import { ErrorHttpService } from '../error-http/error-http.service';
 
 @Injectable({
@@ -17,8 +14,7 @@ import { ErrorHttpService } from '../error-http/error-http.service';
 export class FranchiseeService {
   constructor(
     private http: HttpClient,
-    private errorHttpService: ErrorHttpService,
-    private localStorageService: LocalStorageService
+    private errorHttpService: ErrorHttpService
   ) {
     //NOSONAR
   }

@@ -3,14 +3,13 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 import { UsersService } from './users.service';
 import { environment } from 'src/environments/environment';
-import { mockUser1, mockUserArray, mockUserAuth1 } from '../../mock/users.mock';
-import { catchError, Observable, of, tap } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
 import { Message } from '../../constants/constants';
+import { mockUser1, mockUserArray, mockUserAuth1 } from '../../mock/users.mock';
 
 fdescribe('UsersService', () => {
   let service: UsersService;

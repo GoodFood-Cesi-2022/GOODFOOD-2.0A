@@ -10,8 +10,8 @@ import { Schedule } from 'src/app/shared/models/schedule.model';
 import { AddressService } from 'src/app/shared/services/address/address.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
-import { StorageKeys } from 'src/app/shared/constants/constants';
 import { User } from 'src/app/shared/models/user.model';
+import { StorageKeys } from 'src/app/shared/constants/storageKeys.const';
 
 @Component({
   selector: 'app-franchisee-dialog',
@@ -52,7 +52,6 @@ export class FranchiseeDialogComponent implements OnInit {
       .getFranchisees()
       .subscribe((data: Franchisee[]): void => {
         this.franchiseeArray = data;
-        console.log('-----------> franchisee dialog --> ', data);
       });
 
     this.initForm();

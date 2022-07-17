@@ -4,19 +4,13 @@ import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../../models/user.model';
-import { LocalStorageService } from 'src/app/shared/services/user/local-storage/local-storage.service';
-import { Roles, StorageKeys } from 'src/app/shared/constants/constants';
-import { AuthService } from '../user/auth/auth.service';
+import { Roles } from 'src/app/shared/constants/constants';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService,
-    private authService: AuthService
-  ) {
+  constructor(private http: HttpClient) {
     //NOSONAR
   }
 
