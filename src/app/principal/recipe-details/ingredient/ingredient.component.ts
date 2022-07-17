@@ -118,48 +118,42 @@ export class IngredientComponent implements OnInit {
     this.makeRecipe();
 
     if (this.ingredient.id) {
-      this.ingredientService
-        .updateIngredient(this.ingredient)
-        .pipe()
-        .subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
-              detail: "Mise à jour d'ingredient",
-              life: 3000,
-            });
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur le moment de modification',
-              detail: error.error,
-            });
-            console.log(error);
-          },
-        });
+      this.ingredientService.updateIngredient(this.ingredient).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Succès',
+            detail: "Mise à jour d'ingredient",
+            life: 3000,
+          });
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erreur le moment de modification',
+            detail: error.error,
+          });
+          console.log(error);
+        },
+      });
     } else {
-      this.ingredientService
-        .createIngredient(this.ingredient)
-        .pipe()
-        .subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
-              detail: 'Nouvel ingredient ajouté',
-              life: 3000,
-            });
-          },
-          error: (error) => {
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur le moment de création',
-              detail: error.error,
-            });
-          },
-        });
+      this.ingredientService.createIngredient(this.ingredient).subscribe({
+        next: () => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Succès',
+            detail: 'Nouvel ingredient ajouté',
+            life: 3000,
+          });
+        },
+        error: (error) => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Erreur le moment de création',
+            detail: error.error,
+          });
+        },
+      });
     }
     this.ingredients = [...this.ingredients];
     this.ingredientDialog = false;

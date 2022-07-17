@@ -168,10 +168,6 @@ export class RecipeDialogComponent implements OnInit {
           summary: 'Erreur le moment de modification de de la recette',
           detail: error.error,
         });
-        console.log(
-          'erreur le moment de modification de la recette --->',
-          error
-        );
       },
     });
   }
