@@ -11,18 +11,18 @@ import { RippleModule } from 'primeng/ripple';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 import { LoginComponent } from './login/login.component';
-import { CallbackComponent } from './callback/callback.component';
+import { AuthComponent } from './auth/auth.component';
 import { UserEffects } from '../shared/store/state/user';
 import * as fromAuth from '../shared/store/state/user/user.reducer';
 import { AuthService } from '../shared/services/user/auth/auth.service';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
-  { path: 'redirect', component: CallbackComponent },
+  { path: 'redirect', component: AuthComponent },
 ];
 
 @NgModule({
-  declarations: [LoginComponent, CallbackComponent],
+  declarations: [LoginComponent, AuthComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -1,24 +1,47 @@
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { IngredientTypeComponent } from './ingredient-type.component';
+import { environment } from 'src/environments/environment';
+import { mockTypeArray } from 'src/app/shared/mock/ingredient-type.mock';
 
-describe('IngredientTypeComponent', () => {
+fdescribe('IngredientTypeComponent', () => {
   let component: IngredientTypeComponent;
   let fixture: ComponentFixture<IngredientTypeComponent>;
+  let httpTestingController: HttpTestingController;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule, ReactiveFormsModule],
       declarations: [IngredientTypeComponent],
+      schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(IngredientTypeComponent);
+    httpTestingController = TestBed.inject(HttpTestingController);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
 
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+
   it('should create', () => {
+    const req2 = httpTestingController.expectOne(
+      `${environment.apiBaseUrl}/ingredients/types`
+    );
+    expect(req2.request.method).toEqual('GET');
+
+    // Respond with the mock ingredient-types
+    req2.flush(mockTypeArray);
     expect(component).toBeTruthy();
   });
 });

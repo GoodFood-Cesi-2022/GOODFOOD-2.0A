@@ -2,7 +2,7 @@
 app
 ├── AuthModule
 |         ├── login
-|         └── callback
+|         └── auth
 |
 |
 ├── LayoutsModule

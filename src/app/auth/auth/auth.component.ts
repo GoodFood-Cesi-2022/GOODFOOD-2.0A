@@ -11,11 +11,11 @@ import {
 } from 'src/app/shared/store/state/user';
 
 @Component({
-  selector: 'app-callback',
-  templateUrl: './callback.component.html',
-  styleUrls: ['./callback.component.scss'],
+  selector: 'app-auth',
+  templateUrl: './auth.component.html',
+  styleUrls: ['./auth.component.scss'],
 })
-export class CallbackComponent implements OnInit {
+export class AuthComponent implements OnInit {
   user: User;
 
   constructor(
@@ -36,7 +36,7 @@ export class CallbackComponent implements OnInit {
       state = parameters['state'];
     });
     this.authService.authorizationCodeToAccessToken(code, state);
-    console.log('callback component');
+    console.log('auth component');
   }
 
   private loadAppUser(): void {
@@ -44,7 +44,7 @@ export class CallbackComponent implements OnInit {
       (user) => {
         if (user == null) {
           this.store.dispatch(UserActions.loadUser());
-          console.log('je passe dans *** callback dispatch ***', user);
+          console.log('je passe dans *** auth dispatch ***', user);
         } else {
           this.user = user;
           let authorized: boolean = false;

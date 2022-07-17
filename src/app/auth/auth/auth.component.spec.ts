@@ -3,36 +3,27 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AuthComponent } from './auth.component';
 
-import { ProfileComponent } from './profile.component';
-import { environment } from 'src/environments/environment';
-
-fdescribe('ProfileComponent', () => {
-  let component: ProfileComponent;
-  let fixture: ComponentFixture<ProfileComponent>;
+fdescribe('AuthComponent', () => {
+  let component: AuthComponent;
+  let fixture: ComponentFixture<AuthComponent>;
   let store: MockStore;
   let httpTestingController: HttpTestingController;
   const initialState = { loggedIn: false };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-        ReactiveFormsModule,
-      ],
+      imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [provideMockStore({ initialState })],
-      declarations: [ProfileComponent],
-      schemas: [NO_ERRORS_SCHEMA],
+      declarations: [AuthComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfileComponent);
+    fixture = TestBed.createComponent(AuthComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore);
@@ -44,11 +35,6 @@ fdescribe('ProfileComponent', () => {
   });
 
   it('should create', () => {
-    const req = httpTestingController.expectOne(
-      `${environment.apiBaseUrl}/users/current?includes[]=roles`
-    );
-    expect(req.request.method).toEqual('GET');
-    req.flush({});
     expect(store).toBeTruthy();
     expect(component).toBeTruthy();
   });
