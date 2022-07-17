@@ -66,8 +66,8 @@ export class RecipesComponent implements OnInit {
 
     this.recipeService
       .getRecipes()
-      .pipe(finalize(() => this.loading.loadingOff()))
-      .subscribe((recipes) => {
+      .pipe(finalize((): void => this.loading.loadingOff()))
+      .subscribe((recipes: Recipe[]): void => {
         this.recipes = recipes;
       });
   }
@@ -134,7 +134,7 @@ export class RecipesComponent implements OnInit {
    * Le message d'alerte de suppression
    * Le message de confirmation de suppression
    */
-  delete(recipe: Recipe): void {
+  deleteRecipe(recipe: Recipe): void {
     this.confirmationService.confirm({
       message: `Voulez-vous vraiment supprimer la recette "${recipe.name}" ?`,
       header: 'Confirm',
@@ -154,10 +154,9 @@ export class RecipesComponent implements OnInit {
           error: (error) => {
             this.messageService.add({
               severity: 'error',
-              summary: 'Erreur le moment de création de type',
+              summary: 'Erreur le moment de suppression de la recette.',
               detail: error.error,
             });
-            console.log('erreur le moment de création type --->', error);
           },
         });
       },

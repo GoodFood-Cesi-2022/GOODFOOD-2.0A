@@ -24,7 +24,7 @@ import { IngreType } from 'src/app/shared/models/ingredient-type.model';
 })
 export class RecipeDialogComponent implements OnInit {
   mode: 'UPDATE' | 'CREATE';
-  Textbutton = 'Modifier' || 'Créer';
+
   form: FormGroup;
   //------------------------------- Recipe Type : dropdown (1)
   recipesType: Recipe[] = [];
@@ -38,9 +38,8 @@ export class RecipeDialogComponent implements OnInit {
   ingreType: IngreType[] = [];
 
   picture: Picture = null; // Variable to store picture
-  submitted: boolean;
 
-  idRecipe: number;
+  submitted: boolean;
   star: boolean;
 
   uploadedFiles: any[] = []; // Upload image
@@ -150,13 +149,9 @@ export class RecipeDialogComponent implements OnInit {
           error: (error) => {
             this.messageService.add({
               severity: 'error',
-              summary: 'Erreur le moment de création de de la recette',
+              summary: 'Erreur le moment de création de la recette',
               detail: error.error,
             });
-            console.log(
-              'erreur le moment de création de la recette --->',
-              error
-            );
           },
         });
       });

@@ -6,7 +6,6 @@ export interface Franchisee {
   name?: string;
   phone?: string;
   email?: string;
-  // timezone?: string;
   max_delivery_radius?: number;
   address_id?: number;
   ownedBy?: User;

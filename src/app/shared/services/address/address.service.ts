@@ -33,7 +33,7 @@ export class AddressService {
    * @param create new address
    * @returns address_id
    */
-  public createAddress(create: Partial<Address>): Observable<string> {
+  public createAddress(create: Partial<Address>): Observable<Address> {
     return this.http.post(`${environment.apiBaseUrl}/addresses`, create).pipe(
       tap((obj: any) => console.log('service -> create new address : ', obj)),
       map((res: any) => res)
