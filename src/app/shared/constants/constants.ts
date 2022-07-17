@@ -18,8 +18,9 @@ export enum EndPoints {
 }
 
 export enum Message {
-  UPDATE = 'La recette est bien mise à jour.',
-  CREATE = "L'article est bien créé",
+  UPDATE = '204 No Content',
+  CREATE = '201 Created',
+  DELETE = '204 No Content',
   UPDATE_SUCCESS = 'Les modifications ont bien été prises en compte.',
 }
 

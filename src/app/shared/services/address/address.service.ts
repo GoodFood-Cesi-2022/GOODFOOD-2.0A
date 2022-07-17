@@ -21,11 +21,8 @@ export class AddressService {
    */
   public getAddresses(user: User): Observable<Address[]> {
     return this.http
-      .get<Address[]>(`${environment.apiBaseUrl}/users/${user.id}/addresses`)
-      .pipe(
-        tap((obj) => console.log('service -> get all addresses: ', obj)),
-        map((res) => res)
-      );
+      .get<Address>(`${environment.apiBaseUrl}/users/${user.id}/addresses`)
+      .pipe(map((res) => [res]));
   }
 
   /**
@@ -34,10 +31,9 @@ export class AddressService {
    * @returns address_id
    */
   public createAddress(create: Partial<Address>): Observable<Address> {
-    return this.http.post(`${environment.apiBaseUrl}/addresses`, create).pipe(
-      tap((obj: any) => console.log('service -> create new address : ', obj)),
-      map((res: any) => res)
-    );
+    return this.http
+      .post(`${environment.apiBaseUrl}/addresses`, create)
+      .pipe(map((res: any) => res));
   }
 
   /**
@@ -48,10 +44,7 @@ export class AddressService {
   public updateAddress(update: Partial<Address>): Observable<string> {
     return this.http
       .put(`${environment.apiBaseUrl}/addresses/${update.id}`, update)
-      .pipe(
-        tap((obj: any) => console.log('service -> update address : ', obj)),
-        map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS))
-      );
+      .pipe(map((res) => (res ? res['message'] : Message.UPDATE)));
   }
 
   /**
@@ -63,6 +56,6 @@ export class AddressService {
   public deleteAddress(id: number): Observable<string> {
     return this.http
       .delete(`${environment.apiBaseUrl}/addresses/${id}`)
-      .pipe(map((res) => (res ? res['message'] : '')));
+      .pipe(map((res) => (res ? res['message'] : Message.DELETE)));
   }
 }

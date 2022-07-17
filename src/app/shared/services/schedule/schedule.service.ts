@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, map } from 'rxjs';
+import { Observable, tap, map, catchError, throwError } from 'rxjs';
 
 import { Schedule } from '../../models/schedule.model';
 import { Franchisee } from '../../models/franchisee.model';
 import { environment } from 'src/environments/environment';
 import { Message } from '../../constants/constants';
+import { ErrorHttpService } from '../error-http/error-http.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ScheduleService {
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private errorHttpService: ErrorHttpService
+  ) {
     //NOSONAR
   }
 
@@ -25,37 +29,55 @@ export class ScheduleService {
       .get<Schedule>(
         `${environment.apiBaseUrl}/contractors/${franchisee.id}/times`
       )
-      .pipe(
-        tap((obj: any) => console.log('service -> schedule : ', obj)),
-        map((res: any) => res)
-      );
+      .pipe(map((res: any) => res));
   }
 
   /**
    * localhost:8080/api/contractors/{contractor_id}/times
    * @param create franchisee schedule
-   * @returns update recipe
+   * @returns update schedule
    */
-  public createSchedule(create: Partial<Franchisee>): Observable<Schedule> {
+  public createSchedule(
+    create: Partial<Franchisee>,
+    schedule: Partial<Schedule>
+  ): Observable<Schedule> {
     return this.http
-      .post(`${environment.apiBaseUrl}/contractors/${create.id}/times`, create)
+      .post(
+        `${environment.apiBaseUrl}/contractors/${create.id}/times`,
+        schedule
+      )
       .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => (res ? res['message'] : Message.CREATE))
+        map((res: any) => (res ? res['message'] : Message.CREATE)),
+        catchError((httpErrorResponse) => {
+          this.errorHttpService.newErrorHttp(
+            httpErrorResponse,
+            'create schedule'
+          );
+          return throwError(httpErrorResponse);
+        })
       );
   }
 
   /**
    * localhost:8080/api/contractors/{contractor_id}/times
    * @param update franchisee schedule
-   * @returns update recipe
+   * @returns update schedule
    */
-  public updateSchedule(update: Partial<Franchisee>): Observable<Schedule> {
+  public updateSchedule(
+    update: Partial<Franchisee>,
+    schedule: Partial<Schedule>
+  ): Observable<any> {
     return this.http
-      .put(`${environment.apiBaseUrl}/contractors/${update.id}/times`, update)
+      .put(`${environment.apiBaseUrl}/contractors/${update.id}/times`, schedule)
       .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => (res ? res['message'] : Message.UPDATE))
+        map((res) => (res ? res['message'] : Message.UPDATE)),
+        catchError((httpErrorResponse) => {
+          this.errorHttpService.newErrorHttp(
+            httpErrorResponse,
+            'update schedule'
+          );
+          return throwError(httpErrorResponse);
+        })
       );
   }
 }

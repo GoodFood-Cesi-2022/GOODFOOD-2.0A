@@ -5,6 +5,7 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 import { FranchiseeComponent } from './franchisee.component';
 import { environment } from 'src/environments/environment';
@@ -17,6 +18,7 @@ fdescribe('FranchiseeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ReactiveFormsModule],
+      providers: [ConfirmationService],
       declarations: [FranchiseeComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
