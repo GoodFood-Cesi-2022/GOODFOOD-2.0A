@@ -1,16 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoadingComponent } from './loading.component';
 
-describe('LoadingComponent', () => {
+fdescribe('LoadingComponent', () => {
   let component: LoadingComponent;
   let fixture: ComponentFixture<LoadingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoadingComponent ]
-    })
-    .compileComponents();
+      imports: [RouterTestingModule],
+      declarations: [LoadingComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

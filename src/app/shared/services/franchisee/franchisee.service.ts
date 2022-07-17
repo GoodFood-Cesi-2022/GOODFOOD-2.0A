@@ -47,8 +47,8 @@ export class FranchiseeService {
         `${environment.apiBaseUrl}/contractors/${recipe.id}/recipes`
       )
       .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => res['data'])
+        tap((obj): void => console.log('service -> All recipes : ', obj)),
+        map((res): any => res['data'])
       );
   }
 
