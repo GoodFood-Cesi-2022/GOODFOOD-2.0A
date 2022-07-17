@@ -23,7 +23,7 @@ export class FranchiseeService {
   public getFranchisees(): Observable<Franchisee[]> {
     return this.http
       .get<Franchisee[]>(`${environment.apiBaseUrl}/contractors`)
-      .pipe(map((res: any) => res));
+      .pipe(map((res) => res));
   }
 
   /**
@@ -39,8 +39,8 @@ export class FranchiseeService {
         `${environment.apiBaseUrl}/contractors/${recipe.id}/recipes`
       )
       .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => res['data'])
+        tap((obj): void => console.log('service -> All recipes : ', obj)),
+        map((res): any => res['data'])
       );
   }
 
@@ -60,8 +60,8 @@ export class FranchiseeService {
       create.owned_by
     );
     return this.http.post(`${environment.apiBaseUrl}/contractors`, create).pipe(
-      tap((obj: any) => console.log('service -> All recipes : ', obj)),
-      map((res: any) => res)
+      tap((obj) => console.log('service -> All recipes : ', obj)),
+      map((res: any): any => res)
     );
   }
 
@@ -75,8 +75,8 @@ export class FranchiseeService {
     return this.http
       .post(`${environment.apiBaseUrl}/contractors${item.id}/recipes`, item)
       .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => res)
+        tap((obj): void => console.log('service -> All recipes : ', obj)),
+        map((res) => res)
       );
   }
 
@@ -95,8 +95,8 @@ export class FranchiseeService {
         update
       )
       .pipe(
-        tap((obj: any) => console.log('service -> All recipes : ', obj)),
-        map((res: any) => (res ? res['message'] : Message.UPDATE))
+        tap((obj): void => console.log('service -> All recipes : ', obj)),
+        map((res): any => (res ? res['message'] : Message.UPDATE))
       );
   }
 
@@ -112,10 +112,10 @@ export class FranchiseeService {
         `${environment.apiBaseUrl}/contractors/${id}/recipes/${recipe.id}`
       )
       .pipe(
-        tap((obj: any) =>
+        tap((obj: any): void =>
           console.log('service -> Remove recipe from catalog : ', obj)
         ),
-        map((res: any) => (res ? res['message'] : ''))
+        map((res: any): any => (res ? res['message'] : ''))
       );
   }
 
@@ -127,7 +127,7 @@ export class FranchiseeService {
   public deleteFranchisee(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/contractors/${id}`).pipe(
       // tap((obj) => console.log('service -> delete : ', obj)),
-      map((res) => (res ? res['message'] : ''))
+      map((res: Object): any => (res ? res['message'] : ''))
     );
   }
 }

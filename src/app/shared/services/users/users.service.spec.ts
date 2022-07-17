@@ -6,7 +6,10 @@ import {
 
 import { UsersService } from './users.service';
 import { environment } from 'src/environments/environment';
-import { mockUserArray } from '../../mock/users.mock';
+import { mockUser1, mockUserArray } from '../../mock/users.mock';
+import { catchError, Observable, of, tap } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import { User } from '../../models/user.model';
 
 fdescribe('UsersService', () => {
   let service: UsersService;
@@ -29,7 +32,7 @@ fdescribe('UsersService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('get all users', () => {
+  describe('get all users', (): void => {
     beforeEach(() => {
       service = TestBed.inject(UsersService);
     });
@@ -112,6 +115,207 @@ fdescribe('UsersService', () => {
         ],
       });
       requests[2].flush({ data: mockUserArray });
+    });
+  });
+
+  // TODO : getUsers()
+  // TODO : getUserRole()
+  // TODO : getUser()
+  // describe('should call getUser()', (): void => {
+  //   beforeEach((): void => {
+  //     service = TestBed.inject(UsersService);
+  //   });
+
+  //   it('should return user', (): void => {
+  //     service.getUser(mockUser1.id).subscribe({
+  //       next: (data: User): void =>
+  //         expect(data).withContext('should return the user').toEqual(data),
+  //       error: fail,
+  //     });
+
+  //     // UsersService should have made one request to GET user from URL
+  //     const req = httpTestingController.expectOne(
+  //       `${environment.apiBaseUrl}/users/${mockUser1.id}`
+  //     );
+  //     expect(req.request.method).toEqual('GET');
+  //     expect(req.request.body).toEqual(mockUser1);
+
+  //     const expectedResponse = new HttpResponse({
+  //       status: 200,
+  //       statusText: 'OK',
+  //       body: mockUser1,
+  //     });
+  //     req.event(expectedResponse);
+  //   });
+
+  //   it('call API & should handle errors', (): void => {
+  //     service
+  //       .getUser(mockUser1.id)
+  //       .pipe(
+  //         catchError((error: any): Observable<any> => {
+  //           expect(error).toBeDefined();
+  //           return of();
+  //         }),
+  //         tap((_value: string): void => {
+  //           fail('next handler must not be called');
+  //         })
+  //       )
+  //       .subscribe((_response: string): void => {
+  //         fail('expected to fail');
+  //       });
+
+  //     const req = httpTestingController.expectOne(
+  //       `${environment.apiBaseUrl}/users/${mockUser1.id}`
+  //     );
+
+  //     expect(req.request.method).toEqual('GET');
+  //     req.error(new ProgressEvent('TEST_ERROR'));
+  //   });
+  // });
+
+  // create
+
+  describe('should call newUser()', (): void => {
+    beforeEach((): void => {
+      service = TestBed.inject(UsersService);
+    });
+
+    it('should return new user', (): void => {
+      service.newUser(mockUser1).subscribe((data: User): void => {
+        expect(data).toEqual(mockUser1);
+      });
+
+      // UsersService should have made one request to POST user from URL
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users`
+      );
+      expect(req.request.method).toEqual('POST');
+
+      // Respond with the mock user
+      req.flush(mockUser1);
+    });
+
+    it('call API & should handle errors', (): void => {
+      service
+        .newUser(mockUser1)
+        .pipe(
+          catchError((error: Error): Observable<any> => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_value: string): void => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response: string): void => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users`
+      );
+
+      expect(req.request.method).toEqual('POST');
+      req.error(new ProgressEvent('TEST_ERROR'));
+    });
+  });
+
+  // update
+  describe('should call updateUser()', (): void => {
+    beforeEach((): void => {
+      service = TestBed.inject(UsersService);
+    });
+
+    it('should update user and return it', (): void => {
+      service.updateUser(mockUser1).subscribe({
+        next: (data: string): void =>
+          expect(data).withContext('should return the user').toEqual(data),
+        error: fail,
+      });
+
+      // UsersService should have made one request to POST user from URL
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users/${mockUser1.id}`
+      );
+      expect(req.request.method).toEqual('PUT');
+      expect(req.request.body).toEqual(mockUser1);
+
+      const expectedResponse = new HttpResponse({
+        status: 200,
+        statusText: 'OK',
+        body: mockUser1,
+      });
+      req.event(expectedResponse);
+    });
+
+    it('call API & should handle errors', (): void => {
+      service
+        .updateUser(mockUser1)
+        .pipe(
+          catchError((error: Error): Observable<any> => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_value: string): void => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response: string): void => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users/${mockUser1.id}`
+      );
+
+      expect(req.request.method).toEqual('PUT');
+      req.error(new ProgressEvent('TEST_ERROR'));
+    });
+  });
+
+  // delete
+  describe('should call deleteUser()', (): void => {
+    beforeEach(() => {
+      service = TestBed.inject(UsersService);
+    });
+
+    it('should delete user and return success message', (): void => {
+      service.deleteUser(mockUser1.id).subscribe({
+        next: (data: string): void =>
+          expect(data)
+            .withContext('should return the success message')
+            .toEqual('204 No Content'),
+        error: fail,
+      });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users/${mockUser1.id}`
+      );
+      expect(req.request.method).toEqual('DELETE');
+    });
+
+    it('call API & should handle errors', (): void => {
+      service
+        .deleteUser(mockUser1.id)
+        .pipe(
+          catchError((error: Error): Observable<any> => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_value: any): void => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response: any): void => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users/${mockUser1.id}`
+      );
+
+      expect(req.request.method).toEqual('DELETE');
+      req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
 });

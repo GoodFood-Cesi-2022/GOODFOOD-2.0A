@@ -22,7 +22,7 @@ export class UsersService {
   public getUser(id: number): Observable<User> {
     return this.http
       .get<User>(`${environment.apiBaseUrl}/users/${id}`)
-      .pipe(map((res) => res));
+      .pipe(map((res: User): User => res));
   }
 
   /**
@@ -30,14 +30,9 @@ export class UsersService {
    * @returns all users (franch)
    */
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${environment.apiBaseUrl}/users`).pipe(
-      map((res) => res['data']),
-      tap((values) => {
-        this.log('fetched users');
-        console.log('get users in service class : ', values);
-      }),
-      catchError((err) => this.handleError(err))
-    );
+    return this.http
+      .get<User[]>(`${environment.apiBaseUrl}/users`)
+      .pipe(map((res: User[]): any => res['data']));
   }
 
   /**
@@ -48,8 +43,10 @@ export class UsersService {
     return this.http
       .get<User>(`${environment.apiBaseUrl}/users/${id}/roles`)
       .pipe(
-        tap((obj) => console.log('service -> get user role: ', obj)),
-        map((res) => res)
+        tap((obj: User): void =>
+          console.log('service -> get user role: ', obj)
+        ),
+        map((res: User): User => res)
       );
   }
 
@@ -74,8 +71,9 @@ export class UsersService {
     return this.http
       .put(`${environment.apiBaseUrl}/users/${update.id}`, update)
       .pipe(
-        // tap((obj) => console.log('service -> update user : ', obj)),
-        map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS))
+        map((res: Object): any =>
+          res ? res['message'] : Message.UPDATE_SUCCESS
+        )
       );
   }
 
@@ -85,36 +83,8 @@ export class UsersService {
    * @returns Delete a franchisee
    */
   public deleteUser(id: number): Observable<string> {
-    return this.http.delete(`${environment.apiBaseUrl}/users/${id}`).pipe(
-      // tap((obj) => console.log('service -> delete : ', obj)),
-      map((res) => (res ? res['message'] : ''))
-    );
-  }
-
-  /**
-   * Returns a function that handles Http operation failures.
-   * This error handler lets the app continue to run as if no error occurred.
-   *
-   * @param operation - name of the operation that failed
-   */
-  private handleError(error: HttpErrorResponse): Observable<never> {
-    switch (error.status) {
-      case CodeHTTP.HTTP_511_NETWORK_AUTHENTICATION_REQUIRED:
-        console.log("Désolé, vous n'etes pas authentifier sur notre serveur.");
-        break;
-      case CodeHTTP.HTTP_401_UNAUTHORIZED:
-        console.log("Désolé, vous n'etes pas autorise a acceder a cette page.");
-        break;
-      case CodeHTTP.HTTP_404_NOT_FOUND:
-        console.log('Page introuvable.');
-        break;
-      default:
-        console.log('Une erreur est survenue: ', error.message);
-    }
-    return throwError(() => new Error(error.message));
-  }
-
-  private log(message: string) {
-    console.log('UsersService : ' + message);
+    return this.http
+      .delete(`${environment.apiBaseUrl}/users/${id}`)
+      .pipe(map((res: Object): any => (res ? res['message'] : '')));
   }
 }

@@ -5,11 +5,11 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { CallbackComponent } from './callback.component';
+import { AuthComponent } from './auth.component';
 
-fdescribe('CallbackComponent', () => {
-  let component: CallbackComponent;
-  let fixture: ComponentFixture<CallbackComponent>;
+fdescribe('AuthComponent', () => {
+  let component: AuthComponent;
+  let fixture: ComponentFixture<AuthComponent>;
   let store: MockStore;
   let httpTestingController: HttpTestingController;
   const initialState = { loggedIn: false };
@@ -18,12 +18,12 @@ fdescribe('CallbackComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
       providers: [provideMockStore({ initialState })],
-      declarations: [CallbackComponent],
+      declarations: [AuthComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CallbackComponent);
+    fixture = TestBed.createComponent(AuthComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore);

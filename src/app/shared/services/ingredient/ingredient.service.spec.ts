@@ -13,7 +13,7 @@ fdescribe('IngredientService', () => {
   let service: IngredientService;
   let httpTestingController: HttpTestingController;
 
-  beforeEach(() => {
+  beforeEach((): void => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [IngredientService],
@@ -22,15 +22,15 @@ fdescribe('IngredientService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => {
+  afterEach((): void => {
     httpTestingController.verify();
   });
 
-  it('should be created', () => {
+  it('should be created', (): void => {
     expect(service).toBeTruthy();
   });
 
-  describe('get all ingredient', () => {
+  describe('get all ingredient', (): void => {
     beforeEach(() => {
       service = TestBed.inject(IngredientService);
     });
