@@ -1,14 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import getPkce from 'oauth-pkce';
-import {
-  catchError,
-  firstValueFrom,
-  forkJoin,
-  merge,
-  Observable,
-  throwError,
-} from 'rxjs';
+import { catchError, firstValueFrom, Observable, throwError } from 'rxjs';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { environment } from 'src/environments/environment';
 import { AccessTokenModel } from '../../../models/access-token.model';

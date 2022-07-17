@@ -10,6 +10,8 @@ import { Schedule } from 'src/app/shared/models/schedule.model';
 import { AddressService } from 'src/app/shared/services/address/address.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
+import { User } from 'src/app/shared/models/user.model';
+import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 
 @Component({
   selector: 'app-franchisee-dialog',
@@ -58,10 +60,7 @@ export class FranchiseeDialogComponent implements OnInit {
   initForm(): void {
     this.form = this.fb.group({
       name: [this.franchisee?.name || '', [Validators.required]],
-      phone: [
-        this.franchisee?.phone || '',
-        [Validators.required, Validators.pattern('/^[0][0-9]{9}$')],
-      ],
+      phone: [this.franchisee?.phone || '', [Validators.required]],
       email: [
         this.franchisee?.email || '',
         [Validators.required, Validators.email],
@@ -70,40 +69,29 @@ export class FranchiseeDialogComponent implements OnInit {
         this.franchisee?.max_delivery_radius,
         [Validators.required],
       ],
-      address_first_line: [
-        this.franchisee?.address.first_line || '',
+      address: [this.franchisee?.address, [Validators.required]],
+      first_line: [this.franchisee?.address?.first_line, [Validators.required]],
+      second_line: [this.franchisee?.address?.second_line || ''],
+      zip_code: [
+        this.franchisee?.address?.zip_code || '',
         [Validators.required],
       ],
-      address_second_line: [this.franchisee?.address.second_line || ''],
-      address_zip_code: [
-        this.franchisee?.address.zip_code || '',
-        [Validators.required],
-      ],
-      address_city: [
-        this.franchisee?.address.city || '',
-        [Validators.required],
-      ],
-      address_country: [
-        this.franchisee?.address.country || '',
-        [Validators.required],
-      ],
+      city: [this.franchisee?.address?.city || '', [Validators.required]],
+      country: [this.franchisee?.address?.country || '', [Validators.required]],
     });
   }
 
   private getFormValues(): void {
-    // const franchisee: Franchisee = {};
-    // const address: Address = {};
-
     // if (this.mode === 'CREATE') {
     // this.franchisee.name = this.form.get(' name ').value;
     // this.franchisee.phone = this.form.get(' phone ').value;
     // this.franchisee.max_delivery_radius=this.form.value.max_delivery_radius;
     // this.franchisee.email = this.form.get(' email ').value;
-    // this.address.first_line = this.form.get(' address_first_line ').value;
-    // this.address.second_line = this.form.get(' address_second_line ').value;
-    // this.address.zip_code = this.form.get(' address_zip_code ').value;
-    // this.address.city = this.form.get(' address_city ').value;
-    // this.address.country = this.form.get(' address_country ').value;
+    // this.address.first_line = this.form.get(' first_line ').value;
+    // this.address.second_line = this.form.get(' second_line ').value;
+    // this.address.zip_code = this.form.get(' zip_code ').value;
+    // this.address.city = this.form.get(' city ').value;
+    // this.address.country = this.form.get(' country ').value;
     // }
     // else {
     // this.franchisee.id = this.franchisee.id;
@@ -112,45 +100,56 @@ export class FranchiseeDialogComponent implements OnInit {
     this.franchisee.email = this.form.value.email;
     this.franchisee.max_delivery_radius = this.form.value.max_delivery_radius;
     // this.address.id = this.address.id;
-    this.address.first_line = this.form.value.address_first_line;
-    this.address.second_line = this.form.value.address_second_line;
-    this.address.zip_code = this.form.value.address_zip_code;
-    this.address.city = this.form.value.address_city;
-    this.address.country = this.form.value.address_country;
+    this.address.first_line = this.form.value.first_line;
+    this.address.second_line = this.form.value.second_line;
+    this.address.zip_code = this.form.value.zip_code;
+    this.address.city = this.form.value.city;
+    this.address.country = this.form.value.country;
     // }
-    // this.franchisee = franchisee;
-    // this.address = address;
   }
 
   public onSubmit(): void {
-    if (this.form.valid) {
-      this.getFormValues();
-      this.loading.loadingOn();
+    console.log(
+      'create address in component : <<<<<<<<<<<<<<<<<<<<',
+      this.mode,
+      this.form.valid
+    );
+    // if (this.form.valid) {
+    console.log('truc : <<<<<<<<<<<<<<<<<<<<', this.mode);
+    this.getFormValues();
+    this.loading.loadingOn();
 
-      if (this.mode === 'UPDATE') {
-        this.update();
-      } else {
-        this.create();
-      }
+    if (this.mode === 'UPDATE') {
+      console.log('update address in component : ', this.mode);
+      this.update();
+    } else {
+      console.log('create address in component : ');
+      this.create();
     }
+    // }
   }
 
   private create(): void {
-    this.franchiseeService
-      .newFranchisee(this.franchisee)
+    this.addressService
+      .createAddress(this.address)
       .pipe(finalize(() => this.loading.loadingOff()))
-      .subscribe({
-        next: (res) => {
-          this.ref.close(res);
-          // this.franchisee = res;
-        },
-        error: (error) => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur le moment de création du franchisé.',
-            detail: error.error,
-          });
-        },
+      .subscribe((res) => {
+        this.address = res;
+        this.franchisee.address_id = res.id;
+        this.franchiseeService.newFranchisee(this.franchisee).subscribe({
+          next: (_res) => {
+            this.ref.close(_res);
+            this.franchisee = _res;
+            console.log('create franchisee in component : ', res);
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de création du franchisé.',
+              detail: error.error,
+            });
+          },
+        });
       });
   }
 

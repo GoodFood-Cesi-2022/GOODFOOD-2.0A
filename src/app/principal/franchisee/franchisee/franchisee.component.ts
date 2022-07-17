@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { finalize } from 'rxjs/operators';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { Franchisee } from 'src/app/shared/models/franchisee.model';
@@ -41,7 +40,7 @@ export class FranchiseeComponent implements OnInit {
   ref: DynamicDialogRef;
 
   franchisees: Franchisee[] = [];
-  // franchisee: Franchisee;
+  franchisee: Franchisee;
   selectedFranchisee: Franchisee[] = [];
   address: Address;
   schedule: Schedule;
@@ -77,7 +76,7 @@ export class FranchiseeComponent implements OnInit {
     this.franchiseeService
       .getFranchisees()
       .pipe(finalize((): void => this.loading.loadingOff()))
-      .subscribe((res: Franchisee[]): void => {
+      .subscribe((res): void => {
         this.franchisees = res;
         console.log('---> franchisee component --> get franchisee --> ', res);
       });
@@ -105,10 +104,10 @@ export class FranchiseeComponent implements OnInit {
     }
   }
 
-  create(): void {
+  createNewFranchisee(): void {
     const ref = this.dialogService.open(FranchiseeDialogComponent, {
       header: 'Ajouter un nouveau franchisé',
-      width: '70%',
+      width: '60%',
       styleClass: 'DynamicDialog',
       contentStyle: { 'max-height': '550px', overflow: 'auto' },
       baseZIndex: 10000,
@@ -134,7 +133,7 @@ export class FranchiseeComponent implements OnInit {
   update(franchisee: Franchisee): void {
     this.ref = this.dialogService.open(FranchiseeDialogComponent, {
       header: `${franchisee.name}`,
-      width: '70%',
+      width: '60%',
       styleClass: 'DynamicDialog',
       contentStyle: { 'max-height': '550px', overflow: 'auto' },
       data: {

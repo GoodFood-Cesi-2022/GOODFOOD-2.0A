@@ -28,5 +28,5 @@ import { PageNotFoundComponent } from '../layouts/components/page-not-found/page
   providers: [MessageService],
 })
 export class PrincipalModule {
-  // No code
+  // NOSONAR
 }
