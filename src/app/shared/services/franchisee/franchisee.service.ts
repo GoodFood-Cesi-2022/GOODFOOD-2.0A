@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap, map, Observable } from 'rxjs';
+import { tap, map, Observable, catchError, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { Message, StorageKeys } from '../../constants/constants';
@@ -9,6 +9,7 @@ import { Franchisee } from '../../models/franchisee.model';
 import { Recipe } from '../../models/recipe.model';
 import { User } from '../../models/user.model';
 import { LocalStorageService } from '../user/local-storage/local-storage.service';
+import { ErrorHttpService } from '../error-http/error-http.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +17,7 @@ import { LocalStorageService } from '../user/local-storage/local-storage.service
 export class FranchiseeService {
   constructor(
     private http: HttpClient,
+    private errorHttpService: ErrorHttpService,
     private localStorageService: LocalStorageService
   ) {
     //NOSONAR
@@ -150,7 +152,14 @@ export class FranchiseeService {
   public deleteFranchisee(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/contractors/${id}`).pipe(
       // tap((obj) => console.log('service -> deleteFranchisee : ', obj)),
-      map((res) => (res ? res['message'] : ''))
+      map((res) => (res ? res['message'] : '')),
+      catchError((httpErrorResponse) => {
+        this.errorHttpService.newErrorHttp(
+          httpErrorResponse,
+          'get all recipes'
+        );
+        return throwError(httpErrorResponse);
+      })
     );
   }
 }

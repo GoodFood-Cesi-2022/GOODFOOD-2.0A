@@ -3,7 +3,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
-import { catchError, Observable, of, tap } from 'rxjs';
+import { catchError, of, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { mockFranchisee } from '../../mock/franchisee.mock';
@@ -31,21 +31,14 @@ fdescribe('FranchiseeService', (): void => {
     expect(service).toBeTruthy();
   });
 
-  // TODO : getFranchisees()
-  // TODO : getFranchiseeRecipes()
-  // TODO : newFranchisee()
-  // TODO : addStarRecipe()
-  // TODO : updateRecipePrice()
-  // TODO : removeRecipe()
-  // delete
-  describe('should call deleteFranchisee()', (): void => {
-    beforeEach((): void => {
+  describe('should call deleteFranchisee()', () => {
+    beforeEach(() => {
       service = TestBed.inject(FranchiseeService);
     });
 
     it('should delete franchisee and return success message', () => {
       service.deleteFranchisee(mockFranchisee.id).subscribe({
-        next: (data): void =>
+        next: (data) =>
           expect(data)
             .withContext('should return the success message')
             .toEqual('204 No Content'),
@@ -58,19 +51,19 @@ fdescribe('FranchiseeService', (): void => {
       expect(req.request.method).toEqual('DELETE');
     });
 
-    it('call API & should handle errors', (): void => {
+    it('call API & should handle errors', () => {
       service
         .deleteFranchisee(mockFranchisee.id)
         .pipe(
-          catchError((error: Error): Observable<any> => {
+          catchError((error: Error) => {
             expect(error).toBeDefined();
             return of();
           }),
-          tap((_value: any): void => {
+          tap((_value) => {
             fail('next handler must not be called');
           })
         )
-        .subscribe((_response: any): void => {
+        .subscribe((_response) => {
           fail('expected to fail');
         });
 

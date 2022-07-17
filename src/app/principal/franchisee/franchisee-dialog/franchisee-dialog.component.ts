@@ -10,8 +10,6 @@ import { Schedule } from 'src/app/shared/models/schedule.model';
 import { AddressService } from 'src/app/shared/services/address/address.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
-import { User } from 'src/app/shared/models/user.model';
-import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 
 @Component({
   selector: 'app-franchisee-dialog',
@@ -82,24 +80,10 @@ export class FranchiseeDialogComponent implements OnInit {
   }
 
   private getFormValues(): void {
-    // if (this.mode === 'CREATE') {
-    // this.franchisee.name = this.form.get(' name ').value;
-    // this.franchisee.phone = this.form.get(' phone ').value;
-    // this.franchisee.max_delivery_radius=this.form.value.max_delivery_radius;
-    // this.franchisee.email = this.form.get(' email ').value;
-    // this.address.first_line = this.form.get(' first_line ').value;
-    // this.address.second_line = this.form.get(' second_line ').value;
-    // this.address.zip_code = this.form.get(' zip_code ').value;
-    // this.address.city = this.form.get(' city ').value;
-    // this.address.country = this.form.get(' country ').value;
-    // }
-    // else {
-    // this.franchisee.id = this.franchisee.id;
     this.franchisee.name = this.form.value.name;
     this.franchisee.phone = this.form.value.phone;
     this.franchisee.email = this.form.value.email;
     this.franchisee.max_delivery_radius = this.form.value.max_delivery_radius;
-    // this.address.id = this.address.id;
     this.address.first_line = this.form.value.first_line;
     this.address.second_line = this.form.value.second_line;
     this.address.zip_code = this.form.value.zip_code;
@@ -109,13 +93,7 @@ export class FranchiseeDialogComponent implements OnInit {
   }
 
   public onSubmit(): void {
-    console.log(
-      'create address in component : <<<<<<<<<<<<<<<<<<<<',
-      this.mode,
-      this.form.valid
-    );
     // if (this.form.valid) {
-    console.log('truc : <<<<<<<<<<<<<<<<<<<<', this.mode);
     this.getFormValues();
     this.loading.loadingOn();
 

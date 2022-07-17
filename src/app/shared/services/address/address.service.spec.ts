@@ -41,7 +41,7 @@ fdescribe('AddressService', () => {
     });
 
     it('should return new address', (): void => {
-      service.createAddress(mockAddress).subscribe((data: string): void => {
+      service.createAddress(mockAddress).subscribe((data): void => {
         expect(data).toEqual(data);
       });
 
@@ -63,11 +63,11 @@ fdescribe('AddressService', () => {
             expect(error).toBeDefined();
             return of();
           }),
-          tap((_value: string): void => {
+          tap((_value): void => {
             fail('next handler must not be called');
           })
         )
-        .subscribe((_response: string): void => {
+        .subscribe((_response): void => {
           fail('expected to fail');
         });
 

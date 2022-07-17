@@ -134,7 +134,7 @@ export class RecipeService {
           httpErrorResponse,
           'get all recipes'
         );
-        return throwError(() => new Error(httpErrorResponse));
+        return throwError(httpErrorResponse);
       })
     );
   }
