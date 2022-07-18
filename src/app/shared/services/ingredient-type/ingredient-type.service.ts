@@ -5,7 +5,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IngreType } from '../../models/ingredient-type.model';
 import { ErrorHttpService } from '../error-http/error-http.service';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +32,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'get all ingredient-types'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }
@@ -53,7 +53,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'create ingredient-type'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }
@@ -72,7 +72,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'update ingredient-type'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }
@@ -93,7 +93,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'delete ingredient-type'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }

@@ -13,9 +13,10 @@ import {
   mockRecipeArray,
 } from '../../mock/recipe.mock';
 import { mockRecipeTypeArray } from '../../mock/recipe-type.mock';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 import { mockIngredientArray } from '../../mock/ingredients.mock';
 import { picture1 } from '../../mock/picture.mock';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 
 // https://angular.io/guide/testing-services
 fdescribe('RecipeService (with mocks)', () => {
@@ -66,7 +67,7 @@ fdescribe('RecipeService (with mocks)', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/recipes?includes[]=pictures`
       );
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe(_HttpRequest.GET);
       // Respond with the mock recipes
       req.flush({ message: 'Success', data: mockRecipeArray });
     });
@@ -91,7 +92,7 @@ fdescribe('RecipeService (with mocks)', () => {
         `${environment.apiBaseUrl}/recipes?includes[]=pictures`
       );
 
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -114,7 +115,7 @@ fdescribe('RecipeService (with mocks)', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}`
       );
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe(_HttpRequest.GET);
       // Respond with the mock recipes
       req.flush(mockRecipe1);
     });
@@ -134,7 +135,7 @@ fdescribe('RecipeService (with mocks)', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/recipes/types`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock recipe-type
       req.flush(mockRecipeTypeArray);
@@ -160,7 +161,7 @@ fdescribe('RecipeService (with mocks)', () => {
         `${environment.apiBaseUrl}/recipes/types`
       );
 
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -179,7 +180,7 @@ fdescribe('RecipeService (with mocks)', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/recipes`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       // Respond with the mock recipe
       req.flush(mockRecipe2);
@@ -205,7 +206,7 @@ fdescribe('RecipeService (with mocks)', () => {
         `${environment.apiBaseUrl}/recipes`
       );
 
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -224,7 +225,7 @@ fdescribe('RecipeService (with mocks)', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
 
       // Respond with the mock recipe
       req.flush({ message: Message.UPDATE_SUCCESS });
@@ -250,7 +251,7 @@ fdescribe('RecipeService (with mocks)', () => {
         `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}`
       );
 
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -272,7 +273,7 @@ fdescribe('RecipeService (with mocks)', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.flush({ message: Message.DELETE });
     });
 
@@ -296,7 +297,7 @@ fdescribe('RecipeService (with mocks)', () => {
         `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}`
       );
 
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -319,7 +320,7 @@ fdescribe('RecipeService (with mocks)', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/recipes/${mockRecipe1.id}/ingredients`
       );
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe(_HttpRequest.GET);
       // Respond with the mock recipes
       req.flush(mockIngredientArray);
     });
@@ -347,7 +348,7 @@ fdescribe('RecipeService (with mocks)', () => {
 
       formData.append('name', picture1.name);
       formData.append('filename', <string>(<unknown>picture1));
-      expect(req.request.method).toBe('POST');
+      expect(req.request.method).toBe(_HttpRequest.POST);
       expect(req.request.body).toEqual(formData);
       // Respond with the mock recipes
       req.flush({ message: Message.UPDATE });
@@ -374,7 +375,7 @@ fdescribe('RecipeService (with mocks)', () => {
       );
       const formData = new FormData();
       formData.append('file_uuid', picture1.uuid);
-      expect(req.request.method).toBe('POST');
+      expect(req.request.method).toBe(_HttpRequest.POST);
       expect(req.request.body).toEqual(formData);
       // Respond with the mock recipes
       req.flush({ message: Message.UPDATE });

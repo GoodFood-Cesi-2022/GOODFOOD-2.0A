@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 import { catchError, of, tap, Observable } from 'rxjs';
 import { HttpResponse } from '@angular/common/http';
 import { mockUser1 } from '../../mock/users.mock';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 
 fdescribe('AddressService', () => {
   let service: AddressService;
@@ -46,7 +47,7 @@ fdescribe('AddressService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}/addresses`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       expect(req.request.body).toEqual(null);
 
@@ -80,7 +81,7 @@ fdescribe('AddressService', () => {
         `${environment.apiBaseUrl}/users/${mockUser1.id}/addresses`
       );
 
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -100,7 +101,7 @@ fdescribe('AddressService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/addresses`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       // Respond with the mock address
       req.flush(mockAddress);
@@ -126,7 +127,7 @@ fdescribe('AddressService', () => {
         `${environment.apiBaseUrl}/addresses`
       );
 
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -148,7 +149,7 @@ fdescribe('AddressService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/addresses/${mockAddress.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       expect(req.request.body).toEqual(mockAddress);
 
       const expectedResponse = new HttpResponse({
@@ -178,7 +179,7 @@ fdescribe('AddressService', () => {
         `${environment.apiBaseUrl}/addresses/${mockAddress.id}`
       );
 
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -201,7 +202,7 @@ fdescribe('AddressService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/addresses/${mockAddress.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
 
       const expectedResponse = new HttpResponse({
         status: 204,
@@ -230,7 +231,7 @@ fdescribe('AddressService', () => {
         `${environment.apiBaseUrl}/addresses/${mockAddress.id}`
       );
 
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });

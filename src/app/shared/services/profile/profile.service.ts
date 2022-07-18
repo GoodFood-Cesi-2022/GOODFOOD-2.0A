@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Roles } from '../../constants/role.const';
 import { User } from '../../models/user.model';
-import { Roles } from 'src/app/shared/constants/constants';
 
 @Injectable({
   providedIn: 'root',

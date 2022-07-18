@@ -5,6 +5,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 import {
   mockUserWithAuth,
   mockUserAuth,
@@ -55,7 +56,7 @@ fdescribe('ProfileService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/current?includes[]=roles`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock ingredients
       req.flush(mockUserAuth);
@@ -102,7 +103,7 @@ fdescribe('ProfileService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
 
       // Respond with the mock ingredients
       req.flush(mockUser1);
