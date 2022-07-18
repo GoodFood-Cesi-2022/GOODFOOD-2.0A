@@ -83,7 +83,8 @@ export class FranchiseeDialogComponent implements OnInit {
 
   private getFormValues(): void {
     if (this.mode === 'UPDATE') {
-      this.franchisee.address.id = this.franchisee.address.id;
+     // this.franchisee.address_id = this.franchisee.address.id;
+
     }
     this.franchisee.name = this.form.value.name;
     this.franchisee.phone = this.form.value.phone;
@@ -106,7 +107,6 @@ export class FranchiseeDialogComponent implements OnInit {
     } else {
       console.log('create address in component : ');
       this.create();
-      // this.franchiseeArray = [...this.franchiseeArray];
     }
   }
 

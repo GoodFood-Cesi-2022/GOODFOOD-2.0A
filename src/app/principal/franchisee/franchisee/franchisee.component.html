@@ -20,7 +20,7 @@
           class="p-button-raised p-button-success p-button-text p-mr-3" (click)="createNewFranchisee()"></button>
       </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="franchisees" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'email']"
+    <p-table #dt [value]="franchisees" [rows]="10" [paginator]="true" [globalFilterFields]="['name', 'email']" [resizableColumns]="true"
       [(selection)]="selectedFranchisee" [rowHover]="true" dataKey="id"
       currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} franchisés"
       [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50, 100]" [(first)]="first" sortField="name">
