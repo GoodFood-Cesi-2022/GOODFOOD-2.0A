@@ -3,29 +3,12 @@
   <div class="grid p-fluid formgrid mt-5">
     <div class="field mb-5 col-12 md:col-4">
       <label for="name">Nom de franchisé</label>
-      <input
-        inputId="name"
-        type="text"
-        pInputText
-        formControlName="name"
-        placeholder="Chez Tom"
-        required
-      />
-      <!-- <small
-        id="nameFor-help"
-        class="p-invalid"
-        *ngIf="checkError('name', 'required')"
-        >Champ obligatoire</small
-      > -->
+      <input inputId="name" type="text" pInputText formControlName="name" placeholder="Chez Tom" required autofocus />
+      <small id="nameFor-help" class="p-invalid" *ngIf="submitted && franchisee.name">Champ obligatoire</small>
     </div>
     <div class="field mb-5 col-12 md:col-3">
       <label for="phone">Numéro de téléphone</label>
-      <input
-        inputId="phone"
-        pInputText
-        formControlName="phone"
-        placeholder="04 76 11 00 00"
-      />
+      <input inputId="phone" pInputText formControlName="phone" placeholder="04 76 11 00 00" [required]="true" />
       <!-- <small
         id="ingreFor-help"
         class="p-invalid"
@@ -35,14 +18,7 @@
     </div>
     <div class="field mb-5 col-12 md:col-5">
       <label for="email">Email</label>
-      <input
-        inputId="email"
-        type="email"
-        pInputText
-        formControlName="email"
-        placeholder="tom@example.com"
-        required
-      />
+      <input inputId="email" type="email" pInputText formControlName="email" placeholder="tom@example.com" required />
       <!-- <small
         id="ingreFor-help"
         class="p-invalid"
@@ -53,66 +29,31 @@
   </div>
   <div class="grid p-fluid formgrid">
     <div class="field mb-5 col-12 md:col-5">
-      <label for="line1">Ligne 1</label>
-      <input
-        inputId="line1"
-        type="text"
-        pInputText
-        formControlName="first_line"
-        placeholder="1 rue charles"
-      />
+      <label for="first_line">Ligne 1</label>
+      <input inputId="first_line" type="text" pInputText formControlName="first_line" placeholder="1 rue charles" />
     </div>
     <div class="field mb-5 col-12 md:col-5">
-      <label for="line2">Ligne 2</label>
-      <input
-        inputId="line2"
-        type="text"
-        pInputText
-        formControlName="second_line"
-        placeholder=""
-      />
+      <label for="second_line">Ligne 2</label>
+      <input inputId="second_line" type="text" pInputText formControlName="second_line" placeholder="" />
     </div>
     <div class="field mb-5 col-12 md:col-2">
-      <label for="zip">Code postal</label>
-      <input
-        inputId="zip"
-        type="text"
-        pInputText
-        formControlName="zip_code"
-        placeholder="38000"
-      />
+      <label for="zip_code">Code postal</label>
+      <input inputId="zip_code" type="text" pInputText formControlName="zip_code" placeholder="38000" />
     </div>
   </div>
   <div class="grid p-fluid formgrid">
     <div class="field mb-5 col-12 md:col-4">
       <label for="city">Ville</label>
-      <input
-        inputId="city"
-        type="text"
-        pInputText
-        formControlName="city"
-        placeholder="Grenoble"
-      />
+      <input inputId="city" type="text" pInputText formControlName="city" placeholder="Grenoble" />
     </div>
     <div class="field mb-5 col-12 md:col-4">
       <label for="country">Pays</label>
-      <input
-        inputId="country"
-        type="text"
-        pInputText
-        formControlName="country"
-        placeholder="France"
-      />
+      <input inputId="country" type="text" pInputText formControlName="country" placeholder="France" />
     </div>
     <div class="field mb-5 col-12 md:col-4">
       <label for="integeronly">Zone de livraison</label>
-      <p-inputNumber
-        inputId="integeronly"
-        [allowEmpty]="false"
-        [useGrouping]="false"
-        mode="decimal"
-        formControlName="max_delivery_radius"
-      >
+      <p-inputNumber inputId="integeronly" [allowEmpty]="false" [useGrouping]="false" mode="decimal"
+        formControlName="max_delivery_radius">
       </p-inputNumber>
       <!-- <small
         id="ingreFor-help"
@@ -123,21 +64,9 @@
     </div>
   </div>
   <div class="field col-12 md:col-12 mt-4">
-    <button
-      pRipple
-      pButton
-      type="button"
-      (click)="onClose()"
-      label="Annuler"
-      class="p-button-outlined p-button-danger pr-5 pl-5 mr-2"
-    ></button>
-    <button
-      pRipple
-      pButton
-      type="button"
-      (click)="onSubmit()"
-      label="Confirmer"
-      class="p-button-outlined p-button-success mr-3 pr-5 pl-5"
-    ></button>
+    <button pRipple pButton type="button" (click)="onClose()" label="Annuler"
+      class="p-button-outlined p-button-danger pr-5 pl-5 mr-2"></button>
+    <button pRipple pButton type="button" (click)="onSubmit()" label="Confirmer"
+      class="p-button-outlined p-button-success mr-3 pr-5 pl-5"></button>
   </div>
 </ng-container>
