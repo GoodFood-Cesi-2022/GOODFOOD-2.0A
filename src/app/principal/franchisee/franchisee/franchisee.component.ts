@@ -60,8 +60,6 @@ export class FranchiseeComponent implements OnInit {
 
   constructor(
     private franchiseeService: FranchiseeService,
-    private addressService: AddressService,
-    private scheduleService: ScheduleService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
@@ -78,7 +76,6 @@ export class FranchiseeComponent implements OnInit {
       .pipe(finalize((): void => this.loading.loadingOff()))
       .subscribe((res): void => {
         this.franchisees = res;
-        console.log('---> franchisee component --> get franchisee --> ', res);
       });
   }
 
@@ -190,169 +187,4 @@ export class FranchiseeComponent implements OnInit {
       },
     });
   }
-
-  // onSubmit(): void {
-  //   this.submitted = true;
-  // this.getFormValues();
-
-  // if(this.franchisee.id) {
-  //   this.franchiseeService.
-  // }
-  // }
-
-  // onDelete(franchisee: Franchisee): void {
-  //   this.confirmationService.confirm({
-  //     message:
-  //       ' Etes - vous sûre de vouloir supprimer "' +
-  //       franchisee.name +
-  //       ' ' +
-  //       this.address.first_line +
-  //       this.address.second_line +
-  //       this.address.zip_code +
-  //       this.address.city +
-  //       this.address.country +
-  //       '" ? ',
-  //     header: ' Confirm ',
-  //     icon: ' pi pi - exclamation - triangle ',
-  //     acceptButtonStyleClass: ' accept ',
-  //     accept: (): void => {
-  //       this.franchiseeService.deleteFranchisee(franchisee.id).subscribe({
-  //         next: () => {
-  //           TODO check line 181 and verify if it does work in INGREDIENT, INGREDIENT_TYPE also
-  //           this.franchisee = {};
-  //           this.franchisees = [...this.franchisees];
-  //           this.messageService.add({
-  //             severity: ' success ',
-  //             summary: ' Succès ',
-  //             detail: ' Utilisateur est supprimé.',
-  //             life: 3000,
-  //           });
-  //         },
-  //         error: (error) => {
-  //           this.messageService.add({
-  //             severity: ' error ',
-  //             summary: ' Erreur le moment de suppression ! ',
-  //             detail: error.error,
-  //           });
-  //           console.log(
-  //             "erreur le moment de création de l' ingrédient->",
-  //             error
-  //           );
-  //         },
-  //       });
-  //     },
-  //   });
-  // }
-
-  // initSchedule(): void {
-  //  TODO code here
-  // }
-
-  // newSchedule() {
-  // this.schedule={};
-  //   this.submitted = false;
-  //   this.scheduleDialog = true;
-  // }
-
-  // hideDialog(): void {
-  //   this.contactDialog = false;
-  //   this.submitted = false;
-  // }
-  // initForm(): void {
-  //   this.form = this.fb.group({
-  //     name: [this.franchisee?.name || '', [Validators.required]],
-  //     phone: [
-  //       this.franchisee?.phone || '',
-  //       [Validators.required, Validators.pattern('/^[0][0-9]{9}$')],
-  //     ],
-  //     email: [
-  //       this.franchisee?.email || '',
-  //       [Validators.required, Validators.email],
-  //     ],
-  //     max_delivery_radius: [
-  //       this.franchisee?.max_delivery_radius,
-  //       [Validators.required],
-  //     ],
-  //     address_first_line: [
-  //       this.franchisee?.address.first_line || '',
-  //       [Validators.required],
-  //     ],
-  //     address_second_line: [this.franchisee?.address.second_line || ''],
-  //     address_zip_code: [
-  //       this.franchisee?.address.zip_code || '',
-  //       [Validators.required],
-  //     ],
-  //     address_city: [
-  //       this.franchisee?.address.city || '',
-  //       [Validators.required],
-  //     ],
-  //     address_country: [
-  //       this.franchisee?.address.country || '',
-  //       [Validators.required],
-  //     ],
-  //   });
-  // }
-
-  // private getFormValues(): void {
-  //   const franchisee: Franchisee = {};
-  //   const address: Address = {};
-
-  //   if (this.isCreate) {
-  //     franchisee.name = this.form.get(' name ').value;
-  //     franchisee.phone = this.form.get(' phone ').value;
-  //     franchisee.email = this.form.get(' email ').value;
-  //     franchisee.max_delivery_radius = this.form.get(
-  //       ' max_delivery_radius '
-  //     ).value;
-  //     address.first_line = this.form.get(' address_first_line ').value;
-  //     address.second_line = this.form.get(' address_second_line ').value;
-  //     address.zip_code = this.form.get(' address_zip_code ').value;
-  //     address.city = this.form.get(' address_city ').value;
-  //     address.country = this.form.get(' address_country ').value;
-  //   } else {
-  //     franchisee.id = this.franchisee.id;
-  //     franchisee.name = this.form.get(' name ').value;
-  //     franchisee.phone = this.form.get(' phone ').value;
-  //     franchisee.email = this.form.get(' email ').value;
-  //     franchisee.max_delivery_radius = this.form.get(
-  //       ' max_delivery_radius '
-  //     ).value;
-  //     address.id = this.address.id;
-  //     address.first_line = this.form.get(' address_first_line ').value;
-  //     address.second_line = this.form.get(' address_second_line ').value;
-  //     address.zip_code = this.form.get(' address_zip_code ').value;
-  //     address.city = this.form.get(' address_city ').value;
-  //     address.country = this.form.get(' address_country ').value;
-  //   }
-  //   this.franchisee = franchisee;
-  //   this.address = address;
-  // }
-
-  // newFranchisee(): void {
-  //   this.franchisee = {};
-  //   this.address = {};
-  //   this.isCreate = true;
-  //   this.initForm();
-  //   this.submitted = false;
-  //   this.contactDialog = true;
-  // }
-
-  // updateFranchisee(franchisee: Franchisee): void {
-  //   this.franchisee = { ...franchisee };
-  //   this.isCreate = false;
-  //   this.initForm();
-  //   this.submitted = false;
-  //   this.contactDialog = true;
-  // }
-  // init(): void {
-  //   /* retrieve franchisees */
-  //   this.loading.loadingOn();
-  //   this.franchiseeService
-  //     .getFranchisees()
-  //     .pipe(finalize((): void => this.loading.loadingOff()))
-  //     .subscribe((res: Franchisee[]): void => {
-  //       this.franchisees = res;
-  //       console.log('---> franchisee component --> get franchisee --> ', res);
-  //     });
-  // }
 }

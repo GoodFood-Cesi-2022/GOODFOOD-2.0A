@@ -49,7 +49,6 @@ export class FranchiseeDialogComponent implements OnInit {
       .getFranchisees()
       .subscribe((data: Franchisee[]): void => {
         this.franchiseeArray = data;
-        console.log('-----------> franchisee dialog --> ', data);
       });
 
     this.initForm();
@@ -80,20 +79,21 @@ export class FranchiseeDialogComponent implements OnInit {
   }
 
   private getFormValues(): void {
+    if (this.mode === 'UPDATE') {
+      this.franchisee.address.id = this.franchisee.address.id;
+    }
     this.franchisee.name = this.form.value.name;
     this.franchisee.phone = this.form.value.phone;
     this.franchisee.email = this.form.value.email;
     this.franchisee.max_delivery_radius = this.form.value.max_delivery_radius;
-    this.address.first_line = this.form.value.first_line;
-    this.address.second_line = this.form.value.second_line;
-    this.address.zip_code = this.form.value.zip_code;
-    this.address.city = this.form.value.city;
-    this.address.country = this.form.value.country;
-    // }
+    this.franchisee.address.first_line = this.form.value.first_line;
+    this.franchisee.address.second_line = this.form.value.second_line;
+    this.franchisee.address.zip_code = this.form.value.zip_code;
+    this.franchisee.address.city = this.form.value.city;
+    this.franchisee.address.country = this.form.value.country;
   }
 
   public onSubmit(): void {
-    // if (this.form.valid) {
     this.getFormValues();
     this.loading.loadingOn();
 
@@ -103,24 +103,23 @@ export class FranchiseeDialogComponent implements OnInit {
     } else {
       console.log('create address in component : ');
       this.create();
+      // this.franchiseeArray = [...this.franchiseeArray];
     }
-    // }
   }
 
   private create(): void {
     this.addressService
       .createAddress(this.address)
-      .pipe(finalize(() => this.loading.loadingOff()))
-      .subscribe((res) => {
+      .pipe(finalize((): void => this.loading.loadingOff()))
+      .subscribe((res): void => {
         this.address = res;
         this.franchisee.address_id = res.id;
         this.franchiseeService.newFranchisee(this.franchisee).subscribe({
-          next: (_res) => {
+          next: (_res): void => {
             this.ref.close(_res);
             this.franchisee = _res;
-            console.log('create franchisee in component : ', res);
           },
-          error: (error) => {
+          error: (error): void => {
             this.messageService.add({
               severity: 'error',
               summary: 'Erreur le moment de création du franchisé.',
@@ -132,18 +131,26 @@ export class FranchiseeDialogComponent implements OnInit {
   }
 
   private update(): void {
-    this.franchiseeService.updateFranchisee(this.franchisee).subscribe({
-      next: (res) => {
-        this.ref.close(res);
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erreur le moment de modification du franchisé.',
-          detail: error.error,
+    this.address = this.franchisee.address;
+    this.address.id = this.franchisee.address_id;
+
+    this.addressService
+      .updateAddress(this.address)
+      .pipe(finalize((): void => this.loading.loadingOff()))
+      .subscribe((res): void => {
+        this.franchiseeService.updateFranchisee(this.franchisee).subscribe({
+          next: (res) => {
+            this.ref.close(res);
+          },
+          error: (error) => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur le moment de modification du franchisé.',
+              detail: error.error,
+            });
+          },
         });
-      },
-    });
+      });
   }
 
   public onClose(): void {

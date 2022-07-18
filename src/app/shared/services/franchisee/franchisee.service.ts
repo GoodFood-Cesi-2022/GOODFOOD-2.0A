@@ -31,7 +31,7 @@ export class FranchiseeService {
     return this.http
       .get<Franchisee[]>(`${environment.apiBaseUrl}/contractors`)
       .pipe(
-        tap((obj: any) => console.log('service -> edit franchisee : ', obj)),
+        tap((obj: any) => console.log('service -> get franchisees : ', obj)),
         map((res: any) => res['data'])
       );
   }
@@ -70,13 +70,8 @@ export class FranchiseeService {
     return this.http
       .post(`${environment.apiBaseUrl}/contractors`, franchisee)
       .pipe(
-        tap((obj: any) =>
-          console.log(
-            '******************* service ******************* -> new franchisee : ',
-            obj
-          )
-        ),
-        map((res: any) => res)
+        tap((obj) => console.log(' service -> new franchisee : ', obj)),
+        map((res) => res)
       );
   }
 
@@ -87,8 +82,8 @@ export class FranchiseeService {
    */
   public updateFranchisee(update: Partial<Franchisee>): Observable<Franchisee> {
     return this.http.put(`${environment.apiBaseUrl}/contractors`, update).pipe(
-      // tap((obj: any) => console.log('service -> edit franchisee : ', obj)),
-      map((res: any) => res)
+      tap((obj) => console.log('service -> edit franchisee : ', obj)),
+      map((res) => res)
     );
   }
 
@@ -151,7 +146,7 @@ export class FranchiseeService {
    */
   public deleteFranchisee(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/contractors/${id}`).pipe(
-      // tap((obj) => console.log('service -> deleteFranchisee : ', obj)),
+      tap((obj) => console.log('service -> delete Franchisee : ', obj)),
       map((res) => (res ? res['message'] : '')),
       catchError((httpErrorResponse) => {
         this.errorHttpService.newErrorHttp(
