@@ -66,7 +66,7 @@ export class IngredientTypeService {
     return this.http
       .put(`${environment.apiBaseUrl}/ingredients/types/${update.id}`, update)
       .pipe(
-        map((data) => (data ? data['message'] : Message.UPDATE_SUCCESS)),
+        map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS)),
         catchError((httpErrorResponse) => {
           this.errorHttpService.newErrorHttp(
             httpErrorResponse,
@@ -87,7 +87,7 @@ export class IngredientTypeService {
     return this.http
       .delete(`${environment.apiBaseUrl}/ingredients/types/${id}`)
       .pipe(
-        map((res) => (res ? res['message'] : '')),
+        map((res) => (res ? res['message'] : Message.DELETE)),
         catchError((httpErrorResponse) => {
           this.errorHttpService.newErrorHttp(
             httpErrorResponse,

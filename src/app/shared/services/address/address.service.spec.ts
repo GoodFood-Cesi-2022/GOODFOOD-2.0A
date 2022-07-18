@@ -93,7 +93,7 @@ fdescribe('AddressService', () => {
 
     it('should return new address', (): void => {
       service.createAddress(mockAddress).subscribe((data): void => {
-        expect(data).toEqual(data);
+        expect(data).toEqual(mockAddress);
       });
 
       // AddressService should have made one request to POST address from URL

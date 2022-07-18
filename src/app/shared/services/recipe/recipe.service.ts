@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 import { Message } from '../../constants/constants';
 import { ErrorHttpService } from '../error-http/error-http.service';
 import { RecipeType } from '../../models/recipe-type.model';
+import { Ingredient } from '../../models/ingredient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -54,10 +55,10 @@ export class RecipeService {
    * @param id recipe_id
    * @returns all ingredients of a recipe
    */
-  public getIngredientsByRecipeId(id: number): Observable<Recipe[]> {
+  public getIngredientsByRecipeId(id: number): Observable<Ingredient[]> {
     return this.http
-      .get(`${environment.apiBaseUrl}/recipes/${id}/ingredients`)
-      .pipe(map((res) => (res ? res['message'] : '')));
+      .get<Ingredient[]>(`${environment.apiBaseUrl}/recipes/${id}/ingredients`)
+      .pipe(map((res) => res));
   }
 
   /**
@@ -128,7 +129,7 @@ export class RecipeService {
    */
   public deleteRecipe(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/recipes/${id}`).pipe(
-      map((res) => (res ? res['message'] : '')),
+      map((res) => (res ? res['message'] : Message.DELETE)),
       catchError((httpErrorResponse) => {
         this.errorHttpService.newErrorHttp(
           httpErrorResponse,
@@ -148,7 +149,7 @@ export class RecipeService {
    * @param picture
    * @returns
    */
-  public uploadPicture(picture): Observable<Picture> {
+  public uploadPicture(picture): Observable<any> {
     const formData = new FormData();
 
     formData.append('name', picture.name);
@@ -170,6 +171,6 @@ export class RecipeService {
     formData.append('file_uuid', picture.uuid);
     return this.http
       .post(`${environment.apiBaseUrl}/recipes/${recipe.id}/pictures`, formData)
-      .pipe(map((res) => (res ? res['message'] : '')));
+      .pipe(map((res) => (res ? res['message'] : Message.UPDATE)));
   }
 }

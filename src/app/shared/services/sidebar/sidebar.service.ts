@@ -2,10 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../../models/user.model';
 import { AuthService } from '../user/auth/auth.service';
-
-const PAYLOAD = 'payload';
 
 @Injectable({
   providedIn: 'root',
@@ -23,12 +20,6 @@ export class SidebarService {
 
   public open(display: boolean): void {
     this.subject.next(display);
-  }
-
-  public getProfile(details: number): Observable<User> {
-    return this.http
-      .get(`${environment.apiBaseUrl}/${details}`)
-      .pipe(map((res: any) => res[PAYLOAD]));
   }
 
   getUsers() {

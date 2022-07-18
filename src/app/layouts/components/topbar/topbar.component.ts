@@ -31,17 +31,18 @@ export class TopbarComponent implements OnInit {
   }
 
   private loadAppUser(): void {
-    this.store.pipe(select(selectUserDetails)).subscribe(
-      (user) => {
+    this.store.pipe(select(selectUserDetails)).subscribe({
+      next: (user) => {
         if (user == null) {
           this.store.dispatch(UserActions.loadUser());
         } else {
           this.user = user;
         }
       },
-      (err) =>
-        console.log('TOPBAR COMPONENT > STORE > loadAppUser > error: ', err)
-    );
+      error: (error: any): void => {
+        console.log('topbar -> store -> loadUser -> error : ', error);
+      },
+    });
   }
 
   public openSidebar(): void {

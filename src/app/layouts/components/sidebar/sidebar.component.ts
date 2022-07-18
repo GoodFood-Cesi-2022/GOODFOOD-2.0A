@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { EndPoints } from 'src/app/shared/constants/constants';
+
 import { User } from 'src/app/shared/models/user.model';
 import { SidebarService } from 'src/app/shared/services/sidebar/sidebar.service';
 import { AppState } from 'src/app/shared/store/store.reducer';
 import { selectUserDetails } from 'src/app/shared/store/state/user/user.selector';
+import { EndPoints } from 'src/app/shared/constants/endpoints.const';
 
 @Component({
   selector: 'app-sidebar',

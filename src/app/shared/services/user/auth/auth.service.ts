@@ -7,8 +7,9 @@ import { environment } from 'src/environments/environment';
 import { AccessTokenModel } from '../../../models/access-token.model';
 import { User } from '../../../models/user.model';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { Roles, StorageKeys } from 'src/app/shared/constants/constants';
+import { Roles } from 'src/app/shared/constants/constants';
 import { map, tap } from 'rxjs/operators';
+import { StorageKeys } from 'src/app/shared/constants/storageKeys.const';
 
 @Injectable({
   providedIn: 'root',
