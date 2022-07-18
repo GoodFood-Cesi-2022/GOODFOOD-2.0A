@@ -1,6 +1,6 @@
 import { Schedule } from '../models/schedule.model';
 
-const mockSchedule1: Schedule = {
+const mockSchedule: Schedule = {
   monday: {
     lunch: {
       opened_at: 'string',
@@ -73,4 +73,4 @@ const mockSchedule1: Schedule = {
   },
 };
 
-export { mockSchedule1 };
+export { mockSchedule };

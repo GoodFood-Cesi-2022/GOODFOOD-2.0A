@@ -1,20 +1,21 @@
-import { Franchisee } from 'src/app/shared/models/franchisee.model';
 import { TestBed } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { HttpResponse } from '@angular/common/http';
+import { catchError, of, tap } from 'rxjs';
 
-import { Schedule } from '../../models/schedule.model';
 import { ScheduleService } from './schedule.service';
 import { environment } from 'src/environments/environment';
-import { mockSchedule1 } from '../../mock/schedule.mock';
+import { mockSchedule } from '../../mock/schedule.mock';
+import { mockFranchisee } from '../../mock/franchisee.mock';
 
 fdescribe('ScheduleService', () => {
   let service: ScheduleService;
   let httpTestingController: HttpTestingController;
 
-  beforeEach(() => {
+  beforeEach((): void => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [ScheduleService],
@@ -23,7 +24,7 @@ fdescribe('ScheduleService', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  afterEach(() => {
+  afterEach((): void => {
     httpTestingController.verify();
   });
 
@@ -31,154 +32,125 @@ fdescribe('ScheduleService', () => {
     expect(service).toBeTruthy();
   });
 
-  describe('get all schedules', () => {
+  describe('get schedule', () => {
     beforeEach(() => {
       service = TestBed.inject(ScheduleService);
     });
 
-    it('should return schedule (called once)', () => {
-      const franchisee_id: Franchisee = { id: 1 };
-      service.getSchedule(franchisee_id).subscribe({
+    it('should return schedule', () => {
+      service.getSchedule(mockFranchisee).subscribe({
         next: (values) =>
           expect(values)
-            .withContext('should return all schedule')
-            .toEqual(mockSchedule1),
+            .withContext('should return schedule')
+            .toEqual(mockSchedule),
         error: fail,
       });
 
-      // ScheduleService should have made one request to GET schedule from URL
       const req = httpTestingController.expectOne(
-        `${environment.apiBaseUrl}/contractors/1/times`
+        `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
       expect(req.request.method).toEqual('GET');
 
       // Respond with the mock schedule
-      req.flush(mockSchedule1);
+      req.flush(mockSchedule);
+    });
+  });
+
+  // create
+  describe('should call createSchedule()', (): void => {
+    beforeEach((): void => {
+      service = TestBed.inject(ScheduleService);
     });
 
-    // it('should be OK returning no schedule', () => {
-    //   const franchisee_id: Franchisee = { id: 1 };
-    //   service.getSchedule(franchisee_id).subscribe({
-    //     next: (values) =>
-    //       expect(values.friday.lunch.closed_at.length)
-    //         .withContext('should have empty schedule array')
-    //         .toEqual(0),
-    //     error: fail,
-    //   });
+    it('should return new schedule', (): void => {
+      service
+        .createSchedule(mockFranchisee, mockSchedule)
+        .subscribe((data): void => {
+          expect(data).toEqual(data);
+        });
 
-    //   const req = httpTestingController.expectOne(
-    //     `${environment.apiBaseUrl}/contractors/1/times`
-    //   );
-    //   req.flush({}); // Respond with no schedule
-    // });
-
-    it('should turn 404 into a user-friendly error', () => {
-      const msg = '404 Not Found';
-      const franchisee_id: Franchisee = { id: 1 };
-      service.getSchedule(franchisee_id).subscribe({
-        next: (_values) => fail('expected to fail'),
-        error: (error) => expect(error.message).toContain(msg),
-      });
       const req = httpTestingController.expectOne(
-        `${environment.apiBaseUrl}/contractors/1/times`
+        `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
+      );
+      expect(req.request.method).toEqual('POST');
+
+      // Respond with the mock schedule
+      req.flush(mockSchedule);
+    });
+
+    it('call API & should handle errors', (): void => {
+      service
+        .createSchedule(mockFranchisee, mockSchedule)
+        .pipe(
+          catchError((error: Error) => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_value): void => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response): void => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
 
-      // respond with a 404 and the error message in the body
-      req.flush(msg, { status: 404, statusText: 'Not Found' });
+      expect(req.request.method).toEqual('POST');
+      req.error(new ProgressEvent('TEST_ERROR'));
+    });
+  });
+
+  // update
+  describe('should call updateSchedule()', (): void => {
+    beforeEach((): void => {
+      service = TestBed.inject(ScheduleService);
     });
 
-    it('should return schedule (called multiple times)', () => {
-      const franchisee_id: Franchisee = { id: 1 };
-      service.getSchedule(franchisee_id).subscribe();
-      service.getSchedule(franchisee_id).subscribe();
-      service.getSchedule(franchisee_id).subscribe({
-        next: (values) =>
-          expect(values)
-            .withContext('should return schedule')
-            .toEqual(mockSchedule1),
+    it('should update schedule and return success message', (): void => {
+      service.updateSchedule(mockFranchisee, mockSchedule).subscribe({
+        next: (data): void =>
+          expect(data).withContext('should return the message').toEqual(data),
         error: fail,
       });
 
-      const requests = httpTestingController.match(
-        `${environment.apiBaseUrl}/contractors/1/times`
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
-      expect(requests.length).withContext('calls to schedule()').toEqual(3);
+      expect(req.request.method).toEqual('PUT');
+      expect(req.request.body).toEqual(mockSchedule);
 
-      // Respond to each request with different mock hero results
-      requests[0].flush({});
-      requests[1].flush({
-        monday: {
-          lunch: {
-            opened_at: 'close',
-            closed_at: 'close',
-          },
-          night: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-        },
-        tuesday: {
-          lunch: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-          night: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-        },
-        wednesday: {
-          lunch: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-          night: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-        },
-        thursday: {
-          lunch: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-          night: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-        },
-        friday: {
-          lunch: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-          night: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-        },
-        saturday: {
-          lunch: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-          night: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-        },
-        sunday: {
-          lunch: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-          night: {
-            opened_at: 'string',
-            closed_at: 'string',
-          },
-        },
+      const expectedResponse = new HttpResponse({
+        status: 204,
+        statusText: 'No Content',
       });
-      requests[2].flush(mockSchedule1);
+      req.event(expectedResponse);
+    });
+
+    it('call API & should handle errors', (): void => {
+      service
+        .updateSchedule(mockFranchisee, mockSchedule)
+        .pipe(
+          catchError((error: Error) => {
+            expect(error).toBeDefined();
+            return of();
+          }),
+          tap((_value): void => {
+            fail('next handler must not be called');
+          })
+        )
+        .subscribe((_response): void => {
+          fail('expected to fail');
+        });
+
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
+      );
+
+      expect(req.request.method).toEqual('PUT');
+      req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
 });
