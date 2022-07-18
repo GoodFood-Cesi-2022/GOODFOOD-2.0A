@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, map } from 'rxjs';
-import { Roles } from 'src/app/shared/constants/constants';
+import { Roles } from 'src/app/shared/constants/role.const';
 import { User } from 'src/app/shared/models/user.model';
-
 import { environment } from 'src/environments/environment';
 
 @Injectable({

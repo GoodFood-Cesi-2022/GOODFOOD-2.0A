@@ -9,6 +9,7 @@ import { ConfirmationService } from 'primeng/api';
 
 import { FranchiseeComponent } from './franchisee.component';
 import { environment } from 'src/environments/environment';
+import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
 
 fdescribe('FranchiseeComponent', () => {
   let component: FranchiseeComponent;
@@ -39,7 +40,7 @@ fdescribe('FranchiseeComponent', () => {
     const req = httpTestingController.expectOne(
       `${environment.apiBaseUrl}/contractors`
     );
-    expect(req.request.method).toEqual('GET');
+    expect(req.request.method).toEqual(_HttpRequest.GET);
     req.flush({});
     expect(component).toBeTruthy();
   });

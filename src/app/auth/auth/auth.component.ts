@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Roles } from 'src/app/shared/constants/constants';
+import { Roles } from 'src/app/shared/constants/role.const';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 import { AppState } from 'src/app/shared/store';

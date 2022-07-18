@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, tap, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 import { Recipe } from '../../models/recipe.model';
 import { Picture } from '../../models/picture.model';
 import { environment } from 'src/environments/environment';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 import { ErrorHttpService } from '../error-http/error-http.service';
 import { RecipeType } from '../../models/recipe-type.model';
 import { Ingredient } from '../../models/ingredient.model';
@@ -135,7 +135,7 @@ export class RecipeService {
           httpErrorResponse,
           'get all recipes'
         );
-        return throwError(httpErrorResponse);
+        return throwError(()=> (httpErrorResponse));
       })
     );
   }

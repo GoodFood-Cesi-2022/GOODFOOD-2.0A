@@ -5,6 +5,7 @@ import {
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from 'src/environments/environment';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 import { mockUserArray } from '../../mock/users.mock';
 
 import { SidebarService } from './sidebar.service';
@@ -59,7 +60,7 @@ fdescribe('SidebarStoreService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users`
       );
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).toBe(_HttpRequest.GET);
       // Respond with the mock recipes
       req.flush({ data: mockUserArray });
     });

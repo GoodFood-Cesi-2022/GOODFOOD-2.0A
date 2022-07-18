@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
+import { trigger,state,style,transition,animate } from '@angular/animations';
 import { finalize } from 'rxjs/operators';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+
 import { Franchisee } from 'src/app/shared/models/franchisee.model';
 import { Address } from 'src/app/shared/models/address.model';
 import { Schedule } from './../../../shared/models/schedule.model';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
-import { AddressService } from 'src/app/shared/services/address/address.service';
-import { ScheduleService } from 'src/app/shared/services/schedule/schedule.service';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { FranchiseeDialogComponent } from '../franchisee-dialog/franchisee-dialog.component';
+
 @Component({
   selector: 'app-franchisee',
   templateUrl: './franchisee.component.html',
@@ -34,6 +35,19 @@ import { FranchiseeDialogComponent } from '../franchisee-dialog/franchisee-dialo
       }
     `,
   ],
+  animations: [
+      trigger('rowExpansionTrigger', [
+          state('void', style({
+              transform: 'translateX(-10%)',
+              opacity: 0
+          })),
+          state('active', style({
+              transform: 'translateX(0)',
+              opacity: 1
+          })),
+          transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)'))
+      ])
+  ]
 })
 export class FranchiseeComponent implements OnInit {
   // form: FormGroup;
@@ -41,7 +55,7 @@ export class FranchiseeComponent implements OnInit {
 
   franchisees: Franchisee[] = [];
   franchisee: Franchisee;
-  selectedFranchisee: Franchisee[] = [];
+
   address: Address;
   schedule: Schedule;
 

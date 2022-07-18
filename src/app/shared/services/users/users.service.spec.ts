@@ -8,8 +8,9 @@ import { catchError, Observable, of, tap } from 'rxjs';
 import { UsersService } from './users.service';
 import { environment } from 'src/environments/environment';
 import { User } from '../../models/user.model';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 import { mockUser1, mockUserArray, mockUserAuth1 } from '../../mock/users.mock';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 
 fdescribe('UsersService', () => {
   let service: UsersService;
@@ -50,7 +51,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock users
       req.flush({ data: mockUserArray });
@@ -136,7 +137,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock users
       req.flush(mockUser1);
@@ -161,7 +162,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}/roles`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock users
       req.flush(mockUserAuth1);
@@ -184,7 +185,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       // Respond with the mock user
       req.flush(mockUser1);
@@ -210,7 +211,7 @@ fdescribe('UsersService', () => {
         `${environment.apiBaseUrl}/users`
       );
 
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -234,7 +235,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       expect(req.request.body).toEqual(mockUser1);
 
       req.flush({ message: Message.UPDATE_SUCCESS });
@@ -260,7 +261,7 @@ fdescribe('UsersService', () => {
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
 
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -283,7 +284,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
 
       req.flush({ message: Message.DELETE });
     });
@@ -308,7 +309,7 @@ fdescribe('UsersService', () => {
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
 
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });

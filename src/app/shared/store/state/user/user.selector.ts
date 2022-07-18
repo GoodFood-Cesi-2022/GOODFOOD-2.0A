@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { Roles } from 'src/app/shared/constants/constants';
+
+import { Roles } from 'src/app/shared/constants/role.const';
 import { UserState } from './user.reducer';
 
 /**

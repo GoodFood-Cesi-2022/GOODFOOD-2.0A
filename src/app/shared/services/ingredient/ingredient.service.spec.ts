@@ -8,7 +8,8 @@ import { catchError, of, tap } from 'rxjs';
 import { IngredientService } from './ingredient.service';
 import { environment } from 'src/environments/environment';
 import { mockIngre1, mockIngredientArray } from '../../mock/ingredients.mock';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 
 fdescribe('IngredientService', () => {
   let service: IngredientService;
@@ -49,7 +50,7 @@ fdescribe('IngredientService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock ingredients
       req.flush({ data: mockIngredientArray });
@@ -130,7 +131,7 @@ fdescribe('IngredientService', () => {
         `${environment.apiBaseUrl}/ingredients`
       );
 
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -149,7 +150,7 @@ fdescribe('IngredientService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       // Respond with the mock ingredient
       req.flush({ message: Message.CREATE });
@@ -175,7 +176,7 @@ fdescribe('IngredientService', () => {
         `${environment.apiBaseUrl}/ingredients`
       );
 
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -194,7 +195,7 @@ fdescribe('IngredientService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
 
       // Respond with the mock ingredient
       req.flush({ message: Message.UPDATE_SUCCESS });
@@ -220,7 +221,7 @@ fdescribe('IngredientService', () => {
         `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
       );
 
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -242,7 +243,7 @@ fdescribe('IngredientService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.flush({ message: Message.DELETE });
     });
 
@@ -266,7 +267,7 @@ fdescribe('IngredientService', () => {
         `${environment.apiBaseUrl}/ingredients/${mockIngre1.id}`
       );
 
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });

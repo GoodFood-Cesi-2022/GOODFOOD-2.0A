@@ -10,6 +10,7 @@ import { IngredientComponent } from './ingredient.component';
 import { environment } from 'src/environments/environment';
 import { mockIngredientArray } from 'src/app/shared/mock/ingredients.mock';
 import { mockTypeArray } from 'src/app/shared/mock/ingredient-type.mock';
+import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
 
 fdescribe('IngredientComponent', () => {
   let component: IngredientComponent;
@@ -39,13 +40,13 @@ fdescribe('IngredientComponent', () => {
     const req1 = httpTestingController.expectOne(
       `${environment.apiBaseUrl}/ingredients`
     );
-    expect(req1.request.method).toEqual('GET');
+    expect(req1.request.method).toEqual(_HttpRequest.GET);
     req1.flush({ data: mockIngredientArray });
 
     const req2 = httpTestingController.expectOne(
       `${environment.apiBaseUrl}/ingredients/types`
     );
-    expect(req2.request.method).toEqual('GET');
+    expect(req2.request.method).toEqual(_HttpRequest.GET);
 
     // Respond with the mock ingredient-types
     req2.flush(mockTypeArray);
