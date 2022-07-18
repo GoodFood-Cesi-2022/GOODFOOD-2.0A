@@ -1,0 +1,7 @@
+export enum StorageKeys {
+  STATE = 'AUTH_STATE',
+  CODE_VERIFY = 'AUTH_CODE_VERIFIER',
+  USER_TOKEN = 'AUTH_USER_TOKEN',
+  USER = 'CURRENT_USER',
+  ROLE = 'ROLE',
+}

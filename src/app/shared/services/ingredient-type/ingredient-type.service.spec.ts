@@ -13,6 +13,7 @@ import {
   mockType2,
   mockTypeArray,
 } from 'src/app/shared/mock/ingredient-type.mock';
+import { Message } from '../../constants/constants';
 
 fdescribe('IngredientTypeService', () => {
   let service: IngredientTypeService;
@@ -184,8 +185,8 @@ fdescribe('IngredientTypeService', () => {
       service.updateIngredientType(mockType1).subscribe({
         next: (data) =>
           expect(data)
-            .withContext('should return the ingredient-type')
-            .toEqual(data),
+            .withContext('should return the success message')
+            .toEqual(Message.UPDATE_SUCCESS),
         error: fail,
       });
 
@@ -196,12 +197,7 @@ fdescribe('IngredientTypeService', () => {
       expect(req.request.method).toEqual('PUT');
       expect(req.request.body).toEqual(mockType1);
 
-      const expectedResponse = new HttpResponse({
-        status: 200,
-        statusText: 'OK',
-        body: mockType1,
-      });
-      req.event(expectedResponse);
+      req.flush({ message: Message.UPDATE_SUCCESS });
     });
 
     it('call API & should handle errors', () => {
@@ -239,7 +235,7 @@ fdescribe('IngredientTypeService', () => {
         next: (data) =>
           expect(data)
             .withContext('should return the success message')
-            .toEqual('204 No Content'),
+            .toEqual(Message.DELETE),
         error: fail,
       });
 
@@ -247,6 +243,7 @@ fdescribe('IngredientTypeService', () => {
         `${environment.apiBaseUrl}/ingredients/types/${mockType1.id}`
       );
       expect(req.request.method).toEqual('DELETE');
+      req.flush({ message: Message.DELETE });
     });
 
     it('call API & should handle errors', () => {

@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { map, tap, Observable, throwError, catchError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map, tap, Observable } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/shared/models/user.model';
 import { Message } from '../../constants/constants';
-import { CodeHTTP } from '../../constants/code-http';
 
 @Injectable({
   providedIn: 'root',
@@ -85,6 +84,6 @@ export class UsersService {
   public deleteUser(id: number): Observable<string> {
     return this.http
       .delete(`${environment.apiBaseUrl}/users/${id}`)
-      .pipe(map((res: Object): any => (res ? res['message'] : '')));
+      .pipe(map((res: Object): any => (res ? res['message'] : Message.DELETE)));
   }
 }

@@ -13,4 +13,9 @@ fdescribe('ErrorHttpService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should be closed', () => {
+    service.closeErrorHttp();
+    expect(service).toBeTruthy();
+  });
 });
