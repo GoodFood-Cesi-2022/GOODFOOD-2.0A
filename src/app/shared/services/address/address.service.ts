@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap, map } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 import { Address } from '../../models/address.model';
 import { environment } from 'src/environments/environment';
 import { User } from '../../models/user.model';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 
 @Injectable({
   providedIn: 'root',

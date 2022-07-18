@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { environment } from 'src/environments/environment';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 
 @Injectable({
   providedIn: 'root',

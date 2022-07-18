@@ -10,6 +10,7 @@ import { ScheduleService } from './schedule.service';
 import { environment } from 'src/environments/environment';
 import { mockSchedule } from '../../mock/schedule.mock';
 import { mockFranchisee } from '../../mock/franchisee.mock';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 
 fdescribe('ScheduleService', () => {
   let service: ScheduleService;
@@ -49,7 +50,7 @@ fdescribe('ScheduleService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock schedule
       req.flush(mockSchedule);
@@ -72,7 +73,7 @@ fdescribe('ScheduleService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       // Respond with the mock schedule
       req.flush(mockSchedule);
@@ -98,7 +99,7 @@ fdescribe('ScheduleService', () => {
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
 
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -119,7 +120,7 @@ fdescribe('ScheduleService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       expect(req.request.body).toEqual(mockSchedule);
 
       const expectedResponse = new HttpResponse({
@@ -149,7 +150,7 @@ fdescribe('ScheduleService', () => {
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/times`
       );
 
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });

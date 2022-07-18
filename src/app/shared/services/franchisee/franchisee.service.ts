@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap, map, Observable, catchError, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 import { FranchiseeRecipe } from '../../models/franchisee-recipe.model';
 import { Franchisee } from '../../models/franchisee.model';
 import { ErrorHttpService } from '../error-http/error-http.service';
@@ -157,7 +157,7 @@ export class FranchiseeService {
           httpErrorResponse,
           'get all recipes'
         );
-        return throwError(httpErrorResponse);
+        return throwError(()=> (httpErrorResponse));
       })
     );
   }

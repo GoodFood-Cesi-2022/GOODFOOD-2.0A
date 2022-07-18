@@ -9,6 +9,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { IngredientTypeComponent } from './ingredient-type.component';
 import { environment } from 'src/environments/environment';
 import { mockTypeArray } from 'src/app/shared/mock/ingredient-type.mock';
+import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
 
 fdescribe('IngredientTypeComponent', () => {
   let component: IngredientTypeComponent;
@@ -38,7 +39,7 @@ fdescribe('IngredientTypeComponent', () => {
     const req2 = httpTestingController.expectOne(
       `${environment.apiBaseUrl}/ingredients/types`
     );
-    expect(req2.request.method).toEqual('GET');
+    expect(req2.request.method).toEqual(_HttpRequest.GET);
 
     // Respond with the mock ingredient-types
     req2.flush(mockTypeArray);

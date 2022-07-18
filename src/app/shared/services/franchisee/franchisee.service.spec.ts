@@ -6,7 +6,8 @@ import { TestBed } from '@angular/core/testing';
 import { catchError, of, tap } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { Message } from '../../constants/constants';
+import { _HttpRequest } from '../../constants/httpRequest.const';
+import { Message } from '../../constants/message.const';
 import { mockFranchiseeRecipe1 } from '../../mock/fracnhisee-recipe.mock';
 import { mockFranchisee } from '../../mock/franchisee.mock';
 import { mockRecipeArray } from '../../mock/recipe.mock';
@@ -51,7 +52,7 @@ fdescribe('FranchiseeService', (): void => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       expect(req.request.body).toEqual(mockFranchisee);
 
@@ -77,7 +78,7 @@ fdescribe('FranchiseeService', (): void => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.flush({ message: Message.DELETE });
     });
 
@@ -101,7 +102,7 @@ fdescribe('FranchiseeService', (): void => {
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}`
       );
 
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -120,7 +121,7 @@ fdescribe('FranchiseeService', (): void => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/recipes`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       expect(req.request.body).toEqual(null);
 
@@ -143,7 +144,7 @@ fdescribe('FranchiseeService', (): void => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
 
       expect(req.request.body).toEqual(mockFranchisee);
 
@@ -168,7 +169,7 @@ fdescribe('FranchiseeService', (): void => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/recipes`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       expect(req.request.body).toEqual(mockFranchiseeRecipe1);
 
@@ -193,7 +194,7 @@ fdescribe('FranchiseeService', (): void => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/recipes/${mockFranchiseeRecipe1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
 
       expect(req.request.body).toEqual(mockFranchiseeRecipe1);
 
@@ -218,7 +219,7 @@ fdescribe('FranchiseeService', (): void => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/contractors/${mockFranchisee.id}/recipes/${mockFranchiseeRecipe1.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
 
       expect(req.request.body).toEqual(null);
 
