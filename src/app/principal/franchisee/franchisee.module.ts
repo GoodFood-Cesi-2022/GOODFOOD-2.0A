@@ -12,11 +12,11 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { InputNumberModule } from 'primeng/inputnumber';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TooltipModule } from 'primeng/tooltip';
 import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { KeyFilterModule } from 'primeng/keyfilter';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
@@ -61,8 +61,6 @@ const routes: Routes = [{ path: '', component: FranchiseeComponent }];
   entryComponents: [FranchiseeDialogComponent],
   providers: [
     FranchiseeService,
-    // MessageService,
-    // ConfirmationService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiTokenInterceptorService,

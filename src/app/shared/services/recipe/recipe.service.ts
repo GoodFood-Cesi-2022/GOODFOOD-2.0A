@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, tap, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, throwError } from 'rxjs';
 
 import { Recipe } from '../../models/recipe.model';
 import { Picture } from '../../models/picture.model';
 import { environment } from 'src/environments/environment';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 import { ErrorHttpService } from '../error-http/error-http.service';
 import { RecipeType } from '../../models/recipe-type.model';
+import { Ingredient } from '../../models/ingredient.model';
 
 @Injectable({
   providedIn: 'root',
@@ -54,10 +55,10 @@ export class RecipeService {
    * @param id recipe_id
    * @returns all ingredients of a recipe
    */
-  public getIngredientsByRecipeId(id: number): Observable<Recipe[]> {
+  public getIngredientsByRecipeId(id: number): Observable<Ingredient[]> {
     return this.http
-      .get(`${environment.apiBaseUrl}/recipes/${id}/ingredients`)
-      .pipe(map((res) => (res ? res['message'] : '')));
+      .get<Ingredient[]>(`${environment.apiBaseUrl}/recipes/${id}/ingredients`)
+      .pipe(map((res) => res));
   }
 
   /**
@@ -128,13 +129,13 @@ export class RecipeService {
    */
   public deleteRecipe(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/recipes/${id}`).pipe(
-      map((res) => (res ? res['message'] : '')),
+      map((res) => (res ? res['message'] : Message.DELETE)),
       catchError((httpErrorResponse) => {
         this.errorHttpService.newErrorHttp(
           httpErrorResponse,
           'get all recipes'
         );
-        return throwError(() => new Error(httpErrorResponse));
+        return throwError(()=> (httpErrorResponse));
       })
     );
   }
@@ -148,7 +149,7 @@ export class RecipeService {
    * @param picture
    * @returns
    */
-  public uploadPicture(picture): Observable<Picture> {
+  public uploadPicture(picture): Observable<any> {
     const formData = new FormData();
 
     formData.append('name', picture.name);
@@ -170,6 +171,6 @@ export class RecipeService {
     formData.append('file_uuid', picture.uuid);
     return this.http
       .post(`${environment.apiBaseUrl}/recipes/${recipe.id}/pictures`, formData)
-      .pipe(map((res) => (res ? res['message'] : '')));
+      .pipe(map((res) => (res ? res['message'] : Message.UPDATE)));
   }
 }

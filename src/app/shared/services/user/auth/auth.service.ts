@@ -7,8 +7,9 @@ import { environment } from 'src/environments/environment';
 import { AccessTokenModel } from '../../../models/access-token.model';
 import { User } from '../../../models/user.model';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { Roles, StorageKeys } from 'src/app/shared/constants/constants';
 import { map, tap } from 'rxjs/operators';
+import { StorageKeys } from 'src/app/shared/constants/storageKeys.const';
+import { Roles } from 'src/app/shared/constants/role.const';
 
 @Injectable({
   providedIn: 'root',
@@ -104,7 +105,6 @@ export class AuthService {
         this.localStorageService.remove(StorageKeys.STATE);
         this.localStorageService.remove(StorageKeys.CODE_VERIFY);
         await this.getCurrentUser();
-        //await this.getCurrentUserRemote();
 
         this.router.navigate(['/home']);
       });

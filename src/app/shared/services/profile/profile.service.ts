@@ -3,20 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { Roles } from '../../constants/role.const';
 import { User } from '../../models/user.model';
-import { LocalStorageService } from 'src/app/shared/services/user/local-storage/local-storage.service';
-import { Roles, StorageKeys } from 'src/app/shared/constants/constants';
-import { AuthService } from '../user/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  constructor(
-    private http: HttpClient,
-    private localStorageService: LocalStorageService,
-    private authService: AuthService
-  ) {
+  constructor(private http: HttpClient) {
     //NOSONAR
   }
 
@@ -49,18 +43,6 @@ export class ProfileService {
     });
 
     return _user;
-  }
-
-  getCurrentUser(): User {
-    let currentUser: User;
-    currentUser = <User>this.localStorageService.get(StorageKeys.USER);
-    type role = { code: string };
-    let currentRole: role;
-    currentRole = <role>this.localStorageService.get(StorageKeys.ROLE);
-    console.log([currentRole]);
-    currentUser.roles = [];
-    currentUser.roles.push(currentRole);
-    return this.authService.roleById(currentUser);
   }
 
   updateUser(user: User): Observable<User> {

@@ -5,7 +5,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IngreType } from '../../models/ingredient-type.model';
 import { ErrorHttpService } from '../error-http/error-http.service';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 
 @Injectable({
   providedIn: 'root',
@@ -32,7 +32,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'get all ingredient-types'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }
@@ -53,7 +53,7 @@ export class IngredientTypeService {
             httpErrorResponse,
             'create ingredient-type'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }
@@ -66,13 +66,13 @@ export class IngredientTypeService {
     return this.http
       .put(`${environment.apiBaseUrl}/ingredients/types/${update.id}`, update)
       .pipe(
-        map((data) => (data ? data['message'] : Message.UPDATE_SUCCESS)),
+        map((res) => (res ? res['message'] : Message.UPDATE_SUCCESS)),
         catchError((httpErrorResponse) => {
           this.errorHttpService.newErrorHttp(
             httpErrorResponse,
             'update ingredient-type'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }
@@ -87,13 +87,13 @@ export class IngredientTypeService {
     return this.http
       .delete(`${environment.apiBaseUrl}/ingredients/types/${id}`)
       .pipe(
-        map((res) => (res ? res['message'] : '')),
+        map((res) => (res ? res['message'] : Message.DELETE)),
         catchError((httpErrorResponse) => {
           this.errorHttpService.newErrorHttp(
             httpErrorResponse,
             'delete ingredient-type'
           );
-          return throwError(httpErrorResponse);
+          return throwError(()=> (httpErrorResponse));
         })
       );
   }

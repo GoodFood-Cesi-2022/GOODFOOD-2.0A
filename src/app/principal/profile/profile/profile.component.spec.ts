@@ -10,6 +10,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { ProfileComponent } from './profile.component';
 import { environment } from 'src/environments/environment';
+import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
 
 fdescribe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -47,7 +48,7 @@ fdescribe('ProfileComponent', () => {
     const req = httpTestingController.expectOne(
       `${environment.apiBaseUrl}/users/current?includes[]=roles`
     );
-    expect(req.request.method).toEqual('GET');
+    expect(req.request.method).toEqual(_HttpRequest.GET);
     req.flush({});
     expect(store).toBeTruthy();
     expect(component).toBeTruthy();

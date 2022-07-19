@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   build:
-    name: Test & Build
+    name: Build & Test
     runs-on: ubuntu-latest
     steps:
       - name: Ckeckout
@@ -29,7 +29,7 @@ jobs:
       - name: Build
         run: npm run build
 
-      - name: Test
+      - name: Test and Coverage
         run: npm run test:headless
 
       # - name: Coverage path

@@ -9,6 +9,7 @@ import { ConfirmationService } from 'primeng/api';
 
 import { RecipesComponent } from './recipes.component';
 import { environment } from 'src/environments/environment';
+import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
 
 fdescribe('RecipesComponent', () => {
   let component: RecipesComponent;
@@ -39,7 +40,7 @@ fdescribe('RecipesComponent', () => {
     const req1 = httpTestingController.expectOne(
       `${environment.apiBaseUrl}/recipes?includes[]=pictures`
     );
-    expect(req1.request.method).toEqual('GET');
+    expect(req1.request.method).toEqual(_HttpRequest.GET);
     req1.flush({});
     expect(component).toBeTruthy();
   });

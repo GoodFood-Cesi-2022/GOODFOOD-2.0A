@@ -3,7 +3,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { HttpResponse } from '@angular/common/http';
 import { of, catchError, tap } from 'rxjs';
 
 import { IngredientTypeService } from './ingredient-type.service';
@@ -13,6 +12,8 @@ import {
   mockType2,
   mockTypeArray,
 } from 'src/app/shared/mock/ingredient-type.mock';
+import { Message } from '../../constants/message.const';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 
 fdescribe('IngredientTypeService', () => {
   let service: IngredientTypeService;
@@ -53,7 +54,7 @@ fdescribe('IngredientTypeService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients/types`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock ingredient-types
       req.flush(mockTypeArray);
@@ -125,7 +126,7 @@ fdescribe('IngredientTypeService', () => {
         `${environment.apiBaseUrl}/ingredients/types`
       );
 
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -144,7 +145,7 @@ fdescribe('IngredientTypeService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients/types`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       // Respond with the mock ingredient-types
       req.flush(mockType2);
@@ -170,7 +171,7 @@ fdescribe('IngredientTypeService', () => {
         `${environment.apiBaseUrl}/ingredients/types`
       );
 
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -184,8 +185,8 @@ fdescribe('IngredientTypeService', () => {
       service.updateIngredientType(mockType1).subscribe({
         next: (data) =>
           expect(data)
-            .withContext('should return the ingredient-type')
-            .toEqual(data),
+            .withContext('should return the success message')
+            .toEqual(Message.UPDATE_SUCCESS),
         error: fail,
       });
 
@@ -193,15 +194,10 @@ fdescribe('IngredientTypeService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients/types/${mockType1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       expect(req.request.body).toEqual(mockType1);
 
-      const expectedResponse = new HttpResponse({
-        status: 200,
-        statusText: 'OK',
-        body: mockType1,
-      });
-      req.event(expectedResponse);
+      req.flush({ message: Message.UPDATE_SUCCESS });
     });
 
     it('call API & should handle errors', () => {
@@ -224,7 +220,7 @@ fdescribe('IngredientTypeService', () => {
         `${environment.apiBaseUrl}/ingredients/types/${mockType1.id}`
       );
 
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -239,14 +235,15 @@ fdescribe('IngredientTypeService', () => {
         next: (data) =>
           expect(data)
             .withContext('should return the success message')
-            .toEqual('204 No Content'),
+            .toEqual(Message.DELETE),
         error: fail,
       });
 
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/ingredients/types/${mockType1.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
+      req.flush({ message: Message.DELETE });
     });
 
     it('call API & should handle errors', () => {
@@ -269,7 +266,7 @@ fdescribe('IngredientTypeService', () => {
         `${environment.apiBaseUrl}/ingredients/types/${mockType1.id}`
       );
 
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });

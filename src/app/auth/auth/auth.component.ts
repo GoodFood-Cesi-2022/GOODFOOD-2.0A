@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
-import { Roles } from 'src/app/shared/constants/constants';
+import { Roles } from 'src/app/shared/constants/role.const';
 import { User } from 'src/app/shared/models/user.model';
 import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
 import { AppState } from 'src/app/shared/store';
@@ -40,8 +40,8 @@ export class AuthComponent implements OnInit {
   }
 
   private loadAppUser(): void {
-    this.store.pipe(select(selectUserDetails)).subscribe(
-      (user) => {
+    this.store.pipe(select(selectUserDetails)).subscribe({
+      next: (user) => {
         if (user == null) {
           this.store.dispatch(UserActions.loadUser());
           console.log('je passe dans *** auth dispatch ***', user);
@@ -60,7 +60,12 @@ export class AuthComponent implements OnInit {
           }
         }
       },
-      (err) => console.log('AUTH COMPONENT > STORE > loadUser > error: ', err)
-    );
+      error: (error): void => {
+        console.log('topbar -> store -> loadUser -> error : ', error);
+      },
+      complete: () => {
+        console.info('complete');
+      },
+    });
   }
 }

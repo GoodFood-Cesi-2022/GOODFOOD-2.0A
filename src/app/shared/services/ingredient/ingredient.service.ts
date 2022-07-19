@@ -4,7 +4,7 @@ import { map, Observable } from 'rxjs';
 
 import { Ingredient } from 'src/app/shared/models/ingredient.model';
 import { environment } from 'src/environments/environment';
-import { Message } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 
 @Injectable({
   providedIn: 'root',
@@ -12,17 +12,6 @@ import { Message } from '../../constants/constants';
 export class IngredientService {
   constructor(private http: HttpClient) {
     //NOSONAR
-  }
-
-  /**
-   * @url GET : localhost:8080/api/ingredients/{ingredient_id}
-   * @param id ingredient
-   * @returns an ingredient
-   */
-  public getIngredient(id: number): Observable<Ingredient> {
-    return this.http
-      .get<Ingredient>(`${environment.apiBaseUrl}/ingredients/${id}`)
-      .pipe(map((res) => res));
   }
 
   /**
@@ -66,6 +55,6 @@ export class IngredientService {
   public deleteIngredient(id: number): Observable<string> {
     return this.http
       .delete(`${environment.apiBaseUrl}/ingredients/${id}`)
-      .pipe(map((res) => (res ? res['message'] : '')));
+      .pipe(map((res) => (res ? res['message'] : Message.DELETE)));
   }
 }

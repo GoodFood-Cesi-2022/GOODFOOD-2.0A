@@ -11,7 +11,7 @@ import { AddressService } from 'src/app/shared/services/address/address.service'
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { User } from 'src/app/shared/models/user.model';
-import { AuthService } from 'src/app/shared/services/user/auth/auth.service';
+import { StorageKeys } from 'src/app/shared/constants/storageKeys.const';
 
 @Component({
   selector: 'app-franchisee-dialog',
@@ -30,6 +30,7 @@ export class FranchiseeDialogComponent implements OnInit {
 
   submitted: boolean;
   isDisabledControlForm: boolean = false;
+  localStorageService: any;
 
   constructor(
     public ref: DynamicDialogRef,
@@ -51,7 +52,6 @@ export class FranchiseeDialogComponent implements OnInit {
       .getFranchisees()
       .subscribe((data: Franchisee[]): void => {
         this.franchiseeArray = data;
-        console.log('-----------> franchisee dialog --> ', data);
       });
 
     this.initForm();
@@ -82,40 +82,22 @@ export class FranchiseeDialogComponent implements OnInit {
   }
 
   private getFormValues(): void {
-    // if (this.mode === 'CREATE') {
-    // this.franchisee.name = this.form.get(' name ').value;
-    // this.franchisee.phone = this.form.get(' phone ').value;
-    // this.franchisee.max_delivery_radius=this.form.value.max_delivery_radius;
-    // this.franchisee.email = this.form.get(' email ').value;
-    // this.address.first_line = this.form.get(' first_line ').value;
-    // this.address.second_line = this.form.get(' second_line ').value;
-    // this.address.zip_code = this.form.get(' zip_code ').value;
-    // this.address.city = this.form.get(' city ').value;
-    // this.address.country = this.form.get(' country ').value;
-    // }
-    // else {
-    // this.franchisee.id = this.franchisee.id;
+    if (this.mode === 'UPDATE') {
+     // this.franchisee.address_id = this.franchisee.address.id;
+
+    }
     this.franchisee.name = this.form.value.name;
     this.franchisee.phone = this.form.value.phone;
     this.franchisee.email = this.form.value.email;
     this.franchisee.max_delivery_radius = this.form.value.max_delivery_radius;
-    // this.address.id = this.address.id;
-    this.address.first_line = this.form.value.first_line;
-    this.address.second_line = this.form.value.second_line;
-    this.address.zip_code = this.form.value.zip_code;
-    this.address.city = this.form.value.city;
-    this.address.country = this.form.value.country;
-    // }
+    this.franchisee.address.first_line = this.form.value.first_line;
+    this.franchisee.address.second_line = this.form.value.second_line;
+    this.franchisee.address.zip_code = this.form.value.zip_code;
+    this.franchisee.address.city = this.form.value.city;
+    this.franchisee.address.country = this.form.value.country;
   }
 
   public onSubmit(): void {
-    console.log(
-      'create address in component : <<<<<<<<<<<<<<<<<<<<',
-      this.mode,
-      this.form.valid
-    );
-    // if (this.form.valid) {
-    console.log('truc : <<<<<<<<<<<<<<<<<<<<', this.mode);
     this.getFormValues();
     this.loading.loadingOn();
 
@@ -126,46 +108,58 @@ export class FranchiseeDialogComponent implements OnInit {
       console.log('create address in component : ');
       this.create();
     }
-    // }
   }
 
   private create(): void {
     this.addressService
       .createAddress(this.address)
-      .pipe(finalize(() => this.loading.loadingOff()))
-      .subscribe((res) => {
+      .pipe(finalize((): void => this.loading.loadingOff()))
+      .subscribe((res): void => {
         this.address = res;
         this.franchisee.address_id = res.id;
-        this.franchiseeService.newFranchisee(this.franchisee).subscribe({
-          next: (_res) => {
-            this.ref.close(_res);
-            this.franchisee = _res;
-            console.log('create franchisee in component : ', res);
+        this.franchiseeService
+          .newFranchisee(
+            this.franchisee,
+            (<User>this.localStorageService.get(StorageKeys.USER)).id
+          )
+          .subscribe({
+            next: (_res) => {
+              this.ref.close(_res);
+              this.franchisee = _res;
+              console.log('create franchisee in component : ', res);
+            },
+            error: (error) => {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Erreur le moment de création du franchisé.',
+                detail: error.error,
+              });
+            },
+          });
+      });
+  }
+
+  private update(): void {
+    this.address = this.franchisee.address;
+    this.address.id = this.franchisee.address_id;
+
+    this.addressService
+      .updateAddress(this.address)
+      .pipe(finalize((): void => this.loading.loadingOff()))
+      .subscribe((res): void => {
+        this.franchiseeService.updateFranchisee(this.franchisee).subscribe({
+          next: (res) => {
+            this.ref.close(res);
           },
           error: (error) => {
             this.messageService.add({
               severity: 'error',
-              summary: 'Erreur le moment de création du franchisé.',
+              summary: 'Erreur le moment de modification du franchisé.',
               detail: error.error,
             });
           },
         });
       });
-  }
-
-  private update(): void {
-    this.franchiseeService.updateFranchisee(this.franchisee).subscribe({
-      next: (res) => {
-        this.ref.close(res);
-      },
-      error: (error) => {
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Erreur le moment de modification du franchisé.',
-          detail: error.error,
-        });
-      },
-    });
   }
 
   public onClose(): void {

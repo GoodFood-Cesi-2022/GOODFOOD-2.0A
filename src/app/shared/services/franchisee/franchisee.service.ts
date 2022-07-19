@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap, map, Observable } from 'rxjs';
+import { tap, map, Observable, catchError, throwError } from 'rxjs';
 
 import { environment } from 'src/environments/environment';
-import { Message, StorageKeys } from '../../constants/constants';
+import { Message } from '../../constants/message.const';
 import { FranchiseeRecipe } from '../../models/franchisee-recipe.model';
 import { Franchisee } from '../../models/franchisee.model';
-import { Recipe } from '../../models/recipe.model';
-import { User } from '../../models/user.model';
-import { LocalStorageService } from '../user/local-storage/local-storage.service';
+import { ErrorHttpService } from '../error-http/error-http.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +14,7 @@ import { LocalStorageService } from '../user/local-storage/local-storage.service
 export class FranchiseeService {
   constructor(
     private http: HttpClient,
-    private localStorageService: LocalStorageService
+    private errorHttpService: ErrorHttpService
   ) {
     //NOSONAR
   }
@@ -29,7 +27,7 @@ export class FranchiseeService {
     return this.http
       .get<Franchisee[]>(`${environment.apiBaseUrl}/contractors`)
       .pipe(
-        tap((obj: any) => console.log('service -> edit franchisee : ', obj)),
+        tap((obj: any) => console.log('service -> get franchisees : ', obj)),
         map((res: any) => res['data'])
       );
   }
@@ -40,11 +38,11 @@ export class FranchiseeService {
    * @returns franchisee recipes
    */
   public getFranchiseeRecipes(
-    recipe: FranchiseeRecipe
+    franchisee: Franchisee
   ): Observable<FranchiseeRecipe[]> {
     return this.http
       .get<FranchiseeRecipe[]>(
-        `${environment.apiBaseUrl}/contractors/${recipe.id}/recipes`
+        `${environment.apiBaseUrl}/contractors/${franchisee.id}/recipes`
       )
       .pipe(
         tap((obj): void => console.log('service -> All recipes : ', obj)),
@@ -57,24 +55,20 @@ export class FranchiseeService {
    * @param create new franchisee
    * @returns franchisee id - message
    */
-  public newFranchisee(create: Partial<Franchisee>): Observable<Franchisee> {
+  public newFranchisee(
+    create: Partial<Franchisee>,
+    owner_id: number
+  ): Observable<Franchisee> {
     let franchisee: Franchisee;
     franchisee = {
       ...create,
     };
-    franchisee.owned_by = (<User>(
-      this.localStorageService.get(StorageKeys.USER)
-    )).id;
+    franchisee.owned_by = owner_id;
     return this.http
       .post(`${environment.apiBaseUrl}/contractors`, franchisee)
       .pipe(
-        tap((obj: any) =>
-          console.log(
-            '******************* service ******************* -> new franchisee : ',
-            obj
-          )
-        ),
-        map((res: any) => res)
+        tap((obj) => console.log(' service -> new franchisee : ', obj)),
+        map((res) => res)
       );
   }
 
@@ -85,8 +79,8 @@ export class FranchiseeService {
    */
   public updateFranchisee(update: Partial<Franchisee>): Observable<Franchisee> {
     return this.http.put(`${environment.apiBaseUrl}/contractors`, update).pipe(
-      // tap((obj: any) => console.log('service -> edit franchisee : ', obj)),
-      map((res: any) => res)
+      tap((obj) => console.log('service -> edit franchisee : ', obj)),
+      map((res) => res)
     );
   }
 
@@ -96,12 +90,15 @@ export class FranchiseeService {
    * @param item franchisee (recipe)
    * @returns new recipe
    */
-  public addStarRecipe(item: Franchisee): Observable<FranchiseeRecipe> {
+  public addRecipe(
+    item: Franchisee,
+    recipe: FranchiseeRecipe
+  ): Observable<FranchiseeRecipe> {
     return this.http
-      .post(`${environment.apiBaseUrl}/contractors${item.id}/recipes`, item)
+      .post(`${environment.apiBaseUrl}/contractors/${item.id}/recipes`, recipe)
       .pipe(
-        tap((obj): void => console.log('service -> All recipes : ', obj)),
-        map((res) => res)
+        // tap((obj: any) => console.log('service -> addStarRecipe : ', obj)),
+        map((res: any) => res)
       );
   }
 
@@ -112,16 +109,16 @@ export class FranchiseeService {
    */
   public updateRecipePrice(
     update: Partial<FranchiseeRecipe>,
-    recipe: Recipe
+    recipe: FranchiseeRecipe
   ): Observable<string> {
     return this.http
       .put(
         `${environment.apiBaseUrl}/contractors/${update.id}/recipes/${recipe.id}`,
-        update
+        recipe
       )
       .pipe(
-        tap((obj): void => console.log('service -> All recipes : ', obj)),
-        map((res): any => (res ? res['message'] : Message.UPDATE))
+        // tap((obj: any) => console.log('service -> updateRecipePrice : ', obj)),
+        map((res: any) => (res ? res['message'] : Message.UPDATE))
       );
   }
 
@@ -131,16 +128,17 @@ export class FranchiseeService {
    * @param recipe.id recipe_id
    * @returns Remove a recipe from franchisee catalog
    */
-  public removeRecipe(id: number, recipe: Recipe): Observable<string> {
+  public removeRecipe(
+    id: number,
+    recipe: FranchiseeRecipe
+  ): Observable<string> {
     return this.http
       .delete(
         `${environment.apiBaseUrl}/contractors/${id}/recipes/${recipe.id}`
       )
       .pipe(
-        tap((obj: any): void =>
-          console.log('service -> Remove recipe from catalog : ', obj)
-        ),
-        map((res: any): any => (res ? res['message'] : ''))
+        // tap((obj: any) => console.log('service -> Remove removeRecipe : ', obj)),
+        map((res: any) => (res ? res['message'] : Message.DELETE))
       );
   }
 
@@ -151,8 +149,15 @@ export class FranchiseeService {
    */
   public deleteFranchisee(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/contractors/${id}`).pipe(
-      // tap((obj) => console.log('service -> delete : ', obj)),
-      map((res: Object): any => (res ? res['message'] : ''))
+      // tap((obj) => console.log('service -> deleteFranchisee : ', obj)),
+      map((res) => (res ? res['message'] : Message.DELETE)),
+      catchError((httpErrorResponse) => {
+        this.errorHttpService.newErrorHttp(
+          httpErrorResponse,
+          'get all recipes'
+        );
+        return throwError(() => httpErrorResponse);
+      })
     );
   }
 }

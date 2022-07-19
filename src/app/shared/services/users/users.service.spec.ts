@@ -3,13 +3,14 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
+import { catchError, Observable, of, tap } from 'rxjs';
 
 import { UsersService } from './users.service';
 import { environment } from 'src/environments/environment';
-import { mockUser1, mockUserArray } from '../../mock/users.mock';
-import { catchError, Observable, of, tap } from 'rxjs';
-import { HttpResponse } from '@angular/common/http';
 import { User } from '../../models/user.model';
+import { Message } from '../../constants/message.const';
+import { mockUser1, mockUserArray, mockUserAuth1 } from '../../mock/users.mock';
+import { _HttpRequest } from '../../constants/httpRequest.const';
 
 fdescribe('UsersService', () => {
   let service: UsersService;
@@ -50,7 +51,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users`
       );
-      expect(req.request.method).toEqual('GET');
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
       // Respond with the mock users
       req.flush({ data: mockUserArray });
@@ -118,60 +119,55 @@ fdescribe('UsersService', () => {
     });
   });
 
-  // TODO : getUsers()
-  // TODO : getUserRole()
-  // TODO : getUser()
-  // describe('should call getUser()', (): void => {
-  //   beforeEach((): void => {
-  //     service = TestBed.inject(UsersService);
-  //   });
+  describe('get one user', (): void => {
+    beforeEach(() => {
+      service = TestBed.inject(UsersService);
+    });
 
-  //   it('should return user', (): void => {
-  //     service.getUser(mockUser1.id).subscribe({
-  //       next: (data: User): void =>
-  //         expect(data).withContext('should return the user').toEqual(data),
-  //       error: fail,
-  //     });
+    it('should return users (called once)', () => {
+      service.getUser(mockUser1.id).subscribe({
+        next: (values) =>
+          expect(values)
+            .withContext('should return one users')
+            .toEqual(mockUser1),
+        error: fail,
+      });
 
-  //     // UsersService should have made one request to GET user from URL
-  //     const req = httpTestingController.expectOne(
-  //       `${environment.apiBaseUrl}/users/${mockUser1.id}`
-  //     );
-  //     expect(req.request.method).toEqual('GET');
-  //     expect(req.request.body).toEqual(mockUser1);
+      // UsersService should have made one request to GET users from URL
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users/${mockUser1.id}`
+      );
+      expect(req.request.method).toEqual(_HttpRequest.GET);
 
-  //     const expectedResponse = new HttpResponse({
-  //       status: 200,
-  //       statusText: 'OK',
-  //       body: mockUser1,
-  //     });
-  //     req.event(expectedResponse);
-  //   });
+      // Respond with the mock users
+      req.flush(mockUser1);
+    });
+  });
 
-  //   it('call API & should handle errors', (): void => {
-  //     service
-  //       .getUser(mockUser1.id)
-  //       .pipe(
-  //         catchError((error: any): Observable<any> => {
-  //           expect(error).toBeDefined();
-  //           return of();
-  //         }),
-  //         tap((_value: string): void => {
-  //           fail('next handler must not be called');
-  //         })
-  //       )
-  //       .subscribe((_response: string): void => {
-  //         fail('expected to fail');
-  //       });
+  describe('get user role', (): void => {
+    beforeEach(() => {
+      service = TestBed.inject(UsersService);
+    });
 
-  //     const req = httpTestingController.expectOne(
-  //       `${environment.apiBaseUrl}/users/${mockUser1.id}`
-  //     );
+    it('should return users (called once)', () => {
+      service.getUserRole(mockUserAuth1.id).subscribe({
+        next: (values) =>
+          expect(values)
+            .withContext('should return one users')
+            .toEqual(mockUserAuth1),
+        error: fail,
+      });
 
-  //     expect(req.request.method).toEqual('GET');
-  //     req.error(new ProgressEvent('TEST_ERROR'));
-  //   });
-  // });
+      // UsersService should have made one request to GET users from URL
+      const req = httpTestingController.expectOne(
+        `${environment.apiBaseUrl}/users/${mockUser1.id}/roles`
+      );
+      expect(req.request.method).toEqual(_HttpRequest.GET);
+
+      // Respond with the mock users
+      req.flush(mockUserAuth1);
+    });
+  });
 
   // create
 
@@ -189,7 +185,7 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users`
       );
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
 
       // Respond with the mock user
       req.flush(mockUser1);
@@ -215,7 +211,7 @@ fdescribe('UsersService', () => {
         `${environment.apiBaseUrl}/users`
       );
 
-      expect(req.request.method).toEqual('POST');
+      expect(req.request.method).toEqual(_HttpRequest.POST);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -229,7 +225,9 @@ fdescribe('UsersService', () => {
     it('should update user and return it', (): void => {
       service.updateUser(mockUser1).subscribe({
         next: (data: string): void =>
-          expect(data).withContext('should return the user').toEqual(data),
+          expect(data)
+            .withContext('should return the user')
+            .toEqual(Message.UPDATE_SUCCESS),
         error: fail,
       });
 
@@ -237,15 +235,10 @@ fdescribe('UsersService', () => {
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       expect(req.request.body).toEqual(mockUser1);
 
-      const expectedResponse = new HttpResponse({
-        status: 200,
-        statusText: 'OK',
-        body: mockUser1,
-      });
-      req.event(expectedResponse);
+      req.flush({ message: Message.UPDATE_SUCCESS });
     });
 
     it('call API & should handle errors', (): void => {
@@ -268,7 +261,7 @@ fdescribe('UsersService', () => {
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
 
-      expect(req.request.method).toEqual('PUT');
+      expect(req.request.method).toEqual(_HttpRequest.PUT);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });
@@ -284,14 +277,16 @@ fdescribe('UsersService', () => {
         next: (data: string): void =>
           expect(data)
             .withContext('should return the success message')
-            .toEqual('204 No Content'),
+            .toEqual(Message.DELETE),
         error: fail,
       });
 
       const req = httpTestingController.expectOne(
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
+
+      req.flush({ message: Message.DELETE });
     });
 
     it('call API & should handle errors', (): void => {
@@ -314,7 +309,7 @@ fdescribe('UsersService', () => {
         `${environment.apiBaseUrl}/users/${mockUser1.id}`
       );
 
-      expect(req.request.method).toEqual('DELETE');
+      expect(req.request.method).toEqual(_HttpRequest.DELETE);
       req.error(new ProgressEvent('TEST_ERROR'));
     });
   });

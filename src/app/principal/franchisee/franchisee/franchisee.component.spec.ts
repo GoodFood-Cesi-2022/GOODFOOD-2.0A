@@ -5,9 +5,11 @@ import {
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { ConfirmationService } from 'primeng/api';
 
 import { FranchiseeComponent } from './franchisee.component';
 import { environment } from 'src/environments/environment';
+import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
 
 fdescribe('FranchiseeComponent', () => {
   let component: FranchiseeComponent;
@@ -17,6 +19,7 @@ fdescribe('FranchiseeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, ReactiveFormsModule],
+      providers: [ConfirmationService],
       declarations: [FranchiseeComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -37,7 +40,7 @@ fdescribe('FranchiseeComponent', () => {
     const req = httpTestingController.expectOne(
       `${environment.apiBaseUrl}/contractors`
     );
-    expect(req.request.method).toEqual('GET');
+    expect(req.request.method).toEqual(_HttpRequest.GET);
     req.flush({});
     expect(component).toBeTruthy();
   });
