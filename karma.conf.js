@@ -10,7 +10,6 @@ module.exports = function (config) {
       require("karma-chrome-launcher"),
       // require("karma-safari-launcher"),
       require("karma-jasmine-html-reporter"),
-      // require("karma-coverage-istanbul-reporter"),
       require("karma-coverage"),
       require("@angular-devkit/build-angular/plugins/karma"),
     ],
@@ -23,11 +22,6 @@ module.exports = function (config) {
       },
       clearContext: false, // leave Jasmine Spec Runner output visible in browser
     },
-    // coverageIstanbulReporter: {
-    //   dir: require("path").join(__dirname, "./coverage/lcov-report"),
-    //   reports: ["json-summary", "html", "lcovonly"],
-    //   fixWebpackSourcePaths: true,
-    // },
     jasmineHtmlReporter: {
       suppressAll: true, // removes the duplicated traces
     },
@@ -43,9 +37,9 @@ module.exports = function (config) {
     reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,
-    // logLevel: config.LOG_INFO,
+    logLevel: config.LOG_INFO,
     // logLevel: config.LOG_WARN,
-    logLevel: config.LOG_ERROR,
+    // logLevel: config.LOG_ERROR,
     autoWatch: true,
     browsers: ["Chrome"],
     // browsers: ["Safari"],

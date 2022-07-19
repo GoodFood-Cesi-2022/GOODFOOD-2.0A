@@ -29,7 +29,6 @@ export class FranchiseeDialogComponent implements OnInit {
   schedule: Schedule;
 
   submitted: boolean;
-  isDisabledControlForm: boolean = false;
   localStorageService: any;
 
   constructor(
