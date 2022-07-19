@@ -3,7 +3,7 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { UsersComponent } from './users.component';
@@ -17,7 +17,7 @@ fdescribe('UsersComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, ReactiveFormsModule],
+      imports: [HttpClientTestingModule, ReactiveFormsModule, FormsModule],
       declarations: [UsersComponent],
       schemas: [NO_ERRORS_SCHEMA],
     }).compileComponents();
@@ -41,5 +41,14 @@ fdescribe('UsersComponent', () => {
     expect(req.request.method).toEqual(_HttpRequest.GET);
     req.flush({});
     expect(component).toBeTruthy();
+  });
+
+  describe('Component: getFormValues()', () => {
+    beforeEach(() => {
+      (component as any).get
+    });
+    it('form invalid when empty', () => {
+      expect(component.form.valid).toBeFalsy();
+    });
   });
 });

@@ -1,3 +1,5 @@
+import { Recipe } from './../../../../shared/models/recipe.model';
+import { RecipeService } from './../../../../shared/services/recipe/recipe.service';
 import {
   HttpClientTestingModule,
   HttpTestingController,
@@ -15,6 +17,7 @@ fdescribe('RecipesComponent', () => {
   let component: RecipesComponent;
   let fixture: ComponentFixture<RecipesComponent>;
   let httpTestingController: HttpTestingController;
+  let service: RecipeService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -29,6 +32,9 @@ fdescribe('RecipesComponent', () => {
     fixture = TestBed.createComponent(RecipesComponent);
     httpTestingController = TestBed.inject(HttpTestingController);
     component = fixture.componentInstance;
+    component.CreateNewRecipe();
+    const x = component.updateRecipe(component);
+    console.log('xxxxxxxxxxxx ', x);
     fixture.detectChanges();
   });
 

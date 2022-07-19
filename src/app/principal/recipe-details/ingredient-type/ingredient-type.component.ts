@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { MessageService, ConfirmationService } from 'primeng/api';
 
@@ -55,7 +55,7 @@ export class IngredientTypeComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: [this.ingreType?.name || ''],
+      name: [this.ingreType?.name || '', Validators.required],
       description: this.ingreType?.description || '',
     });
   }

@@ -37,14 +37,13 @@ export class RecipeDialogComponent implements OnInit {
 
   ingreType: IngreType[] = [];
 
+  uploadedFiles: any[] = []; // Upload image
   picture: Picture = null; // Variable to store picture
 
   submitted: boolean;
   star: boolean;
 
-  uploadedFiles: any[] = []; // Upload image
-
-  isDisabledControlForm = false;
+  
 
   fr: any;
 
