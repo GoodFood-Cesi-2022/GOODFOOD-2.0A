@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
+
 import { AddressService } from 'src/app/shared/services/address/address.service';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
-
 import { FranchiseeDialogComponent } from './franchisee-dialog.component';
 
 describe('FranchiseeDialogComponent', () => {

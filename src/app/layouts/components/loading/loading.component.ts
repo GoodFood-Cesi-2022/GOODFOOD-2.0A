@@ -17,10 +17,10 @@ import { LoadingService } from 'src/app/shared/services/loading/loading.service'
 })
 export class LoadingComponent implements OnInit {
   @Input()
-  routing = false;
+  routing: boolean = false;
 
   @Input()
-  detectRoutingOnGoing = false;
+  detectRoutingOnGoing: boolean = false;
 
   constructor(public loadingService: LoadingService, private router: Router) {
     //NOSONAR
@@ -28,7 +28,7 @@ export class LoadingComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.detectRoutingOnGoing) {
-      this.router.events.subscribe((event) => {
+      this.router.events.subscribe((event): void => {
         if (
           event instanceof NavigationStart ||
           event instanceof RouteConfigLoadStart

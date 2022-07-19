@@ -39,7 +39,6 @@ export class ProfileComponent implements OnInit {
   constructor(
     private store: Store<AppState>,
     private profileService: ProfileService,
-    // private messageService: MessageService,
     private fb: FormBuilder
   ) {
     //NOSONAR
