@@ -149,7 +149,6 @@ export class FranchiseeService {
    */
   public deleteFranchisee(id: number): Observable<string> {
     return this.http.delete(`${environment.apiBaseUrl}/contractors/${id}`).pipe(
-
       // tap((obj) => console.log('service -> deleteFranchisee : ', obj)),
       map((res) => (res ? res['message'] : Message.DELETE)),
       catchError((httpErrorResponse) => {
@@ -157,7 +156,7 @@ export class FranchiseeService {
           httpErrorResponse,
           'get all recipes'
         );
-        return throwError(()=> (httpErrorResponse));
+        return throwError(() => httpErrorResponse);
       })
     );
   }
