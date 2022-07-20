@@ -1,22 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  FormGroup,
-  Validators,
-  FormBuilder,
-  FormControl,
-} from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { FormGroup, Validators, FormBuilder, FormControl } from "@angular/forms";
 
-import { MessageService, ConfirmationService } from 'primeng/api';
+import { MessageService, ConfirmationService } from "primeng/api";
 
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
-import { IngreType } from 'src/app/shared/models/ingredient-type.model';
-import { IngredientService } from 'src/app/shared/services/ingredient/ingredient.service';
-import { IngredientTypeService } from 'src/app/shared/services/ingredient-type/ingredient-type.service';
+import { Ingredient } from "src/app/shared/models/ingredient.model";
+import { IngreType } from "src/app/shared/models/ingredient-type.model";
+import { IngredientService } from "src/app/shared/services/ingredient/ingredient.service";
+import { IngredientTypeService } from "src/app/shared/services/ingredient-type/ingredient-type.service";
 
 @Component({
-  selector: 'app-ingredient',
-  templateUrl: './ingredient.component.html',
-  styleUrls: ['./ingredient.component.scss'],
+  selector: "app-ingredient",
+  templateUrl: "./ingredient.component.html",
+  styleUrls: ["./ingredient.component.scss"],
   styles: [
     `
       :host ::ng-deep .p-dialog {
@@ -76,7 +71,7 @@ export class IngredientComponent implements OnInit {
 
   initForm(): void {
     this.form = this.fb.group({
-      name: [this.ingredient?.name || '', [Validators.required]],
+      name: [this.ingredient?.name || "", [Validators.required]],
       allergen: this.ingredient?.allergen || false,
       ingredientType: this.ingredient?.types || new FormControl([]),
     });
@@ -85,16 +80,15 @@ export class IngredientComponent implements OnInit {
   private makeRecipe(): void {
     const ingredient: Ingredient = {};
     if (this.isCreate) {
-      ingredient.name = this.form.get('name').value;
-      ingredient.allergen = this.form.get('allergen').value;
-      ingredient.types = [this.form.controls['ingredientType'].value.code];
+      ingredient.name = this.form.get("name").value;
+      ingredient.allergen = this.form.get("allergen").value;
+      ingredient.types = [this.form.controls["ingredientType"].value.code];
     } else {
       ingredient.id = this.ingredient.id;
-      ingredient.name = this.form.get('name').value;
-      ingredient.allergen = this.form.get('allergen').value;
+      ingredient.name = this.form.get("name").value;
+      ingredient.allergen = this.form.get("allergen").value;
     }
     this.ingredient = ingredient;
-    console.log('makeIngredient', this.ingredient);
   }
 
   newIngredient(): void {
@@ -121,35 +115,34 @@ export class IngredientComponent implements OnInit {
       this.ingredientService.updateIngredient(this.ingredient).subscribe({
         next: () => {
           this.messageService.add({
-            severity: 'success',
-            summary: 'Succès',
+            severity: "success",
+            summary: "Succès",
             detail: "Mise à jour d'ingredient",
             life: 3000,
           });
         },
         error: (error) => {
           this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur le moment de modification',
+            severity: "error",
+            summary: "Erreur le moment de modification",
             detail: error.error,
           });
-          console.log(error);
         },
       });
     } else {
       this.ingredientService.createIngredient(this.ingredient).subscribe({
         next: () => {
           this.messageService.add({
-            severity: 'success',
-            summary: 'Succès',
-            detail: 'Nouvel ingredient ajouté',
+            severity: "success",
+            summary: "Succès",
+            detail: "Nouvel ingredient ajouté",
             life: 3000,
           });
         },
         error: (error) => {
           this.messageService.add({
-            severity: 'error',
-            summary: 'Erreur le moment de création',
+            severity: "error",
+            summary: "Erreur le moment de création",
             detail: error.error,
           });
         },
@@ -163,30 +156,26 @@ export class IngredientComponent implements OnInit {
   deleteIngredient(ingredient: Ingredient): void {
     this.confirmationService.confirm({
       message: 'Etes-vous sûre de vouloir supprimer "' + ingredient.name + '"?',
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      acceptButtonStyleClass: 'accept',
+      header: "Confirm",
+      icon: "pi pi-exclamation-triangle",
+      acceptButtonStyleClass: "accept",
       accept: (): void => {
         this.ingredientService.deleteIngredient(ingredient.id).subscribe({
           next: () => {
             this.ingredients = [...this.ingredients];
             this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
+              severity: "success",
+              summary: "Succès",
               detail: "L'ingrédient est supprimé.",
               life: 3000,
             });
           },
           error: (error) => {
             this.messageService.add({
-              severity: 'error',
+              severity: "error",
               summary: "Erreur le moment de création de l'ingrédient!",
               detail: error.error,
             });
-            console.log(
-              "erreur le moment de création de l'ingrédient ->",
-              error
-            );
           },
         });
       },
@@ -197,9 +186,9 @@ export class IngredientComponent implements OnInit {
     this.allergen = event.checked;
     if (event.checked) {
       this.allergen = true;
-      this.form.get('allergen').setValue(true);
+      this.form.get("allergen").setValue(true);
     } else {
-      this.form.get('allergen').setValue(false);
+      this.form.get("allergen").setValue(false);
     }
   }
 

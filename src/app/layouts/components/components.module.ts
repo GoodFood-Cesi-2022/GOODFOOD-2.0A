@@ -10,6 +10,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { SidebarModule } from 'primeng/sidebar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { DropdownModule } from 'primeng/dropdown';
+import { MenubarModule } from 'primeng/menubar';
 import { RippleModule } from 'primeng/ripple';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -46,6 +47,7 @@ import { ServerErrorComponent } from './server-error/server-error.component';
     TooltipModule,
     SidebarModule,
     DropdownModule,
+    MenubarModule,
     RippleModule,
   ],
 })

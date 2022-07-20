@@ -6,3 +6,9 @@
 .p-button {
   line-height: 2;
 }
+
+body,
+body .p-component .p-sidebar {
+  font-family: "Optima", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+}

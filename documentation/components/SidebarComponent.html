@@ -188,7 +188,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:19</a></div>
                             </td>
                         </tr>
 
@@ -267,8 +267,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="39"
-                            class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:39</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:40</a></div>
                 </td>
             </tr>
 
@@ -304,8 +304,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="27"
-                            class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:27</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="28"
+                            class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:28</a></div>
                 </td>
             </tr>
 
@@ -341,8 +341,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="35"
-                            class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:35</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:36</a></div>
                 </td>
             </tr>
 
@@ -383,7 +383,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:17</a></div>
                         </td>
                     </tr>
 
@@ -408,7 +408,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:18</a></div>
                         </td>
                     </tr>
 
@@ -435,7 +435,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:18</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/layouts/components/sidebar/sidebar.component.ts:19</a></div>
                         </td>
                     </tr>
 
@@ -451,11 +451,12 @@
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
 import { select, Store } from &#x27;@ngrx/store&#x27;;
 import { Observable } from &#x27;rxjs&#x27;;
-import { EndPoints } from &#x27;src/app/shared/constants/constants&#x27;;
+
 import { User } from &#x27;src/app/shared/models/user.model&#x27;;
 import { SidebarService } from &#x27;src/app/shared/services/sidebar/sidebar.service&#x27;;
 import { AppState } from &#x27;src/app/shared/store/store.reducer&#x27;;
 import { selectUserDetails } from &#x27;src/app/shared/store/state/user/user.selector&#x27;;
+import { EndPoints } from &#x27;src/app/shared/constants/endpoints.const&#x27;;
 
 @Component({
   selector: &#x27;app-sidebar&#x27;,
@@ -576,16 +577,6 @@ export class SidebarComponent implements OnInit {
         pButton
         pRipple
         type&#x3D;&quot;button&quot;
-        label&#x3D;&quot;Aide&quot;
-        class&#x3D;&quot;p-button-success p-button-text&quot;
-        icon&#x3D;&quot;pi pi-info-circle&quot;
-      &gt;&lt;/button&gt;
-    &lt;/li&gt;
-    &lt;li&gt;
-      &lt;button
-        pButton
-        pRipple
-        type&#x3D;&quot;button&quot;
         class&#x3D;&quot;p-button-danger p-button-text&quot;
         (click)&#x3D;&quot;logOut()&quot;
         label&#x3D;&quot;Se déconnecter&quot;
@@ -636,8 +627,8 @@ export class SidebarComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><p-sidebar  [(visible)]="display"  [baseZIndex]="10000"  styleClass="p-sidebar-sm"  *ngIf="user$ | async as user">  <ul class="nav flex-column">    <li>      <button        *ngIf="user.autorisations?.isAdmin"        pButton        pRipple        type="button"        label="Utilisateurs"        class="p-button-info p-button-text"        icon="pi pi-users"        routerLink="/users"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Franchisés"        class="p-button-info p-button-text"        icon="pi pi-briefcase"        routerLink="/franchisee"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin"        pButton        pRipple        type="button"        label="Recettes"        class="p-button-info p-button-text"        icon="pi pi-list"        routerLink="/recipes"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Commandes"        class="p-button-info p-button-text"        icon="pi pi-shopping-cart"        routerLink="/orders"        (click)="onClose()"        routerLinkActive="active"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Compte"        class="p-button-info p-button-text"        icon="pi pi-user"        routerLink="/profile"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        pButton        pRipple        type="button"        label="Aide"        class="p-button-success p-button-text"        icon="pi pi-info-circle"      ></button>    </li>    <li>      <button        pButton        pRipple        type="button"        class="p-button-danger p-button-text"        (click)="logOut()"        label="Se déconnecter"        icon="pi pi-sign-out"      ></button>    </li>  </ul></p-sidebar></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
+        var COMPONENT_TEMPLATE = '<div><p-sidebar  [(visible)]="display"  [baseZIndex]="10000"  styleClass="p-sidebar-sm"  *ngIf="user$ | async as user">  <ul class="nav flex-column">    <li>      <button        *ngIf="user.autorisations?.isAdmin"        pButton        pRipple        type="button"        label="Utilisateurs"        class="p-button-info p-button-text"        icon="pi pi-users"        routerLink="/users"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Franchisés"        class="p-button-info p-button-text"        icon="pi pi-briefcase"        routerLink="/franchisee"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin"        pButton        pRipple        type="button"        label="Recettes"        class="p-button-info p-button-text"        icon="pi pi-list"        routerLink="/recipes"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Commandes"        class="p-button-info p-button-text"        icon="pi pi-shopping-cart"        routerLink="/orders"        (click)="onClose()"        routerLinkActive="active"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Compte"        class="p-button-info p-button-text"        icon="pi pi-user"        routerLink="/profile"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        pButton        pRipple        type="button"        class="p-button-danger p-button-text"        (click)="logOut()"        label="Se déconnecter"        icon="pi pi-sign-out"      ></button>    </li>  </ul></p-sidebar></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'FranchiseeDialogComponent', 'selector': 'app-franchisee-dialog'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidebarComponent'};
 </script>
