@@ -101,10 +101,8 @@ export class FranchiseeDialogComponent implements OnInit {
     this.loading.loadingOn();
 
     if (this.mode === 'UPDATE') {
-      console.log('update address in component : ', this.mode);
       this.update();
     } else {
-      console.log('create address in component : ');
       this.create();
     }
   }
@@ -125,7 +123,6 @@ export class FranchiseeDialogComponent implements OnInit {
             next: (_res) => {
               this.ref.close(_res);
               this.franchisee = _res;
-              console.log('create franchisee in component : ', res);
             },
             error: (error) => {
               this.messageService.add({
@@ -142,7 +139,7 @@ export class FranchiseeDialogComponent implements OnInit {
     this.addressService
       .updateAddress(this.address)
       .pipe(finalize((): void => this.loading.loadingOff()))
-      .subscribe((res): void => {
+      .subscribe((): void => {
         this.franchiseeService.updateFranchisee(this.franchisee).subscribe({
           next: (res) => {
             this.ref.close(res);
@@ -160,12 +157,5 @@ export class FranchiseeDialogComponent implements OnInit {
 
   public onClose(): void {
     this.ref.close();
-  }
-
-  public checkError(controlName: string, errorName: string): boolean {
-    return (
-      this.form.controls[controlName].dirty &&
-      this.form.controls[controlName].hasError(errorName)
-    );
   }
 }

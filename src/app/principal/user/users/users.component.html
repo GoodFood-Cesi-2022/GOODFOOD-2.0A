@@ -1,12 +1,6 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title
-  [title]="'Utilisateurs'"
-  [description]="
-    'Les details des informations des utilisateurs, en tant qu\'administrateur vous pouvez créer, modifier et supprimer un ou des compte(s).'
-  "
->
-</app-title>
+<app-title [title]="'Utilisateurs'" [description]="'L\espace Utilidateurs'"> </app-title>
 <!-- app-users -->
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
@@ -18,7 +12,7 @@
             pInputText
             class="w-20rem"
             type="search"
-            filterBy="['firstname', 'lastname', 'phone', 'email']"
+            filterBy="['firstname', 'lastname', 'phone', 'email', 'roles']"
             (input)="dt.filterGlobal($any($event.target).value, 'contains')"
             placeholder="Rechercher..."
           />
@@ -42,12 +36,7 @@
     [value]="users"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="[
-      'lastname',
-      'country.lastname',
-      'representative.lastname',
-      'status'
-    ]"
+    [globalFilterFields]="['lastname', 'country.lastname', 'representative.lastname', 'status']"
     [(selection)]="selectedUsers"
     [rowHover]="true"
     dataKey="id"
@@ -56,18 +45,11 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="firstname" scope="col">
-          Prénom <p-sortIcon field="firstname"></p-sortIcon>
-        </th>
-        <th pSortableColumn="lastname" scope="col">
-          Nom <p-sortIcon field="lastname"></p-sortIcon>
-        </th>
-        <th pSortableColumn="email" scope="col">
-          Email <p-sortIcon field="email"></p-sortIcon>
-        </th>
-        <th pSortableColumn="phone" scope="col">
-          Téléphone <p-sortIcon field="phone"></p-sortIcon>
-        </th>
+        <th pSortableColumn="firstname" scope="col">Prénom <p-sortIcon field="firstname"></p-sortIcon></th>
+        <th pSortableColumn="lastname" scope="col">Nom <p-sortIcon field="lastname"></p-sortIcon></th>
+        <th pSortableColumn="email" scope="col">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="phone" scope="col">Téléphone <p-sortIcon field="phone"></p-sortIcon></th>
+        <th pSortableColumn="user.roles.code" scope="col">Rôle <p-sortIcon field="user.roles.code"></p-sortIcon></th>
         <th scope="col"></th>
       </tr>
     </ng-template>
@@ -77,6 +59,7 @@
         <td>{{ user.lastname }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.phone }}</td>
+        <td>{{ user.roles.code }}</td>
         <td>
           <button
             pButton
@@ -115,33 +98,13 @@
   <ng-template pTemplate="content" [formGroup]="form">
     <div class="p-field my-3">
       <label for="firstname">Prénom</label>
-      <input
-        type="text"
-        pInputText
-        id="firstname"
-        formControlName="firstname"
-        placeholder="Sarah"
-        required
-        autofocus
-      />
-      <small class="p-invalid" *ngIf="submitted && !user.firstname"
-        >Firstname is required.</small
-      >
+      <input type="text" pInputText id="firstname" formControlName="firstname" placeholder="Sarah" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !user.firstname">Firstname is required.</small>
     </div>
     <div class="p-field mb-3">
       <label for="lastname">Nom</label>
-      <input
-        type="text"
-        pInputText
-        id="lastname"
-        formControlName="lastname"
-        placeholder="Dubois"
-        required
-        autofocus
-      />
-      <small class="p-invalid" *ngIf="submitted && !user.lastname"
-        >Lastname is required.</small
-      >
+      <input type="text" pInputText id="lastname" formControlName="lastname" placeholder="Dubois" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !user.lastname">Lastname is required.</small>
     </div>
     <div class="p-field mb-3">
       <label for="email">Email</label>
@@ -154,9 +117,7 @@
         required
         autofocus
       />
-      <small class="p-invalid" *ngIf="submitted && !user.email"
-        >Email is required.</small
-      >
+      <small class="p-invalid" *ngIf="submitted && !user.email">Email is required.</small>
     </div>
     <div class="p-field mb-3">
       <label for="phone">Téléphone</label>
@@ -172,19 +133,25 @@
         required
         autofocus
       />
-      <small class="p-invalid" *ngIf="submitted && !user.phone"
-        >Phone is required.</small
+      <small class="p-invalid" *ngIf="submitted && !user.phone">Phone is required.</small>
+    </div>
+    <div class="p-field mb-3">
+      <label for="roles">Type d'ingrédient</label>
+      <p-dropdown
+        [options]="users"
+        [disabled]="!isCreate"
+        optionLabel="code"
+        formControlName="role"
+        [autoDisplayFirst]="false"
+        id="rolesFor"
+        appendTo="body"
+        [style]="{ width: '100%' }"
       >
+      </p-dropdown>
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
-    <button
-      pButton
-      pRipple
-      label="Annuler"
-      class="p-button-text p-button-danger"
-      (click)="hideDialog()"
-    ></button>
+    <button pButton pRipple label="Annuler" class="p-button-text p-button-danger" (click)="hideDialog()"></button>
     <button
       pButton
       pRipple

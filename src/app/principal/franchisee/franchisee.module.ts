@@ -21,18 +21,25 @@ import { PanelModule } from 'primeng/panel';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { TabViewModule } from 'primeng/tabview';
 
 import { FranchiseeComponent } from './franchisee/franchisee.component';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { ComponentsModule } from 'src/app/layouts/components/components.module';
 import { ApiTokenInterceptorService } from 'src/app/shared/interceptors/api-token-interceptor.service';
 import { FranchiseeDialogComponent } from './franchisee-dialog/franchisee-dialog.component';
+import { FranchiseeDetailComponent } from './franchisee-detail/franchisee-detail.component';
+import { FranchiseeTabsComponent } from './franchisee-tabs/franchisee-tabs.component';
+import { TabViewModule } from 'primeng/tabview';
 
-const routes: Routes = [{ path: '', component: FranchiseeComponent }];
+const routes: Routes = [{ path: '', component: FranchiseeTabsComponent }];
 
 @NgModule({
-  declarations: [FranchiseeComponent, FranchiseeDialogComponent],
+  declarations: [
+    FranchiseeComponent,
+    FranchiseeDialogComponent,
+    FranchiseeDetailComponent,
+    FranchiseeTabsComponent,
+  ],
   imports: [
     ButtonModule,
     CommonModule,
@@ -48,12 +55,12 @@ const routes: Routes = [{ path: '', component: FranchiseeComponent }];
     RippleModule,
     RouterModule.forChild(routes),
     SelectButtonModule,
+    TabViewModule,
     TableModule,
     ToastModule,
     ToolbarModule,
     TooltipModule,
     PanelModule,
-    TabViewModule,
     ProgressSpinnerModule,
     ReactiveFormsModule,
     KeyFilterModule,

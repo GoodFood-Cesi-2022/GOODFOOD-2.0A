@@ -314,10 +314,21 @@ export class LoginComponent implements OnInit {
     </div>
 
     <div class="tab-pane fade " id="c-templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;div&gt;
-    &lt;button pButton pRipple label&#x3D;&quot;Se connecter&quot; type&#x3D;&quot;submit&quot; class&#x3D;&quot;border-none w-full outline-none&quot;
-      (click)&#x3D;&quot;onLogin()&quot;&gt;&lt;/button&gt;
-&lt;/div&gt;</code></pre>
+        <pre class="line-numbers"><code class="language-html">&lt;div
+  class&#x3D;&quot;justify-content-end w-6 py-8 ml-8 md:my-0 align-items-center justify-content-center w-30rem relative top-100 right-0&quot;
+&gt;
+  &lt;div class&#x3D;&quot;p-6 shadow-4 text-center md:w-20 mb-2&quot;&gt;
+    &lt;button
+      pButton
+      pRipple
+      label&#x3D;&quot;Se connecter&quot;
+      type&#x3D;&quot;submit&quot;
+      class&#x3D;&quot;border-none w-full outline-none&quot;
+      (click)&#x3D;&quot;onLogin()&quot;
+    &gt;&lt;/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
     </div>
 
     <div class="tab-pane fade " id="c-styleData">
@@ -358,8 +369,8 @@ button {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><div>    <button pButton pRipple label="Se connecter" type="submit" class="border-none w-full outline-none"      (click)="onLogin()"></button></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'CallbackComponent', 'selector': 'app-callback'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
+        var COMPONENT_TEMPLATE = '<div><div  class="justify-content-end w-6 py-8 ml-8 md:my-0 align-items-center justify-content-center w-30rem relative top-100 right-0">  <div class="p-6 shadow-4 text-center md:w-20 mb-2">    <button      pButton      pRipple      label="Se connecter"      type="submit"      class="border-none w-full outline-none"      (click)="onLogin()"    ></button>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'FranchiseeDialogComponent', 'selector': 'app-franchisee-dialog'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>
