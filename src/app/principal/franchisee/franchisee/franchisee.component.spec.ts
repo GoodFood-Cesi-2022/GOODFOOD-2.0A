@@ -25,6 +25,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FranchiseeComponent } from './franchisee.component';
 import { environment } from 'src/environments/environment';
 import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
+import { mockFranchisee } from 'src/app/shared/mock/franchisee.mock';
 
 @Component({
   template: ` <h2>PrimeNG ROCKS!</h2> `,
@@ -86,8 +87,14 @@ fdescribe('FranchiseeComponent', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     testDynamicDialogComponent = fixture.debugElement.componentInstance;
     component = fixture.componentInstance;
-    component.createNewFranchisee;
     fixture.detectChanges();
+    const req = httpTestingController.expectOne(
+      `${environment.apiBaseUrl}/contractors`
+    );
+    expect(req.request.method).toEqual(_HttpRequest.GET);
+
+    // Respond with the mock address
+    req.flush(mockFranchisee);
   });
 
   afterEach(() => {
@@ -95,11 +102,6 @@ fdescribe('FranchiseeComponent', () => {
   });
 
   it('should create', () => {
-    const req = httpTestingController.expectOne(
-      `${environment.apiBaseUrl}/contractors`
-    );
-    expect(req.request.method).toEqual(_HttpRequest.GET);
-    req.flush({});
     expect(component).toBeTruthy();
   });
 

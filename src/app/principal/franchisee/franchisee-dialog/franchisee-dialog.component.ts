@@ -81,10 +81,6 @@ export class FranchiseeDialogComponent implements OnInit {
   }
 
   private getFormValues(): void {
-    if (this.mode === 'UPDATE') {
-     // this.franchisee.address_id = this.franchisee.address.id;
-
-    }
     this.franchisee.name = this.form.value.name;
     this.franchisee.phone = this.form.value.phone;
     this.franchisee.email = this.form.value.email;
@@ -94,6 +90,10 @@ export class FranchiseeDialogComponent implements OnInit {
     this.franchisee.address.zip_code = this.form.value.zip_code;
     this.franchisee.address.city = this.form.value.city;
     this.franchisee.address.country = this.form.value.country;
+    if (this.mode === 'UPDATE') {
+      this.address = this.franchisee.address;
+      this.address.id = this.franchisee.address_id;
+    }
   }
 
   public onSubmit(): void {
@@ -139,9 +139,6 @@ export class FranchiseeDialogComponent implements OnInit {
   }
 
   private update(): void {
-    this.address = this.franchisee.address;
-    this.address.id = this.franchisee.address_id;
-
     this.addressService
       .updateAddress(this.address)
       .pipe(finalize((): void => this.loading.loadingOff()))
