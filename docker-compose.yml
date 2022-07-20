@@ -3,7 +3,7 @@ services:
   # ------------------------------ Angular
   web:
     networks:
-      frontend:
+      goodfood:
     build:
       context: ./
       dockerfile: Dockerfile
@@ -12,7 +12,6 @@ services:
     image: goodfood-web:latest
     ports:
       - "4200:80"
-      # - "49153:49153"
       # volumes:
       #  - ../app:/app
     volumes:
@@ -20,7 +19,7 @@ services:
   # ------------------------------ Compodoc
   compodoc:
     networks:
-      frontend:
+      goodfood:
     build:
       context: ./
       dockerfile: ./documentation/Dockerfile
@@ -34,5 +33,5 @@ services:
       - "4242:4201"
 
 networks:
-  frontend:
+  goodfood:
     driver: bridge
