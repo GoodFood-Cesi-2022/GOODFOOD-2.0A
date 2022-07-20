@@ -65,7 +65,7 @@ export class IngredientTypeComponent implements OnInit {
 
     ingreType.name = this.form.get('name').value;
     ingreType.description = this.form.get('description').value;
-
+    ingreType.id = this.ingreType?.id || null;
     this.ingreType = ingreType;
   }
 
@@ -141,7 +141,6 @@ export class IngredientTypeComponent implements OnInit {
                 summary: 'Erreur le moment de création de type',
                 detail: error.error,
               });
-              console.log('erreur le moment de création type --->', error);
             },
           });
       },
