@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, catchError, throwError } from 'rxjs';
+import { Observable, map, catchError, throwError, of } from 'rxjs';
 
 import { Schedule } from '../../models/schedule.model';
 import { Franchisee } from '../../models/franchisee.model';
@@ -53,7 +53,7 @@ export class ScheduleService {
             httpErrorResponse,
             'create schedule'
           );
-          return throwError(()=> (httpErrorResponse));
+          return throwError(() => httpErrorResponse);
         })
       );
   }
@@ -76,7 +76,7 @@ export class ScheduleService {
             httpErrorResponse,
             'update schedule'
           );
-          return throwError(()=> (httpErrorResponse));
+          return throwError(() => httpErrorResponse);
         })
       );
   }

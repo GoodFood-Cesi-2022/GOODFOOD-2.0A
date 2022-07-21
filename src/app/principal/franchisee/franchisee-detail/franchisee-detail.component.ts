@@ -1,12 +1,20 @@
+import {
+  Wednesday,
+  Thursday,
+  Lunch,
+} from './../../../shared/models/schedule.model';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { Subscription } from 'rxjs';
 import { Address } from 'src/app/shared/models/address.model';
 
 import { Franchisee } from 'src/app/shared/models/franchisee.model';
 import { Schedule } from 'src/app/shared/models/schedule.model';
 import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
 import { LoadingService } from 'src/app/shared/services/loading/loading.service';
+import { ScheduleService } from 'src/app/shared/services/schedule/schedule.service';
 
 @Component({
   selector: 'app-franchisee-detail',
@@ -16,84 +24,88 @@ import { LoadingService } from 'src/app/shared/services/loading/loading.service'
 export class FranchiseeDetailComponent implements OnInit {
   franchisees: Franchisee[] = [];
   franchisee: Franchisee;
+  id: number;
   address: Address;
   schedule: Schedule;
-
+  private routeSub: Subscription;
   form: FormGroup;
   editMode: boolean;
 
   constructor(
     private franchiseeService: FranchiseeService,
+    private scheduleService: ScheduleService,
     public messageService: MessageService,
     private loading: LoadingService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute
   ) {
     //NOSONAR
   }
 
   ngOnInit(): void {
+    this.routeSub = this.route.params.subscribe((params) => {
+      this.id = params['id']; //assign the value of id
+    });
     this.franchiseeService.getFranchisees().subscribe((res) => {
       this.franchisees = res;
-      console.log('franchisee component --> get all franchisees --> ', res);
+      this.getFranchiseeById();
+      this.scheduleService.getSchedule(this.franchisee).subscribe((res) => {
+        this.schedule = res;
+        console.log('get schedule ---> ', res);
+      });
     });
-    this.initFranchisee();
+
+    this.initSchedule();
   }
 
-  initFranchisee(): void {
+  initSchedule(): void {
     this.form = this.fb.group({
-      name: [this.franchisee?.name || '', [Validators.required]],
-      phone: [this.franchisee?.phone || '', [Validators.required]],
-      email: [
-        this.franchisee?.email || '',
-        [Validators.required, Validators.email],
-      ],
-      max_delivery_radius: [
-        this.franchisee?.max_delivery_radius,
-        [Validators.required],
-      ],
-      address: [this.franchisee?.address, [Validators.required]],
-      first_line: [this.franchisee?.address?.first_line, [Validators.required]],
-      second_line: [this.franchisee?.address?.second_line || ''],
-      zip_code: [
-        this.franchisee?.address?.zip_code || '',
-        [Validators.required],
-      ],
-      city: [this.franchisee?.address?.city || '', [Validators.required]],
-      country: [this.franchisee?.address?.country || '', [Validators.required]],
+      monday: [this.schedule?.monday, [Validators.required]],
+      tuesday: [this.schedule?.tuesday, [Validators.required]],
+      Wednesday: [this.schedule?.wednesday, [Validators.required]],
+      Thursday: [this.schedule?.thursday, [Validators.required]],
+      friday: [this.schedule?.friday, [Validators.required]],
+      saturday: [this.schedule?.saturday, [Validators.required]],
+      sunday: [this.schedule?.sunday, [Validators.required]],
     });
   }
 
-  private getFranchisee(): void {
-    this.franchisee.name = this.form.value.name;
-    this.franchisee.phone = this.form.value.phone;
-    this.franchisee.email = this.form.value.email;
-    this.franchisee.max_delivery_radius = this.form.value.max_delivery_radius;
-    this.franchisee.address.first_line = this.form.value.first_line;
-    this.franchisee.address.second_line = this.form.value.second_line;
-    this.franchisee.address.zip_code = this.form.value.zip_code;
-    this.franchisee.address.city = this.form.value.city;
-    this.franchisee.address.country = this.form.value.country;
-    if (this.editMode) {
-      this.address = this.franchisee.address;
-      this.address.id = this.franchisee.address_id;
-    }
+  private getSchedule(): void {
+    this.schedule.monday.lunch = this.form.value.monday.lunch;
+    this.schedule.monday.night = this.form.value.monday.night;
+    this.schedule.tuesday.lunch = this.form.value.tuesday.lunch;
+    this.schedule.tuesday.night = this.form.value.tuesday.night;
+    this.schedule.wednesday.lunch = this.form.value.wednesday.lunch;
+    this.schedule.wednesday.night = this.form.value.wednesday.night;
+    this.schedule.thursday.lunch = this.form.value.thursday.lunch;
+    this.schedule.thursday.night = this.form.value.thursday.night;
+    this.schedule.friday.lunch = this.form.value.friday.lunch;
+    this.schedule.friday.night = this.form.value.friday.night;
+    this.schedule.saturday.lunch = this.form.value.saturday.lunch;
+    this.schedule.saturday.night = this.form.value.saturday.night;
+    this.schedule.sunday.lunch = this.form.value.sunday.lunch;
+    this.schedule.sunday.night = this.form.value.sunday.night;
   }
+
   public onSubmit(): void {
-    this.getFranchisee();
     this.loading.loadingOn();
-
+    this.getSchedule();
     if (this.editMode) {
-      this.updateFranchisee();
+      this.updateSchedule();
     } else {
-      this.newFranchisee();
+      this.newSchedule();
     }
   }
 
-  newFranchisee(): void {
-    //NOSONAR
+  getFranchiseeById(): void {
+    this.franchisees.forEach((e) => {
+      if (e.id == this.id) {
+        this.franchisee = e;
+      }
+    });
   }
 
-  updateFranchisee(): void {
+  updateSchedule(): void {
     //NOSONAR
   }
 
