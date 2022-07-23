@@ -24,27 +24,4 @@ export class UserEffects {
       map((userDetails) => UserActions.userUpdated({ userDetails }))
     )
   );
-
-  // userLoaded$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(UserActions.userLoaded),
-  //       tap((action) =>
-  //         localStorage.setItem(
-  //           'userDetails',
-  //           JSON.stringify(action.userDetails)
-  //         )
-  //       )
-  //     ),
-  //   { dispatch: false }
-  // );
-
-  // logOutAction$ = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(UserActions.logOutAction.logOutFlowInitiated.type),
-  //       tap(() => this.authService.logOut())
-  //     ),
-  //   { dispatch: false }
-  // );
 }

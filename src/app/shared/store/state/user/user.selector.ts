@@ -1,55 +1,19 @@
-import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from "@ngrx/store";
 
-import { Roles } from 'src/app/shared/constants/role.const';
-import { UserState } from './user.reducer';
+import { UserState } from "./user.reducer";
 
 /**
  * Feature selector
  * and
  * a selector that returns the userDetails
- *
- * access these properties :
- *  - isLoggedIn,
- *  - canAccess,
- *  - adminAccess | franchiseeAccess
  */
 
-export const selectUserState = createFeatureSelector<UserState>('user');
+export const selectUserState = createFeatureSelector<UserState>("user");
 
-export const selectUserDetails = createSelector(
-  selectUserState,
-  (user) => user.userDetails
-);
+export const selectUserDetails = createSelector(selectUserState, (user) => user.userDetails);
 
 export const selectProfileUser = createSelector(selectUserDetails, (user) => {
   return { user };
 });
 
-export const selectIsLoggedIn = createSelector(
-  selectUserDetails,
-  (userDetails) => !!userDetails
-);
-
-function canAccess(user: UserState, roles: string[]): boolean {
-  let grantedAccess = false;
-
-  for (const role of roles) {
-    user.userDetails.roles.forEach((e) => {
-      if (e['code'] === role) {
-        grantedAccess = true;
-      }
-    });
-    if (grantedAccess) {
-      break;
-    }
-  }
-  return grantedAccess;
-}
-
-export const adminAccess = createSelector(selectUserState, (user) => {
-  return canAccess(user, [Roles.ADMIN, Roles.FRANCHISEE]);
-});
-
-export const franchiseeAccess = createSelector(selectUserState, (user) => {
-  return canAccess(user, [Roles.FRANCHISEE]);
-});
+export const selectIsLoggedIn = createSelector(selectUserDetails, (userDetails) => !!userDetails);
