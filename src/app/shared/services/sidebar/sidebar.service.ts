@@ -1,11 +1,11 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { AuthService } from '../user/auth/auth.service';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+import { BehaviorSubject, map, Observable } from "rxjs";
+import { environment } from "src/environments/environment";
+import { AuthService } from "../auth/auth/auth.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class SidebarService {
   private subject = new BehaviorSubject<boolean>(false);

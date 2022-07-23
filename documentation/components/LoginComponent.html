@@ -10,7 +10,7 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/stripe.css">
+        <link rel="stylesheet" href="../styles/material.css">
     </head>
     <body>
 
@@ -291,19 +291,19 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
-import { AuthService } from &#x27;src/app/shared/services/user/auth/auth.service&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &quot;@angular/core&quot;;
+import { AuthService } from &quot;src/app/shared/services/user/auth/auth.service&quot;;
 
 @Component({
-  selector: &#x27;app-login&#x27;,
-  templateUrl: &#x27;./login.component.html&#x27;,
-  styleUrls: [&#x27;./login.component.scss&#x27;],
+  selector: &quot;app-login&quot;,
+  templateUrl: &quot;./login.component.html&quot;,
+  styleUrls: [&quot;./login.component.scss&quot;],
 })
 export class LoginComponent implements OnInit {
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-     //NOSONAR
+    //NOSONAR
   }
 
   onLogin() {

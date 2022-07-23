@@ -10,7 +10,7 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/stripe.css">
+        <link rel="stylesheet" href="../styles/material.css">
     </head>
     <body>
 
@@ -194,27 +194,27 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
-import { FormsModule, ReactiveFormsModule } from &#x27;@angular/forms&#x27;;
-import { ModuleWithProviders, NgModule } from &#x27;@angular/core&#x27;;
-import { Routes, RouterModule } from &#x27;@angular/router&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &quot;@angular/common&quot;;
+import { FormsModule, ReactiveFormsModule } from &quot;@angular/forms&quot;;
+import { ModuleWithProviders, NgModule } from &quot;@angular/core&quot;;
+import { Routes, RouterModule } from &quot;@angular/router&quot;;
 
-import { EffectsModule } from &#x27;@ngrx/effects&#x27;;
-import { StoreModule } from &#x27;@ngrx/store&#x27;;
+import { EffectsModule } from &quot;@ngrx/effects&quot;;
+import { StoreModule } from &quot;@ngrx/store&quot;;
 
-import { ButtonModule } from &#x27;primeng/button&#x27;;
-import { RippleModule } from &#x27;primeng/ripple&#x27;;
-import { ProgressSpinnerModule } from &#x27;primeng/progressspinner&#x27;;
+import { ButtonModule } from &quot;primeng/button&quot;;
+import { RippleModule } from &quot;primeng/ripple&quot;;
+import { ProgressSpinnerModule } from &quot;primeng/progressspinner&quot;;
 
-import { LoginComponent } from &#x27;./login/login.component&#x27;;
-import { AuthComponent } from &#x27;./auth/auth.component&#x27;;
-import { UserEffects } from &#x27;../shared/store/state/user&#x27;;
-import * as fromAuth from &#x27;../shared/store/state/user/user.reducer&#x27;;
-import { AuthService } from &#x27;../shared/services/user/auth/auth.service&#x27;;
+import { LoginComponent } from &quot;./login/login.component&quot;;
+import { AuthComponent } from &quot;./auth/auth.component&quot;;
+import { UserEffects } from &quot;../shared/store/state/user&quot;;
+import * as fromAuth from &quot;../shared/store/state/user/user.reducer&quot;;
+import { AuthService } from &quot;../shared/services/user/auth/auth.service&quot;;
 
 const routes: Routes &#x3D; [
-  { path: &#x27;&#x27;, component: LoginComponent },
-  { path: &#x27;redirect&#x27;, component: AuthComponent },
+  { path: &quot;&quot;, component: LoginComponent },
+  { path: &quot;redirect&quot;, component: AuthComponent },
 ];
 
 @NgModule({
