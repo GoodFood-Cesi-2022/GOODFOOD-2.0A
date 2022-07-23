@@ -29,8 +29,7 @@ describe("RecipesComponent", () => {
     httpTestingController = TestBed.inject(HttpTestingController);
     component = fixture.componentInstance;
     component.CreateNewRecipe();
-    const x = component.updateRecipe(component);
-    console.log("xxxxxxxxxxxx ", x);
+    component.updateRecipe(component);
     fixture.detectChanges();
   });
 

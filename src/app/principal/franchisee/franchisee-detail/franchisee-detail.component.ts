@@ -43,10 +43,11 @@ export class FranchiseeDetailComponent implements OnInit {
     this.franchiseeService.getFranchisees().subscribe((data) => {
       this.franchisees = data;
       this.getFranchiseeById();
-      this.scheduleService.getSchedule(this.franchisee).subscribe((res) => {
-        this.schedule = res;
-        console.log("get schedule ---> ", res);
-      });
+      if (this.franchisees) {
+        this.scheduleService.getSchedule(this.franchisee).subscribe((res) => {
+          this.schedule = res;
+        });
+      }
     });
 
     this.initSchedule();
@@ -92,11 +93,13 @@ export class FranchiseeDetailComponent implements OnInit {
   }
 
   getFranchiseeById(): void {
-    this.franchisees.forEach((e) => {
-      if (e.id == this.id) {
-        this.franchisee = e;
-      }
-    });
+    if (this.franchisees) {
+      this.franchisees.forEach((e) => {
+        if (e.id == this.id) {
+          this.franchisee = e;
+        }
+      });
+    }
   }
 
   updateSchedule(): void {
