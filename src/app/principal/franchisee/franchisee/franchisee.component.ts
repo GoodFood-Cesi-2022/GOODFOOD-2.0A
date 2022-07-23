@@ -1,26 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  trigger,
-  state,
-  style,
-  transition,
-  animate,
-} from '@angular/animations';
-import { finalize } from 'rxjs/operators';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { Component, OnInit } from "@angular/core";
+import { trigger, state, style, transition, animate } from "@angular/animations";
+import { finalize } from "rxjs/operators";
+import { ConfirmationService, MessageService } from "primeng/api";
+import { DialogService, DynamicDialogRef } from "primeng/dynamicdialog";
 
-import { Franchisee } from 'src/app/shared/models/franchisee.model';
-import { Address } from 'src/app/shared/models/address.model';
-import { Schedule } from './../../../shared/models/schedule.model';
-import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
-import { LoadingService } from 'src/app/shared/services/loading/loading.service';
-import { FranchiseeDialogComponent } from '../franchisee-dialog/franchisee-dialog.component';
+import { Franchisee } from "src/app/shared/models/franchisee.model";
+import { Address } from "src/app/shared/models/address.model";
+import { Schedule } from "./../../../shared/models/schedule.model";
+import { FranchiseeService } from "src/app/shared/services/franchisee/franchisee.service";
+import { LoadingService } from "src/app/shared/services/loading/loading.service";
+import { FranchiseeDialogComponent } from "../franchisee-dialog/franchisee-dialog.component";
 
 @Component({
-  selector: 'app-franchisee',
-  templateUrl: './franchisee.component.html',
-  styleUrls: ['./franchisee.component.scss'],
+  selector: "app-franchisee",
+  templateUrl: "./franchisee.component.html",
+  styleUrls: ["./franchisee.component.scss"],
   providers: [DialogService, MessageService],
   styles: [
     `
@@ -42,22 +36,22 @@ import { FranchiseeDialogComponent } from '../franchisee-dialog/franchisee-dialo
     `,
   ],
   animations: [
-    trigger('rowExpansionTrigger', [
+    trigger("rowExpansionTrigger", [
       state(
-        'void',
+        "void",
         style({
-          transform: 'translateX(-10%)',
+          transform: "translateX(-10%)",
           opacity: 0,
         })
       ),
       state(
-        'active',
+        "active",
         style({
-          transform: 'translateX(0)',
+          transform: "translateX(0)",
           opacity: 1,
         })
       ),
-      transition('* <=> *', animate('400ms cubic-bezier(0.86, 0, 0.07, 1)')),
+      transition("* <=> *", animate("400ms cubic-bezier(0.86, 0, 0.07, 1)")),
     ]),
   ],
 })
@@ -107,7 +101,7 @@ export class FranchiseeComponent implements OnInit {
 
   onSortChange(event) {
     let value = (event.target as HTMLTextAreaElement).value;
-    if (value.indexOf('!') === 0) {
+    if (value.indexOf("!") === 0) {
       this.sortOrder = -1;
       this.sortField = value.substring(1, value.length);
     } else {
@@ -118,7 +112,7 @@ export class FranchiseeComponent implements OnInit {
 
   onChangeValue(event) {
     let value = event.value;
-    if (value.indexOf('!') === 0) {
+    if (value.indexOf("!") === 0) {
       this.sortOrder = -1;
       this.sortField = value.substring(1, value.length);
     } else {
@@ -129,13 +123,13 @@ export class FranchiseeComponent implements OnInit {
 
   createNewFranchisee(): void {
     const ref = this.dialogService.open(FranchiseeDialogComponent, {
-      header: 'Ajouter un nouveau franchisé',
-      width: '60%',
-      styleClass: 'DynamicDialog',
-      contentStyle: { 'max-height': '550px', overflow: 'auto' },
+      header: "Ajouter un nouveau franchisé",
+      width: "60%",
+      styleClass: "DynamicDialog",
+      contentStyle: { "max-height": "550px", overflow: "auto" },
       baseZIndex: 10000,
       data: {
-        mode: 'CREATE',
+        mode: "CREATE",
         franchisee: [],
         address: {},
         schedule: {},
@@ -145,9 +139,9 @@ export class FranchiseeComponent implements OnInit {
       if (franchisee) {
         this.franchisees = [...this.franchisees];
         this.messageService.add({
-          severity: 'success',
-          summary: 'Succès',
-          detail: 'Le franchisé est bien crée.',
+          severity: "success",
+          summary: "Succès",
+          detail: "Le franchisé est bien crée.",
         });
       }
     });
@@ -156,11 +150,11 @@ export class FranchiseeComponent implements OnInit {
   update(franchisee: Franchisee): void {
     this.ref = this.dialogService.open(FranchiseeDialogComponent, {
       header: `${franchisee.name}`,
-      width: '60%',
-      styleClass: 'DynamicDialog',
-      contentStyle: { 'max-height': '550px', overflow: 'auto' },
+      width: "60%",
+      styleClass: "DynamicDialog",
+      contentStyle: { "max-height": "550px", overflow: "auto" },
       data: {
-        mode: 'UPDATE',
+        mode: "UPDATE",
         schedule: this.schedule,
         address: this.address,
         franchisee,
@@ -169,9 +163,9 @@ export class FranchiseeComponent implements OnInit {
     this.ref.onClose.subscribe((_franchisee: Franchisee): void => {
       if (_franchisee) {
         this.messageService.add({
-          severity: 'success',
-          summary: 'Succès',
-          detail: 'Le franchisé est bien modifié.',
+          severity: "success",
+          summary: "Succès",
+          detail: "Le franchisé est bien modifié.",
         });
       }
     });
@@ -184,30 +178,27 @@ export class FranchiseeComponent implements OnInit {
   delete(franchisee: Franchisee): void {
     this.confirmationService.confirm({
       message: `Voulez-vous vraiment supprimer le franchisé "${franchisee.name}" ?`,
-      header: 'Confirm',
-      icon: 'pi pi-exclamation-triangle',
-      acceptButtonStyleClass: 'accept',
+      header: "Confirm",
+      icon: "pi pi-exclamation-triangle",
+      acceptButtonStyleClass: "accept",
       accept: (): void => {
         this.franchiseeService.deleteFranchisee(franchisee.id).subscribe({
           next: (): void => {
             this.franchisees = [...this.franchisees];
             this.messageService.add({
-              severity: 'success',
-              summary: 'Succès',
-              detail: 'Ce franchisé est supprimé.',
+              severity: "success",
+              summary: "Succès",
+              detail: "Ce franchisé est supprimé.",
               life: 3000,
             });
           },
           error: (error: any): void => {
             this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur le moment de csuppression du franchisé',
+              severity: "error",
+              summary: "Erreur le moment de csuppression du franchisé",
               detail: error.error,
             });
-            console.log(
-              'erreur le moment de suppression du franchisé : ',
-              error
-            );
+            console.log("erreur le moment de suppression du franchisé : ", error);
           },
         });
       },

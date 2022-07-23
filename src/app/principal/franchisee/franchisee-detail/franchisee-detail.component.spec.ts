@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
-import { MessageService } from "primeng/api";
 import { NO_ERRORS_SCHEMA } from "@angular/core";
-import { FranchiseeDetailComponent } from "./franchisee-detail.component";
 import { ActivatedRoute } from "@angular/router";
 import { of } from "rxjs";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MessageService } from "primeng/api";
+
+import { FranchiseeDetailComponent } from "./franchisee-detail.component";
 import { environment } from "src/environments/environment";
 import { _HttpRequest } from "src/app/shared/constants/httpRequest.const";
 import { mockFranchisee } from "src/app/shared/mock/franchisee.mock";

@@ -1,7 +1,6 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Franchisés'" [description]="'Liste des franchisés'">
-</app-title>
+<app-title [title]="'Franchisés'" [description]="'Liste des franchisés'"> </app-title>
 <!--franchisee -->
 <div class="card">
   <div class="p-2 shadow-4 text-center md:w-20 mb-2" style="background: rgba(255, 255, 255, 0.441); border-radius: 5px">
@@ -10,33 +9,53 @@
         <div class="p-d-flex p-ai-center p-jc-between">
           <span class="p-input-icon-left">
             <i class="pi pi-search" aria-hidden="true"></i>
-            <input pInputText class="w-20rem" type="search"
-              (input)="dt.filterGlobal($any($event.target).value, 'contains')" placeholder="Rechercher..." />
+            <input
+              pInputText
+              class="w-20rem"
+              type="search"
+              (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+              placeholder="Rechercher..."
+            />
           </span>
         </div>
       </ng-template>
       <ng-template pTemplate="right">
-        <button pButton pRipple label="Nouveau franchisé" icon="pi pi-plus"
-          class="p-button-raised p-button-success p-button-text p-mr-3" (click)="createNewFranchisee()"></button>
+        <button
+          pButton
+          pRipple
+          label="Nouveau franchisé"
+          icon="pi pi-plus"
+          class="p-button-raised p-button-success p-button-text p-mr-3"
+          (click)="createNewFranchisee()"
+        ></button>
       </ng-template>
     </p-toolbar>
-    <p-table #dt [value]="franchisees" [rows]="10" [paginator]="true"
-      [globalFilterFields]="['name', 'email', 'phone', 'first_line', 'city']" [rowHover]="true" dataKey="id"
+    <p-table
+      #dt
+      [value]="franchisees"
+      [rows]="10"
+      [paginator]="true"
+      [globalFilterFields]="['name', 'email', 'phone', 'first_line', 'city']"
+      [rowHover]="true"
+      dataKey="id"
       currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} franchisés"
-      [showCurrentPageReport]="true" [rowsPerPageOptions]="[10, 25, 50, 100]" [(first)]="first" sortField="name">
+      [showCurrentPageReport]="true"
+      [rowsPerPageOptions]="[10, 25, 50, 100]"
+      [(first)]="first"
+      sortField="name"
+    >
       <ng-template pTemplate="header">
         <tr>
           <th class="w-5rem" scope="col"></th>
-          <th class="w-13rem" pSortableColumn="name" scope="col"> Nom de franchisé <p-sortIcon field="name">
-            </p-sortIcon>
+          <th class="w-13rem" pSortableColumn="name" scope="col">
+            Nom de franchisé <p-sortIcon field="name"> </p-sortIcon>
           </th>
-          <th class="w-15rem" pSortableColumn="phone" scope="col"> Numéro de téléphone <p-sortIcon field="phone">
-            </p-sortIcon>
+          <th class="w-15rem" pSortableColumn="phone" scope="col">
+            Numéro de téléphone <p-sortIcon field="phone"> </p-sortIcon>
           </th>
-          <th class="w-18rem" pSortableColumn="email" scope="col"> Email <p-sortIcon field="email"></p-sortIcon>
-          </th>
-          <th class="w-21rem" pSortableColumn="franchisee.address" scope="col"> Adresse <p-sortIcon
-              field="franchisee.address"></p-sortIcon>
+          <th class="w-18rem" pSortableColumn="email" scope="col">Email <p-sortIcon field="email"></p-sortIcon></th>
+          <th class="w-21rem" pSortableColumn="franchisee.address" scope="col">
+            Adresse <p-sortIcon field="franchisee.address"></p-sortIcon>
           </th>
           <th class="w-7rem" scope="col"></th>
         </tr>
@@ -44,31 +63,49 @@
       <ng-template pTemplate="body" let-franchisee>
         <tr>
           <td id="icons">
-            <button pButton pRipple type="button" icon="pi pi-eye"
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-eye"
               class="p-button-rounded p-button-text p-button-secondary min-w-0 mr-2"
-              [routerLink]="['/franchisee', franchisee.id]"></button>
+              [routerLink]="['/franchisee', franchisee.id]"
+            ></button>
           </td>
           <td>{{ franchisee.name }}</td>
           <td>{{ franchisee.phone }}</td>
           <td>{{ franchisee.email }}</td>
           <td>
-            {{ franchisee.address.first_line }}, <ng-template *ngIf="franchisee.address.second_line != null">
+            {{ franchisee.address.first_line }},
+            <ng-template *ngIf="franchisee.address.second_line != null">
               {{ franchisee.address.second_line }},
             </ng-template>
             {{ franchisee.address.zip_code }}, {{ franchisee.address.city }}, {{ franchisee.address.country }}
           </td>
           <td id="icons">
-            <button pButton pRipple type="button" icon="pi pi-pencil"
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-pencil"
               class="p-button-rounded p-button-text p-button-success min-w-0 mr-2"
-              (click)="update(franchisee)"></button>
-            <button pButton pRipple type="button" icon="pi pi-trash"
-              class="p-button-rounded p-button-text p-button-danger min-w-0" (click)="delete(franchisee)"></button>
+              (click)="update(franchisee)"
+            ></button>
+            <button
+              pButton
+              pRipple
+              type="button"
+              icon="pi pi-trash"
+              class="p-button-rounded p-button-text p-button-danger min-w-0"
+              (click)="delete(franchisee)"
+            ></button>
           </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="summary">
-        <div class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"> En total
-          il y a {{ franchisees ? franchisees.length : 0 }} franchisees. </div>
+        <div class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic">
+          En total il y a {{ franchisees ? franchisees.length : 0 }} franchisees.
+        </div>
       </ng-template>
     </p-table>
   </div>
@@ -76,10 +113,22 @@
 <!-- Confirmation Dialog -->
 <p-confirmDialog #cd>
   <p-footer>
-    <button pButton pRipple type="button" label="NON" class="p-button-danger p-button-text p-button-text-outlined"
-      (click)="cd.reject()"></button>
-    <button pButton pRipple type="button" label="OUI" class="p-button-info p-button-text p-button-text-outlined"
-      (click)="cd.accept()"></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="NON"
+      class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="OUI"
+      class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"
+    ></button>
   </p-footer>
 </p-confirmDialog>
 <!-- /Confirmation Dialog -->
