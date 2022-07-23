@@ -22,7 +22,7 @@ import { InputTextareaModule } from "primeng/inputtextarea";
 import { UsersComponent } from "./users/users.component";
 import { UsersService } from "src/app/shared/services/users/users.service";
 import { ComponentsModule } from "src/app/layouts/components/components.module";
-import { ApiTokenInterceptorService } from "src/app/shared/interceptors/api-token-interceptor.service";
+import { ApiTokenInterceptorService } from "src/app/shared/interceptors/api-token/api-token-interceptor.service";
 
 const routes: Routes = [{ path: "", component: UsersComponent }];
 

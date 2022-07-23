@@ -1,5 +1,5 @@
 import { User } from "../models/user.model";
-import { mockRole1, mockRole2, mockRoleArray } from "./role.mock";
+import { mockRole1, mockRole2 } from "./role.mock";
 
 const mockUser1: User = {
   id: 1,
