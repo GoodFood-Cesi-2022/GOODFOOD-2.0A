@@ -5,6 +5,7 @@ import { map, tap, Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { User } from "src/app/shared/models/user.model";
 import { Message } from "../../constants/message.const";
+import { Role } from "../../models/role.model";
 
 @Injectable({
   providedIn: "root",
@@ -31,13 +32,44 @@ export class UsersService {
   }
 
   /**
+   * @url GET : localhost:8080/api/users
+   * @returns all users (franch)
+   */
+  public getUsersWithRoles(): Observable<User[]> {
+    return this.http.get<User[]>(`${environment.apiBaseUrl}/users`).pipe(
+      map((res: User[]): any => {
+        let usersWithRole: User[] = [];
+        res["data"].forEach((e) => {
+          this.getUserRole(e.id).subscribe((res1) => {
+            e.roles = res1;
+            usersWithRole.push(e);
+          });
+          console.log("users with roles", usersWithRole);
+          return usersWithRole;
+        });
+      })
+    );
+  }
+
+  /**
    * @url GET : localhost:8080/api/users/{user_id}/roles
    * @returns user role
    */
-  public getUserRole(id: number): Observable<User> {
-    return this.http.get<User>(`${environment.apiBaseUrl}/users/${id}/roles`).pipe(
-      tap((obj: User): void => console.log("service -> get user role: ", obj)),
-      map((res: User): User => res)
+  public getUserRole(id: number): Observable<Role[]> {
+    return this.http.get<Role[]>(`${environment.apiBaseUrl}/users/${id}/roles`).pipe(
+      tap((obj: Role[]): void => console.log("service -> get user role: ", id, obj)),
+      map((res: Role[]): Role[] => res)
+    );
+  }
+
+  /**
+   * @url GET : localhost:8080/api/roles
+   * @returns one user
+   */
+  public getRoles(): Observable<Role[]> {
+    return this.http.get<Role[]>(`${environment.apiBaseUrl}/roles`).pipe(
+      tap((obj): void => console.log("service -> get roles : ", obj)),
+      map((res) => res)
     );
   }
 

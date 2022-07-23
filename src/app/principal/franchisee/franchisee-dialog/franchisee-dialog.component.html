@@ -3,123 +3,54 @@
   <div class="grid p-fluid formgrid mt-5">
     <div class="field mb-5 col-12 md:col-4">
       <label for="name">Nom de franchisé</label>
-      <input
-        inputId="name"
-        type="text"
-        pInputText
-        formControlName="name"
-        placeholder="Chez Tom"
-        required
-        autofocus
-      />
-      <small
-        id="nameFor-help"
-        class="p-invalid"
-        *ngIf="submitted && franchisee.name"
-        >Champ obligatoire</small
-      >
+      <input inputId="name" type="text" pInputText formControlName="name" placeholder="Chez Tom" required autofocus />
+      <small id="nameFor-help" class="p-invalid" *ngIf="submitted && franchisee.name">Champ obligatoire</small>
     </div>
     <div class="field mb-5 col-12 md:col-3">
       <label for="phone">Numéro de téléphone</label>
-      <input
-        inputId="phone"
-        pInputText
-        formControlName="phone"
-        placeholder="04 76 11 00 00"
-        [required]="true"
-      />
-      <small
-        id="phoneFor-help"
-        class="p-invalid"
-        *ngIf="submitted && franchisee.phone"
-        >Champ obligatoire</small
-      >
+      <input inputId="phone" pInputText formControlName="phone" placeholder="04 76 11 00 00" [required]="true" />
+      <small id="phoneFor-help" class="p-invalid" *ngIf="submitted && franchisee.phone">Champ obligatoire</small>
     </div>
     <div class="field mb-5 col-12 md:col-5">
       <label for="email">Email</label>
-      <input
-        inputId="email"
-        type="email"
-        pInputText
-        formControlName="email"
-        placeholder="tom@example.com"
-        required
-      />
-      <small
-        id="emailFor-help"
-        class="p-invalid"
-        *ngIf="submitted && franchisee.email"
-        >Champ obligatoire</small
-      >
+      <input inputId="email" type="email" pInputText formControlName="email" placeholder="tom@example.com" required />
+      <small id="emailFor-help" class="p-invalid" *ngIf="submitted && franchisee.email">Champ obligatoire</small>
     </div>
   </div>
   <div class="grid p-fluid formgrid">
     <div class="field mb-5 col-12 md:col-5">
       <label for="first_line">Ligne 1</label>
-      <input
-        inputId="first_line"
-        type="text"
-        pInputText
-        formControlName="first_line"
-        placeholder="1 rue charles"
-      />
+      <input inputId="first_line" type="text" pInputText formControlName="first_line" placeholder="1 rue charles" />
     </div>
     <div class="field mb-5 col-12 md:col-5">
       <label for="second_line">Ligne 2</label>
-      <input
-        inputId="second_line"
-        type="text"
-        pInputText
-        formControlName="second_line"
-        placeholder=""
-      />
+      <input inputId="second_line" type="text" pInputText formControlName="second_line" placeholder="" />
     </div>
     <div class="field mb-5 col-12 md:col-2">
       <label for="zip_code">Code postal</label>
-      <input
-        inputId="zip_code"
-        type="text"
-        pInputText
-        formControlName="zip_code"
-        placeholder="38000"
-      />
+      <input inputId="zip_code" type="text" pInputText formControlName="zip_code" placeholder="38000" />
     </div>
   </div>
   <div class="grid p-fluid formgrid">
     <div class="field mb-5 col-12 md:col-4">
       <label for="city">Ville</label>
-      <input
-        inputId="city"
-        type="text"
-        pInputText
-        formControlName="city"
-        placeholder="Grenoble"
-      />
+      <input inputId="city" type="text" pInputText formControlName="city" placeholder="Grenoble" />
     </div>
     <div class="field mb-5 col-12 md:col-4">
       <label for="country">Pays</label>
-      <input
-        inputId="country"
-        type="text"
-        pInputText
-        formControlName="country"
-        placeholder="France"
-      />
+      <input inputId="country" type="text" pInputText formControlName="country" placeholder="France" />
     </div>
     <div class="field mb-5 col-12 md:col-4">
-      <label for="integeronly">Zone de livraison</label>
+      <label for="radius">Zone de livraison</label>
       <p-inputNumber
-        inputId="integeronly"
+        inputId="radius"
         [allowEmpty]="false"
         [useGrouping]="false"
         mode="decimal"
-        formControlName="max_delivery_radius"
+        formControlName="radius"
       >
       </p-inputNumber>
-      <small
-        id="max_delivery_radiusFor-help"
-        class="p-invalid"
-        *ngIf="submitted && franchisee.max_delivery_radius"
+      <small id="max_delivery_radiusFor-help" class="p-invalid" *ngIf="submitted && franchisee.max_delivery_radius"
         >Champ obligatoire</small
       >
     </div>

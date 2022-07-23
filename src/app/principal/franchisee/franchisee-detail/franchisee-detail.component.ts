@@ -1,25 +1,19 @@
-import {
-  Wednesday,
-  Thursday,
-  Lunch,
-} from './../../../shared/models/schedule.model';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import { Address } from 'src/app/shared/models/address.model';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { Address } from "src/app/shared/models/address.model";
 
-import { Franchisee } from 'src/app/shared/models/franchisee.model';
-import { Schedule } from 'src/app/shared/models/schedule.model';
-import { FranchiseeService } from 'src/app/shared/services/franchisee/franchisee.service';
-import { LoadingService } from 'src/app/shared/services/loading/loading.service';
-import { ScheduleService } from 'src/app/shared/services/schedule/schedule.service';
+import { Franchisee } from "src/app/shared/models/franchisee.model";
+import { Schedule } from "src/app/shared/models/schedule.model";
+import { FranchiseeService } from "src/app/shared/services/franchisee/franchisee.service";
+import { LoadingService } from "src/app/shared/services/loading/loading.service";
+import { ScheduleService } from "src/app/shared/services/schedule/schedule.service";
 
 @Component({
-  selector: 'app-franchisee-detail',
-  templateUrl: './franchisee-detail.component.html',
-  styleUrls: ['./franchisee-detail.component.scss'],
+  selector: "app-franchisee-detail",
+  templateUrl: "./franchisee-detail.component.html",
+  styleUrls: ["./franchisee-detail.component.scss"],
 })
 export class FranchiseeDetailComponent implements OnInit {
   franchisees: Franchisee[] = [];
@@ -27,7 +21,7 @@ export class FranchiseeDetailComponent implements OnInit {
   id: number;
   address: Address;
   schedule: Schedule;
-  private routeSub: Subscription;
+
   form: FormGroup;
   editMode: boolean;
 
@@ -43,15 +37,15 @@ export class FranchiseeDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.routeSub = this.route.params.subscribe((params) => {
-      this.id = params['id']; //assign the value of id
+    this.route.params.subscribe((params) => {
+      this.id = params["id"]; //assign the value of id
     });
-    this.franchiseeService.getFranchisees().subscribe((res) => {
-      this.franchisees = res;
+    this.franchiseeService.getFranchisees().subscribe((data) => {
+      this.franchisees = data;
       this.getFranchiseeById();
       this.scheduleService.getSchedule(this.franchisee).subscribe((res) => {
         this.schedule = res;
-        console.log('get schedule ---> ', res);
+        console.log("get schedule ---> ", res);
       });
     });
 
