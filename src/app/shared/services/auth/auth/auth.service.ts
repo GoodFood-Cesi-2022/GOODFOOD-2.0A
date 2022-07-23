@@ -140,15 +140,16 @@ export class AuthService {
         isFranchisee: false,
       },
     };
-    _user.roles.forEach((e) => {
-      if (e["code"] === Roles.ADMIN) {
-        _user.autorisations.isAdmin = true;
-      }
-      if (e["code"] === Roles.FRANCHISEE) {
-        _user.autorisations.isFranchisee = true;
-      }
-    });
-
+    if (_user.roles) {
+      _user.roles.forEach((e) => {
+        if (e["code"] === Roles.ADMIN) {
+          _user.autorisations.isAdmin = true;
+        }
+        if (e["code"] === Roles.FRANCHISEE) {
+          _user.autorisations.isFranchisee = true;
+        }
+      });
+    }
     return _user;
   }
 
