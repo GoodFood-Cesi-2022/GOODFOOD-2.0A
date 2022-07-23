@@ -91,11 +91,13 @@ export class FranchiseeDetailComponent implements OnInit {
   }
 
   getFranchiseeById(): void {
-    this.franchisees.forEach((e) => {
-      if (e.id == this.id) {
-        this.franchisee = e;
-      }
-    });
+    if (this.franchisees) {
+      this.franchisees.forEach((e) => {
+        if (e.id == this.id) {
+          this.franchisee = e;
+        }
+      });
+    }
   }
 
   updateSchedule(): void {
