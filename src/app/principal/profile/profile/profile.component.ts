@@ -1,21 +1,18 @@
-import { ProfileService } from './../../../shared/services/profile/profile.service';
-import { Component, OnInit } from '@angular/core';
-import { select, Store } from '@ngrx/store';
-import { MessageService } from 'primeng/api';
-import { Observable, filter, first } from 'rxjs';
-import { User } from 'src/app/shared/models/user.model';
-import { AppState } from 'src/app/shared/store';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {
-  selectUserDetails,
-  UserActions,
-} from 'src/app/shared/store/state/user';
+import { ProfileService } from "./../../../shared/services/profile/profile.service";
+import { Component, OnInit } from "@angular/core";
+import { select, Store } from "@ngrx/store";
+import { MessageService } from "primeng/api";
+import { Observable, filter, first } from "rxjs";
+import { User } from "src/app/shared/models/user.model";
+import { AppState } from "src/app/shared/store";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { selectUserDetails, UserActions } from "src/app/shared/store/state/user";
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
+  selector: "app-profile",
+  templateUrl: "./profile.component.html",
   providers: [MessageService],
-  styleUrls: ['./profile.component.scss'],
+  styleUrls: ["./profile.component.scss"],
   styles: [
     `
       :host ::ng-deep .p-cell-editing {
@@ -36,11 +33,7 @@ export class ProfileComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(
-    private store: Store<AppState>,
-    private profileService: ProfileService,
-    private fb: FormBuilder
-  ) {
+  constructor(private store: Store<AppState>, private profileService: ProfileService, private fb: FormBuilder) {
     //NOSONAR
   }
 
@@ -56,9 +49,9 @@ export class ProfileComponent implements OnInit {
       (res) => {
         this.user = res;
         this.form.patchValue(this.user);
-        console.log('res in profile : ', res);
+        console.log("res in profile : ", res);
       },
-      (err) => console.log('erreur dans profile component : ', err)
+      (err) => console.log("erreur dans profile component : ", err)
     );
     this.editModeFirstname = false;
     this.editModeLastname = false;
@@ -80,26 +73,24 @@ export class ProfileComponent implements OnInit {
           const userUpdate = { ...user } as User;
           const formValue = this.form.value;
           switch (type) {
-            case 'FIRSTNAME':
+            case "FIRSTNAME":
               this.user.firstname = formValue.firstname.trim();
               break;
-            case 'LASTNAME':
+            case "LASTNAME":
               this.user.lastname = formValue.lastname.trim();
               break;
-            case 'PHONE':
+            case "PHONE":
               this.user.phone = formValue.phone.trim();
               break;
-            case 'EMAIL':
+            case "EMAIL":
               this.user.email = formValue.email.trim();
               break;
             default:
               break;
           }
-          this.store.dispatch(
-            UserActions.updateUser({ userDetails: this.user })
-          );
+          this.store.dispatch(UserActions.updateUser({ userDetails: this.user }));
         },
-        (error) => console.log('profile component > update user: ', error)
+        (error) => console.log("profile component > update user: ", error)
       );
     return this.user;
   }
@@ -109,40 +100,13 @@ export class ProfileComponent implements OnInit {
    */
   private initForm(): void {
     this.form = this.fb.group({
-      firstname: [
-        this.user?.firstname,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(30),
-        ],
-      ],
-      lastname: [
-        this.user?.lastname,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(40),
-        ],
-      ],
-      phone: [
-        this.user?.phone,
-        [Validators.required, Validators.pattern('/^[0][0-9]{9}$')],
-      ],
+      firstname: [this.user?.firstname, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      lastname: [this.user?.lastname, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
+      phone: [this.user?.phone, [Validators.required, Validators.pattern("/^[0][0-9]{9}$")]],
       email: [
         this.user?.email,
-        [
-          Validators.required,
-          Validators.email,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
+        [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(100)],
       ],
     });
-  }
-
-  // TODO : *** code this part ***
-  onFieldCancel(user: User, index: number) {
-    // Complete here
   }
 }
