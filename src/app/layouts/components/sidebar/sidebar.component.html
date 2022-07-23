@@ -1,0 +1,90 @@
+<p-sidebar
+  [(visible)]="display"
+  [baseZIndex]="10000"
+  styleClass="p-sidebar-sm"
+  *ngIf="user$ | async as user"
+>
+  <ul class="nav flex-column">
+    <li>
+      <button
+        *ngIf="user.autorisations?.isAdmin"
+        pButton
+        pRipple
+        type="button"
+        label="Utilisateurs"
+        class="p-button-info p-button-text"
+        icon="pi pi-users"
+        routerLink="/users"
+        routerLinkActive="active"
+        (click)="onClose()"
+      ></button>
+    </li>
+    <li>
+      <button
+        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
+        pButton
+        pRipple
+        type="button"
+        label="Franchisés"
+        class="p-button-info p-button-text"
+        icon="pi pi-briefcase"
+        routerLink="/franchisee"
+        routerLinkActive="active"
+        (click)="onClose()"
+      ></button>
+    </li>
+    <li>
+      <button
+        *ngIf="user.autorisations?.isAdmin"
+        pButton
+        pRipple
+        type="button"
+        label="Recettes"
+        class="p-button-info p-button-text"
+        icon="pi pi-list"
+        routerLink="/recipes"
+        routerLinkActive="active"
+        (click)="onClose()"
+      ></button>
+    </li>
+    <li>
+      <button
+        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
+        pButton
+        pRipple
+        type="button"
+        label="Commandes"
+        class="p-button-info p-button-text"
+        icon="pi pi-shopping-cart"
+        routerLink="/orders"
+        (click)="onClose()"
+        routerLinkActive="active"
+      ></button>
+    </li>
+    <li>
+      <button
+        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"
+        pButton
+        pRipple
+        type="button"
+        label="Compte"
+        class="p-button-info p-button-text"
+        icon="pi pi-user"
+        routerLink="/profile"
+        routerLinkActive="active"
+        (click)="onClose()"
+      ></button>
+    </li>
+    <li>
+      <button
+        pButton
+        pRipple
+        type="button"
+        class="p-button-danger p-button-text"
+        (click)="logOut()"
+        label="Se déconnecter"
+        icon="pi pi-sign-out"
+      ></button>
+    </li>
+  </ul>
+</p-sidebar>

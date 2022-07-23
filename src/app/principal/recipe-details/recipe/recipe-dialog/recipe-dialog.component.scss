@@ -1,0 +1,77 @@
+:host ::ng-deep .p-dropdown {
+  width: 14rem;
+}
+
+.DynamicDialog {
+  :host ::ng-deep {
+    .p-dialog .p-dialog-header {
+      background: #d8f6f6 !important;
+    }
+  }
+}
+
+:host ::ng-deep .ui-dialog .ui-dialog-titlebar {
+  background-color: rgba(255, 234, 0, 0.325);
+}
+
+.p-fileupload .p-fileupload-basic .p-fileupload-choose {
+  border-radius: 50% !important;
+  min-width: 0rem !important;
+}
+
+#fileUploader {
+  min-width: 0rem;
+}
+
+:host ::ng-deep .p-multiselect {
+  min-width: 15rem;
+  width: 18rem;
+}
+
+:host ::ng-deep .multiselect-custom {
+  .p-multiselect-label {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .country-item-value {
+    padding: 0.25rem 0.5rem;
+    border-radius: 3px;
+    display: inline-flex;
+    margin-right: 0.5rem;
+    background-color: var(--primary-color);
+    color: var(--primary-color-text);
+
+    img.flag {
+      width: 17px;
+    }
+  }
+
+  .country-placeholder {
+    padding: 0.25rem;
+  }
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(193, 213, 230);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgb(193, 213, 230);
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgb(193, 213, 230);
+}
+
+:host ::ng-deep {
+  @media screen and (max-width: 640px) {
+    .p-multiselect {
+      width: 100%;
+    }
+  }
+}

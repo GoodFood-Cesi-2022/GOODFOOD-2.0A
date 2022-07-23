@@ -10,7 +10,7 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/material.css">
+        <link rel="stylesheet" href="../styles/stripe.css">
     </head>
     <body>
 
@@ -59,7 +59,7 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/app/services/user.service.ts</code>
+            <code>src/app/shared/services/user/user/user.service.ts</code>
         </p>
 
 
@@ -80,13 +80,14 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#getAdmin" >getAdmin</a>
+                                <a href="#getNewUser" >getNewUser</a>
                             </li>
                             <li>
-                                <a href="#getFranshise" >getFranshise</a>
+                                <a href="#getNewUserRole" >getNewUserRole</a>
                             </li>
                             <li>
-                                <a href="#getPublicContent" >getPublicContent</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#initAuth" >initAuth</a>
                             </li>
                         </ul>
                     </td>
@@ -111,7 +112,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/services/user.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/app/shared/services/user/user/user.service.ts:12</a></div>
                             </td>
                         </tr>
 
@@ -158,24 +159,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getAdmin"></a>
+                    <a name="getNewUser"></a>
                     <span class="name">
-                        <span ><b>getAdmin</b></span>
-                        <a href="#getAdmin"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getNewUser</b></span>
+                        <a href="#getNewUser"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getAdmin()</code>
+<code>getNewUser()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="18"
-                            class="link-to-prism">src/app/services/user.service.ts:18</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="17"
+                            class="link-to-prism">src/app/shared/services/user/user/user.service.ts:17</a></div>
                 </td>
             </tr>
 
@@ -184,7 +185,7 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+                        <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Observable&lt;User&gt;</a></code>
 
                     </div>
                 </td>
@@ -195,24 +196,24 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getFranshise"></a>
+                    <a name="getNewUserRole"></a>
                     <span class="name">
-                        <span ><b>getFranshise</b></span>
-                        <a href="#getFranshise"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>getNewUserRole</b></span>
+                        <a href="#getNewUserRole"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getFranshise()</code>
+<code>getNewUserRole(id: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="15"
-                            class="link-to-prism">src/app/services/user.service.ts:15</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="22"
+                            class="link-to-prism">src/app/shared/services/user/user/user.service.ts:22</a></div>
                 </td>
             </tr>
 
@@ -221,8 +222,40 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>id</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                    </td>
 
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >Observable&lt;User&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -232,24 +265,26 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="getPublicContent"></a>
+                    <a name="initAuth"></a>
                     <span class="name">
-                        <span ><b>getPublicContent</b></span>
-                        <a href="#getPublicContent"><span class="icon ion-ios-link"></span></a>
+                        <span class="modifier">Private</span>
+                        <span ><b>initAuth</b></span>
+                        <a href="#initAuth"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>getPublicContent()</code>
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>initAuth(user: <a href="../interfaces/User.html" target="_self">User</a>)</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="12"
-                            class="link-to-prism">src/app/services/user.service.ts:12</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="27"
+                            class="link-to-prism">src/app/shared/services/user/user/user.service.ts:27</a></div>
                 </td>
             </tr>
 
@@ -258,8 +293,40 @@
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Returns : </b>    <code>Observable&lt;any&gt;</code>
+                        <b>Parameters :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Type</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>user</td>
+                                    <td>
+                                                <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+                                    </td>
 
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
                     </div>
                 </td>
             </tr>
@@ -271,31 +338,56 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Injectable } from &#x27;@angular/core&#x27;;
 
-const API_URL &#x3D; &#x27;http://localhost:8081/api/test/&#x27;;
+import { Observable, map } from &#x27;rxjs&#x27;;
+import { Roles } from &#x27;src/app/shared/constants/role.const&#x27;;
+import { User } from &#x27;src/app/shared/models/user.model&#x27;;
+import { environment } from &#x27;src/environments/environment&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;,
 })
 export class UserService {
-  constructor(private http: HttpClient) {}
-  getPublicContent(): Observable&lt;any&gt; {
-    return this.http.get(API_URL + &#x27;all&#x27;, { responseType: &#x27;text&#x27; });
+  constructor(private http: HttpClient) {
+    //NOSONAR
   }
-  getFranshise(): Observable&lt;any&gt; {
-    return this.http.get(API_URL + &#x27;franchise&#x27;, { responseType: &#x27;text&#x27; });
+
+  getNewUser(): Observable&lt;User&gt; {
+    return this.http
+      .get&lt;User&gt;(&#x60;${environment.apiBaseUrl}/users/current&#x60;)
+      .pipe(map((user) &#x3D;&gt; this.initAuth(user)));
   }
-  getAdmin(): Observable&lt;any&gt; {
-    return this.http.get(API_URL + &#x27;admin&#x27;, { responseType: &#x27;text&#x27; });
+  getNewUserRole(id: number): Observable&lt;User&gt; {
+    return this.http
+      .get&lt;User&gt;(&#x60;${environment.apiBaseUrl}/users/${id}/roles&#x60;)
+      .pipe(map((user) &#x3D;&gt; this.initAuth(user)));
+  }
+  private initAuth(user: User): User {
+    const _user &#x3D; {
+      ...user,
+      autorisations: {
+        isAdmin: false,
+        isFranchisee: false,
+      },
+    };
+    _user.roles.forEach((e) &#x3D;&gt; {
+      if (e[&#x27;code&#x27;] &#x3D;&#x3D;&#x3D; Roles.ADMIN) {
+        _user.autorisations.isAdmin &#x3D; true;
+      }
+      if (e[&#x27;code&#x27;] &#x3D;&#x3D;&#x3D; Roles.FRANCHISEE) {
+        _user.autorisations.isFranchisee &#x3D; true;
+      }
+    });
+    return _user;
   }
 }
 </code></pre>
     </div>
 
 </div>
+
 
 
 

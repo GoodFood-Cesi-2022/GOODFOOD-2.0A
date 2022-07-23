@@ -1,59 +1,55 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule } from "@angular/forms";
-import { RouterModule } from '@angular/router';
-
-import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ChipsModule } from "primeng/chips";
-import { InputTextModule } from "primeng/inputtext";
-import { RippleModule } from 'primeng/ripple';
-import { PasswordModule } from 'primeng/password';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModuleWithProviders, NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
+import { ButtonModule } from 'primeng/button';
+import { RippleModule } from 'primeng/ripple';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 import { LoginComponent } from './login/login.component';
-import { ResetpwComponent } from './resetpw/resetpw.component';
+import { AuthComponent } from './auth/auth.component';
+import { UserEffects } from '../shared/store/state/user';
+import * as fromAuth from '../shared/store/state/user/user.reducer';
+import { AuthService } from '../shared/services/user/auth/auth.service';
 
-import { AuthService } from './common/services/auth.service';
-import * as fromAuth from './common/store/auth.reducer';
-import { AuthEffects } from './common/store/auth.effects';
-
+const routes: Routes = [
+  { path: '', component: LoginComponent },
+  { path: 'redirect', component: AuthComponent },
+];
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    ResetpwComponent
-  ],
+  declarations: [LoginComponent, AuthComponent],
   imports: [
     CommonModule,
-    CheckboxModule,
-    ChipsModule,
-    InputTextModule,
-    RippleModule,
-    PasswordModule,
-    ButtonModule,
     ReactiveFormsModule,
+    RouterModule.forChild(routes),
+    StoreModule.forFeature(fromAuth.userFeatureKey, fromAuth.userReducer),
+    //StoreModule.forFeature('user', fromAuth.userReducer),
+    ProgressSpinnerModule,
+    EffectsModule.forFeature([UserEffects]),
     FormsModule,
+<<<<<<< HEAD
+    ButtonModule,
+    RippleModule,
+  ],
+=======
     RouterModule.forChild([
       { path: '', component: LoginComponent },
       { path: 'forgotpassword', component: ResetpwComponent }]),
     StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.AuthReducer),
     EffectsModule.forFeature([AuthEffects]),
   ]
+>>>>>>> main
 })
- export class AuthModule {
+export class AuthModule {
   static forRoot(): ModuleWithProviders<AuthModule> {
     return {
       ngModule: AuthModule,
-      providers: [
-        AuthService,
-      ]
-    }
-  } 
+      providers: [AuthService],
+    };
+  }
 }
-
-// EffectsModule.forFeature([fromAuth.authFeatureKey, fromAuth.authReducer]),
-//     StoreModule.forFeature(AuthEffects),

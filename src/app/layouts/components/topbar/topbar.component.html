@@ -1,0 +1,60 @@
+<div
+  class="flex justify-content-between bg-indigo-900"
+  *ngIf="user$ | async as user"
+>
+  <div
+    class="flex"
+    *ngIf="user.autorisations.isAdmin || user.autorisations.isFranchisee"
+  >
+    <button
+      pButton
+      pRipple
+      class="p-button-raised bg-indigo-900 border-0 text-blue-50"
+      type="button"
+      icon="pi pi-angle-right"
+      label="menu"
+      iconPos="right"
+      (click)="openSidebar()"
+    ></button>
+  </div>
+  <div
+    class="flex align-items-center justify-content-center bg-indigo-900"
+    *ngIf="user.autorisations.isAdmin || user.autorisations.isFranchisee"
+  >
+    <button
+      pButton
+      pRipple
+      type="button"
+      class="bg-indigo-900 border-0 text-yellow-400 font-bold font-italic"
+      pTooltip="Page d'acceuil"
+      tooltipPosition="bottom"
+      label="GOOD FOOD"
+      styleClass="p-button-link"
+      routerLink="/home"
+      routerLinkActive="active"
+    ></button>
+  </div>
+  <div
+    class="flex align-items-center justify-content-between w-4rem h-4rem bg-indigo-900 mr-5"
+    *ngIf="user.autorisations.isAdmin || user.autorisations.isFranchisee"
+  >
+    <i
+      class="pi pi-envelope p-text-secondary"
+      pBadge
+      style="font-size: 1.3rem; color: aliceblue"
+      severity="warning"
+      pTooltip="Réclamations clients"
+      tooltipPosition="left"
+      aria-hidden="true"
+    ></i>
+    <i
+      class="pi pi-bell"
+      pBadge
+      style="font-size: 1.3rem; color: aliceblue"
+      severity="danger"
+      pTooltip="Notifications"
+      tooltipPosition="left"
+      aria-hidden="true"
+    ></i>
+  </div>
+</div>

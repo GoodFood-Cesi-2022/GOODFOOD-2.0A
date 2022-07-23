@@ -1,0 +1,187 @@
+<p-toast></p-toast>
+<!-- Title -->
+<app-title [title]="'Utilisateurs'" [description]="'Espace Utilidateurs'"> </app-title>
+<!-- app-users -->
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <span class="p-input-icon-left">
+          <i class="pi pi-search" aria-hidden="true"></i>
+          <input
+            pInputText
+            class="w-20rem"
+            type="search"
+            filterBy="['firstname', 'lastname', 'phone', 'email', 'roles']"
+            (input)="dt.filterGlobal($any($event.target).value, 'contains')"
+            placeholder="Rechercher..."
+          />
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="right">
+      <button
+        pButton
+        pRipple
+        label="Nouvel utilisateur"
+        icon="pi pi-plus"
+        class="p-button-raised p-button-success p-button-text p-mr-3"
+        (click)="newUser()"
+      ></button>
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="users"
+    [rows]="10"
+    [paginator]="true"
+    [globalFilterFields]="['firstname', 'lastname']"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate=" {first} - {last} "
+    [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50, 100]"
+    [(first)]="first"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="firstname" scope="col">Prénom <p-sortIcon field="firstname"></p-sortIcon></th>
+        <th pSortableColumn="lastname" scope="col">Nom <p-sortIcon field="lastname"></p-sortIcon></th>
+        <th pSortableColumn="email" scope="col">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="phone" scope="col">Téléphone <p-sortIcon field="phone"></p-sortIcon></th>
+        <th pSortableColumn="code" scope="col">Rôle <p-sortIcon field="code"></p-sortIcon></th>
+        <th scope="col"></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr>
+        <td>{{ user.firstname }}</td>
+        <td>{{ user.lastname }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.phone }}</td>
+        <td>{{ user.roles[0].code }}</td>
+        <td>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-pencil"
+            class="p-button-rounded p-button-text p-button-success mr-2"
+            (click)="editUser(user)"
+          ></button>
+          <button
+            pButton
+            pRipple
+            icon="pi pi-trash"
+            class="p-button-rounded p-button-text p-button-danger"
+            (click)="onDelete(user)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        En total il y a "{{ users ? users.length : 0 }}" utilidateurs.
+      </div>
+    </ng-template>
+  </p-table>
+</div>
+<!-- /app-users -->
+<!-- New user -->
+<p-dialog
+  [(visible)]="userDialog"
+  [style]="{ width: '450px' }"
+  header="User Details"
+  [modal]="true"
+  styleClass="p-fluid"
+  appendTo="body"
+>
+  <ng-template pTemplate="content" [formGroup]="form">
+    <div class="p-field my-3">
+      <label for="firstname">Prénom</label>
+      <input type="text" pInputText id="firstname" formControlName="firstname" placeholder="Sarah" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !user.firstname">Firstname is required.</small>
+    </div>
+    <div class="p-field mb-3">
+      <label for="lastname">Nom</label>
+      <input type="text" pInputText id="lastname" formControlName="lastname" placeholder="Dubois" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !user.lastname">Lastname is required.</small>
+    </div>
+    <div class="p-field mb-3">
+      <label for="email">Email</label>
+      <input
+        type="text"
+        pInputText
+        id="email"
+        formControlName="email"
+        placeholder="Sarah@gmail.com"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !user.email">Email is required.</small>
+    </div>
+    <div class="p-field mb-3">
+      <label for="phone">Téléphone</label>
+      <input
+        type="tel"
+        pInputText
+        id="phone"
+        formControlName="phone"
+        placeholder="04 76 00 00 00"
+        Pattern="^9[0-9]{7}"
+        size="10"
+        maxlength="10"
+        required
+        autofocus
+      />
+      <small class="p-invalid" *ngIf="submitted && !user.phone">Phone is required.</small>
+    </div>
+    <div class="p-field mb-3">
+      <label for="roles">Rôle</label>
+      <p-dropdown
+        [options]="roleList"
+        optionLabel="code"
+        formControlName="role"
+        [autoDisplayFirst]="false"
+        id="rolesFor"
+        appendTo="body"
+        [style]="{ width: '100%' }"
+      >
+      </p-dropdown>
+    </div>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Annuler" class="p-button-text p-button-danger" (click)="hideDialog()"></button>
+    <button
+      pButton
+      pRipple
+      label="Confirmer"
+      class="p-button-text p-button-success"
+      (click)="onSubmit()"
+      [disabled]="true"
+    ></button>
+  </ng-template>
+</p-dialog>
+<!-- Confirm dialog -->
+<p-confirmDialog #cd [style]="{ width: '450px' }">
+  <p-footer>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="NON"
+      class="p-button-danger p-button-text p-button-text-outlined"
+      (click)="cd.reject()"
+    ></button>
+    <button
+      pButton
+      pRipple
+      type="button"
+      label="OUI"
+      class="p-button-info p-button-text p-button-text-outlined"
+      (click)="cd.accept()"
+      [disabled]="true"
+    ></button>
+  </p-footer>
+</p-confirmDialog>
+<!-- /Confirm dialog -->

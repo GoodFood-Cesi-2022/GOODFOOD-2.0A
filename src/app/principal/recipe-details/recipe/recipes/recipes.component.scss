@@ -1,0 +1,122 @@
+:host ::ng-deep {
+  .p-dropdown {
+    width: 14rem;
+    font-weight: normal;
+  }
+
+  .product-name {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis ellipsis !important;
+    max-width: 8rem;
+  }
+
+  .product-description {
+    margin: 0 0 1rem 0;
+    font-size: medium;
+  }
+
+  .product-category-icon {
+    vertical-align: middle;
+  }
+
+  .product-category {
+    font-weight: 400;
+    font-size: small;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .product-grid-item {
+    margin: 0.5em;
+    border: 1px solid #dee2e6;
+    max-width: 280px !important;
+    max-height: 250px !important;
+
+    .product-grid-item-top,
+    .product-grid-item-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .product-grid-item-footer {
+      justify-content: end;
+    }
+
+    img {
+      width: 100px;
+      height: 150px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      margin: 1rem 0;
+    }
+
+    .product-grid-item-content {
+      text-align: center;
+    }
+
+    .product-price {
+      font-size: small;
+      font-weight: 300;
+    }
+  }
+}
+
+.inline-block {
+  font-size: 0.9rem;
+}
+
+.card {
+  box-shadow: 0 2px 1px -1px rgba(198, 221, 229, 0.096),
+    0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+}
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(193, 213, 230);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: rgb(193, 213, 230);
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: rgb(193, 213, 230);
+}
+
+@media screen and (max-width: 576px) {
+  :host ::ng-deep .product-list-item {
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 75%;
+      margin: 1rem 0;
+    }
+
+    .product-list-detail {
+      text-align: left;
+    }
+
+    .product-price {
+      align-self: left;
+    }
+
+    .product-list-action {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  }
+}

@@ -1,24 +1,30 @@
 version: "3.9"
 services:
-# ------------------------------ Angular
+  # ------------------------------ Angular
   web:
     networks:
-      frontend:
+      goodfood:
     build:
       context: ./
       dockerfile: Dockerfile
     container_name: Angular
+    restart: unless-stopped
     image: goodfood-web:latest
     ports:
       - "4200:80"
-# ------------------------------ Compodoc
+      # volumes:
+      #  - ../app:/app
+    volumes:
+      - .:/app:cached
+  # ------------------------------ Compodoc
   compodoc:
     networks:
-      frontend:
+      goodfood:
     build:
       context: ./
       dockerfile: ./documentation/Dockerfile
     container_name: Compodoc
+    restart: unless-stopped
     image: goodfood-compodoc
     working_dir: /documentation
     volumes:
@@ -26,6 +32,6 @@ services:
     ports:
       - "4242:4201"
 
-networks: 
-  frontend:
+networks:
+  goodfood:
     driver: bridge

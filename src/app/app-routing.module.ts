@@ -1,30 +1,34 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { PageNotFoundComponent } from './layouts/components/page-not-found/page-not-found.component';
+import { ServerErrorComponent } from './layouts/components/server-error/server-error.component';
+import { IsAuthenticatedGuard } from './shared/guards/is-authenticated/is-authenticated.guard';
+import { IsUnauthenticatedGuard } from './shared/guards/is-unauthenticated/is-unauthenticated.guard';
 
-import { HomeComponent } from './home/home.component';
-import { ProfileComponent } from './profile/profile.component';
-import { AdminComponent } from './admin/admin.component';
-import { FranchiseeComponent } from './franchisee/franchisee.component';
-import { LoginComponent } from './auth/login/login.component';
-
-const routes: Routes = [
-  { path: '', component: LoginComponent},
-  { path: 'home', component: HomeComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'Franchisee', component: FranchiseeComponent },
-  //{ path: '**', component: PageNotFoundComponent },  // Wildcard route for a 404 page
+const ROUTES: Routes = [
   /**
-   * Otherwise redirect to home
+   * Redirect to login page
    * @url https://angular.io/guide/router
    */
-  { path: '**', redirectTo: '', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full',
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    // canLoad: [IsUnauthenticatedGuard],
+    canActivate: [IsUnauthenticatedGuard],
+  },
+  {
+    path: '',
+    loadChildren: () =>
+      import('./principal/principal.module').then((m) => m.PrincipalModule),
+    // canLoad: [IsAuthenticatedGuard],
+    canActivate: [IsAuthenticatedGuard],
+  },
+  { path: '500', component: ServerErrorComponent }, // server error
+  { path: '**', component: PageNotFoundComponent }, // Wildcard route for a 404 page
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    scrollPositionRestoration: 'enabled'
-  })],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
+export const routing = RouterModule.forRoot(ROUTES, { useHash: false });

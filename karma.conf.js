@@ -8,6 +8,7 @@ module.exports = function (config) {
     plugins: [
       require("karma-jasmine"),
       require("karma-chrome-launcher"),
+      // require("karma-safari-launcher"),
       require("karma-jasmine-html-reporter"),
       require("karma-coverage"),
       require("@angular-devkit/build-angular/plugins/karma"),
@@ -25,16 +26,23 @@ module.exports = function (config) {
       suppressAll: true, // removes the duplicated traces
     },
     coverageReporter: {
-      dir: require("path").join(__dirname, "./coverage/goodfood"),
+      dir: require("path").join(__dirname, "./coverage"),
       subdir: ".",
-      reporters: [{ type: "html" }, { type: "text-summary" }],
+      reporters: [
+        { type: "html", subdir: "html-report" },
+        { type: "text-summary" },
+        { type: "lcov", subdir: "lcov-report" },
+      ],
     },
     reporters: ["progress", "kjhtml"],
     port: 9876,
     colors: true,
     logLevel: config.LOG_INFO,
+    // logLevel: config.LOG_WARN,
+    // logLevel: config.LOG_ERROR,
     autoWatch: true,
     browsers: ["Chrome"],
+    // browsers: ["Safari"],
     singleRun: false,
     restartOnFileChange: true,
   });

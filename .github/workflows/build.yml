@@ -1,0 +1,48 @@
+name: SonarCloud Scan
+on:
+  push:
+    branches:
+      - main
+      - develop
+      - feature/*
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ckeckout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
+      # Setup of NodeJS
+      - name: Setup NodeJS
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Test and Coverage
+        run: npm run test:headless
+
+      # - name: Coverage path
+      #   working-directory: coverage/lcov-report
+      #   run: |
+      #     sed -i 's/\/home\/runner\/work\/GOODFOOD-2.0A\//\/github\/workspace\//g' lcov.info
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          path: coverage/lcov-report/lcov.info
+          title: Karma Test Coverage
+
+      - run: echo "This job's status is ${{ job.status }}. 🚀 "

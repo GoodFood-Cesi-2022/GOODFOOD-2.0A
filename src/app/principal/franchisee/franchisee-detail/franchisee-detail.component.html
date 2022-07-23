@@ -1,0 +1,116 @@
+<p-toast></p-toast>
+<!-- Title -->
+<app-title [title]="'Franchisé'" [description]="'L\'espace franchisé'"> </app-title>
+<!-- New franchisee -->
+<ng-template pTemplate="right">
+  <button pButton pRipple label="Nouvelles horaires" icon="pi pi-plus" class="p-button-info p-mr-2"
+    (click)="newSchedule()"></button>
+</ng-template>
+<ng-template pTemplate="footer">
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"></button>
+  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text p-button-success"></button>
+</ng-template>
+<!-- New schedule -->
+<ng-template pTemplate="footer">
+  <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"></button>
+  <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text p-button-success"></button>
+</ng-template>
+<!-- Franchisee -->
+<div class="grid" [formGroup]="form" *ngIf="franchisee">
+  <div class="col-12 lg:col-6">
+    <div class="p-3 h-full">
+      <div class="shadow-2 p-3 h-full flex flex-column surface-card" style="border-radius: 4px">
+        <div class="text-800 w-full md:flex-order-0 flex-order-1 text-left">
+          <div class="card-header p-2 flex align-items-center justify-content-between bg-yellow-50">
+            <div class="grid">
+              <div class="col-12">
+                <span id="franchisee.name" class="text-800 font-bold text-xl mb-1">
+                  {{ franchisee.name }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul class="list-none p-0 m-0 flex-grow-1 mt-5">
+          <li class="flex align-items-center mb-3">
+            <div class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left">
+              <i class="pi pi-phone text-green-500 mr-2" aria-hidden="true"></i>
+              <span id="franchisee.phone">
+                {{ franchisee.phone }}
+              </span>
+            </div>
+          </li>
+          <li class="flex align-items-center mb-3">
+            <div class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left">
+              <i class="pi pi-envelope text-purple-500 mr-2" aria-hidden="true"></i>
+              <span id="franchisee.email">
+                {{ franchisee.email }}
+              </span>
+            </div>
+          </li>
+          <li class="flex align-items-center mb-3">
+            <i class="pi pi-map-marker text-yellow-500 mr-2" aria-hidden="true"></i>
+            <span>
+              {{ franchisee.address.first_line }}, <ng-template *ngIf="franchisee.address.second_line!=null">
+                {{ franchisee.address.second_line }},
+              </ng-template>
+              {{ franchisee.address.zip_code }}, {{ franchisee.address.city }}, {{ franchisee.address.country }}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 lg:col-6">
+    <div class="p-3 h-full">
+      <div class="shadow-2 p-3 flex flex-column surface-card" style="border-radius: 6px">
+        <div class="card-header flex align-items-center justify-content-between bg-yellow-50">
+          <span class="text-800 font-bold text-xl mb-1">Horaires</span>
+          <span><i class="pi pi-pencil text-blue-500 text-xl" aria-hidden="true"></i></span>
+        </div>
+        <div class="grid border-bottom-1 border-gray-200 mb-3 mt-3">
+          <span class="align-content-end col-6"></span>
+          <span class="font-semibold align-content-end col-3">Midi</span>
+          <span class="font-semibold align-content-end col-3">Soir</span>
+        </div>
+        <ul class="list-none p-0 m-0 flex-grow-1">
+          <li class="mb-1 grid" *ngIf="schedule">
+            <span class="text-600 align-items-center col-6">Lundi</span>
+            <span class="text-sm align-items-center col-3">{{schedule.monday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.monday.night}}</span>
+          </li>
+          <li class="mb-1 grid">
+            <span class="text-600 align-items-center col-6">Mardi</span>
+            <span class="text-sm align-items-center col-3">{{schedule.tuesday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.tuesday.night}}</span>
+          </li>
+          <li class="mb-1 grid">
+            <span class="text-600 align-items-center col-6">Mercredi</span>
+            <span class="text-sm align-items-center col-3">{{schedule.wednesday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.wednesday.night}}</span>
+          </li>
+          <li class="mb-1 grid">
+            <span class="text-600 align-items-center col-6">Jeudi</span>
+            <span class="text-sm align-items-center col-3">{{schedule.thursday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.thursday.night}}</span>
+          </li>
+          <li class="mb-1 grid">
+            <span class="text-600 align-items-center col-6">Vendredi</span>
+            <span class="text-sm align-items-center col-3">{{schedule.friday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.friday.night}}</span>
+          </li>
+          <li class="mb-1 grid">
+            <span class="text-600 align-items-center col-6">Samedi</span>
+            <span class="text-sm align-items-center col-3">{{schedule.saturday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.saturday.night}}</span>
+          </li>
+          <li class="mb-1 grid">
+            <span class="text-600 align-items-center col-6">Dimanche</span>
+            <span class="text-sm align-items-center col-3">{{schedule.sunday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.sunday.night}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

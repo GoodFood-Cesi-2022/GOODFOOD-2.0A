@@ -1,12 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
-body {
+html {
   // background: linear-gradient(-225deg, #e6edfa, #bbcef2 48%, #a0b8ec);
-  //   background-color: var(--surface-b);
-  background-image: url(./assets/img/mads-eneqvist.jpg);
-  background-size: cover;
+  // background-color: var(--surface-b);
+  // background-image: url(./assets/img/mads-eneqvist.jpg);
+  background: linear-gradient(135deg, #fbfdfe 0%, #d4dff7 50%, #9fb7ed 100%)
+    no-repeat center center fixed;
 }
-
-// @import "~bootstrap/scss/bootstrap";
+body {
+  background-color: transparent !important;
+}
+body,
+body .p-component {
+  font-family: "Optima", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+}
 
 @import "primeng/resources/themes/saga-blue/theme.css";
 @import "primeng/resources/primeng.min.css";

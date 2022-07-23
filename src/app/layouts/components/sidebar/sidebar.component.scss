@@ -1,0 +1,14 @@
+@import "src/styles.scss";
+
+:host ::ng-deep button {
+  margin-right: 0.25em;
+}
+.p-button {
+  line-height: 2;
+}
+
+body,
+body .p-component .p-sidebar {
+  font-family: "Optima", "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+    sans-serif;
+}
