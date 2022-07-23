@@ -1,13 +1,10 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { MessageService } from 'primeng/api';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
+import { MessageService } from "primeng/api";
 
-import { HttpErrorInterceptor } from './http-error.interceptor';
+import { HttpErrorInterceptor } from "./http-error.interceptor";
 
-fdescribe('ApiTokenInterceptorService', () => {
+describe("ApiTokenInterceptorService", () => {
   let service: HttpErrorInterceptor;
   let httpTestingController: HttpTestingController;
 
@@ -24,7 +21,7 @@ fdescribe('ApiTokenInterceptorService', () => {
     httpTestingController.verify();
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 });

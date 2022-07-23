@@ -1,13 +1,11 @@
-type role = { code: string };
-
+import { Role } from "./role.model";
 export interface User {
   id?: number;
   firstname?: string;
   lastname?: string;
   phone?: string;
   email?: string;
-  //code?: string;
-  roles?: role[];
+  roles?: Role[];
   autorisations?: Autorisation;
 }
 export interface Autorisation {

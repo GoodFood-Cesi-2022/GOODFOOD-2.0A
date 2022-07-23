@@ -1,15 +1,9 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title
-  [title]="'Ingredients'"
-  [description]="'La création d\'un ou des ingredients pour les recettes'"
->
+<app-title [title]="'Ingredients'" [description]="'La création d\'un ou des ingredients pour les recettes'">
 </app-title>
 <!-- app-ingredient -->
-<div
-  class="p-2 shadow-4 text-center md:w-20 mb-2"
-  style="background: rgba(255, 255, 255, 0.441); border-radius: 5px"
->
+<div class="p-2 shadow-4 text-center md:w-20 mb-2" style="background: rgba(255, 255, 255, 0.441); border-radius: 5px">
   <p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
@@ -42,7 +36,6 @@
     [rows]="10"
     [paginator]="true"
     [globalFilterFields]="['name', 'types.code']"
-    [(selection)]="selectedIngredients"
     [rowHover]="true"
     dataKey="id"
     currentPageReportTemplate="Affichage de {first} à {last} des {totalRecords} ingredients"
@@ -53,15 +46,9 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th pSortableColumn="Name" scope="col">
-          Nom d'ingredient <p-sortIcon field="name"></p-sortIcon>
-        </th>
-        <th pSortableColumn="type.code" scope="col">
-          Type d'ingredient <p-sortIcon field="type.code"> </p-sortIcon>
-        </th>
-        <th pSortableColumn="allergen" scope="col">
-          Allergen <p-sortIcon field="allergen"></p-sortIcon>
-        </th>
+        <th pSortableColumn="Name" scope="col">Nom d'ingredient <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="type.code" scope="col">Type d'ingredient <p-sortIcon field="type.code"> </p-sortIcon></th>
+        <th pSortableColumn="allergen" scope="col">Allergen <p-sortIcon field="allergen"></p-sortIcon></th>
         <th scope="col" class="right-50"></th>
       </tr>
     </ng-template>
@@ -90,9 +77,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-      <div
-        class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"
-      >
+      <div class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic">
         En total il y a {{ ingredients ? ingredients.length : 0 }} ingredients.
       </div>
     </ng-template>
@@ -111,18 +96,8 @@
   <ng-template pTemplate="content" [formGroup]="form">
     <div class="p-field mt-3">
       <label for="name">Nom d'ingrédient</label>
-      <input
-        type="text"
-        pInputText
-        id="name"
-        formControlName="name"
-        placeholder="Salade"
-        required
-        autofocus
-      />
-      <small class="p-invalid" *ngIf="submitted && !ingredient.name"
-        >Nom est obligatoire.</small
-      >
+      <input type="text" pInputText id="name" formControlName="name" placeholder="Salade" required autofocus />
+      <small class="p-invalid" *ngIf="submitted && !ingredient.name">Nom est obligatoire.</small>
     </div>
     <div class="p-formgrid p-grid mt-3">
       <div class="p-field p-col">
@@ -152,20 +127,8 @@
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
-    <button
-      pButton
-      pRipple
-      label="Annuler"
-      class="p-button-text p-button-danger"
-      (click)="hideDialog()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      label="Confirmer"
-      class="p-button-text"
-      (click)="onSubmit()"
-    ></button>
+    <button pButton pRipple label="Annuler" class="p-button-text p-button-danger" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Confirmer" class="p-button-text" (click)="onSubmit()"></button>
   </ng-template>
 </p-dialog>
 <!-- /dialog-app-ingredient -->

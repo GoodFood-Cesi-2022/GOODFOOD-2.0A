@@ -1,12 +1,9 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LoginComponent } from './login.component';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { LoginComponent } from "./login.component";
 
-fdescribe('LoginComponent', () => {
+describe("LoginComponent", () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let httpTestingController: HttpTestingController;
@@ -29,7 +26,7 @@ fdescribe('LoginComponent', () => {
     httpTestingController.verify();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

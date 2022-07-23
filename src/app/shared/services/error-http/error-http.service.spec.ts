@@ -1,8 +1,8 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from "@angular/core/testing";
 
-import { ErrorHttpService } from './error-http.service';
+import { ErrorHttpService } from "./error-http.service";
 
-fdescribe('ErrorHttpService', () => {
+describe("ErrorHttpService", () => {
   let service: ErrorHttpService;
 
   beforeEach(() => {
@@ -10,11 +10,11 @@ fdescribe('ErrorHttpService', () => {
     service = TestBed.inject(ErrorHttpService);
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 
-  it('should be closed', () => {
+  it("should be closed", () => {
     service.closeErrorHttp();
     expect(service).toBeTruthy();
   });

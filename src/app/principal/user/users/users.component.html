@@ -1,6 +1,6 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Utilisateurs'" [description]="'L\espace Utilidateurs'"> </app-title>
+<app-title [title]="'Utilisateurs'" [description]="'Espace Utilidateurs'"> </app-title>
 <!-- app-users -->
 <div class="card">
   <p-toolbar styleClass="p-mb-4">
@@ -36,12 +36,13 @@
     [value]="users"
     [rows]="10"
     [paginator]="true"
-    [globalFilterFields]="['lastname', 'country.lastname', 'representative.lastname', 'status']"
-    [(selection)]="selectedUsers"
+    [globalFilterFields]="['firstname', 'lastname']"
     [rowHover]="true"
     dataKey="id"
     currentPageReportTemplate=" {first} - {last} "
     [showCurrentPageReport]="true"
+    [rowsPerPageOptions]="[10, 25, 50, 100]"
+    [(first)]="first"
   >
     <ng-template pTemplate="header">
       <tr>
@@ -49,7 +50,7 @@
         <th pSortableColumn="lastname" scope="col">Nom <p-sortIcon field="lastname"></p-sortIcon></th>
         <th pSortableColumn="email" scope="col">Email <p-sortIcon field="email"></p-sortIcon></th>
         <th pSortableColumn="phone" scope="col">Téléphone <p-sortIcon field="phone"></p-sortIcon></th>
-        <th pSortableColumn="user.roles.code" scope="col">Rôle <p-sortIcon field="user.roles.code"></p-sortIcon></th>
+        <th pSortableColumn="code" scope="col">Rôle <p-sortIcon field="code"></p-sortIcon></th>
         <th scope="col"></th>
       </tr>
     </ng-template>
@@ -59,7 +60,7 @@
         <td>{{ user.lastname }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.phone }}</td>
-        <td>{{ user.roles.code }}</td>
+        <td>{{ user.roles[0].code }}</td>
         <td>
           <button
             pButton
@@ -136,10 +137,9 @@
       <small class="p-invalid" *ngIf="submitted && !user.phone">Phone is required.</small>
     </div>
     <div class="p-field mb-3">
-      <label for="roles">Type d'ingrédient</label>
+      <label for="roles">Rôle</label>
       <p-dropdown
-        [options]="users"
-        [disabled]="!isCreate"
+        [options]="roleList"
         optionLabel="code"
         formControlName="role"
         [autoDisplayFirst]="false"

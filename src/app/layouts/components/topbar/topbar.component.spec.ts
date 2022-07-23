@@ -1,13 +1,10 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { TopbarComponent } from './topbar.component';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { provideMockStore, MockStore } from "@ngrx/store/testing";
+import { TopbarComponent } from "./topbar.component";
 
-fdescribe('TopbarComponent', () => {
+describe("TopbarComponent", () => {
   let component: TopbarComponent;
   let fixture: ComponentFixture<TopbarComponent>;
   let store: MockStore;
@@ -34,7 +31,7 @@ fdescribe('TopbarComponent', () => {
     httpTestingController.verify();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(store).toBeTruthy();
     expect(component).toBeTruthy();
   });

@@ -1,13 +1,10 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { SidebarComponent } from './sidebar.component';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { provideMockStore, MockStore } from "@ngrx/store/testing";
+import { SidebarComponent } from "./sidebar.component";
 
-fdescribe('SidebarComponent', () => {
+describe("SidebarComponent", () => {
   let component: SidebarComponent;
   let fixture: ComponentFixture<SidebarComponent>;
   let store: MockStore;
@@ -34,7 +31,7 @@ fdescribe('SidebarComponent', () => {
     httpTestingController.verify();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(store).toBeTruthy();
     expect(component).toBeTruthy();
   });

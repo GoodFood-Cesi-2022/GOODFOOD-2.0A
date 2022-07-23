@@ -1,19 +1,15 @@
-import { Recipe } from './../../../../shared/models/recipe.model';
-import { RecipeService } from './../../../../shared/services/recipe/recipe.service';
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { ConfirmationService } from 'primeng/api';
+import { RecipeService } from "./../../../../shared/services/recipe/recipe.service";
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
+import { ConfirmationService } from "primeng/api";
 
-import { RecipesComponent } from './recipes.component';
-import { environment } from 'src/environments/environment';
-import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
+import { RecipesComponent } from "./recipes.component";
+import { environment } from "src/environments/environment";
+import { _HttpRequest } from "src/app/shared/constants/httpRequest.const";
 
-fdescribe('RecipesComponent', () => {
+describe("RecipesComponent", () => {
   let component: RecipesComponent;
   let fixture: ComponentFixture<RecipesComponent>;
   let httpTestingController: HttpTestingController;
@@ -34,7 +30,7 @@ fdescribe('RecipesComponent', () => {
     component = fixture.componentInstance;
     component.CreateNewRecipe();
     const x = component.updateRecipe(component);
-    console.log('xxxxxxxxxxxx ', x);
+    console.log("xxxxxxxxxxxx ", x);
     fixture.detectChanges();
   });
 
@@ -42,10 +38,8 @@ fdescribe('RecipesComponent', () => {
     httpTestingController.verify();
   });
 
-  it('should create', () => {
-    const req1 = httpTestingController.expectOne(
-      `${environment.apiBaseUrl}/recipes?includes[]=pictures`
-    );
+  it("should create", () => {
+    const req1 = httpTestingController.expectOne(`${environment.apiBaseUrl}/recipes?includes[]=pictures`);
     expect(req1.request.method).toEqual(_HttpRequest.GET);
     req1.flush({});
     expect(component).toBeTruthy();

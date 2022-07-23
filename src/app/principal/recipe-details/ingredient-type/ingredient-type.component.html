@@ -2,16 +2,11 @@
 <!-- Title -->
 <app-title
   [title]="'Type d\'Ingredient'"
-  [description]="
-    'La création, modification ou suppression d\'un ou des types d\'ingredients.'
-  "
+  [description]="'La création, modification ou suppression d\'un ou des types d\'ingredients.'"
 >
 </app-title>
 <!-- app-ingredient -->
-<div
-  class="p-2 shadow-4 text-center md:w-20 mb-2"
-  style="background: rgba(255, 255, 255, 0.441); border-radius: 5px"
->
+<div class="p-2 shadow-4 text-center md:w-20 mb-2" style="background: rgba(255, 255, 255, 0.441); border-radius: 5px">
   <p-toolbar styleClass="p-mb-4 bg-yellow-50 mb-3">
     <ng-template pTemplate="left">
       <div class="p-d-flex p-ai-center p-jc-between">
@@ -56,12 +51,8 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th
-          pSortableColumn="name"
-          style="width: 30%; padding-left: 1.5rem"
-          scope="col"
-        >
-          Nom de tyoe d'ingrédient<p-sortIcon field="name"></p-sortIcon>
+        <th pSortableColumn="name" style="width: 30%; padding-left: 1.5rem" scope="col">
+          Nom de type d'ingrédient<p-sortIcon field="name"></p-sortIcon>
         </th>
         <th pSortableColumn="description" style="width: 50%" scope="col">
           Description<p-sortIcon field="description"></p-sortIcon>
@@ -92,9 +83,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="summary">
-      <div
-        class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic"
-      >
+      <div class="p-d-flex p-ai-center p-jc-between text-left text-sm text-blue-800 font-normal font-italic">
         Entotal il y a {{ typeArray ? typeArray.length : 0 }} types.
       </div>
     </ng-template>
@@ -123,37 +112,16 @@
         required
         autofocus
       />
-      <small class="p-invalid" *ngIf="submitted && !ingreType.name"
-        >Champ obligatoire.</small
-      >
+      <small class="p-invalid" *ngIf="submitted && !ingreType.name">Champ obligatoire.</small>
     </div>
     <div class="p-field mt-3">
       <label for="description">Description</label>
-      <textarea
-        pInputTextarea
-        [rows]="5"
-        [cols]="30"
-        id="description"
-        formControlName="description"
-      ></textarea>
+      <textarea pInputTextarea [rows]="5" [cols]="30" id="description" formControlName="description"></textarea>
     </div>
   </ng-template>
   <ng-template pTemplate="footer">
-    <button
-      pButton
-      pRipple
-      label="Annuler"
-      class="p-button-text p-button-danger"
-      (click)="hideDialog()"
-    ></button>
-    <button
-      pButton
-      pRipple
-      label="Confirmer"
-      class="p-button-text"
-      (click)="onSubmit()"
-      [disabled]="true"
-    ></button>
+    <button pButton pRipple label="Annuler" class="p-button-text p-button-danger" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Confirmer" class="p-button-text" (click)="onSubmit()" [disabled]="true"></button>
   </ng-template>
 </p-dialog>
 <!-- Confirm dialog -->

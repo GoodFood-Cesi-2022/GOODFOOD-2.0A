@@ -1,25 +1,10 @@
 <p-toast></p-toast>
 <!-- Title -->
-<app-title [title]="'Espace Franchisé'" [description]="'L\'espace franchisé'"> </app-title>
+<app-title [title]="'Franchisé'" [description]="'L\'espace franchisé'"> </app-title>
 <!-- New franchisee -->
 <ng-template pTemplate="right">
-  <button
-    pButton
-    pRipple
-    label="Nouvel coordonnée"
-    icon="pi pi-plus"
-    class="p-button-purple p-mr-2 mr-2"
-    (click)="newFranchisee()"
-  ></button>
-
-  <button
-    pButton
-    pRipple
-    label="Nouvelles horaires"
-    icon="pi pi-plus"
-    class="p-button-info p-mr-2"
-    (click)="newSchedule()"
-  ></button>
+  <button pButton pRipple label="Nouvelles horaires" icon="pi pi-plus" class="p-button-info p-mr-2"
+    (click)="newSchedule()"></button>
 </ng-template>
 <ng-template pTemplate="footer">
   <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text p-button-danger"></button>
@@ -38,109 +23,39 @@
         <div class="text-800 w-full md:flex-order-0 flex-order-1 text-left">
           <div class="card-header p-2 flex align-items-center justify-content-between bg-yellow-50">
             <div class="grid">
-              <div class="col-10">
-                <span id="franchisee.name" class="text-800 font-bold text-xl mb-1">xxxxx</span>
-                <span id="franchisee.name" class="text-800 font-bold text-xl mb-1" *ngIf="!editMode">
+              <div class="col-12">
+                <span id="franchisee.name" class="text-800 font-bold text-xl mb-1">
                   {{ franchisee.name }}
                 </span>
-                <span id="franchisee.name" class="text-800 font-bold text-xl mb-1" *ngIf="editMode">
-                  <input pInputText class="focus:border-primary" formControlName="name" />
-                </span>
               </div>
-            </div>
-            <div class="col-1">
-              <span>
-                <i
-                  *ngIf="franchisee == null && address == null"
-                  class="pi pi-plus text-blue-500 text-xl"
-                  aria-hidden="true"
-                  (click)="newFranchisee()"
-                ></i
-              ></span>
-
-              <span>
-                <i
-                  *ngIf="franchisee != null && address != null"
-                  class="pi pi-pencil text-blue-500 text-xl"
-                  aria-hidden="true"
-                  (click)="updateFranchisee()"
-                ></i>
-              </span>
             </div>
           </div>
         </div>
         <ul class="list-none p-0 m-0 flex-grow-1 mt-5">
           <li class="flex align-items-center mb-3">
-            <span class="text-900" formControlName="phone">{{ franchisee.phone }}</span>
             <div class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left">
               <i class="pi pi-phone text-green-500 mr-2" aria-hidden="true"></i>
-              <span id="franchisee.phone"> xxxxxx </span>
-              <span id="franchisee.phone" *ngIf="!editMode">
+              <span id="franchisee.phone">
                 {{ franchisee.phone }}
-              </span>
-              <span id="franchisee.phone" *ngIf="editMode">
-                <input pInputText class="focus:border-primary" formControlName="phone" />
               </span>
             </div>
           </li>
           <li class="flex align-items-center mb-3">
             <div class="text-800 w-full md:w-6 md:flex-order-0 flex-order-1 text-left">
               <i class="pi pi-envelope text-purple-500 mr-2" aria-hidden="true"></i>
-              <span id="franchisee.email" *ngIf="!editMode">
+              <span id="franchisee.email">
                 {{ franchisee.email }}
               </span>
-              <span id="franchisee.email" *ngIf="editMode">
-                <input pInputText class="focus:border-primary" formControlName="email" />
-              </span>
             </div>
-            <span class="text-900" formControlName="email">{{ franchisee.email }}</span>
           </li>
           <li class="flex align-items-center mb-3">
             <i class="pi pi-map-marker text-yellow-500 mr-2" aria-hidden="true"></i>
-            <span id="franchisee.address.first_line" *ngIf="!editMode">
-              {{ franchisee.address.first_line }}
+            <span>
+              {{ franchisee.address.first_line }}, <ng-template *ngIf="franchisee.address.second_line!=null">
+                {{ franchisee.address.second_line }},
+              </ng-template>
+              {{ franchisee.address.zip_code }}, {{ franchisee.address.city }}, {{ franchisee.address.country }}
             </span>
-            <span id="franchisee.address.first_line" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="first_line" />
-            </span>
-            <span id="franchisee.address.second_line" *ngIf="!editMode">
-              {{ franchisee.address.second_line }}
-            </span>
-            <span id="franchisee.address.second_line" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="second_line" />
-            </span>
-            <span id="franchisee.address.zip_code" *ngIf="!editMode">
-              {{ franchisee.address.zip_code }}
-            </span>
-            <span id="franchisee.address.zip_code" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="zip_code" />
-            </span>
-            <span id="franchisee.city" *ngIf="!editMode">
-              {{ franchisee.address.city }}
-            </span>
-            <span id="franchisee.city" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="city" />
-            </span>
-            <span id="franchisee.country" *ngIf="!editMode">
-              {{ franchisee.address.country }}
-            </span>
-            <span id="franchisee.country" *ngIf="editMode">
-              <input pInputText class="focus:border-primary" formControlName="country" />
-            </span>
-            <!-- <ng-template *ngIf="franchisee == null && address == null"> -->
-            <!-- <label for="first_line">ligne 1</label>
-              <input pInputText type="text" id="first_line" formControlName="first_line" /> -->
-            <!-- <label for="second_line">ligne 1</label>
-              <input pInputText type="text" id="second_line" formControlName="second_line" /> -->
-            <!-- <label for="zip_code">ligne 1</label>
-              <input pInputText type="text" id="zip_code" formControlName="zip_code" /> -->
-            <!-- <label for="city">ligne 1</label>
-              <input pInputText type="text" id="city" formControlName="city" />
-              <label for="country">ligne 1</label>
-              <input pInputText type="text" id="country" formControlName="country" /> -->
-            <!-- </ng-template> -->
-            <!-- <span class="text-900"> {{ address.first_line }}, {{ address.second_line }}, {{ address.zip_code }}, {{
-              address.city }}, {{ address.country }} </span> -->
           </li>
         </ul>
       </div>
@@ -159,58 +74,43 @@
           <span class="font-semibold align-content-end col-3">Soir</span>
         </div>
         <ul class="list-none p-0 m-0 flex-grow-1">
-          <li class="mb-1 grid">
+          <li class="mb-1 grid" *ngIf="schedule">
             <span class="text-600 align-items-center col-6">Lundi</span>
-            <span class="text-sm align-items-center col-3">Fermé</span>
-            <span class="text-sm align-items-center col-3">Fermé</span>
+            <span class="text-sm align-items-center col-3">{{schedule.monday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.monday.night}}</span>
           </li>
           <li class="mb-1 grid">
             <span class="text-600 align-items-center col-6">Mardi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
+            <span class="text-sm align-items-center col-3">{{schedule.tuesday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.tuesday.night}}</span>
           </li>
           <li class="mb-1 grid">
             <span class="text-600 align-items-center col-6">Mercredi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
+            <span class="text-sm align-items-center col-3">{{schedule.wednesday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.wednesday.night}}</span>
           </li>
           <li class="mb-1 grid">
             <span class="text-600 align-items-center col-6">Jeudi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
+            <span class="text-sm align-items-center col-3">{{schedule.thursday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.thursday.night}}</span>
           </li>
           <li class="mb-1 grid">
             <span class="text-600 align-items-center col-6">Vendredi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
+            <span class="text-sm align-items-center col-3">{{schedule.friday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.friday.night}}</span>
           </li>
           <li class="mb-1 grid">
             <span class="text-600 align-items-center col-6">Samedi</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
+            <span class="text-sm align-items-center col-3">{{schedule.saturday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.saturday.night}}</span>
           </li>
           <li class="mb-1 grid">
             <span class="text-600 align-items-center col-6">Dimanche</span>
-            <span class="text-sm align-items-center col-3">10H00 - 14H00</span>
-            <span class="text-sm align-items-center col-3">19H00 - 22H00</span>
+            <span class="text-sm align-items-center col-3">{{schedule.sunday.lunch}}</span>
+            <span class="text-sm align-items-center col-3">{{schedule.sunday.night}}</span>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </div>
-<!-- <div class="layout-content-wrapper">
-  <div class="col-xl-4" style="border-radius: 6px">
-    <div class="card shadow">
-      <div class="card-header bg-yellow-50">
-        <div class="row align-items-center">
-          <div class="col">
-            <h4 class="mb-0">Recette à la carte</h4>
-          </div>
-        </div>
-      </div>
-      <div class="card-body"></div>
-    </div>
-  </div>
-</div> -->
-<!-- /Franchisee -->

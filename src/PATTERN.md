@@ -61,8 +61,7 @@ app
 |         |        ├── sidebar
 |         |        ├── user
 |         |        |      ├── auth
-|         |        |      ├── local-storage
-|         |        |      └── string
+|         |        |      └── local-storage
 |         |        |
 |         |        ├── users
 |         |        └─── messages
@@ -75,8 +74,6 @@ app
 |         |
 |         |
 |         └── guards
-|                  ├── admin.guard
-|                  ├── franchisee.guard
 |                  └── auth.quard
 
 ```

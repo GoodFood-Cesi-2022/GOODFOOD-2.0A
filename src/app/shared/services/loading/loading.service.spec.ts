@@ -1,13 +1,10 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { RecipeService } from '../recipe/recipe.service';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
+import { RecipeService } from "../recipe/recipe.service";
 
-import { LoadingService } from './loading.service';
+import { LoadingService } from "./loading.service";
 
-fdescribe('LoadingService', () => {
+describe("LoadingService", () => {
   let service: LoadingService;
   let recipe: RecipeService;
   let httpTestingController: HttpTestingController;
@@ -29,11 +26,11 @@ fdescribe('LoadingService', () => {
     httpTestingController.verify();
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(service).toBeTruthy();
   });
 
-  it('should run until completed', () => {
+  it("should run until completed", () => {
     service.loadingOn();
     service.showLoaderUntilCompleted(recipe.getRecipes());
     service.loadingOff();
