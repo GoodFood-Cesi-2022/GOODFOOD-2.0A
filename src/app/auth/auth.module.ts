@@ -32,9 +32,18 @@ const routes: Routes = [
     ProgressSpinnerModule,
     EffectsModule.forFeature([UserEffects]),
     FormsModule,
+<<<<<<< HEAD
     ButtonModule,
     RippleModule,
   ],
+=======
+    RouterModule.forChild([
+      { path: '', component: LoginComponent },
+      { path: 'forgotpassword', component: ResetpwComponent }]),
+    StoreModule.forFeature(fromAuth.authFeatureKey, fromAuth.AuthReducer),
+    EffectsModule.forFeature([AuthEffects]),
+  ]
+>>>>>>> main
 })
 export class AuthModule {
   static forRoot(): ModuleWithProviders<AuthModule> {
