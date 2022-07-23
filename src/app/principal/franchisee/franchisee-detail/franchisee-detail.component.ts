@@ -45,7 +45,6 @@ export class FranchiseeDetailComponent implements OnInit {
       this.getFranchiseeById();
       this.scheduleService.getSchedule(this.franchisee).subscribe((res) => {
         this.schedule = res;
-        console.log("get schedule ---> ", res);
       });
     });
 

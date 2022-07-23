@@ -86,8 +86,7 @@ export class IngredientTypeComponent implements OnInit {
     } else {
       this.ingredientTypeService
         .createIngredientType(this.ingreType)
-        .subscribe((res) => {
-          console.log('res : ', res);
+        .subscribe(() => {
           this.messageService.add({
             severity: 'success',
             summary: 'Succès',

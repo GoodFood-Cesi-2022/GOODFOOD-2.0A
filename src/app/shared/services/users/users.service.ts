@@ -44,7 +44,6 @@ export class UsersService {
             e.roles = res1;
             usersWithRole.push(e);
           });
-          console.log("users with roles", usersWithRole);
           return usersWithRole;
         });
       })
@@ -56,10 +55,7 @@ export class UsersService {
    * @returns user role
    */
   public getUserRole(id: number): Observable<Role[]> {
-    return this.http.get<Role[]>(`${environment.apiBaseUrl}/users/${id}/roles`).pipe(
-      tap((obj: Role[]): void => console.log("service -> get user role: ", id, obj)),
-      map((res: Role[]): Role[] => res)
-    );
+    return this.http.get<Role[]>(`${environment.apiBaseUrl}/users/${id}/roles`).pipe(map((res: Role[]): Role[] => res));
   }
 
   /**
@@ -67,10 +63,7 @@ export class UsersService {
    * @returns one user
    */
   public getRoles(): Observable<Role[]> {
-    return this.http.get<Role[]>(`${environment.apiBaseUrl}/roles`).pipe(
-      tap((obj): void => console.log("service -> get roles : ", obj)),
-      map((res) => res)
-    );
+    return this.http.get<Role[]>(`${environment.apiBaseUrl}/roles`).pipe(map((res) => res));
   }
 
   /**

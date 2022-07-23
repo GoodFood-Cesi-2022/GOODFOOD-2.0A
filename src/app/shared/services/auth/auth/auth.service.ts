@@ -104,7 +104,6 @@ export class AuthService {
     const userAccessToken = <AccessTokenModel>this.localStorageService.get(StorageKeys.USER_TOKEN);
 
     if (this.accessTokenIsExpired(userAccessToken)) {
-      console.log("REFRESH USER TOKEN");
       await this.refreshToken(userAccessToken);
       console.log("USER TOKEN REFRESHED");
     }

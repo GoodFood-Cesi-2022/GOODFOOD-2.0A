@@ -74,7 +74,6 @@ export class IngredientComponent implements OnInit {
       allergen: this.ingredient?.allergen || false,
       ingredientType: this.ingredient?.types || new FormControl([]),
     });
-    console.log("xxxxxxxxxxxx ", this.form);
   }
 
   private makeRecipe(): void {

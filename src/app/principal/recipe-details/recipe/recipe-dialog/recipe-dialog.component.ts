@@ -1,29 +1,29 @@
-import { LoadingService } from './../../../../shared/services/loading/loading.service';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { finalize } from 'rxjs/operators';
+import { LoadingService } from "./../../../../shared/services/loading/loading.service";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { finalize } from "rxjs/operators";
 
-import { DynamicDialogRef, DynamicDialogConfig } from 'primeng/dynamicdialog';
-import { MessageService } from 'primeng/api';
+import { DynamicDialogRef, DynamicDialogConfig } from "primeng/dynamicdialog";
+import { MessageService } from "primeng/api";
 
-import { Recipe } from 'src/app/shared/models/recipe.model';
-import { RecipeType } from 'src/app/shared/models/recipe-type.model';
+import { Recipe } from "src/app/shared/models/recipe.model";
+import { RecipeType } from "src/app/shared/models/recipe-type.model";
 
-import { Ingredient } from 'src/app/shared/models/ingredient.model';
-import { Picture } from '../../../../shared/models/picture.model';
+import { Ingredient } from "src/app/shared/models/ingredient.model";
+import { Picture } from "../../../../shared/models/picture.model";
 
-import { RecipeService } from 'src/app/shared/services/recipe/recipe.service';
-import { IngredientService } from 'src/app/shared/services/ingredient/ingredient.service';
+import { RecipeService } from "src/app/shared/services/recipe/recipe.service";
+import { IngredientService } from "src/app/shared/services/ingredient/ingredient.service";
 
-import { IngreType } from 'src/app/shared/models/ingredient-type.model';
+import { IngreType } from "src/app/shared/models/ingredient-type.model";
 
 @Component({
-  selector: 'app-recipe-dialog',
-  templateUrl: './recipe-dialog.component.html',
-  styleUrls: ['./recipe-dialog.component.scss'],
+  selector: "app-recipe-dialog",
+  templateUrl: "./recipe-dialog.component.html",
+  styleUrls: ["./recipe-dialog.component.scss"],
 })
 export class RecipeDialogComponent implements OnInit {
-  mode: 'UPDATE' | 'CREATE';
+  mode: "UPDATE" | "CREATE";
 
   form: FormGroup;
   //------------------------------- Recipe Type : dropdown (1)
@@ -42,8 +42,6 @@ export class RecipeDialogComponent implements OnInit {
 
   submitted: boolean;
   star: boolean;
-
-  
 
   fr: any;
 
@@ -100,20 +98,20 @@ export class RecipeDialogComponent implements OnInit {
     this.recipe.star = event.checked;
     if (event.checked) {
       this.star = true;
-      this.form.get('star').setValue(true);
+      this.form.get("star").setValue(true);
     } else {
-      this.form.get('star').setValue(false);
+      this.form.get("star").setValue(false);
     }
   }
 
   private makeRecipe(): void {
-    if (this.mode === 'CREATE') {
+    if (this.mode === "CREATE") {
       this.recipe.available_at = this.form.value.availableDate;
     }
     this.recipe.name = this.form.value.title;
-    this.recipe.recipe_type = this.form.controls['recipeType'].value.code;
+    this.recipe.recipe_type = this.form.controls["recipeType"].value.code;
     this.recipe.base_price = this.form.value.price;
-    this.recipe.ingredients = this.form.controls['ingredientsDetails'].value;
+    this.recipe.ingredients = this.form.controls["ingredientsDetails"].value;
     this.recipe.star = this.form.value.star;
     this.recipe.description = this.form.value.description;
   }
@@ -123,7 +121,7 @@ export class RecipeDialogComponent implements OnInit {
       this.makeRecipe();
       this.loading.loadingOn();
 
-      if (this.mode === 'UPDATE') {
+      if (this.mode === "UPDATE") {
         this.updateRecipe();
       } else {
         this.newRecipe();
@@ -141,14 +139,12 @@ export class RecipeDialogComponent implements OnInit {
           next: (_res) => {
             this.ref.close(_res);
             this.recipe = _res;
-            this.recipeService
-              .attachPictures(this.picture, this.recipe)
-              .subscribe();
+            this.recipeService.attachPictures(this.picture, this.recipe).subscribe();
           },
           error: (error) => {
             this.messageService.add({
-              severity: 'error',
-              summary: 'Erreur le moment de création de la recette',
+              severity: "error",
+              summary: "Erreur le moment de création de la recette",
               detail: error.error,
             });
           },
@@ -163,8 +159,8 @@ export class RecipeDialogComponent implements OnInit {
       },
       error: (error) => {
         this.messageService.add({
-          severity: 'error',
-          summary: 'Erreur le moment de modification de de la recette',
+          severity: "error",
+          summary: "Erreur le moment de modification de de la recette",
           detail: error.error,
         });
       },
@@ -173,10 +169,6 @@ export class RecipeDialogComponent implements OnInit {
 
   public onClose(): void {
     this.ref.close();
-  }
-
-  onSelectPicture(event) {
-    console.log('Selected picture', event);
   }
 
   // On picture Select
@@ -194,14 +186,10 @@ export class RecipeDialogComponent implements OnInit {
   onUploadPic(event) {
     for (let picture of event.files) {
       this.uploadedFiles.push(picture);
-      console.log('picture : ', picture);
     }
   }
 
   public checkError(controlName: string, errorName: string): boolean {
-    return (
-      this.form.controls[controlName].dirty &&
-      this.form.controls[controlName].hasError(errorName)
-    );
+    return this.form.controls[controlName].dirty && this.form.controls[controlName].hasError(errorName);
   }
 }
