@@ -1,18 +1,15 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { provideMockStore, MockStore } from "@ngrx/store/testing";
+import { ReactiveFormsModule } from "@angular/forms";
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 
-import { ProfileComponent } from './profile.component';
-import { environment } from 'src/environments/environment';
-import { _HttpRequest } from 'src/app/shared/constants/httpRequest.const';
+import { ProfileComponent } from "./profile.component";
+import { environment } from "src/environments/environment";
+import { _HttpRequest } from "src/app/shared/constants/httpRequest.const";
 
-fdescribe('ProfileComponent', () => {
+describe("ProfileComponent", () => {
   let component: ProfileComponent;
   let fixture: ComponentFixture<ProfileComponent>;
   let store: MockStore;
@@ -21,11 +18,7 @@ fdescribe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        HttpClientTestingModule,
-        RouterTestingModule,
-        ReactiveFormsModule,
-      ],
+      imports: [HttpClientTestingModule, RouterTestingModule, ReactiveFormsModule],
       providers: [provideMockStore({ initialState })],
       declarations: [ProfileComponent],
       schemas: [NO_ERRORS_SCHEMA],
@@ -44,10 +37,8 @@ fdescribe('ProfileComponent', () => {
     httpTestingController.verify();
   });
 
-  it('should create', () => {
-    const req = httpTestingController.expectOne(
-      `${environment.apiBaseUrl}/users/current?includes[]=roles`
-    );
+  it("should create", () => {
+    const req = httpTestingController.expectOne(`${environment.apiBaseUrl}/users/current?includes[]=roles`);
     expect(req.request.method).toEqual(_HttpRequest.GET);
     req.flush({});
     expect(store).toBeTruthy();

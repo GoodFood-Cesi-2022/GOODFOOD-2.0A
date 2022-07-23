@@ -1,86 +1,93 @@
-import { User } from '../models/user.model';
+import { User } from "../models/user.model";
+import { mockRole1, mockRole2, mockRoleArray } from "./role.mock";
 
 const mockUser1: User = {
   id: 1,
-  firstname: 'Sara',
-  lastname: 'Dubois',
-  email: 'Product@Description.fr',
-  phone: '12345678',
+  firstname: "Sara",
+  lastname: "Dubois",
+  email: "Product@Description.fr",
+  phone: "12345678",
+  roles: [mockRole1],
 };
 const mockUser2: User = {
   id: 2,
-  firstname: 'Zara',
-  lastname: 'Dubeau',
-  email: 'Product@Description.com',
-  phone: '11111111',
+  firstname: "Zara",
+  lastname: "Dubeau",
+  email: "Product@Description.com",
+  phone: "11111111",
 };
 const mockUser3: User = {
   id: 3,
-  firstname: 'Bahar',
-  lastname: 'Sdqi',
-  email: 'Product@Description.org',
-  phone: '00000000',
+  firstname: "Bahar",
+  lastname: "Sdqi",
+  email: "Product@Description.org",
+  phone: "00000000",
 };
 
 const mockUserAuth: User = {
   id: 1,
-  firstname: 'Sara',
-  lastname: 'Dubois',
-  email: 'Product@Description.fr',
-  phone: '12345678',
+  firstname: "Sara",
+  lastname: "Dubois",
+  email: "Product@Description.fr",
+  phone: "12345678",
   roles: [
     {
-      code: 'goodfood',
+      code: "goodfood",
     },
     {
-      code: 'contractor',
+      code: "contractor",
     },
   ],
 };
 
 const mockUserAuth1: User = {
   id: 1,
-  firstname: 'Sara',
-  lastname: 'Dubois',
-  email: 'Product@Description.fr',
-  phone: '12345678',
-  roles: [
-    {
-      code: 'contractor',
-    },
-  ],
+  firstname: "Sara",
+  lastname: "Dubois",
+  email: "Product@Description.fr",
+  phone: "12345678",
+  roles: [mockRole1],
 };
 
 const mockUserAuth2: User = {
   id: 1,
-  firstname: 'Sara',
-  lastname: 'Dubois',
-  email: 'Product@Description.fr',
-  phone: '12345678',
-  roles: [
-    {
-      code: 'goodfood',
-    },
-  ],
+  firstname: "Sara",
+  lastname: "Dubois",
+  email: "Product@Description.fr",
+  phone: "12345678",
+  roles: [mockRole2],
 };
 
 const mockUserWithAuth: User = {
   id: 1,
-  firstname: 'Sara',
-  lastname: 'Dubois',
-  email: 'Product@Description.fr',
-  phone: '12345678',
+  firstname: "Sara",
+  lastname: "Dubois",
+  email: "Product@Description.fr",
+  phone: "12345678",
   roles: [
     {
-      code: 'goodfood',
+      code: "goodfood",
     },
     {
-      code: 'contractor',
+      code: "contractor",
     },
   ],
   autorisations: {
     isAdmin: true,
     isFranchisee: true,
+  },
+};
+
+const mockUserWithAuth1: User = {
+  id: 1,
+  firstname: "Sara",
+  lastname: "Dubois",
+  email: "Product@Description.fr",
+  phone: "12345678",
+  roles: [mockRole1],
+  autorisations: {
+    isAdmin: true,
+    isFranchisee: false,
   },
 };
 
@@ -94,5 +101,6 @@ export {
   mockUserAuth1,
   mockUserAuth2,
   mockUserWithAuth,
+  mockUserWithAuth1,
   mockUserArray,
 };

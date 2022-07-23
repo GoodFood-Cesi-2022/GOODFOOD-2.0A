@@ -1,14 +1,11 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { TestBed } from "@angular/core/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { provideMockStore, MockStore } from "@ngrx/store/testing";
 
-import { IsAuthenticatedGuard } from './is-authenticated.guard';
+import { IsAuthenticatedGuard } from "./is-authenticated.guard";
 
-fdescribe('IsAuthenticatedGuard', () => {
+describe("IsAuthenticatedGuard", () => {
   let guard: IsAuthenticatedGuard;
   let store: MockStore;
   let httpTestingController: HttpTestingController;
@@ -28,7 +25,7 @@ fdescribe('IsAuthenticatedGuard', () => {
     httpTestingController.verify();
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(store).toBeTruthy();
     expect(guard).toBeTruthy();
   });

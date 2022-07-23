@@ -32,7 +32,6 @@ export class IngredientComponent implements OnInit {
   ingredientType: IngreType;
 
   ingredients: Ingredient[] = [];
-  selectedIngredients: Ingredient[];
 
   allergen: boolean;
   ingredientDialog: boolean;
@@ -75,6 +74,7 @@ export class IngredientComponent implements OnInit {
       allergen: this.ingredient?.allergen || false,
       ingredientType: this.ingredient?.types || new FormControl([]),
     });
+    console.log("xxxxxxxxxxxx ", this.form);
   }
 
   private makeRecipe(): void {
@@ -148,9 +148,8 @@ export class IngredientComponent implements OnInit {
         },
       });
     }
-    this.ingredients = [...this.ingredients];
     this.ingredientDialog = false;
-    this.ingredient = {};
+    this.ingredients = [...this.ingredients, this.ingredient];
   }
 
   deleteIngredient(ingredient: Ingredient): void {
@@ -162,7 +161,7 @@ export class IngredientComponent implements OnInit {
       accept: (): void => {
         this.ingredientService.deleteIngredient(ingredient.id).subscribe({
           next: () => {
-            this.ingredients = [...this.ingredients];
+            this.ingredients = [...this.ingredients, this.ingredient];
             this.messageService.add({
               severity: "success",
               summary: "Succès",
@@ -173,7 +172,7 @@ export class IngredientComponent implements OnInit {
           error: (error) => {
             this.messageService.add({
               severity: "error",
-              summary: "Erreur le moment de création de l'ingrédient!",
+              summary: "Erreur le moment de suppression de l'ingrédient!",
               detail: error.error,
             });
           },

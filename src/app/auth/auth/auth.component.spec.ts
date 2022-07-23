@@ -1,13 +1,10 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AuthComponent } from './auth.component';
+import { HttpClientTestingModule, HttpTestingController } from "@angular/common/http/testing";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { provideMockStore, MockStore } from "@ngrx/store/testing";
+import { RouterTestingModule } from "@angular/router/testing";
+import { AuthComponent } from "./auth.component";
 
-fdescribe('AuthComponent', () => {
+describe("AuthComponent", () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
   let store: MockStore;
@@ -34,7 +31,7 @@ fdescribe('AuthComponent', () => {
     httpTestingController.verify();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(store).toBeTruthy();
     expect(component).toBeTruthy();
   });

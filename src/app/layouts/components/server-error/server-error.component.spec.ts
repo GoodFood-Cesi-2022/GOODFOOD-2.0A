@@ -1,8 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { ServerErrorComponent } from './server-error.component';
+import { ServerErrorComponent } from "./server-error.component";
 
-fdescribe('ServerErrorComponent', () => {
+describe("ServerErrorComponent", () => {
   let component: ServerErrorComponent;
   let fixture: ComponentFixture<ServerErrorComponent>;
 
@@ -18,7 +18,7 @@ fdescribe('ServerErrorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
