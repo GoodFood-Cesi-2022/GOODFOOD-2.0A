@@ -43,9 +43,11 @@ export class FranchiseeDetailComponent implements OnInit {
     this.franchiseeService.getFranchisees().subscribe((data) => {
       this.franchisees = data;
       this.getFranchiseeById();
-      this.scheduleService.getSchedule(this.franchisee).subscribe((res) => {
-        this.schedule = res;
-      });
+      if (this.franchisees) {
+        this.scheduleService.getSchedule(this.franchisee).subscribe((res) => {
+          this.schedule = res;
+        });
+      }
     });
 
     this.initSchedule();
