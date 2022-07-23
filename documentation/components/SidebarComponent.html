@@ -10,7 +10,7 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/material.css">
+        <link rel="stylesheet" href="../styles/stripe.css">
     </head>
     <body>
 
@@ -599,6 +599,12 @@ export class SidebarComponent implements OnInit {
 }
 .p-button {
   line-height: 2;
+}
+
+body,
+body .p-component .p-sidebar {
+  font-family: &quot;Optima&quot;, &quot;Gill Sans&quot;, &quot;Gill Sans MT&quot;, Calibri, &quot;Trebuchet MS&quot;,
+    sans-serif;
 }</code></pre>
     </div>
 
@@ -628,7 +634,7 @@ export class SidebarComponent implements OnInit {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><p-sidebar  [(visible)]="display"  [baseZIndex]="10000"  styleClass="p-sidebar-sm"  *ngIf="user$ | async as user">  <ul class="nav flex-column">    <li>      <button        *ngIf="user.autorisations?.isAdmin"        pButton        pRipple        type="button"        label="Utilisateurs"        class="p-button-info p-button-text"        icon="pi pi-users"        routerLink="/users"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Franchisés"        class="p-button-info p-button-text"        icon="pi pi-briefcase"        routerLink="/franchisee"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin"        pButton        pRipple        type="button"        label="Recettes"        class="p-button-info p-button-text"        icon="pi pi-list"        routerLink="/recipes"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Commandes"        class="p-button-info p-button-text"        icon="pi pi-shopping-cart"        routerLink="/orders"        (click)="onClose()"        routerLinkActive="active"      ></button>    </li>    <li>      <button        *ngIf="user.autorisations?.isAdmin || user.autorisations?.isFranchisee"        pButton        pRipple        type="button"        label="Compte"        class="p-button-info p-button-text"        icon="pi pi-user"        routerLink="/profile"        routerLinkActive="active"        (click)="onClose()"      ></button>    </li>    <li>      <button        pButton        pRipple        type="button"        class="p-button-danger p-button-text"        (click)="logOut()"        label="Se déconnecter"        icon="pi pi-sign-out"      ></button>    </li>  </ul></p-sidebar></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'FranchiseeDialogComponent', 'selector': 'app-franchisee-dialog'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthComponent', 'selector': 'app-auth'},{'name': 'DefaultComponent', 'selector': 'app-default'},{'name': 'FooterComponent', 'selector': 'app-footer'},{'name': 'FranchiseeComponent', 'selector': 'app-franchisee'},{'name': 'FranchiseeDetailComponent', 'selector': 'app-franchisee-detail'},{'name': 'FranchiseeDialogComponent', 'selector': 'app-franchisee-dialog'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'IngredientComponent', 'selector': 'app-ingredient'},{'name': 'IngredientTypeComponent', 'selector': 'app-ingredient-type'},{'name': 'LoadingComponent', 'selector': 'app-loading'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PageNotFoundComponent', 'selector': 'app-page-not-found'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'ProfileComponent', 'selector': 'app-profile'},{'name': 'RecipeDialogComponent', 'selector': 'app-recipe-dialog'},{'name': 'RecipesComponent', 'selector': 'app-recipes'},{'name': 'ServerErrorComponent', 'selector': 'app-server-error'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'TabsComponent', 'selector': 'app-tabs'},{'name': 'TitleComponent', 'selector': 'app-title'},{'name': 'TopbarComponent', 'selector': 'app-topbar'},{'name': 'UsersComponent', 'selector': 'app-users'}];
     var DIRECTIVES = [];
     var ACTUAL_COMPONENT = {'name': 'SidebarComponent'};
 </script>
