@@ -31,6 +31,10 @@ describe("RecipesComponent", () => {
     component.CreateNewRecipe();
     component.updateRecipe(component);
     fixture.detectChanges();
+
+    const req1 = httpTestingController.expectOne(`${environment.apiBaseUrl}/recipes?includes[]=pictures`);
+    expect(req1.request.method).toEqual(_HttpRequest.GET);
+    req1.flush({});
   });
 
   afterEach(() => {
@@ -38,9 +42,6 @@ describe("RecipesComponent", () => {
   });
 
   it("should create", () => {
-    const req1 = httpTestingController.expectOne(`${environment.apiBaseUrl}/recipes?includes[]=pictures`);
-    expect(req1.request.method).toEqual(_HttpRequest.GET);
-    req1.flush({});
     expect(component).toBeTruthy();
   });
 });
