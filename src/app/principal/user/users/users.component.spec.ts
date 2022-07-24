@@ -133,7 +133,6 @@ describe("UsersComponent", () => {
     component.form.controls["phone"].setValue("0122112211");
     component.form.controls["email"].setValue("test@test.com");
     component.form.controls["role"].setValue("contractor");
-    //expect(component.form.valid).toBeTruthy();
 
     // Trigger the func
     (component as any).getFormValues();
@@ -154,7 +153,6 @@ describe("UsersComponent", () => {
     component.form.controls["phone"].setValue("0122112211");
     component.form.controls["email"].setValue("test@test.com");
     component.form.controls["role"].setValue({ code: "contractor" });
-    //expect(component.form.valid).toBeTruthy();
 
     // Trigger the func
     (component as any).getFormValues();
@@ -173,7 +171,35 @@ describe("UsersComponent", () => {
     component.form.controls["phone"].setValue("0122112211");
     component.form.controls["email"].setValue("test@test.com");
     component.form.controls["role"].setValue({ code: "contractor" });
-    //expect(component.form.valid).toBeTruthy();
+
+    // Trigger the func
+    (component as any).onSubmit();
+
+    expect(component.user).toEqual({});
+
+    const req1 = httpTestingController.expectOne(`${environment.apiBaseUrl}/users`);
+    expect(req1.request.method).toEqual(_HttpRequest.POST);
+
+    // Respond with the mock ingredient-types
+    req1.flush({ message: Message.UPDATE });
+
+    const req2 = httpTestingController.expectOne(`${environment.apiBaseUrl}/users/undefined`);
+    expect(req2.request.method).toEqual(_HttpRequest.POST);
+
+    // Respond with the mock ingredient-types
+    req2.flush({ message: Message.UPDATE });
+  });
+
+  it("trigger user edit mode", () => {
+    component.editUser(mockUser1);
+    expect(component.user).toEqual(mockUser1);
+    expect(component.isCreate).toBeFalse();
+    expect(component.submitted).toBeFalse();
+    expect(component.userDialog).toBeTrue();
+  });
+
+  it("submit user for update", () => {
+    expect(component.form.valid).toBeFalsy();
 
     component.isCreate = false;
     component.user = {};
@@ -183,7 +209,6 @@ describe("UsersComponent", () => {
     component.form.controls["phone"].setValue("0122112211");
     component.form.controls["email"].setValue("test@test.com");
     component.form.controls["role"].setValue({ code: "contractor" });
-    //expect(component.form.valid).toBeTruthy();
 
     // Trigger the func
     (component as any).onSubmit();

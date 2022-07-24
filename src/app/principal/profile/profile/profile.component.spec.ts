@@ -31,6 +31,9 @@ describe("ProfileComponent", () => {
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore);
     fixture.detectChanges();
+    const req = httpTestingController.expectOne(`${environment.apiBaseUrl}/users/current?includes[]=roles`);
+    expect(req.request.method).toEqual(_HttpRequest.GET);
+    req.flush({});
   });
 
   afterEach(() => {
@@ -38,9 +41,12 @@ describe("ProfileComponent", () => {
   });
 
   it("should create", () => {
-    const req = httpTestingController.expectOne(`${environment.apiBaseUrl}/users/current?includes[]=roles`);
-    expect(req.request.method).toEqual(_HttpRequest.GET);
-    req.flush({});
+    expect(store).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
+
+  it("Firstname update", () => {
+    component.updateField("FIRSTNAME");
     expect(store).toBeTruthy();
     expect(component).toBeTruthy();
   });

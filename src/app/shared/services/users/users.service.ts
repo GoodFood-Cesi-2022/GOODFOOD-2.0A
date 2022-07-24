@@ -44,8 +44,8 @@ export class UsersService {
             e.roles = res1;
             usersWithRole.push(e);
           });
-          return usersWithRole;
         });
+        return usersWithRole;
       })
     );
   }

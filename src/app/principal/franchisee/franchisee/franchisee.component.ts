@@ -10,6 +10,8 @@ import { Schedule } from "./../../../shared/models/schedule.model";
 import { FranchiseeService } from "src/app/shared/services/franchisee/franchisee.service";
 import { LoadingService } from "src/app/shared/services/loading/loading.service";
 import { FranchiseeDialogComponent } from "../franchisee-dialog/franchisee-dialog.component";
+import { ProfileService } from "src/app/shared/services/profile/profile.service";
+import { User } from "src/app/shared/models/user.model";
 
 @Component({
   selector: "app-franchisee",
@@ -62,6 +64,8 @@ export class FranchiseeComponent implements OnInit {
   franchisees: Franchisee[] = [];
   franchisee: Franchisee;
 
+  owner: User;
+
   address: Address;
   schedule: Schedule;
 
@@ -83,7 +87,8 @@ export class FranchiseeComponent implements OnInit {
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
     public dialogService: DialogService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private profileService: ProfileService
   ) {
     // NOSONAR
   }
@@ -97,6 +102,9 @@ export class FranchiseeComponent implements OnInit {
       .subscribe((res): void => {
         this.franchisees = res;
       });
+    this.profileService.getUser().subscribe((res): void => {
+      this.owner = res;
+    });
   }
 
   onSortChange(event) {
@@ -133,6 +141,7 @@ export class FranchiseeComponent implements OnInit {
         franchisee: [],
         address: {},
         schedule: {},
+        owner: this.owner,
       },
     });
     ref.onClose.subscribe((franchisee: Franchisee) => {
@@ -157,6 +166,7 @@ export class FranchiseeComponent implements OnInit {
         mode: "UPDATE",
         schedule: this.schedule,
         address: this.address,
+        owner: this.owner,
         franchisee,
       },
     });

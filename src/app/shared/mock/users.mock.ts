@@ -93,6 +93,8 @@ const mockUserWithAuth1: User = {
 
 const mockUserArray: User[] = [mockUser1, mockUser2, mockUser3];
 
+const mockUserWithRoleArray: User[] = [mockUserAuth1, mockUserAuth2];
+
 export {
   mockUser1,
   mockUser2,
@@ -103,4 +105,5 @@ export {
   mockUserWithAuth,
   mockUserWithAuth1,
   mockUserArray,
+  mockUserWithRoleArray,
 };

@@ -35,4 +35,10 @@ describe("SidebarComponent", () => {
     expect(store).toBeTruthy();
     expect(component).toBeTruthy();
   });
+
+  it("should close", () => {
+    component.onClose();
+    expect(store).toBeTruthy();
+    expect(component).toBeTruthy();
+  });
 });
