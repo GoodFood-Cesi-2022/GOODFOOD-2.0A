@@ -6,7 +6,7 @@ import { UsersService } from "./users.service";
 import { environment } from "src/environments/environment";
 import { User } from "../../models/user.model";
 import { Message } from "../../constants/message.const";
-import { mockUser1, mockUserArray, mockUserAuth1 } from "../../mock/users.mock";
+import { mockUser1, mockUserArray, mockUserAuth1, mockUserWithRoleArray } from "../../mock/users.mock";
 import { _HttpRequest } from "../../constants/httpRequest.const";
 import { mockRoleArray } from "../../mock/role.mock";
 

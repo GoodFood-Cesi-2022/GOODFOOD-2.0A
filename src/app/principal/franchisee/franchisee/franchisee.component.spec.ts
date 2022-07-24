@@ -11,6 +11,7 @@ import { FranchiseeComponent } from "./franchisee.component";
 import { environment } from "src/environments/environment";
 import { _HttpRequest } from "src/app/shared/constants/httpRequest.const";
 import { mockFranchisee } from "src/app/shared/mock/franchisee.mock";
+import { mockUser1 } from "src/app/shared/mock/users.mock";
 
 @Component({
   template: ` <h2>PrimeNG ROCKS!</h2> `,
@@ -65,11 +66,17 @@ describe("FranchiseeComponent", () => {
     testDynamicDialogComponent = fixture.debugElement.componentInstance;
     component = fixture.componentInstance;
     fixture.detectChanges();
-    const req = httpTestingController.expectOne(`${environment.apiBaseUrl}/contractors`);
-    expect(req.request.method).toEqual(_HttpRequest.GET);
+    const req1 = httpTestingController.expectOne(`${environment.apiBaseUrl}/contractors`);
+    expect(req1.request.method).toEqual(_HttpRequest.GET);
 
     // Respond with the mock address
-    req.flush(mockFranchisee);
+    req1.flush(mockFranchisee);
+
+    const req2 = httpTestingController.expectOne(`${environment.apiBaseUrl}/users/current?includes[]=roles`);
+    expect(req2.request.method).toEqual(_HttpRequest.GET);
+
+    // Respond with the mock address
+    req2.flush(mockUser1);
   });
 
   afterEach(() => {

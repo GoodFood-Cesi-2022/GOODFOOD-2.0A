@@ -76,7 +76,7 @@ export class IngredientComponent implements OnInit {
     });
   }
 
-  private makeRecipe(): void {
+  private makeIngredient(): void {
     const ingredient: Ingredient = {};
     if (this.isCreate) {
       ingredient.name = this.form.get("name").value;
@@ -108,7 +108,7 @@ export class IngredientComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    this.makeRecipe();
+    this.makeIngredient();
 
     if (this.ingredient.id) {
       this.ingredientService.updateIngredient(this.ingredient).subscribe({
