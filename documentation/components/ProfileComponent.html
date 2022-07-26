@@ -150,19 +150,15 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                    <span class="modifier">Optional</span>
                                 <a href="#editModeEmail" >editModeEmail</a>
                             </li>
                             <li>
-                                    <span class="modifier">Optional</span>
                                 <a href="#editModeFirstname" >editModeFirstname</a>
                             </li>
                             <li>
-                                    <span class="modifier">Optional</span>
                                 <a href="#editModeLastname" >editModeLastname</a>
                             </li>
                             <li>
-                                    <span class="modifier">Optional</span>
                                 <a href="#editModePhone" >editModePhone</a>
                             </li>
                             <li>
@@ -170,9 +166,6 @@
                             </li>
                             <li>
                                 <a href="#user" >user</a>
-                            </li>
-                            <li>
-                                <a href="#user$" >user$</a>
                             </li>
                         </ul>
                     </td>
@@ -186,6 +179,10 @@
                 <tr>
                     <td class="col-md-4">
                         <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#init" >init</a>
+                            </li>
                             <li>
                                     <span class="modifier">Private</span>
                                 <a href="#initForm" >initForm</a>
@@ -214,7 +211,7 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(store: Store<AppState>, profileService: <a href="../injectables/ProfileService.html" target="_self">ProfileService</a>, fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>)</code>
+<code>constructor(store: Store<AppState>, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, fb: <a href="https://angular.io/api/forms/FormBuilder" target="_blank">FormBuilder</a>)</code>
                     </td>
                 </tr>
                         <tr>
@@ -249,10 +246,10 @@
                                                     
                                                 </tr>
                                                 <tr>
-                                                        <td>profileService</td>
+                                                        <td>authService</td>
                                                   
                                                         <td>
-                                                                        <code><a href="../injectables/ProfileService.html" target="_self" >ProfileService</a></code>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
                                                         </td>
                                                   
                                                     <td>
@@ -294,6 +291,45 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="init"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>init</b></span>
+                        <a href="#init"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>init()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="50"
+                            class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:50</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="initForm"></a>
                     <span class="name">
                         <span class="modifier">Private</span>
@@ -312,8 +348,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="101"
-                            class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:101</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="60"
+                            class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:60</a></div>
                 </td>
             </tr>
 
@@ -388,8 +424,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="64"
-                            class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:64</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="72"
+                            class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:72</a></div>
                 </td>
             </tr>
 
@@ -449,7 +485,6 @@
                 <td class="col-md-4">
                     <a name="editModeEmail"></a>
                     <span class="name">
-                            <span class="modifier">Optional</span>
                         <span ><b>editModeEmail</b></span>
                         <a href="#editModeEmail"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -463,7 +498,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:28</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:29</a></div>
                         </td>
                     </tr>
 
@@ -476,36 +511,8 @@
                 <td class="col-md-4">
                     <a name="editModeFirstname"></a>
                     <span class="name">
-                            <span class="modifier">Optional</span>
                         <span ><b>editModeFirstname</b></span>
                         <a href="#editModeFirstname"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
-
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:26</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="editModeLastname"></a>
-                    <span class="name">
-                            <span class="modifier">Optional</span>
-                        <span ><b>editModeLastname</b></span>
-                        <a href="#editModeLastname"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
@@ -528,9 +535,34 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="editModeLastname"></a>
+                    <span class="name">
+                        <span ><b>editModeLastname</b></span>
+                        <a href="#editModeLastname"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="editModePhone"></a>
                     <span class="name">
-                            <span class="modifier">Optional</span>
                         <span ><b>editModePhone</b></span>
                         <a href="#editModePhone"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -544,7 +576,7 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:29</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:30</a></div>
                         </td>
                     </tr>
 
@@ -603,47 +635,22 @@
 
         </tbody>
     </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="user$"></a>
-                    <span class="name">
-                        <span ><b>user$</b></span>
-                        <a href="#user$"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >Observable&lt;User&gt;</a></code>
-
-                    </td>
-                </tr>
-                    <tr>
-                        <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/principal/profile/profile/profile.component.ts:31</a></div>
-                        </td>
-                    </tr>
-
-
-        </tbody>
-    </table>
 </section>
 
 </div>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { ProfileService } from &quot;./../../../shared/services/profile/profile.service&quot;;
-import { Component, OnInit } from &quot;@angular/core&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &quot;@angular/core&quot;;
+import { FormBuilder, FormGroup, Validators } from &quot;@angular/forms&quot;;
+import { filter, first } from &quot;rxjs&quot;;
 import { select, Store } from &quot;@ngrx/store&quot;;
 import { MessageService } from &quot;primeng/api&quot;;
-import { Observable, filter, first } from &quot;rxjs&quot;;
+
 import { User } from &quot;src/app/shared/models/user.model&quot;;
 import { AppState } from &quot;src/app/shared/store&quot;;
-import { FormBuilder, FormGroup, Validators } from &quot;@angular/forms&quot;;
 import { selectUserDetails, UserActions } from &quot;src/app/shared/store/state/user&quot;;
+import { AuthService } from &quot;src/app/shared/services/auth/auth/auth.service&quot;;
 
 @Component({
   selector: &quot;app-profile&quot;,
@@ -660,42 +667,49 @@ import { selectUserDetails, UserActions } from &quot;src/app/shared/store/state/
   ],
 })
 export class ProfileComponent implements OnInit {
-  editModeFirstname?: boolean;
-  editModeLastname?: boolean;
-  editModeEmail?: boolean;
-  editModePhone?: boolean;
+  editModeFirstname: boolean;
+  editModeLastname: boolean;
+  editModeEmail: boolean;
+  editModePhone: boolean;
 
-  user$: Observable&lt;User&gt;;
   user: User;
 
   form: FormGroup;
 
-  constructor(private store: Store&lt;AppState&gt;, private profileService: ProfileService, private fb: FormBuilder) {
+  constructor(private store: Store&lt;AppState&gt;, private authService: AuthService, private fb: FormBuilder) {
     //NOSONAR
   }
 
   ngOnInit(): void {
-    // this.store.pipe(select(selectUserDetails)).subscribe((user) &#x3D;&gt; {
-    //   console.log(this.user);
-    //   if (user &#x3D;&#x3D; null) {
-    //     this.store.dispatch(UserActions.loadUser());
-    //   }
-    // });
-    //this.user &#x3D; this.profileService.getCurrentUser();
-    this.profileService.getUser().subscribe(
-      (res) &#x3D;&gt; {
-        this.user &#x3D; res;
-        this.form.patchValue(this.user);
-        console.log(&quot;res in profile : &quot;, res);
-      },
-      (err) &#x3D;&gt; console.log(&quot;erreur dans profile component : &quot;, err)
-    );
     this.editModeFirstname &#x3D; false;
     this.editModeLastname &#x3D; false;
     this.editModeEmail &#x3D; false;
     this.editModePhone &#x3D; false;
 
+    this.init();
     this.initForm();
+  }
+
+  private init(): void {
+    this.authService.getUser().subscribe((res) &#x3D;&gt; {
+      this.user &#x3D; res;
+      this.form.patchValue(this.user);
+    });
+  }
+
+  /**
+   * In input form : + Verify value form (character form and length)
+   */
+  private initForm(): void {
+    this.form &#x3D; this.fb.group({
+      firstname: [this.user?.firstname, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
+      lastname: [this.user?.lastname, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
+      phone: [this.user?.phone, [Validators.required, Validators.pattern(&quot;^[0][0-9]{9}$&quot;)]],
+      email: [
+        this.user?.email,
+        [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(100)],
+      ],
+    });
   }
 
   updateField(type: string): User {
@@ -705,9 +719,8 @@ export class ProfileComponent implements OnInit {
         filter((user) &#x3D;&gt; user !&#x3D; null),
         first()
       )
-      .subscribe(
-        (user) &#x3D;&gt; {
-          const userUpdate &#x3D; { ...user } as User;
+      .subscribe({
+        next: () &#x3D;&gt; {
           const formValue &#x3D; this.form.value;
           switch (type) {
             case &quot;FIRSTNAME&quot;:
@@ -727,24 +740,14 @@ export class ProfileComponent implements OnInit {
           }
           this.store.dispatch(UserActions.updateUser({ userDetails: this.user }));
         },
-        (error) &#x3D;&gt; console.log(&quot;profile component &gt; update user: &quot;, error)
-      );
+        error: (error): void &#x3D;&gt; {
+          console.log(&quot;error in update user : &quot;, error);
+        },
+        complete: () &#x3D;&gt; {
+          console.info(&quot;complete&quot;);
+        },
+      });
     return this.user;
-  }
-
-  /**
-   * In input form : + Verify value form (character form and length)
-   */
-  private initForm(): void {
-    this.form &#x3D; this.fb.group({
-      firstname: [this.user?.firstname, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
-      lastname: [this.user?.lastname, [Validators.required, Validators.minLength(3), Validators.maxLength(40)]],
-      phone: [this.user?.phone, [Validators.required, Validators.pattern(&quot;/^[0][0-9]{9}$&quot;)]],
-      email: [
-        this.user?.email,
-        [Validators.required, Validators.email, Validators.minLength(3), Validators.maxLength(100)],
-      ],
-    });
   }
 }
 </code></pre>

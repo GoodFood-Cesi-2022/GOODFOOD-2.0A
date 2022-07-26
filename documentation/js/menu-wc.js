@@ -59,13 +59,13 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 <a href="modules/AuthModule.html" data-type="entity-link" >AuthModule</a>
                                     <li class="chapter inner">
                                         <div class="simple menu-toggler" data-toggle="collapse" ${ isNormalMode ?
-                                            'data-target="#components-links-module-AuthModule-4e754bba5dd43e86cf90803a399bdc08f3c1c42679f7ba641ab796bb1ab77fc7b5d04ddfeb1d6ef398944dcccdd7ad911e74e67602d5cd9e0e8810ddff84ff49"' : 'data-target="#xs-components-links-module-AuthModule-4e754bba5dd43e86cf90803a399bdc08f3c1c42679f7ba641ab796bb1ab77fc7b5d04ddfeb1d6ef398944dcccdd7ad911e74e67602d5cd9e0e8810ddff84ff49"' }>
+                                            'data-target="#components-links-module-AuthModule-84d91d439bd2fc99368d1a6da0813e7ce9d3c2be3636abff7cbd9705cd0b3234b668ac65f2aed39176d1e3c7f120efeeb79ea38ee67705f2f60d986cfb6451fd"' : 'data-target="#xs-components-links-module-AuthModule-84d91d439bd2fc99368d1a6da0813e7ce9d3c2be3636abff7cbd9705cd0b3234b668ac65f2aed39176d1e3c7f120efeeb79ea38ee67705f2f60d986cfb6451fd"' }>
                                             <span class="icon ion-md-cog"></span>
                                             <span>Components</span>
                                             <span class="icon ion-ios-arrow-down"></span>
                                         </div>
-                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AuthModule-4e754bba5dd43e86cf90803a399bdc08f3c1c42679f7ba641ab796bb1ab77fc7b5d04ddfeb1d6ef398944dcccdd7ad911e74e67602d5cd9e0e8810ddff84ff49"' :
-                                            'id="xs-components-links-module-AuthModule-4e754bba5dd43e86cf90803a399bdc08f3c1c42679f7ba641ab796bb1ab77fc7b5d04ddfeb1d6ef398944dcccdd7ad911e74e67602d5cd9e0e8810ddff84ff49"' }>
+                                        <ul class="links collapse" ${ isNormalMode ? 'id="components-links-module-AuthModule-84d91d439bd2fc99368d1a6da0813e7ce9d3c2be3636abff7cbd9705cd0b3234b668ac65f2aed39176d1e3c7f120efeeb79ea38ee67705f2f60d986cfb6451fd"' :
+                                            'id="xs-components-links-module-AuthModule-84d91d439bd2fc99368d1a6da0813e7ce9d3c2be3636abff7cbd9705cd0b3234b668ac65f2aed39176d1e3c7f120efeeb79ea38ee67705f2f60d986cfb6451fd"' }>
                                             <li class="link">
                                                 <a href="components/AuthComponent.html" data-type="entity-link" data-context="sub-entity" data-context-id="modules" >AuthComponent</a>
                                             </li>
@@ -370,9 +370,6 @@ customElements.define('compodoc-menu', class extends HTMLElement {
                                 </li>
                                 <li class="link">
                                     <a href="injectables/UserEffects.html" data-type="entity-link" >UserEffects</a>
-                                </li>
-                                <li class="link">
-                                    <a href="injectables/UserService.html" data-type="entity-link" >UserService</a>
                                 </li>
                                 <li class="link">
                                     <a href="injectables/UsersService.html" data-type="entity-link" >UsersService</a>

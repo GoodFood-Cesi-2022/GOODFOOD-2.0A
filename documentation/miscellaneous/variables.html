@@ -62,22 +62,16 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#adminAccess" title="src/app/shared/store/state/user/user.selector.ts" ><b>adminAccess</b>&nbsp;&nbsp;&nbsp;(src/.../user.selector.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#environment" title="src/environments/environment.prod.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.prod.ts)</a>
-                        </li>
-                        <li>
-                            <a href="#environment" title="src/environments/environment.stage.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.stage.ts)</a>
+                            <a href="#environment" title="src/environments/environment.example.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.example.ts)</a>
                         </li>
                         <li>
                             <a href="#environment" title="src/environments/environment.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.ts)</a>
                         </li>
                         <li>
-                            <a href="#environment" title="src/environments/environment.example.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.example.ts)</a>
+                            <a href="#environment" title="src/environments/environment.stage.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.stage.ts)</a>
                         </li>
                         <li>
-                            <a href="#franchiseeAccess" title="src/app/shared/store/state/user/user.selector.ts" ><b>franchiseeAccess</b>&nbsp;&nbsp;&nbsp;(src/.../user.selector.ts)</a>
+                            <a href="#environment" title="src/environments/environment.prod.ts" ><b>environment</b>&nbsp;&nbsp;&nbsp;(src/.../environment.prod.ts)</a>
                         </li>
                         <li>
                             <a href="#initialState" title="src/app/shared/store/state/user/user.reducer.ts" ><b>initialState</b>&nbsp;&nbsp;&nbsp;(src/.../user.reducer.ts)</a>
@@ -182,6 +176,9 @@
                             <a href="#mockUserWithAuth1" title="src/app/shared/mock/users.mock.ts" ><b>mockUserWithAuth1</b>&nbsp;&nbsp;&nbsp;(src/.../users.mock.ts)</a>
                         </li>
                         <li>
+                            <a href="#mockUserWithRoleArray" title="src/app/shared/mock/users.mock.ts" ><b>mockUserWithRoleArray</b>&nbsp;&nbsp;&nbsp;(src/.../users.mock.ts)</a>
+                        </li>
+                        <li>
                             <a href="#picture1" title="src/app/shared/mock/picture.mock.ts" ><b>picture1</b>&nbsp;&nbsp;&nbsp;(src/.../picture.mock.ts)</a>
                         </li>
                         <li>
@@ -245,156 +242,7 @@
     </table>
 </section>
 
-    <h3>src/app/shared/store/state/user/user.selector.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="adminAccess"></a>
-                    <span class="name">
-                        <span ><b>adminAccess</b></span>
-                        <a href="#adminAccess"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(selectUserState, (user) &#x3D;&gt; {
-  return canAccess(user, [Roles.ADMIN, Roles.FRANCHISEE]);
-})</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="franchiseeAccess"></a>
-                    <span class="name">
-                        <span ><b>franchiseeAccess</b></span>
-                        <a href="#franchiseeAccess"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(selectUserState, (user) &#x3D;&gt; {
-  return canAccess(user, [Roles.FRANCHISEE]);
-})</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="selectIsLoggedIn"></a>
-                    <span class="name">
-                        <span ><b>selectIsLoggedIn</b></span>
-                        <a href="#selectIsLoggedIn"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(
-  selectUserDetails,
-  (userDetails) &#x3D;&gt; !!userDetails
-)</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="selectProfileUser"></a>
-                    <span class="name">
-                        <span ><b>selectProfileUser</b></span>
-                        <a href="#selectProfileUser"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(selectUserDetails, (user) &#x3D;&gt; {
-  return { user };
-})</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="selectUserDetails"></a>
-                    <span class="name">
-                        <span ><b>selectUserDetails</b></span>
-                        <a href="#selectUserDetails"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createSelector(
-  selectUserState,
-  (user) &#x3D;&gt; user.userDetails
-)</code>
-                    </td>
-                </tr>
-
-
-        </tbody>
-    </table>
-    <table class="table table-sm table-bordered">
-        <tbody>
-            <tr>
-                <td class="col-md-4">
-                    <a name="selectUserState"></a>
-                    <span class="name">
-                        <span ><b>selectUserState</b></span>
-                        <a href="#selectUserState"><span class="icon ion-ios-link"></span></a>
-                    </span>
-                </td>
-            </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>createFeatureSelector&lt;UserState&gt;(&#x27;user&#x27;)</code>
-                    </td>
-                </tr>
-
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>Feature selector
-and
-a selector that returns the userDetails</p>
-<p>access these properties :</p>
-<ul>
-<li>isLoggedIn,</li>
-<li>canAccess,</li>
-<li>adminAccess | franchiseeAccess</li>
-</ul>
-</div>
-                </td>
-            </tr>
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/environments/environment.prod.ts</h3>
+    <h3>src/environments/environment.example.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
@@ -416,48 +264,24 @@ a selector that returns the userDetails</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
-  production: true,
-  apiUrl: &#x27;http://localhost/4000&#x27;,
-  apiBaseUrl: &#x27;http://localhost:8080/api&#x27;,
+  production: false,
+  appUrl: &#x27;http://localhost:4200&#x27;,
+  apiBaseUrl: &#x27;http://localhost/8085/api&#x27;,
   oAuthProviderBaseUrl: &#x27;http://localhost:8085/oauth&#x27;,
-  oAuthClientId: &#x27;96560464-28d1-401b-9c39-0fe271d28c2d&#x27;,
+  oAuthClientId: &#x27;&#x27;,
   oAuthCallbackUri: &#x27;http://localhost:4200/login/redirect&#x27;,
 }</code>
                     </td>
                 </tr>
 
-
-        </tbody>
-    </table>
-</section>
-    <h3>src/environments/environment.stage.ts</h3>
-    <section>
-    <h3></h3>    <table class="table table-sm table-bordered">
-        <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="environment"></a>
-                    <span class="name">
-                        <span ><b>environment</b></span>
-                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
-                    </span>
+                    <div class="io-description"><p>This file can be replaced during build by using the <code>fileReplacements</code> array.
+<code>ng build --prod</code> replaces <code>environment.ts</code> with <code>environment.prod.ts</code>.
+The list of file replacements can be found in <code>angular.json</code>.</p>
+</div>
                 </td>
             </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>{
-    production: false,
-    apiUrl: &#x27;http://localhost/4100&#x27;
-  }</code>
-                    </td>
-                </tr>
-
 
         </tbody>
     </table>
@@ -506,7 +330,7 @@ The list of file replacements can be found in <code>angular.json</code>.</p>
         </tbody>
     </table>
 </section>
-    <h3>src/environments/environment.example.ts</h3>
+    <h3>src/environments/environment.stage.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
         <tbody>
@@ -528,24 +352,48 @@ The list of file replacements can be found in <code>angular.json</code>.</p>
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
-  production: false,
-  appUrl: &#x27;http://localhost:4200&#x27;,
-  apiBaseUrl: &#x27;http://localhost/8085/api&#x27;,
+    production: false,
+    apiUrl: &#x27;http://localhost/4100&#x27;
+  }</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/environments/environment.prod.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environment"></a>
+                    <span class="name">
+                        <span ><b>environment</b></span>
+                        <a href="#environment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/object" target="_blank" >object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+  production: true,
+  apiUrl: &#x27;http://localhost/4000&#x27;,
+  apiBaseUrl: &#x27;http://localhost:8080/api&#x27;,
   oAuthProviderBaseUrl: &#x27;http://localhost:8085/oauth&#x27;,
-  oAuthClientId: &#x27;&#x27;,
+  oAuthClientId: &#x27;96560464-28d1-401b-9c39-0fe271d28c2d&#x27;,
   oAuthCallbackUri: &#x27;http://localhost:4200/login/redirect&#x27;,
 }</code>
                     </td>
                 </tr>
 
-            <tr>
-                <td class="col-md-4">
-                    <div class="io-description"><p>This file can be replaced during build by using the <code>fileReplacements</code> array.
-<code>ng build --prod</code> replaces <code>environment.ts</code> with <code>environment.prod.ts</code>.
-The list of file replacements can be found in <code>angular.json</code>.</p>
-</div>
-                </td>
-            </tr>
 
         </tbody>
     </table>
@@ -656,7 +504,7 @@ The list of file replacements can be found in <code>angular.json</code>.</p>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createAction(&#x27;[Auth] Load User&#x27;)</code>
+                        <i>Default value : </i><code>createAction(&quot;[Auth] Load User&quot;)</code>
                     </td>
                 </tr>
 
@@ -683,10 +531,7 @@ and user changed Action to keep the user details in our Store in sync with Auth<
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createAction(
-  &#x27;[Profile Component] Update User&#x27;,
-  props&lt;{ userDetails: User }&gt;()
-)</code>
+                        <i>Default value : </i><code>createAction(&quot;[Auth Component] Update User&quot;, props&lt;{ userDetails: User }&gt;())</code>
                     </td>
                 </tr>
 
@@ -706,10 +551,7 @@ and user changed Action to keep the user details in our Store in sync with Auth<
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createAction(
-  &#x27;[Load Auth Effect] User Loaded&#x27;,
-  props&lt;{ userDetails: User }&gt;()
-)</code>
+                        <i>Default value : </i><code>createAction(&quot;[Load Auth Effect] User Loaded&quot;, props&lt;{ userDetails: User }&gt;())</code>
                     </td>
                 </tr>
 
@@ -729,10 +571,7 @@ and user changed Action to keep the user details in our Store in sync with Auth<
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>createAction(
-  &#x27;[Profile Component] User Updated&#x27;,
-  props&lt;{ userDetails: User }&gt;()
-)</code>
+                        <i>Default value : </i><code>createAction(&quot;[Auth Component] User Updated&quot;, props&lt;{ userDetails: User }&gt;())</code>
                     </td>
                 </tr>
 
@@ -788,7 +627,7 @@ and user changed Action to keep the user details in our Store in sync with Auth<
                 <tr>
                     <td class="col-md-4">
                         <i>Default value : </i><code>{
-    router: routerReducer
+  router: routerReducer,
 }</code>
                     </td>
                 </tr>
@@ -2088,6 +1927,32 @@ and user changed Action to keep the user details in our Store in sync with Auth<
 
         </tbody>
     </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mockUserWithRoleArray"></a>
+                    <span class="name">
+                        <span ><b>mockUserWithRoleArray</b></span>
+                        <a href="#mockUserWithRoleArray"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[mockUserAuth1, mockUserAuth2]</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
 </section>
     <h3>src/app/app-routing.module.ts</h3>
     <section>
@@ -2131,6 +1996,99 @@ and user changed Action to keep the user details in our Store in sync with Auth<
                     </td>
                 </tr>
 
+
+        </tbody>
+    </table>
+</section>
+    <h3>src/app/shared/store/state/user/user.selector.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectIsLoggedIn"></a>
+                    <span class="name">
+                        <span ><b>selectIsLoggedIn</b></span>
+                        <a href="#selectIsLoggedIn"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createSelector(selectUserDetails, (userDetails) &#x3D;&gt; !!userDetails)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectProfileUser"></a>
+                    <span class="name">
+                        <span ><b>selectProfileUser</b></span>
+                        <a href="#selectProfileUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createSelector(selectUserDetails, (user) &#x3D;&gt; {
+  return { user };
+})</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectUserDetails"></a>
+                    <span class="name">
+                        <span ><b>selectUserDetails</b></span>
+                        <a href="#selectUserDetails"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createSelector(selectUserState, (user) &#x3D;&gt; user.userDetails)</code>
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectUserState"></a>
+                    <span class="name">
+                        <span ><b>selectUserState</b></span>
+                        <a href="#selectUserState"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>createFeatureSelector&lt;UserState&gt;(&quot;user&quot;)</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Feature selector
+and
+a selector that returns the userDetails</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>

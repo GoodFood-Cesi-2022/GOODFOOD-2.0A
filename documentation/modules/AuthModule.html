@@ -172,8 +172,8 @@
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Defined in <a href="" data-line="40"
-                            class="link-to-prism">src/app/auth/auth.module.ts:40</a></div>
+                    <div class="io-line">Defined in <a href="" data-line="39"
+                            class="link-to-prism">src/app/auth/auth.module.ts:39</a></div>
                 </td>
             </tr>
 
@@ -210,7 +210,7 @@ import { LoginComponent } from &quot;./login/login.component&quot;;
 import { AuthComponent } from &quot;./auth/auth.component&quot;;
 import { UserEffects } from &quot;../shared/store/state/user&quot;;
 import * as fromAuth from &quot;../shared/store/state/user/user.reducer&quot;;
-import { AuthService } from &quot;../shared/services/user/auth/auth.service&quot;;
+import { AuthService } from &quot;../shared/services/auth/auth/auth.service&quot;;
 
 const routes: Routes &#x3D; [
   { path: &quot;&quot;, component: LoginComponent },
@@ -224,7 +224,6 @@ const routes: Routes &#x3D; [
     ReactiveFormsModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature(fromAuth.userFeatureKey, fromAuth.userReducer),
-    //StoreModule.forFeature(&#x27;user&#x27;, fromAuth.userReducer),
     ProgressSpinnerModule,
     EffectsModule.forFeature([UserEffects]),
     FormsModule,
