@@ -42,6 +42,7 @@ export class FranchiseeDialogComponent implements OnInit {
     this.mode = config.data.mode;
     this.franchisee = config.data.franchisee;
     this.address = config.data.address;
+    this.franchisee.address = this.address;
     this.schedule = config.data.schedule;
     this.owner = config.data.owner;
   }
@@ -53,6 +54,7 @@ export class FranchiseeDialogComponent implements OnInit {
     if (this.mode == "CREATE") {
       this.franchisee = {};
       this.address = {};
+      this.franchisee.address = this.address;
     }
 
     this.initForm();
@@ -77,13 +79,14 @@ export class FranchiseeDialogComponent implements OnInit {
     this.franchisee.phone = this.form.value.phone;
     this.franchisee.email = this.form.value.email;
     this.franchisee.max_delivery_radius = this.form.value.radius;
-    this.address.first_line = this.form.value.first_line;
-    this.address.second_line = this.form.value.second_line;
-    this.address.zip_code = this.form.value.zip_code;
-    this.address.city = this.form.value.city;
-    this.address.country = this.form.value.country;
-    this.franchisee.address = this.address;
+    this.franchisee.address.first_line = this.form.value.first_line;
+    this.franchisee.address.second_line = this.form.value.second_line;
+    this.franchisee.address.zip_code = this.form.value.zip_code;
+    this.franchisee.address.city = this.form.value.city;
+    this.franchisee.address.country = this.form.value.country;
+
     if (this.mode === "UPDATE") {
+      this.address = this.franchisee.address;
       this.address.id = this.franchisee.address_id;
     }
   }

@@ -77,7 +77,7 @@ export class UsersComponent implements OnInit {
     this.form = this.fb.group({
       firstname: [this.user?.firstname?.trim() || "", [Validators.required]],
       lastname: [this.user?.lastname?.trim() || "", [Validators.required]],
-      phone: [this.user?.phone?.trim() || "", [Validators.required, Validators.pattern("/^[0][0-9]{9}$")]],
+      phone: [this.user?.phone?.trim() || "", [Validators.required, Validators.pattern("^[0][0-9]{9}$")]],
       email: [this.user?.email?.trim() || "", [Validators.required, Validators.email]],
       role: [this.user?.roles ? [0] || "" : [Validators.required]],
     });
